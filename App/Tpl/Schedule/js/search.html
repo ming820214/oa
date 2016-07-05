@@ -1,0 +1,10 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		set_return_url();
+		$(function() {
+			$("li.tbody").each(function() {
+				$(this).css("background-color", schedule_bg($(this).attr("priority")));
+			})
+		})
+	}); 
+</script>

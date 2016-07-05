@@ -1,0 +1,168 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'考勤规则','search'=>'A'))}
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+				<a class="btn btn-sm btn-primary" onclick="$('#addrule').show()">新增规则</a>
+			</div>
+			<div class="pull-right">
+				切换校区：<select name="school" id="school"><option></option>{:W('School')}</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+		</div>
+	</div>
+</form>
+
+<form action="" method="post" id="addrule" style="display:none">
+	<div class="operate panel panel-default" style="border-color: brown;">
+		<div class="panel-body">
+			<table class="table table-bordered">
+				<tr>
+					<th width="220px">规则名称</th>
+					<th colspan="2">星期一</th>
+					<th colspan="2">星期二</th>
+					<th colspan="2">星期三</th>
+					<th colspan="2">星期四</th>
+					<th colspan="2">星期五</th>
+					<th colspan="2">星期六</th>
+					<th colspan="2">星期日</th>
+				</tr>
+				<tr>
+					<td><input id="name" type="text" name="name"></td>
+					<td><input id="m1a" type="text" name="m1a" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m1b" type="text" name="m1b" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m2a" type="text" name="m2a" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m2b" type="text" name="m2b" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m3a" type="text" name="m3a" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m3b" type="text" name="m3b" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m4a" type="text" name="m4a" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m4b" type="text" name="m4b" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m5a" type="text" name="m5a" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m5b" type="text" name="m5b" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m6a" type="text" name="m6a" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m6b" type="text" name="m6b" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m7a" type="text" name="m7a" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+					<td><input id="m7b" type="text" name="m7b" onclick="WdatePicker({dateFmt:'HH:mm'})"></td>
+				</tr>
+				<tr>
+					<th>执行校区：<select name="school"><option></option>{:W('School')}</select></th>
+					<th colspan="14">执行校区为空则所有校区通用
+						<div class="pull-right">
+							<input type="submit" class="btn btn-sm btn-primary" name="ruleadd" value="添加规则" onclick="Msg('规则添加成功')">
+							<a class="btn btn-sm btn-primary" onclick="$('#addrule').hide()">取消</a>
+						</div>
+					</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</form>
+<div class="row">
+	<table class="table table-bordered" id="rule">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>使用校区</th>
+				<th width="250px">规则名称</th>
+				<th colspan="2">星期一</th>
+				<th colspan="2">星期二</th>
+				<th colspan="2">星期三</th>
+				<th colspan="2">星期四</th>
+				<th colspan="2">星期五</th>
+				<th colspan="2">星期六</th>
+				<th colspan="2">星期日</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="rule">
+			<volist name='list' id='vo'><form>
+			<tr>
+				<td>{$vo.id}</td>
+				<td>{$vo.school}</td>
+				<td><input class="name" kid="{$vo.id}" type="text" name="name" value="{$vo.name}" style="width:250px"></td>
+				<td class="m1a"><if condition="$vo.m1a neq 0">{$vo.m1a|substr=###,0,5}</if></td>
+				<td class="m1b"><if condition="$vo.m1b neq 0">{$vo.m1b|substr=###,0,5}</if></td>
+				<td class="m2a"><if condition="$vo.m2a neq 0">{$vo.m2a|substr=###,0,5}</if></td>
+				<td class="m2b"><if condition="$vo.m2b neq 0">{$vo.m2b|substr=###,0,5}</if></td>
+				<td class="m3a"><if condition="$vo.m3a neq 0">{$vo.m3a|substr=###,0,5}</if></td>
+				<td class="m3b"><if condition="$vo.m3b neq 0">{$vo.m3b|substr=###,0,5}</if></td>
+				<td class="m4a"><if condition="$vo.m4a neq 0">{$vo.m4a|substr=###,0,5}</if></td>
+				<td class="m4b"><if condition="$vo.m4b neq 0">{$vo.m4b|substr=###,0,5}</if></td>
+				<td class="m5a"><if condition="$vo.m5a neq 0">{$vo.m5a|substr=###,0,5}</if></td>
+				<td class="m5b"><if condition="$vo.m5b neq 0">{$vo.m5b|substr=###,0,5}</if></td>
+				<td class="m6a"><if condition="$vo.m6a neq 0">{$vo.m6a|substr=###,0,5}</if></td>
+				<td class="m6b"><if condition="$vo.m6b neq 0">{$vo.m6b|substr=###,0,5}</if></td>
+				<td class="m7a"><if condition="$vo.m7a neq 0">{$vo.m7a|substr=###,0,5}</if></td>
+				<td class="m7b"><if condition="$vo.m7b neq 0">{$vo.m7b|substr=###,0,5}</if></td>
+				<td><a class="btn btn-sm btn-primary" onclick="delt(this,{$vo.id})">删除</a></td>
+			</tr></form>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>
+
+<script type="text/javascript">
+
+  $("#rule tr").on('click',function(){
+      $("#name").val($(this).find(".name").val());
+      $("#m1a").val($(this).children(".m1a").text());
+      $("#m1b").val($(this).children(".m1b").text());
+      $("#m2a").val($(this).children(".m2a").text());
+      $("#m2b").val($(this).children(".m2b").text());
+      $("#m3a").val($(this).children(".m3a").text());
+      $("#m3b").val($(this).children(".m3b").text());
+      $("#m4a").val($(this).children(".m4a").text());
+      $("#m4b").val($(this).children(".m4b").text());
+      $("#m5a").val($(this).children(".m5a").text());
+      $("#m5b").val($(this).children(".m5b").text());
+      $("#m6a").val($(this).children(".m6a").text());
+      $("#m6b").val($(this).children(".m6b").text());
+      $("#m7a").val($(this).children(".m7a").text());
+      $("#m7b").val($(this).children(".m7b").text());
+  });
+	//发送要保存的数据
+	$(".name").blur(function() {
+		var id=$(this).attr("kid");
+		var name=$(this).val();
+		$.ajax({
+		   type: "POST",
+		   url: "{:U('Person/kq_rule')}",
+		   data: "id="+id+"&name="+name,
+			  success: function(msg){
+			  	if(msg==1)Msg('名称更新成功……',1);
+			  }
+		});
+	});
+
+	function delt(th,id){
+		if(confirm("确定要删除吗？")){
+			$.get("{:U('kq_rule')}"+"&delt="+id);
+			$(th).parent().parent().hide();
+			Msg("删除成功……",1);
+		}
+	}
+
+	$("#school").change(function(){
+		location.href="{:U()}&school="+$(this).val();
+	});
+</script>
+<style type="text/css">
+#week span{
+  line-height: 28px;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.week{
+  background-color: rgb(175, 95, 95);
+  color: cornsilk;
+}
+#addrule td input{
+	width: 100%;
+}
+#rule td input{
+	width: 100%;
+}
+</style>

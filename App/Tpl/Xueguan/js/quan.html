@@ -1,0 +1,61 @@
+<style type="text/css">
+.info{
+  max-height: 250px;
+  width: 100%;
+  overflow-y:auto;
+}
+#fankuiq_record span{
+  line-height: 28px;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.week{
+  background-color: rgb(175, 95, 95);
+  color: cornsilk;
+}
+.km{
+  background-color: rgb(175, 95, 95);
+  color: cornsilk;
+}
+</style>
+<script type="text/javascript">
+  function fankuiq_record (sid) {
+    $.getJSON("{:U('Xueguan/info')}",'&stuid='+sid,function(data){
+      $("#fankuiq_record .titleh").text('授课记录：'+data.name);
+    });
+    $("#fankuiq_record").show();
+    $("#fankuiq_record .stuid").val(sid);
+  }
+
+  function weihuq_record (sid) {
+    $("#weihu_record").show();
+  }
+
+//日授课记录处理
+  $("#week span").on('click',function(){
+      $("#fankuiq_record span").removeClass("week");
+      $(this).addClass("week");
+  });
+  $("#km span").on('click',function(){
+      $("#fankuiq_record span").removeClass("km");
+      $(this).addClass("km");
+  });
+  $("#fankuiq_record span").on('click',function() {
+    $("#fankuiq_record .info").empty();
+    var week=$("#fankuiq_record .week").attr("week");
+    var stuid=$("#fankuiq_record .stuid").val();
+    // alert(week+stuid);
+    var km=$("#fankuiq_record .km").text();
+    $.get("{:U('fankui_record')}&stuid="+stuid+"&week="+week+"&km="+km,function(data){
+      if(data!='null')
+      for (var i = 0; i < data.length; i++) {
+        $("<div>").text(data[i][0]).appendTo($("#fankuiq_record .info"));
+        $("<div>").text(data[i][1]).appendTo($("#fankuiq_record .info"));
+        $("<div>").text(data[i][2]).appendTo($("#fankuiq_record .info"));
+        $("<hr>").appendTo($("#fankuiq_record .info"));
+      };
+    },"json");
+  });
+</script>

@@ -1,0 +1,62 @@
+<script type="text/javascript" src="__PUBLIC__/js/calendar.js"></script>
+<script type="text/javascript">
+	function showdata() {
+		$("ul.event_list").html("");
+		y = $("#year").val();
+		m = $("#month").val();
+		$("#panel").html(y + "年" + m + "月");
+		start_date1 = $("#UL0").attr("class").substr(4);
+		end_date1 = $("#UL41").attr("class").substr(4);
+		$.getJSON("{:U('json')}", {
+			start_date : start_date1,
+			end_date : end_date1
+		}, function(data) {
+			count = 0;
+			prev_date = '';
+			if (data != null) {
+				$.each(data, function(i) {
+					html = '<li id=li_' + data[i].id + ' style=background-color:' + schedule_bg(data[i].priority) + ">";
+					html += '<i class="ico_square"></i>';
+					html += '<span class="event_time">' + data[i].start_date + '</span>';
+					html += ' <p id=' + data[i].id + ' class="event_msg" title="' + data[i].name + '">';
+					html += data[i].name;
+					html += ' </p>';
+					html += "</li>";
+					prev_date = data[i].start_date;
+					$("ul.event_list").append(html);
+				})
+			}
+		});
+	}
+
+	function add() {
+		window.open("{:U('add')}", "_self");
+	}
+
+	function month_view() {
+		window.open("__URL__", "_self");
+	}
+
+	function day_view() {
+		window.open("{:U('day_view')}", "_self");
+	}
+
+	$(document).ready(function() {
+		set_return_url();
+		initial();
+		$("#cm div").click(function() {
+			$("#cm div.active").removeClass("active");
+			$(this).addClass("active");
+		});
+
+		$(document).on("click", "p.event_msg", function() {
+			var msg_list = "";
+			current = $(this).attr('id');
+			$("p#" + current).parent().parent().find('p.event_msg').each(function() {
+				msg_list += $(this).attr("id") + "|";
+			});
+			winopen("{:U('read')}?id=" + $(this).attr('id') + "&list=" + msg_list, 730, 490);
+		});
+	})
+	//-->
+</script>

@@ -1,0 +1,122 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'站内消息','search'=>'M'))}
+<form method="post" name="form_adv_search" id="form_adv_search">
+	<div class="adv_search panel panel-default  display-none"  id="adv_search">
+		<div class="panel-heading">
+			<div class="row">
+				<h4 class="col-xs-6">高级搜索</h4>
+				<div class="col-xs-6 text-right">
+					<a  class="btn btn-sm btn-info" onclick="submit_adv_search();">搜索</a>
+					<a  class="btn btn-sm " onclick="close_adv_search();">关闭</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="form-group col-sm-6">
+				<label class="col-sm-4 control-label" for="li_name">文件名：</label>
+				<div class="col-sm-8">
+					<input  class="form-control" type="text" id="li_name" name="li_name" >
+				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				<label class="col-sm-4 control-label" for="li_content">内容：</label>
+				<div class="col-sm-8">
+					<input  class="form-control" type="text" id="li_content" name="li_content" >
+				</div>
+			</div>
+
+			<div class="form-group col-sm-6">
+				<label class="col-sm-4 control-label" for="eq_user_name">登录人：</label>
+				<div class="col-sm-8">
+					<input  class="form-control" type="text" id="eq_user_name" name="eq_user_name" >
+				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				<label class="col-sm-4 control-label" for="bt_create_time">登录时间：</label>
+				<div class="col-sm-8">
+					<div class="input-daterange input-group" >
+					    <input type="text" class="input-sm form-control text-center" name="be_create_time" />
+						<span class="input-group-addon">-</span>
+						<input type="text" class="input-sm form-control text-center" name="en_create_time" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<div class="space-8"></div>
+<if condition="$auth['write']">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+				<a class="btn btn-sm btn-danger" onclick="del_all();">删除全部消息</a>
+			</div>
+			<div class="pull-right">
+				<a class="btn btn-sm btn-primary" onclick="add()">发送消息</a>
+			</div>
+		</div>
+	</div>
+</if>
+<div class="ul_table">
+	<ul>
+		<empty name="list">
+			<li class="no-data">
+				没找到数据
+			</li>
+			<else/>
+			<foreach name="list" item="vo">
+				<div class="dialogs">
+					<div class="itemdiv dialogdiv">
+						<div class="user">
+						<eq name="vo.sender_id" value="$owner_id">
+							<img  src="{:get_save_url()}emp_pic/{$vo.receiver_id}.jpeg" />
+						</eq>
+						<eq name="vo.receiver_id" value="$owner_id">
+							<img  src="{:get_save_url()}emp_pic/{$vo.sender_id}.jpeg" />
+						</eq>
+						</div>
+						<div class="body">
+							<div class="time">
+								<i class="fa fa-time"></i>
+								<span>{$vo.create_time|toDate='Y-m-d h:m:d'}</span>
+							</div>
+							<div class="name">
+								<eq name="vo.sender_id" value="$owner_id">
+									发给 {$vo.receiver_name}
+								</eq>
+								<eq name="vo.receiver_id" value="$owner_id">
+									 {$vo.sender_name}
+								</eq>
+							</div>
+							<div class="row">
+								<div class="text-left col-sm-9 col-xs-12">
+									<eq name="vo.sender_id" value="$owner_id">
+										<a href="{:U('read?reply_id='.$vo['receiver_id'])}">{$vo.content}</a>
+									</eq>
+									<eq name="vo.receiver_id" value="$owner_id">
+										<eq name="vo.is_read" value="0"><b></eq>
+										<a href="{:U('read?reply_id='.$vo['sender_id'])}">{$vo.content}</a>
+										<eq name="vo.is_read" value="0"></b></eq>
+									</eq>
+									<span class="badge">{$vo.count}</span>
+								</div>
+								<div class="text-right pull-right col-sm-3 col-xs-12">
+									<eq name="vo.sender_id" value="$user_id">
+										<a class="btn-sm btn-primary" href="{:U('read?reply_id='.$vo['receiver_id'])}"><i class="fa fa-only fa-share-alt"></i>回复</a>
+										<a class="btn-sm btn-danger" href="#" onclick="del_dialogue({$vo.receiver_id})">
+										<i class="fa fa-only fa-remove" ></i>删除</a>
+									</eq>
+									<eq name="vo.receiver_id" value="$user_id">
+										<a class="btn-sm btn-primary" href="{:U('read?reply_id='.$vo['sender_id'])}"><i class="fa fa-only fa-share-alt"></i>回复</a>
+										<a class="btn-sm btn-danger" href="#" onclick="del_dialogue({$vo.sender_id})">
+										<i class="fa fa-only fa-remove" ></i>删除</a>
+									</eq>									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</foreach>
+		</empty>
+	</ul>
+</div>

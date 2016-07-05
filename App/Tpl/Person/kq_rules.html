@@ -1,0 +1,140 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'规则分组','search'=>'A'))}
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+				<a class="btn btn-sm btn-primary" onclick="$('#addrule').show();$('#change').hide();$('#guanlian').show();">新增考勤方案</a>
+				<a class="btn btn-sm btn-primary" onclick="change()">修改方案</a>
+			</div>
+			<div class="pull-right">
+				切换校区：<select name="school" id="school"><if condition="$_GET['school']"><option  value="{$Think.get.school}">{$Think.get.school}</option><else/><option></option></if>{:W('School')}</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+		</div>
+	</div>
+</form>
+<form method="post" id="addrule" style="display:none">
+	<div class="operate panel panel-default" style="border-color: brown;">
+		<div class="panel-body">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th width="200px">分组名称</th>
+						<th>绑定并关联具体规则
+							<div class="pull-right">
+								<input type="hidden" name="id">
+								<input type="submit" class="btn btn-sm btn-primary" name="change" value="保存修改" id="change">
+								<input type="submit" class="btn btn-sm btn-primary" name="guanlian" value="关联绑定" id="guanlian">
+								<a class="btn btn-sm btn-primary" onclick="$('#addrule').hide()">取消</a>
+							</div>
+						</th>
+					</tr>
+				</thead>
+				<tr>
+					<td><br/><br/><input type="text" name="name" required/></td>
+					<td><php>for($i=$month[0];$i <= $month[1];$i++){</php>
+						<ul style="float:left;margin:20px;">第{$i}周<li><select name="rule[]"><foreach name="rule" item="v"><option value="{$v.id}">{$v.name}</option></foreach></select></li></ul>
+						<php>}</php>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</form>
+<div class="row">
+	<div class="col-sm-8 sub_left_menu ">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th width="200px">分组名称</th>
+					<php>for($i=$month[0];$i <= $month[1];$i++){</php><th>第{$i}周</th><php>}</php>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody id="rule">
+				<volist name='list' id='vo'><form>
+				<tr rules="{$vo.id}">
+					<td><input class="name" type="text" name="name" value="{$vo.name}" kid="{$vo.id}" style="width:200px"><input type="hidden" name="id" value="{$vo.id}"></td>
+					<volist name='vo.ruleid' id="vo2"><td>{$vo2}</td></volist><td><a class="btn btn-sm btn-primary" href="{:U()}&delt={$vo.id}">删除</a>|<a class="btn btn-sm btn-primary" onclick="sy({$vo.id})">顺延</a></td>
+				</tr></form>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+<div class="col-sm-4">
+    <form method="post" class="form-horizontal">
+      <table class="table table-bordered">
+      	<tr>
+      		<td colspan="2"><h3>规则匹配到员工</h3><input type="hidden" name="rules" id="rules"></td>
+      	</tr>
+        <tr>
+          <th>职务</th>
+          <td><select name="position"><option value="">所有职务</option>{:W('School','position')}</select></td>
+        </tr>
+        <tr>
+          <th>员工id【选填】</th>
+          <td><input type="text" name="pid" style="width:100px"/></td>
+        </tr>
+        <tr>
+          <th>员工姓名【选填】</th>
+          <td><input type="text" name="name" style="width:100px"/></td>
+        </tr>
+        <tr>
+        	<td colspan="2">【已存在规则的会覆盖绑定！】
+              <div class="pull-right">
+              <input type="submit" class="btn btn-sm btn-primary" name="bangding" value="确认绑定">
+              </div>
+        	</td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#rule tr").on('click',function(){
+      $("#rules").val($(this).attr("rules"));
+      $("#rule tr").css({background:"white"})
+      $(this).css({background:"burlywood"});
+      $("#addrule input[name='name']").val($(this).find("input[name='name']").val());
+      $("#addrule input[name='id']").val($(this).find("input[name='id']").val());
+  });
+
+	//发送要保存的数据
+	$(".name").blur(function() {
+		var id=$(this).attr("kid");
+		var name=$(this).val();
+		$.ajax({
+		   type: "POST",
+		   url: "{:U('Person/kq_rules')}",
+		   data: "id="+id+"&name="+name,
+			  success: function(msg){
+			  	if(msg==1)Msg('名称更新成功……',1);
+			  }
+		});
+	});
+	//将当前考勤方案顺延到下个月
+	function sy(id){
+		$.get("{:U('kq_rules')}"+"&syid="+id);Msg("顺延完成",1)
+	}
+
+	//修改考勤方案
+	function change(){
+		var rules = $("#rules").val();
+		$.getJSON("{:U('kq_rules')}"+"&rules="+rules,function(msg){
+			for (var i = 0; i < msg.length; i++) {
+				$("#addrule select").eq(i).val(msg[i]);
+			};
+			$("#addrule").show();
+			$("#change").show();
+			$("#guanlian").hide();
+		});
+	}
+
+	$("#school").change(function(){
+		location.href="{:U()}&school="+$(this).val();
+	});
+
+</script>
+<style type="text/css">
+</style>

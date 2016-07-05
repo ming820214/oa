@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,">
+<title>花销录入</title>
+<link rel="stylesheet" href="../Public/money.css" type="text/css"/>
+</head>
+<body>
+ <ul>
+  <li><a>期&nbsp;&nbsp;次：</a><input class="mx" type="month" name="date" value="{$Think.session.date}"  />&nbsp;</li>
+  <li><a>凭证号：</a><input class="mx" type="text" name="aa" />&nbsp;</li>
+  <li><a>成本类型：</a>
+      <select class="srkx" name="g" id="aa">
+          <option>行政办公</option>
+          <option>固定资产</option>
+          <option>场地费用</option>
+          <option>寝室费用</option>
+          <option>环境建设</option>
+          <option>校区活动金</option>
+          <option>工资费用</option>
+          <option>员工福利</option>
+          <option>员工借款</option>
+          <option>培训费用</option>
+          <option>宣传费用</option>
+          <option>营销（刚性）</option>
+          <option>营销（柔性）</option>
+          <option>招聘费用</option>
+          <option>关系运作</option>
+          <option>终极逆转特训营</option>
+          <option>艺术生特训营</option>
+          <option>校庆</option>
+          <option>押金</option>
+          <option>福利金</option>
+          <option>上期结余</option>
+          <option>预留资金</option>
+      </select>
+  </li>
+  <li><a>二级科目：</a><select class="srkx" name="h" id="b"></select></li>
+  <li><a>归属校区:</a><select class="srkx" name="c">{:W('School')}</select></li>
+  <li><a>支出项目：</a><input class="mx" type="text" name="i" required/></li>
+  <li><a>花销明细：</a><input class="mx" type="text" name="j" required/></li>
+  <li><a>单价（元）：</a><input class="mx" type="text" name="kk" required/></li>
+  <li><a>数量：</a><input class="mx" type="text" name="l" onkeyup="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''" required/></li>
+  <li><a>经手人：</a><input class="mx" type="text" name="n" required/></li>
+  <li><a>报销人员：</a><input class="mx" type="text" name="o" required/></li>
+  <li><a>发生日期：</a><input class="mx" type="date" name="e" /></li>
+  <li><a>发票数量：</a><input class="mx" type="text" name="t"/></li>
+  <li><a>审批人员：</a><input class="mx" type="text" name="p" required/></li>
+  <li><a>报销日期：</a><input class="mx" type="date" name="d" required/></li>
+  <li><a>摊销期次：</a><input class="mx" type="text" name="mm" value="1" required/></li>
+  <li><a>其它备注：</a><input class="mx" type="text" name="other" /></li>
+  <div class="anniu"><input class="anniun" type="submit" value="提交" /></div>
+ </ul>
+</body>
+</html>

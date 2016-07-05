@@ -1,0 +1,46 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'维护副校长','search'=>'A'))}
+<include file='level_search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>工号</th>
+				<th>姓名</th>
+				<th>单位</th>
+				<th>职级</th>
+				<th>校区消耗目标</th>
+				<th>校区续费目标</th>
+				<th>保级消耗目标</th>
+				<th>保级续费目标</th>
+				<th>升级消耗目标</th>
+				<th>升级续费目标</th>
+				<th>团队消耗业绩</th>
+				<th>团队续费业绩</th>
+				<th>核算后级别</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='vo'>
+			<tr>
+				<td>{$i}</td>
+				<td>HW{$vo.id}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.school}</td>
+				<td>{$vo.level}</td>
+				<td>{$vo.school_xiaohao}</td>
+				<td>{$vo.school_xufei}</td>
+				<td>{$vo.bj_xiaohao}</td>
+				<td>{$vo.bj_xufei}</td>
+				<td>{$vo.sj_xiaohao}</td>
+				<td>{$vo.sj_xufei}</td>
+				<td>{$vo.team_xiaohao}</td>
+				<td>{$vo.team_xufei}</td>
+				<td>{$vo.new}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>

@@ -1,0 +1,267 @@
+<layout name='Layout/ace_layout' />
+  <div class="operate panel panel-default">
+    <div class="panel-body">
+      <div class="pull-left">
+        <h4>姓名:<b>{$student}</b></h4>
+      </div>
+      <div class="pull-right">
+      <a class="btn btn-sm btn-primary"  href="__URL__/money/id/{$stuid}">课程订购</a>
+      <a class="btn btn-sm btn-primary"  href="__URL__/class_set/id/{$stuid}">讲师设置</a>
+      <a class="btn btn-sm btn-primary"  href="__URL__/money_cost">消耗明细</a>
+      </div>
+    </div>
+  </div>
+<div class="row">
+  <div class="col-sm-7 sub_left_menu ">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>交费类型</th>
+          <th>缴费金额</th>
+          <th>课程类型</th>
+          <th>适用优惠</th>
+          <th>高级</th>
+          <th>赠送后</th>
+          <th>剩余</th>
+          <th>3A</th>
+          <th>赠送后</th>
+          <th>剩余</th>
+          <th>5A</th>
+          <th>赠送后</th>
+          <th>剩余</th>
+          <th>7A</th>
+          <th>赠送后</th>
+          <th>剩余</th>
+          <th>剩余课时</th>
+          <th>备注信息</th>
+          <th>截止时间</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+      <empty name="list"><tr><td colspan="18" align="center"><h4>没有找到该学员的订购信息</h4></td></tr></empty>
+        <volist name="list" id="data">
+          <tr>
+            <td>{$data.id}</td>
+            <td>{$data.lx}</td>
+            <td>{$data.money}</td>
+            <td>{$data.class}</td>
+            <td>{$data.policy}</td>
+            <td>{$data.cc}</td>
+            <td>{$data.cc2}</td>
+            <td>{$data.cc3}</td>
+            <td>{$data.cd}</td>
+            <td>{$data.cd2}</td>
+            <td>{$data.cd3}</td>
+            <td>{$data.ce}</td>
+            <td>{$data.ce2}</td>
+            <td>{$data.ce3}</td>
+            <td>{$data.cf}</td>
+            <td>{$data.cf2}</td>
+            <td>{$data.cf3}</td>
+            <td>{$data['cc2']+$data['cd2']+$data['ce2']+$data['cf2']}</td>
+            <td>{$data.other}</td>
+            <td>{$data.time}</td>
+            <td><a ><if condition="$data['state'] eq 1">订购成功<else/>订购中</if></a></td>
+            <td><a onclick="returnd({$data.id})">退费计算</a></td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    <div class="pagination">
+      {$page}
+    </div>    
+  </div>
+<!-- 课程订购模块 -->
+  <div class="col-sm-5" id="box">
+    <form id="form_data" method="post" class="form-horizontal" action="{:U('Student/order_add')}">
+      <input type="hidden" name="stuid" value="{$stuid}">
+      <table class="table table-bordered">
+        <tr>
+          <th style="vertical-align:middle;">交费类型：</th>
+          <td style="vertical-align:middle;">
+            <select name="lx" class="form-control" id="lx">
+              <option value="订课程">订课程</option>
+              <option value="预交款">预交款</option>
+            </select>
+          </td>
+          <td align="right"><h3>#课程订购@</h3></td>
+        </tr>
+      </table>
+      <!-- 预交款 -->
+      <table class="table table-bordered display-none" id="box1">
+        <tr>
+          <th>预交款金额</th>
+          <td>
+          <input type="text" name="money1"  class="col-10">
+          </td>
+        </tr>
+        <tr>
+          <th>备注信息</th>
+          <td colspan="3">
+          <input type="text" name="other1" class="form-control">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+              <div class="pull-left">
+              <input type="button" class="btn btn-sm" value="打印收据" />
+              </div>
+              <div class="pull-right">
+              <input type="submit" class="btn btn-sm btn-primary" name="moneyadd" value="确认交款" />
+              </div>
+          </td>
+        </tr>
+      </table>
+      <table class="table table-bordered"  id="box2">
+        <tr>
+          <th>课程类型</th>
+          <td>
+            <select name="class" id="class">
+              <option value="一对一">一对一</option>
+              <option value="一对二">一对二</option>
+              <option value="一对三">一对三</option>
+              <option value="一对四">一对四</option>
+              <option value="一对五">一对五</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>报名课时</th>
+          <td>
+          <input type="text" name="count"  class="col-10" id="count">
+          </td>
+        </tr>
+        <tr>
+          <th>适用优惠政策</th>
+          <td>
+            <select name="policyid" class="form-control" id="policy">
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>共计课时</th>
+          <td>
+          <input type="text" id="count2" name="count2" class="col-10" readonly="readonly">
+          </td>
+        </tr>
+        <tr>
+          <th>订购详情：</th>
+          <td align="center"><div>
+              &nbsp;高级:<input type="text" name="cc"  class="col-7" id="cc">
+              &nbsp;3A级:<input type="text" name="cd"  class="col-7" id="cd"></div><br/><div>
+              &nbsp;5A级:<input type="text" name="ce"  class="col-7" id="ce">
+              &nbsp;7A级:<input type="text" name="cf"  class="col-7" id="cf"></div>
+          </td>
+        </tr>
+        <tr>
+          <th>赠送优惠后课时：</th>
+          <td align="center"><div>
+              &nbsp;高级:<input type="text" name="cc2" class="col-7" readonly="readonly" id="cc2">
+              &nbsp;3A级:<input type="text" name="cd2" class="col-7" readonly="readonly" id="cd2"></div><br/><div>
+              &nbsp;5A级:<input type="text" name="ce2" class="col-7" readonly="readonly" id="ce2">
+              &nbsp;7A级:<input type="text" name="cf2" class="col-7" readonly="readonly" id="cf2"></div>
+          </td>
+        </tr>
+        <tr>
+          <th>总计扣除金额</th>
+          <th style="vertical-align:middle;">
+          <input type="text" id="money" name="money" class="col-10" readonly="readonly">（元），<input type="checkbox" name="yjk" value="预交款">合并预交款计算（有预交款时勾选）
+          </th>
+        </tr>
+        <tr>
+          <th>备注信息</th>
+          <td colspan="3">
+          <input type="text" id="other" name="other" class="form-control">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+              <div class="pull-left">
+              <input type="button" class="btn btn-sm btn-primary" value="打印收据" />
+              </div>
+              <div class="pull-right">
+              <input type="submit" class="btn btn-sm btn-primary" name="orderadd" value="确认订购" />
+              </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+  $("#lx").change(function () {
+    var info = $("#lx").val();
+    $("#box1,#box2").hide();
+    if(info=='预交款')$("#box1").show();
+    if(info=='订课程')$("#box2").show();
+  })
+
+  $("#class,#count").change(function(){
+    $("#cc2,#cd2,#ce2,#cf2,#cc,#cd,#ce,#cf,#money").val('');
+    $('#policy').empty();
+    cla= $("#class").val();
+    count= $("#count").val();
+    $("#count2").val('');
+    $.ajax({
+            url: "{:U('Student/mapi')}",
+            dataType:"json", 
+            type:"POST",
+            data:'stuid={$stuid}'+'&class='+cla+'&count='+count,
+            success: function(mg){
+                $('#policy').append('<option value='+mg.id+'>'+mg.info+'</option>');
+                $("#count2").val(parseInt($("#count").val())+parseInt(mg.count2));
+            }
+    });
+  });
+
+  $("#cc,#cd,#ce,#cf").change(function(){
+      var com = 0;
+      if($("#cc").val()) com += parseInt($("#cc").val());
+      if($("#cd").val()) com += parseInt($("#cd").val());
+      if($("#ce").val()) com += parseInt($("#ce").val());
+      if($("#cf").val()) com += parseInt($("#cf").val());
+      if(com==count){
+        var m = '';
+        if($("#cc").val()) m += '&cc='+$("#cc").val();
+        if($("#cd").val()) m += '&cd='+$("#cd").val();
+        if($("#ce").val()) m += '&ce='+$("#ce").val();
+        if($("#cf").val()) m += '&cf='+$("#cf").val();
+            $.ajax({
+                    url: "{:U('Student/mapii')}",
+                    dataType:"json", 
+                    type:"POST",
+                    data:'stuid={$stuid}'+'&class='+cla+'&count='+count+m,
+                    success: function(msg){
+                      $("#cc2").val(msg.cc);
+                      $("#cd2").val(msg.cd);
+                      $("#ce2").val(msg.ce);
+                      $("#cf2").val(msg.cf);
+                      $("#money").val(msg.money);
+                    }
+            });
+
+      }else{
+        $("#cc2,#cd2,#ce2,#cf2,#money").val('');
+      }
+
+  });
+
+  function returnd(id){
+    $("#box").empty();
+        $.ajax({
+                url: "{:U('Student/order_return')}",
+                dataType:"json", 
+                type:"POST",
+                data:'orid='+id,
+                success: function(msg){
+                    $("#box").append("<table class='table table-bordered'><tr><td colspan='2' align='right'><h3>#退费计算@</h3></td></tr><tr><td><b>学员姓名</b></td><td>"+msg.name+"</td></tr><tr><td><b>年级</b></td><td>"+msg.grade+"</td></tr><tr><td><b>课程类型</b></td><td>"+msg.class+"</td></tr><tr><td><b>=》消耗@高级</b></td><td>"+msg.cc+"课时，其中赠送"+msg.cc_zs+"课时，单价"+msg.cc_p+"元/课时</td></tr><tr><td><b>=》消耗@3A级</b></td><td>"+msg.cd+"课时，其中赠送"+msg.cd_zs+"课时，单价"+msg.cd_p+"元/课时</td></tr><tr><td><b>=》消耗@5A级</b></td><td>"+msg.ce+"课时，其中赠送"+msg.ce_zs+"课时，单价"+msg.ce_p+"元/课时</td></tr><tr><td><b>=》消耗@7A级</b></td><td>"+msg.cf+"课时，其中赠送"+msg.cf_zs+"课时，单价"+msg.cf_p+"元/课时</td></tr><tr><td><b>适用优惠</b></td><td>"+msg.policy+"</td></tr><tr><td><b>赠送剩余</b></td><td>"+msg.zs+"</td></tr><tr><td><b>优惠外课时消耗</b></td><td>"+msg.bk+"</td></tr><tr><td><b>消耗金额</b></td><td>"+msg.money+"</td></tr><tr><td><b>订单剩余</b></td><td><h4>￥"+msg.returnd+"元</h4></td></tr><tr><td colspan='2'><div class='pull-right'><input type='submit' class='btn btn-sm btn-primary' name='returnd' value='申请退款' /></div></td></tr></table>");
+                }
+        });
+  }
+
+</script>

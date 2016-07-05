@@ -1,0 +1,52 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>array('编辑：',$vo['name']),'search'=>'N'))}
+<div class="operate panel panel-default">
+	<div class="panel-body">
+		<div class="pull-left">
+			<a onclick="go_return_url();" class="btn btn-sm btn-primary">返回</a>
+		</div>
+		<div class="pull-right">
+			<a onclick="save();"  class="btn btn-sm btn-primary">保存</a>
+		</div>
+	</div>
+</div>
+
+<form method='post' id="form_data" name="form_data" enctype="multipart/form-data" class="well form-horizontal">
+	<input type="hidden" id="id" name="id" value="{$vo.id}">
+	<input type="hidden" id="ajax" name="ajax" value="0">
+	<input type="hidden" id="add_file" name="add_file" value="{$vo.add_file}">
+	<input type="hidden" id="opmode" name="opmode" value="edit">
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" >产品编号*：</label>
+		<div class="col-sm-10">
+			<p class="form-control-static">
+				<input class="form-control" type="text" id="product_no" name="product_no" check="require" msg="请输入产品编号" value="{$vo.product_no}">
+			</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="name">产品名称*：</label>
+		<div class="col-sm-10">
+			<input class="form-control" type="text" id="name" name="name" check="require" msg="请输入产品名称"  value="{$vo.name}">
+		</div>
+	</div>
+<hr></hr>
+	<volist name="field_list" id="field_vo">
+		{:W('FlowField',$field_vo)}
+	</volist>
+
+	<div class="form-group">
+		<div class="col-xs-12">
+			<textarea class="editor display-none" id="content" name="content" style="width:100%;height:300px;">{$vo.content}</textarea>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" >附件：</label>
+		<div class="col-sm-10">
+			{:W('File',array('add_file'=>$vo['add_file'],'mode'=>'edit'))}
+		</div>
+	</div>
+</form>

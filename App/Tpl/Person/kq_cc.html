@@ -1,0 +1,36 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'灵活假期查询'))}
+<include file='kq_search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th width="80px">姓名</th>
+				<th width="100px">单位</th>
+				<th width="110px">职位</th>
+				<th width="170px">开始时间</th>
+				<th width="170px">结束时间</th>
+				<th>共计</th>
+				<th width="400px">请假原因</th>
+				<th width="80px">审批状态</th>
+				<th>审批记录</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='data' id='vo'>
+			<tr>
+				<td>{$vo.name}</td>
+				<td>{$vo.school}</td>
+				<td>{$vo.position}</td>
+				<td>{$vo.time1}</td>
+				<td>{$vo.time2}</td>
+				<td>{$vo.gong}</td>
+				<td>{$vo.info}</td>
+				<td>{$vo.state}</td>
+				<td>{$vo.record}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>

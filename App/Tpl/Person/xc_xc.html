@@ -1,0 +1,53 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'基础薪酬','search'=>'A'))}
+<include file='kq_search'/>
+<div class="row">
+	<table class="table table-bordered" id="rule">
+		<thead>
+			<tr>
+				<th width="100px">员工ID</th>
+				<th width="80px">姓名</th>
+				<th>单位</th>
+				<th>部门</th>
+				<th>职务</th>
+				<th>职级</th>
+				<th>底薪</th>
+				<th>应出勤天数</th>
+				<th>核算出勤天数</th>
+				<th>校区业绩提成</th>
+				<th>校区消耗</th>
+				<th>消耗提成比例</th>
+				<th>校区消耗提成</th>
+				<th>应付工资</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='vo'><form>
+			<tr>
+				<td>规则{$vo.id}<input type="hidden" name="id" value="{$vo.id}"></td>
+				<td>{$vo.week}</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr></form>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>
+
+<script type="text/javascript">
+</script>
+<style type="text/css">
+</style>

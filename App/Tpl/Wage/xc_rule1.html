@@ -1,0 +1,86 @@
+{:W('PageHeader',array('name'=>'员工薪酬规则管理'))}
+<layout name='Layout/ace_layout' />
+<div class="row">
+	<table class="table table-bordered" id="rule">
+		<thead>
+			<tr>
+				<th>岗位名称</th>
+				<th>职务级别</th>
+				<th>底薪</th>
+				<th>绩效工资</th>
+				<th>级别津贴</th>
+				<th>岗位补助</th>
+				<th>绩效奖金</th>
+				<th>满勤奖</th>
+				<th>课时比例</th>
+				<th>招生比例1</th>
+				<th>招生比例2</th>
+				<th>招生比例3</th>
+				<th>招生比例4</th>
+				<th>招生比例5</th>
+				<th>招生比例6</th>
+				<th>续费比例</th>
+				<th>无退费奖金</th>
+				<th>合计</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+			<form method="post">
+			<tr>
+				<th><select name="position"><volist name="position" id="v"><option>{$v}</option></volist></select></th>
+				<th contenteditable><input type="hidden" name="level"></th>
+				<th contenteditable><input type="hidden" name="b"></th>
+				<th contenteditable><input type="hidden" name="c"></th>
+				<th contenteditable><input type="hidden" name="d"></th>
+				<th contenteditable><input type="hidden" name="e"></th>
+				<th contenteditable><input type="hidden" name="f"></th>
+				<th contenteditable><input type="hidden" name="g"></th>
+				<th contenteditable><input type="hidden" name="h"></th>
+				<th contenteditable><input type="hidden" name="i"></th>
+				<th contenteditable><input type="hidden" name="j"></th>
+				<th contenteditable><input type="hidden" name="k"></th>
+				<th contenteditable><input type="hidden" name="l"></th>
+				<th contenteditable><input type="hidden" name="m"></th>
+				<th contenteditable><input type="hidden" name="n"></th>
+				<th contenteditable><input type="hidden" name="o"></th>
+				<th contenteditable><input type="hidden" name="p"></th>
+				<th contenteditable><input type="hidden" name="p"></th>
+				<th><input type="submit" value="添加"></th>
+			</tr>
+			</form>
+		<tbody>
+			<volist name='list' id='v'>
+			<tr>
+				<td>{$v.position}</td>
+				<td>{$v.level}</td>
+				<td>{$v.b}</td>
+				<td>{$v.c}</td>
+				<td>{$v.d}</td>
+				<td>{$v.e}</td>
+				<td>{$v.f}</td>
+				<td>{$v.g}</td>
+				<td>{$v.h}</td>
+				<td>{$v.i}</td>
+				<td>{$v.j}</td>
+				<td>{$v.k}</td>
+				<td>{$v.l}</td>
+				<td>{$v.m}</td>
+				<td>{$v.n}</td>
+				<td>{$v.o}</td>
+				<td>{$v.p}</td>
+				<td>{$v.q}</td>
+				<td><a href="{:U()}&delt={$v.id}" onclick="return confirm('确定删除吗！……？')">删除</a></td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>
+
+<script type="text/javascript">
+$("th").blur(function () {
+	$(this).children("input").val($(this).text());
+})
+</script>
+<style type="text/css">
+</style>

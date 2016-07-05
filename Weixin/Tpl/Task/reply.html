@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="white">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-touch-fullscreen" content="yes">
+<link rel="stylesheet" href="../Public/jqm/jquery.mobile-1.3.0.min.css">
+<script src="../Public/jqm/jquery.js"></script>
+<script src="../Public/jqm/jquery.mobile-1.3.0.min.js"></script>
+</head>
+<body>
+<div data-role="page" id="page1">
+  <div data-role="header" data-position="fixed">
+    <h1>近期任务列表</h1>
+    <a href="#page1" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
+  </div>
+
+  <div data-role="content">
+    <foreach name="list1" item="list">
+    <div data-role="collapsible" data-content-theme="e">
+      <h2>{$key}</h2>
+      <volist name='list' id='v'>
+      <div data-role="collapsible"  data-content-theme="e" id="{$v.id}" class="father">
+        <h1><a>［{$v.level}］</a>{$v.title}</h1>
+        <h3>任务描述：</h3>
+      <p>开始时间：{$v.t1}</p>
+      <p>结束时间：{$v.t2}</p>
+      <p>{$v.info}</p>
+        <h3>最新进展：</h3>
+        <div class="info">
+          <volist name="v.tasked" id="vv"><if condition="$vv.type eq 1"><p class="reply">》》{$vv.info}</p><else/><p>[{$vv.timestamp|strtotime|date='m/d H:i',###}]{$vv.info}</p></if></volist>
+        </div>
+        <hr/>
+        <textarea name="info" onKeyDown="if (this.value.length>=400){alert('超过字数限制……')}"></textarea>
+      <div class="ui-grid-a">
+        <div class="ui-block-a"><button data-theme="a" onclick="task(this);">添加批示</button></div>
+        <div class="ui-block-b"><button data-theme="a" onclick="cls(this);">关闭/变更</button></div>
+      </div>
+      </div>
+      </volist>
+    </div>
+   </foreach>
+    <br /><hr />
+    <form method="post" data-ajax="false">
+      <fieldset data-role="collapsible" data-theme="b" data-content-theme="e">
+        <legend>点击 - 创建任务！</legend>
+          <label>任务标题：</label>
+          <input type="text" name="title" required>
+          <label>任务描述：</label>
+          <textarea name="info"></textarea>
+          <p>任务标签：</p>
+          <select name="level">
+            <option>一般</option>
+            <option>尽快</option>
+            <option>紧急</option>
+            <option>非常紧急</option>
+          </select>
+          <p>开始时间</p>
+          <input type="date" name="t1" />
+          <p>结束时间</p>
+          <input type="date" name="t2" />
+          <p>分配任务执行人：</p>
+          <select name="uid"><volist name="uid" id="v"><option value="{$v.id}">{$v.name}</option></volist></select>
+          <p>共享到任务组：</p>
+          <select name="group"><option></option><volist name="group" id="v"><option value="{$v.id}">{$v.title}</option></volist></select>
+      <input type="submit" name="add" value="完成添加" data-theme="a">
+      </fieldset>
+    </form>
+  </div>
+
+  <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#page1" class="ui-btn-active ui-state-persist" data-icon="info">任务列表</a></li>
+        <li><a href="#day" data-icon="info">今日汇报</a></li>
+        <li><a href="#page2" data-icon="plus">问题反馈</a></li>
+        <li><a href="#page3" data-icon="star">工作组</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div data-role="page" id="page2">
+  <div data-role="header" data-position="fixed">
+    <h1>问题反馈</h1>
+    <a href="#page1" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
+  </div>
+
+  <div data-role="content">
+    <foreach name="advice" item="v">
+      <h2>{$key}</h3>
+      <div class="style4" style="text-shadow:none;" name="{$key}">
+        <php>
+          $ac=array_values($v);
+          for($i=11;$i>=0;$i--){
+            if($ac[$i]['type']){
+              echo("<p class='reply'>》》".$ac[$i]['info']."</p>");
+            }else{
+              echo("<p>".$ac[$i]['info']."</p>");
+            }
+          }
+        </php>
+        <hr/>
+        <input type="text" name="info">
+        <button onclick="reply(this)">回复问题</button>
+      </div>
+    </foreach>
+  </div>
+
+  <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#page1" data-icon="info">任务列表</a></li>
+        <li><a href="#day" data-icon="info">今日汇报</a></li>
+        <li><a href="#page2" class="ui-btn-active ui-state-persist" data-icon="plus">问题反馈</a></li>
+        <li><a href="#page3" data-icon="star">工作组</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div data-role="page" id="page3">
+  <div data-role="header" data-position="fixed">
+    <h1>任务组列表</h1>
+    <a href="#page1" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
+  </div>
+
+  <div data-role="content">
+  <volist name="list2" id="task">
+  <div class="group">
+        <h3>&nbsp;&nbsp;{$task.info.title}</h3>
+        <h5>&nbsp;&nbsp;{$task.info.info}</h5>
+        <foreach name="task.task" item="list">
+        <div data-role="collapsible" data-content-theme="e">
+          <h2>{$key}</h2>
+          <volist name='list' id='v'>
+          <div data-role="collapsible"  data-content-theme="e" id="{$v.id}" class="father">
+            <h1><a>［{$v.level}］</a>{$v.title}</h1>
+            <h3>任务描述：</h3>
+          <p>开始时间：{$v.t1}</p>
+          <p>结束时间：{$v.t2}</p>
+          <p>{$v.info}</p>
+            <h3>最新进展：</h3>
+            <div class="info">
+              <volist name="v.tasked" id="vv"><if condition="$vv.type eq 1"><p class="reply">》》{$vv.info}</p><else/><p>[{$vv.timestamp|strtotime|date='m/d H:i',###}]{$vv.info}</p></if></volist>
+            </div>
+            <hr/>
+            <textarea name="info" onKeyDown="if (this.value.length>=400){alert('超过字数限制……')}"></textarea>
+          <div class="ui-grid-a">
+            <div class="ui-block-a"><button data-theme="a" onclick="task(this);" >添加批示</button></div>
+            <div class="ui-block-b"><button data-theme="a" onclick="cls(this);" >关闭任务</button></div>
+          </div>
+          </div>
+          </volist>
+        </div>
+       </foreach><a onclick="clx(this,{$task.info.id})" data-role="button" class="ui-btn-right" data-icon="delete" data-mini="true" data-theme="a">删除任务组</a>
+  </div>
+  </volist>
+    <br /><hr />
+    <form method="post" data-ajax="false">
+      <fieldset data-role="collapsible" data-theme="b" data-content-theme="e">
+        <legend>点击 - 创建任务组！</legend>
+          <label>小组名称：</label>
+          <input type="text" name="title" required>
+          <label>任务描述：</label>
+          <textarea name="info"></textarea>
+          <fieldset data-role="controlgroup">
+            <legend>小组成员：</legend>
+              <volist name="uid" id="v">
+                <label for="r{$v.id}">{$v.name}</label>
+                <input type="checkbox" name="uid[]" id="r{$v.id}" value="{$v.id}">
+              </volist>
+          </fieldset>
+      <input type="submit" name="group_add" value="完成创建" data-theme="a">
+      </fieldset>
+    </form>
+  </div>
+
+  <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#page1" data-icon="info">任务列表</a></li>
+        <li><a href="#day" data-icon="info">今日汇报</a></li>
+        <li><a href="#page2" data-icon="plus">问题反馈</a></li>
+        <li><a href="#page3" class="ui-btn-active ui-state-persist" data-icon="star">工作组</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 任务日报 -->
+
+<div data-role="page" id="day">
+  <div data-role="header">
+    <h1>任务日汇总</h1>
+  </div>
+
+  <div data-role="content">
+    <h2>今日任务汇报</h2>
+    <ul data-role="listview" data-inset="true">
+    <foreach name="day" item="day">
+      <li data-role="list-divider">{$key}</li>
+      <volist name="day" id="v">
+      <li><a href="{:U('info')}/id/{$v.tid}">
+        <h2>{$v.title}</h2>
+        <!-- <p><b>今日汇报</b></p> -->
+        <p>{$v.info.info}</p>
+        <p class="ui-li-aside">{$v.level}</p></a>
+      </li>
+      </volist>
+    </foreach>
+    </ul>
+  </div>
+
+  <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#page1" data-icon="info">任务列表</a></li>
+        <li><a href="#day" class="ui-btn-active ui-state-persist" data-icon="info">今日汇报</a></li>
+        <li><a href="#page2" data-icon="plus">问题反馈</a></li>
+        <li><a href="#page3" data-icon="star">工作组</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 变更任务 -->
+
+</body>
+<style type="text/css">
+.style4{
+    background: bisque;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin: 10px;
+    margin-bottom: 30px;
+}
+.info{
+  padding: 5px;
+  background: burlywood;
+  text-shadow: none;
+  border-radius: 3px;
+}
+.info p{
+  padding: 0px 10px;
+  text-decoration: none;
+}
+.reply{
+  color: blue;
+}
+.group{
+  background: wheat;
+  padding: 5px;
+  border-style: solid;
+  border-color: burlywood;
+  border-width: 1px;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+</style>
+<script type="text/javascript">
+//  添加批示
+  function task(th){
+    var xx=$(th).parents(".father");
+    var info=xx.find("textarea").val();
+    var id=xx.attr('id');
+    $.get("{:U('')}",{tid:id,info:info},function (msg) {
+      if(msg==1){
+        xx.find(".info").append("<p class='reply'>》》"+info+"</p>");
+        xx.find("textarea").val("");
+      }
+    })
+  }
+//  关闭任务
+  function cls(th){
+    var xx=$(th).parents(".father");
+    var id=xx.attr('id');
+    if(confirm("提示：关闭当前任务点击确定，重新设置状态点击取消。")){
+      $.get("{:U()}",{delt:id},function(msg){
+        if(msg==1){
+          xx.empty();
+        }
+      })
+    }else{
+      var level=prompt("将当前任务状态设置为","紧急");
+      if(level)
+      $.get("{:U()}",{change:id,level:level},function(msg){
+        if(msg==1){
+          alert('状态已修改成功……');
+          xx.find(".ui-link").text('['+level+']');
+        }
+      })
+    }
+  }
+//  回复相关问题
+  function reply(th){
+    var xx=$(th).parents(".style4");
+    var name=xx.attr("name");
+    var info=xx.find("input").val();
+    if(info!='')
+    $.get("{:U()}",{name:name,info:info},function(msg){
+      if(msg==1){
+        xx.find("hr").before("<p class='reply'>》》"+info+"</p>");
+        xx.find("input").val("");
+      }
+    })
+  }
+//  关闭任务组
+  function clx(th,id){
+    var xx=$(th).parents(".group");
+    if(confirm("确定要删除该任务组吗？"))
+    $.get("{:U()}",{delt_group:id},function(msg){
+      if(msg==1)xx.hide();
+    })
+  }
+
+</script>
+</html>

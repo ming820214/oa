@@ -1,0 +1,28 @@
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<if condition="(ACTION_NAME neq xc_fuli)and(ACTION_NAME neq xc_5x1d)">
+			<div class="pull-left">
+				<a class="btn btn-sm btn-primary" onclick="hd(1)">第一部分</a>
+				<a class="btn btn-sm btn-primary" onclick="hd(2)">第二部分</a>
+				<a class="btn btn-sm btn-primary" onclick="hd(3)">第三部分</a>
+			</div>
+			</if>
+			<div class="pull-right">
+				<if condition="(ACTION_NAME eq xc_xc1)or(ACTION_NAME eq xc_xc2)or(ACTION_NAME eq xc_xc1as)or(ACTION_NAME eq xc_xc1pj)">
+				<a class="btn btn-sm btn-primary" onclick="xc_other()">添加兼职工资记录</a>&nbsp;&nbsp;&nbsp;
+				</if>
+				姓名：<input type="text" name="name"  class="timeSelectSingle"/>&nbsp;&nbsp;&nbsp;
+				单位：<select name="school" class="col-10"><option></option>{:W('School')}</select>&nbsp;&nbsp;&nbsp;
+				部门：<select name="part" class="col-10"><option></option>{:W('School','part')}</select>&nbsp;&nbsp;&nbsp;
+				职务：<select name="position" class="col-10"><option></option>{:W('School','position')}</select>&nbsp;&nbsp;&nbsp;
+				<if condition="ACTION_NAME eq xc_5x1d">缴纳状态：<select name="state"><option value=""></option><option value="1">尚未缴纳</option><option value="2">即将缴纳</option><option value="3">正在缴纳</option></select></if>
+				<input type="submit" class="btn btn-sm btn-primary" name="search" value="查询">
+				<if condition="ACTION_NAME eq xc_xc1"><a class="btn btn-sm btn-primary" href="{:U('import')}&i=1">数据导出</a></if>
+				<if condition="ACTION_NAME eq xc_xc1as"><a class="btn btn-sm btn-primary" href="{:U('import')}&i=2">数据导出</a></if>
+				<if condition="ACTION_NAME eq xc_xc1pj"><a class="btn btn-sm btn-primary" href="{:U('import')}&i=3">数据导出</a></if>
+				<if condition="ACTION_NAME eq xc_xc2"><a class="btn btn-sm btn-primary" href="{:U('import')}&i=4">数据导出</a></if>
+			</div>
+		</div>
+	</div>
+</form>

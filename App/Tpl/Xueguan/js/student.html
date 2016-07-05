@@ -1,0 +1,36 @@
+<style type="text/css">
+.box1{
+  padding: 30px;
+  margin: 20px 30px;
+  background-color: antiquewhite;
+  font-size: 13px;
+  font-weight: bolder;
+}
+</style>
+
+<script type="text/javascript">
+function xueqing (sid) {
+  $("#xueqing").show();
+  $(".id").val(sid);
+}
+
+$("#search").on("click",function () {
+  CookieUtil.set("s1",$("#state").val());
+  CookieUtil.set("s2",$("#type").val());
+  CookieUtil.set("s3",$("#grade").val());
+  CookieUtil.set("s4",$("#xueguan").val());
+  CookieUtil.set("s5",$("#state2").val());
+  CookieUtil.set("s6",$("#type2").val());
+});
+
+<notempty name="Think.post.search">
+$(document).ready(function(){
+  $("#state").val(CookieUtil.get("s1"));
+  $("#type").val(CookieUtil.get("s2"));
+  $("#grade").val(CookieUtil.get("s3"));
+  $("#xueguan").val(CookieUtil.get("s4"));
+  $("#state2").val(CookieUtil.get("s5"));
+  $("#type2").val(CookieUtil.get("s6"));
+});
+</notempty>
+</script>

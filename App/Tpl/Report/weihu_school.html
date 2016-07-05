@@ -1,0 +1,348 @@
+<layout name='Layout/ace_layout' />
+<if condition="$_SESSION['schooll'] eq 集团">
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+				查看校区：<select name="school" id="school">
+					{:W('School')}
+				</select>
+				<input type="submit" class="btn btn-sm btn-primary" name="search" value="进入查看" id="search">
+			</div>
+		</div>
+	</div>
+</form>
+</if>
+	<table width="100%" align="center" class="t1" border="3" cellpadding="10">
+		<tr class="pa">
+			<th colspan="12" align="center" class="th">正常在读学员课时状态监控</th>
+			<th style="text-align:right;background-color:moccasin;color: #428bca;cursor: pointer;">详情点击↓↓↓↓</th>
+		</tr>
+		<tr style="background-color: moccasin;font-weight: bold;">
+			<td>学员总数</td>
+			<td><a data="ba1">{$data.ba1}</a></td>
+			<td>变化量</td>
+			<td>总课时数</td>
+			<td>数学</td>
+			<td>语文</td>
+			<td>英语</td>
+			<td>物理</td>
+			<td>化学</td>
+			<td>生物</td>
+			<td>政治</td>
+			<td>历史</td>
+			<td>地理</td>
+		</tr>
+		<tr style="background-color:rgb(108, 202, 108);font-weight: bold;">
+			<td>正常在读人数</td>
+			<td><a data="ba2">{$data.bax.人数}</a></td>
+			<td></td>
+			<td>{$data['bax']['数学']+$data['bax']['语文']+$data['bax']['英语']+$data['bax']['物理']+$data['bax']['化学']+$data['bax']['生物']+$data['bax']['政治']+$data['bax']['历史']+$data['bax']['地理']}</td>
+			<td>{$data.bax.数学}</td>
+			<td>{$data.bax.语文}</td>
+			<td>{$data.bax.英语}</td>
+			<td>{$data.bax.物理}</td>
+			<td>{$data.bax.化学}</td>
+			<td>{$data.bax.生物}</td>
+			<td>{$data.bax.政治}</td>
+			<td>{$data.bax.历史}</td>
+			<td>{$data.bax.地理}</td>
+		</tr>
+		<volist name="data.baa" id="vo">
+		<tr class="ch">
+			<td>{$key}</td>
+			<td><a data="ba2" nm="{$key}">{$vo.正常|count}</a></td>
+			<td><a data="ba3" nm="{$key}"></a></td>
+			<td>{$vo.总数}</td>
+			<td>{$vo.数学}</td>
+			<td>{$vo.语文}</td>
+			<td>{$vo.英语}</td>
+			<td>{$vo.物理}</td>
+			<td>{$vo.化学}</td>
+			<td>{$vo.生物}</td>
+			<td>{$vo.政治}</td>
+			<td>{$vo.历史}</td>
+			<td>{$vo.地理}</td>
+		</tr>
+		</volist>
+		<tr class="ch">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td colspan="10">说明：学管课时统计数据有交叉，仅供参考。</td>
+		</tr>
+	</table>
+
+	<table class="t1" width="100%" align="center" border="3" cellpadding="10">
+		<tr class="pa">
+			<th colspan="12" class="th">非正常在读学员课时状态监控</th>
+			<th style="text-align:right;background-color:moccasin;color: #428bca;cursor: pointer;">详情点击↓↓↓↓</th>
+		</tr>
+		<tr style="background-color: moccasin;font-weight: bold;">
+			<td>项目</td>
+			<td>人数</td>
+			<td>项目</td>
+			<td>人数</td>
+			<td>数学</td>
+			<td>语文</td>
+			<td>英语</td>
+			<td>物理</td>
+			<td>化学</td>
+			<td>生物</td>
+			<td>政治</td>
+			<td>历史</td>
+			<td>地理</td>
+		</tr>
+		<tr style="background-color:rgb(108, 202, 108);font-weight: bold;">
+			<td>非正常在读学员数量</td>
+			<td><a data="bb1">{$data.bbx.人数}</a>人</td>
+			<td>单科非正常状态人数</td>
+			<td><a data="bb2">{$data.bba.单非.总|count}</a>人</td>
+			<td>{$data.bba.单非.数学|count}人</td>
+			<td>{$data.bba.单非.语文|count}人</td>
+			<td>{$data.bba.单非.英语|count}人</td>
+			<td>{$data.bba.单非.物理|count}人</td>
+			<td>{$data.bba.单非.化学|count}人</td>
+			<td>{$data.bba.单非.生物|count}人</td>
+			<td>{$data.bba.单非.政治|count}人</td>
+			<td>{$data.bba.单非.历史|count}人</td>
+			<td>{$data.bba.单非.地理|count}人</td>
+		</tr>
+		<volist name="data.baa" id="vo2">
+		<tr class="ch">
+			<td>{$key}</td>
+			<td><a data="bb1" nm="{$key}">{$vo2.非正常|count}</a>人</td>
+			<td>{$key}</td>
+			<td><a data="bb2" nm="{$key}">{$vo2.单非.总|count}</a>人</td>
+			<td>{$vo2.单非.数学|count}</td>
+			<td>{$vo2.单非.语文|count}</td>
+			<td>{$vo2.单非.英语|count}</td>
+			<td>{$vo2.单非.物理|count}</td>
+			<td>{$vo2.单非.化学|count}</td>
+			<td>{$vo2.单非.生物|count}</td>
+			<td>{$vo2.单非.政治|count}</td>
+			<td>{$vo2.单非.历史|count}</td>
+			<td>{$vo2.单非.地理|count}</td>
+		</tr>
+		</volist>
+	</table>
+
+	<table width="100%" align="center" class="t1" border="3" cellpadding="10">
+		<tr class="pa">
+			<th colspan="5" class="th">流失学员数据监控</th>
+			<th style="text-align:right;background-color:moccasin;color: #428bca;cursor: pointer;">详情点击↓↓↓↓</th>
+		</tr>
+		<tr style="background-color:rgb(108, 202, 108);font-weight: bold;">
+			<td>总停课人数</td>
+			<td><a data="bc1">{$data.bcx1.人数}</a>人</td>
+			<td>新增停课人数</td>
+			<td><a data="bc2" ></a>人</td>
+			<td>激活</td>
+			<td><a data="bc3"></a></td>
+		</tr>
+		<volist name="data.baa" id="vo3">
+		<tr class="ch">
+			<td>{$key}</td>
+			<td><a data="bc1" nm="{$key}">{$vo3.停课|count}</a>人</td>
+			<td>{$key}</td>
+			<td><a data="bc2" nm="{$key}">{$vo3.新增.停课|count}</a>人</td>
+			<td>{$key}</td>
+			<td><a data="bc3" nm="{$key}">{$vo3.激活.停课|count}</a>人</td>
+		</tr>
+		</volist>
+		<tr style="background-color:rgb(108, 202, 108);font-weight: bold;">
+			<td>总退费人数</td>
+			<td><a data="bc5">{$data.bcx2.人数}</a>人</td>
+			<td>新增退费人数</td>
+			<td><a data="bc6"></a>人</td>
+			<td>激活</td>
+			<td><a data="bc7"></a></td>
+		</tr>
+		<volist name="data.baa" id="vo4">
+		<tr class="ch">
+			<td>{$key}</td>
+			<td><a data="bc5" nm="{$key}">{$vo4.退费|count}</a>人</td>
+			<td>{$key}</td>
+			<td><a data="bc6" nm="{$key}">{$vo4.新增.退费|count}</a>人</td>
+			<td>{$key}</td>
+			<td><a data="bc7" nm="{$key}">{$vo4.激活.退费|count}</a>人</td>
+		</tr>
+		</volist>
+		<tr style="background-color:rgb(108, 202, 108);font-weight: bold;">
+			<td>总结课人数</td>
+			<td><a data="bc9">{$data.bcx3.人数}</a>人</td>
+			<td>新增结课人数</td>
+			<td><a data="bc10"></a>人</td>
+			<td>激活</td>
+			<td><a data="bc11"></a></td>
+		</tr>
+		<volist name="data.baa" id="vo5">
+		<tr class="ch">
+			<td>{$key}</td>
+			<td><a data="bc9" nm="{$key}">{$vo5.结课|count}</a>人</td>
+			<td>{$key}</td>
+			<td><a data="bc10" nm="{$key}">{$vo5.新增.结课|count}</a>人</td>
+			<td>{$key}</td>
+			<td><a data="bc11" nm="{$key}">{$vo5.激活.结课|count}</a>人</td>
+		</tr>
+		</volist>
+	</table>
+
+	<table width="100%" align="center" class="t1" border="3" cellpadding="10">
+		<tr class="pa">
+			<th colspan="5" class="th">本月任务监控</th>
+			<th style="text-align:right;background-color:moccasin;color: #428bca;cursor: pointer;">详情点击↓↓↓↓</th>
+		</tr>
+		<tr style="background-color:rgb(108, 202, 108);font-weight: bold;">
+			<td>普通维护任务</td>
+			<td><a data="bd1">{$data.bdx.普通维护.全}</a>件</td>
+			<td>已完成</td>
+			<td><a data="bd2">{$data.bdx.普通维护.已}</a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round($data['bdx']['普通维护']['已']*100/$data['bdx']['普通维护']['全'],2));</php>%</td>
+		</tr>
+		<volist name="data.bda.普通维护" id="vo6">
+		<tr class="ch">
+			<td>{$key}</td>
+			<td><a data="bd1" nm="{$key}">{$vo6.全|count}</a>件</td>
+			<td>已完成</td>
+			<td><a data="bd2" nm="{$key}">{$vo6.已|count}</a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round(count($vo6['已'])*100/count($vo6['全']),2));</php>%</td>
+		</tr>
+		</volist>
+		<tr style="background-color:rgb(108, 202, 108);font-weight: bold;">
+			<td>A级维护任务</td>
+			<td><a data="bd3">{$data.bdx.A级维护.全}</a>件</td>
+			<td>已完成</td>
+			<td><a data="bd4">{$data.bdx.A级维护.已}</a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round($data['bdx']['A级维护']['已']*100/$data['bdx']['A级维护']['全']*100,2));</php>%</td>
+		</tr>
+		<volist name="data.bda.A级维护" id="vo7">
+		<tr class="ch">
+			<td>{$key}</td>
+			<td><a data="bd3" nm="{$key}">{$vo7.全|count}</a>件</td>
+			<td>已完成</td>
+			<td><a data="bd4" nm="{$key}">{$vo7.已|count}</a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round(count($vo7['已'])*100/count($vo7['全']),2));</php>%</td>
+		</tr>
+		</volist>
+		<tr style="background-color:rgb(108, 202, 108);font-weight: bold;">
+			<td>2A级维护任务</td>
+			<td><a data="bd5">{$data.bdx.2A级维护.全}</a>件</td>
+			<td>已完成</td>
+			<td><a data="bd6">{$data.bdx.2A级维护.已}</a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round($data['bdx']['2A级维护']['已']*100/$data['bdx']['2A级维护']['全']*100,2));</php>%</td>
+		</tr>
+		<volist name="data.bda.2A级维护" id="vo77">
+		<tr class="ch">
+			<td>{$key}</td>
+			<td><a data="bd5" nm="{$key}">{$vo77.全|count}</a>件</td>
+			<td>已完成</td>
+			<td><a data="bd6" nm="{$key}">{$vo77.已|count}</a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round(count($vo77['已'])*100/count($vo77['全']),2));</php>%</td>
+		</tr>
+		</volist>
+		<tr style="background-color:rgb(108, 202, 108);font-weight: bold;">
+			<td>3A级维护任务</td>
+			<td><a data="bd7">{$data.bdx.3A级维护.全}</a>件</td>
+			<td>已完成</td>
+			<td><a data="bd8">{$data.bdx.3A级维护.已}</a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round($data['bdx']['3A级维护']['已']*100/$data['bdx']['3A级维护']['全'],2));</php>%</td>
+		</tr>
+		<volist name="data.bda.3A级维护" id="vo8">
+		<tr class="ch">
+			<td>{$key}</td>
+			<td><a data="bd7" nm="{$key}">{$vo8.全|count}</a>件</td>
+			<td>已完成</td>
+			<td><a data="bd8" nm="{$key}">{$vo8.已|count}</a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round(count($vo8['已'])*100/count($vo8['全']),2));</php>%</td>
+		</tr>
+		</volist>
+		<tr style="background-color:rgb(108, 202, 108);font-weight: bold;">
+			<td>老师维护意见</td>
+			<td><a data="bd9">{$data.bdx.意见.全}</a>件</td>
+			<td>已完成</td>
+			<td><a data="bd10">{$data.bdx.意见.已}</a>件</td>
+			<td>完成率</td>
+			<td>{$data['bdx']['意见']['已']*100/$data['bdx']['意见']['全']|round=###,2}%</td>
+		</tr>
+		<volist name="data.bdc" id="vo9">
+		<tr class="ch">
+			<td>{$key}</td>
+			<td><a data="bd9" nm="{$key}">{$vo9.全}</a>件</td>
+			<td>已完成</td>
+			<td><a data="bd10" nm="{$key}">{$vo9.已}</a>件</td>
+			<td>完成率</td>
+			<td>{$vo9['已']*100/$vo9['全']|round=###,2}%</td>
+		</tr>
+		</volist>
+		<tr>
+			<td colspan="6" align="center">提示：蓝色数字可以点击显示详情，数据中对应学管的课时数仅供参考……</td>
+		</tr>
+	</table>
+
+
+
+<!-- 维护设置 -->
+<div class="box" id="set" style="display: none;height: 400px;"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3>维护设置</h3></div>
+  <div class="box1"><input type="hidden" name="stuid" class="stuid">
+    <table cellpadding="15" border="3" width="95%">
+      <tr>
+        <td>周次</td>
+        <td>维护级别</td>
+        <td>任务截止时间</td>
+      </tr>
+      <tr>
+        <td width="220px">
+          <div style="overflow-y: auto;max-height: 150px;" id="week">          
+            <volist name="week" id="w">
+            <if condition="$i egt date('W')"><span data="{$w[0]}" <if condition="$i eq date('W')">class="week"</if>>第{$i}周（{$w[0]}-{$w[1]}）</span><br/></if>
+            </volist>
+          </div>
+        </td>
+        <td id="type" width="150px">
+        <span data="普通维护" class="type">普通（电话维护）</span><br/>
+        <span data="A级维护">A级（学管沟通）</span><br/>
+        <span data="2A级维护">2A级（小型学情）</span><br/>
+        <span data="3A级维护">3A级（大型学情）</span><br/>
+        </td>
+        <td><select name="week" id="m">
+          <option value="0">星期一</option>
+          <option value="1">星期二</option>
+          <option value="2">星期三</option>
+          <option value="3">星期四</option>
+          <option value="4">星期五</option>
+          <option value="5">星期六</option>
+          <option value="6">星期日</option>
+        </select><button class="bt">执行维护任务</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<!-- 维护任务查看 -->
+<form method="post">
+<div class="box" id="set_record" style="display: none;width:900px;height:inherit;"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3>任务详情(待完成)</h3></div>
+  <div class="box1"><input type="hidden" name="stuid" class="stuid">
+    <table cellpadding="15" border="1"  width="100%" class="content">
+      <tr>
+        <th>周次</th>
+        <th>维护级别</th>
+        <th>任务截止时间</th>
+        <th>学管</th>
+        <th>操作</th>
+      </tr>
+    </table>
+  </div>
+</div>
+</form>
+<include file="Xueguan:box"/>

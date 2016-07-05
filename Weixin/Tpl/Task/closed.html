@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="white">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-touch-fullscreen" content="yes">
+<link rel="stylesheet" href="../Public/jqm/jquery.mobile-1.3.0.min.css">
+<script src="../Public/jqm/jquery.js"></script>
+<script src="../Public/jqm/jquery.mobile-1.3.0.min.js"></script>
+</head>
+<body>
+<div data-role="page" id="page1">
+  <div data-role="header" data-position="fixed">
+    <h1>已关闭任务列表</h1>
+  </div>
+  <div data-role="content">
+    <foreach name="list1" item="list">
+    <div data-role="collapsible" data-content-theme="e">
+      <h2>{$key}</h2>
+      <volist name='list' id='v'>
+      <div data-role="collapsible"  data-content-theme="e" id="{$v.id}" class="father">
+        <h1><a>［{$v.level}］</a>{$v.title}</h1>
+        <h3>任务描述：</h3>
+      <p>开始时间：{$v.t1}</p>
+      <p>结束时间：{$v.t2}</p>
+      <p>{$v.info}</p>
+        <h3>最新进展：</h3>
+        <div class="info">
+          <volist name="v.tasked" id="vv"><if condition="$vv.type eq 1"><p class="reply">》》{$vv.info}</p><else/><p>[{$vv.timestamp|strtotime|date='m/d H:i',###}]{$vv.info}</p></if></volist>
+        </div>
+        <hr/>
+      </div>
+      </volist>
+    </div>
+   </foreach>
+    <br />
+  </div>
+
+</div>
+
+</body>
+<style type="text/css">
+.style4{
+    background: bisque;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin: 10px;
+    margin-bottom: 30px;
+}
+.info{
+  padding: 5px;
+  background: burlywood;
+  text-shadow: none;
+  border-radius: 3px;
+}
+.info p{
+  padding: 0px 10px;
+  text-decoration: none;
+}
+.reply{
+  color: blue;
+}
+.group{
+  background: wheat;
+  padding: 5px;
+  border-style: solid;
+  border-color: burlywood;
+  border-width: 1px;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+</style>
+<script type="text/javascript">
+//  添加批示
+  function task(th){
+    var xx=$(th).parents(".father");
+    var info=xx.find("textarea").val();
+    var id=xx.attr('id');
+    $.get("{:U('')}",{tid:id,info:info},function (msg) {
+      if(msg==1){
+        xx.find(".info").append("<p class='reply'>》》"+info+"</p>");
+        xx.find("textarea").val("");
+      }
+    })
+  }
+//  关闭任务
+  function cls(th){
+    var xx=$(th).parents(".father");
+    var id=xx.attr('id');
+    if(confirm("确定要关闭任务？"))
+    $.get("{:U()}",{delt:id},function(msg){
+      if(msg==1){
+        xx.empty();
+      }
+    })
+  }
+//  回复相关问题
+  function reply(th){
+    var xx=$(th).parents(".style4");
+    var name=xx.attr("name");
+    var info=xx.find("input").val();
+    if(info!='')
+    $.get("{:U()}",{name:name,info:info},function(msg){
+      if(msg==1){
+        xx.find("hr").before("<p class='reply'>》》"+info+"</p>");
+        xx.find("input").val("");
+      }
+    })
+  }
+//  关闭任务组
+  function clx(th,id){
+    var xx=$(th).parents(".group");
+    if(confirm("确定要删除该任务组吗？"))
+    $.get("{:U()}",{delt_group:id},function(msg){
+      if(msg==1)xx.hide();
+    })
+  }
+
+</script>
+</html>

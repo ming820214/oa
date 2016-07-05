@@ -1,0 +1,38 @@
+<script type="text/javascript">
+	function save() {
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}");
+		}
+	}
+
+	function add_sales($vip_id) {
+		window.open(fix_url("{:U('add_sales')}?vip_id="+$vip_id), "_self");
+		return false;
+	}
+
+	function formatMoney(numStr) {
+		s = numStr;
+		if (/[^0-9\.\-]/.test(s))
+			return "　";
+		s = s.replace(/^(-)?(\d*)$/, "$1$2.");
+		s = (s + "00").replace(/(-)?(\d*\.\d\d)\d*/, "$1$2");
+		s = s.replace(".", ",");
+		var re = /(\d)(\d{3},)/;
+		while (re.test(s))
+		s = s.replace(re, "$1,$2");
+		s = s.replace(/,(\d\d)$/, ".$1");
+		return s.replace(/^\./, "0.")
+	}
+
+	$(document).ready(function() {
+		set_val('dressing_style',"{$vo.dressing_style}");
+		set_val('top_size',"{$vo.top_size}");
+		set_val('paper_type',"{$vo.paper_type}");
+		set_val('bottom_size',"{$vo.bottom_size}");
+		set_val('like_color',"{$vo.like_color}");
+		set_val('vip_type',"{$vo.vip_type}");	
+		set_val('sex',"{$vo.sex}");
+
+		$("#total_amount").html(formatMoney(trim($("#total_amount").html())));
+	})
+</script>

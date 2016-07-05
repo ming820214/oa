@@ -1,0 +1,15 @@
+<div class="p-img">
+	<a  href="{:U('read','id='.$id)}"> <img src="{:get_save_url()}{$file_list[0]['savename']}"> </a>
+</div>
+<div class="p-scroll row">
+	<a href="javascript:;" class="p-scroll-btn p-scroll-prev disabled" style="display: inline;">&lt;</a>
+	<div class="p-scroll-wrap" >
+		<ul >
+		<volist name="file_list" id="file">
+			<li>
+				<a href="javascript:;" ><img src="{:get_save_url()}{$file.savename}"></a>
+			</li>
+		</volist>
+		</ul>
+	</div><a href="javascript:;" class="p-scroll-btn p-scroll-next" style="display: inline;">&gt;</a>
+</div>

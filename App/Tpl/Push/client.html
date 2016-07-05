@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8' />
+	<!--[if !IE]>
+	-->
+	<script type="text/javascript">
+			window.jQuery || document.write("<script src='__PUBLIC__/js/jquery-2.1.0.min.js'>" + "<" + "/script>");</script>
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+		window.jQuery || document.write("<script src='__PUBLIC__/js/jquery-1.11.0.min.js'>"+"<"+"/script>");</script>
+<![endif]-->
+		<script type="text/javascript">
+			var flag = true;
+			var runing = false;
+			push_start();
+
+			function sendPush(url, vars, callback) {
+				return $.ajax({
+					type : "POST",
+					url : url,
+					data : vars + "&ajax=1",
+					dataType : "json",
+					success : callback
+				});
+			}
+
+			function hide_msg($obj) {
+				runing = true;
+				setTimeout(function() {
+					$($obj).find("div.alert").remove();
+					if ($($obj).find("div.alert").length) {
+						hide_msg($obj);
+					} else {
+						runing = false;
+					}
+				}, 3000)
+			}
+
+			function show_msg(info) {
+				if (info != "no-data") {
+					html = "<div class=\"col-sm-3 alert alert-info fade in\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button><span>" + info + "</span></div>"
+					$obj = $("#push_msg", parent.document);
+					$obj.prepend(html);
+					if (runing == false) {
+						hide_msg($obj);
+					}
+				}
+			}
+
+			function push_start() {
+				sendPush("{:U('push/server')}", '', function(data) {
+					if (data.info != "no-data") {
+						window.parent.ui_info(data.info);
+					}
+					if (flag) {
+						push_start();
+					}
+				});
+
+				sendPush("{:U('push/status')}", '', function(data) {
+					//console.log(data);
+					var name;
+					for(name in data){
+						if(data[name]>99){
+							data[name]=+99;
+						}
+						//console.log(name+":"+data[name]);
+						if(data[name]>0){
+							var objElem=$('a[url="/smeoa/'+name+'/index"] > span',parent.document);
+							if(objElem.length>0){
+								objElem.text(data[name]);
+							}
+							else{
+								$('a[url="/smeoa/'+name+'/index"]',parent.document).append('<span class="badge badge-pink">'+data[name]+'</span');
+							}
+						}
+					}
+				});
+			}
+
+			function push_stop() {
+				flag = false;
+			}
+
+			function test(){
+				window.parent.ui_info("abcsdfsdfsfd");
+			}
+
+		</script>
+	</head>
+	<body>
+		<input type="button" value="abc" onclick="test()">
+	</body>
+</html>

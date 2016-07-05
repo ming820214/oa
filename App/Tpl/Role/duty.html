@@ -1,0 +1,46 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'业务管理映射','search'=>'N'))}
+
+<div class="operate panel panel-default">
+	<div class="panel-body">
+		<div class="pull-right">
+			<a onclick="save()"  class="btn btn-sm btn-primary">保存</a>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-4 sub_left_menu">
+		<table class="table table-bordered">
+			<tr>
+				<th>名称</th>
+			</tr>
+			<volist name="list" id="data">
+				<tr id="{$data.id}">
+					<td>{$data.name}</td>
+				</tr>
+			</volist>
+		</table>
+	</div>
+	<div class="col-sm-8 sub_content">
+		<form id="form_data" method="post" action="">
+			<input type="hidden" name="ajax" id="ajax" value="1">
+			<input type="hidden" name="role_id" id="role_id">
+			<table class="table table-bordered">
+				<tr>
+					<th class="checkbox">&nbsp;</th>
+					<th>名称</th>
+					<th>备注</th>
+				</tr>
+				<volist name="duty_list" id="data">
+					<tr id="{$data.id}">
+						<td>
+						<input type="checkbox" id="duty_{$data.id}" name="duty_list[]" value="{$data.id}">
+						</td>
+						<td>{$data.name}</td>
+						<td>{$data.remark}</td>
+					</tr>
+				</volist>
+			</table>
+		</form>
+	</div>
+</div>

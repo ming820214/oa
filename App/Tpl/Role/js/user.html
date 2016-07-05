@@ -1,0 +1,46 @@
+<script type="text/javascript">
+	function btn_search() {
+		sendForm("form_search", "__SELF__");
+		$("#form_search").submit();
+	}
+
+	function key_search() {
+		if (event.keyCode == 13) {
+			sendForm("form_search", "__SELF__");
+			return false;
+		}
+	}
+
+	function save() {
+		if ($("input:checked[name='emp_id[]']").length < 1) {
+			ui_error("请选择用户");
+			return false;
+		};
+		if ($("input:checked[name='role_list[]']").length < 1) {
+			ui_error("请选择权限");
+			return false;
+		};
+		sendForm("form_data", "{:U('set_role')}");
+	}
+
+	function showdata(result) {
+		$("input[name='role_list[]']").each(function() {
+			$(this).prop('checked', false);
+		});
+		for (var s in result.data) {
+			$("#role_" + result.data[s].role_id).prop('checked', true);
+		}
+	}
+
+
+	$(document).ready(function() {
+		set_return_url();
+		$(".sub_left_menu tbody tr").click(function() {
+			$(".sub_left_menu  tr").attr("class", "");
+			$(this).attr("class", "active");
+			sendAjax("{:U('get_role_list')}", "id=" + $(this).attr("id"), function(data) {
+				showdata(data);
+			});
+		})
+	}); 
+</script>

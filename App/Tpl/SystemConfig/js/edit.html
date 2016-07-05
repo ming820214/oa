@@ -1,0 +1,18 @@
+<script type="text/javascript">
+	function save() {
+		if (check_form("form_data")) {
+			sendForm("form_data", '{:U("save")}');
+		}
+	}
+
+	function del() {
+		var vars = $("#form_data").serialize();
+		ui_confirm('确定要删除吗?',function(){
+			sendForm("form_data", "{:U('del')}");
+		})
+	}
+
+	$(function() {
+		set_val('is_del', "{$vo.is_del}");
+	}); 
+</script>

@@ -1,0 +1,240 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'预算审核','search'=>'A'))}
+<script language="javascript" type="text/javascript" src="__PUBLIC__/time/WdatePicker.js"></script>
+<link href="__PUBLIC__/time/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+
+<form method="post" id="form_aa">
+	<div class="adv_search panel panel-default display-none"  id="adv_aa">
+		<div class="panel-heading">
+			<div class="row">
+				<h4 class="col-xs-6">修改--><input  type="text" name="date" onclick="WdatePicker({dateFmt:'yyyy-MM'})" style="width: 70px;" required="ture" value="{$Think.session.date}" />期次-->{$Think.session.schooll}-->{$Think.session.user_name}<input type="hidden" name="id"></h4>
+				<div class="col-xs-6 text-right">
+					<input class="btn btn-sm btn-info" type="submit" name="change" value="保存">
+					<a  class="btn btn-sm " onclick="change_c();">取消</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+		<table align="center" style="width: 100%;">
+			<tr>
+				<td>预算类型:</td>
+				<td>
+					<input type="radio" name="class" value="1" checked="checked"/>常规性
+					<input type="radio" name="class" value="0" />临时性
+				</td>
+				<td>预算周期:</td>
+				<td><input type="text" name="week" /></td>
+				<td>接收人:</td>
+				<td><input type="text" name="jsr" /></td>
+				<td>卡号:</td>
+				<td><input type="text" name="card" /></td>
+				<td>申请原因:</td>
+				<td><input type="text" name="why" /></td>
+			</tr>
+			<tr>
+				<td>接收校区：</td>
+				<td>
+					<select name="jsxq">
+					<volist name="selt" id="school">
+						<option>{$school.sort}</option>
+					</volist>
+					</select>
+				</td>
+				<td>归属校区：</td>
+				<td>
+					<select name="gs">
+					<volist name="selt" id="school">
+						<option>{$school.sort}</option>
+					</volist>
+					</select>
+				</td>
+				<td>审核部门：</td>
+				<td>
+					<select name="bm">
+					<option>财务部</option>
+					<option>人力资源</option>
+					<option>营销部</option>
+					<option>培训部</option>
+					<option>教学部</option>
+					<option>运营部</option>
+					<option>总裁办</option>
+					</select>
+				</td>
+				<td>成本类型:</td>
+				<td>
+					<select name="aa" id="class">
+					<option>行政办公</option>
+					<option>固定资产</option>
+					<option>场地费用</option>
+					<option>寝室费用</option>
+					<option>环境建设</option>
+					<option>校区活动金</option>
+					<option>工资费用</option>
+					<option>员工福利</option>
+					<option>员工借款</option>
+					<option>培训费用</option>
+					<option>宣传费用</option>
+					<option>营销（刚性）</option>
+					<option>营销（柔性）</option>
+					<option>招聘费用</option>
+					<option>关系运作</option>
+					<option>终极逆转特训营</option>
+					<option>艺术生特训营</option>
+					<option>校庆</option>
+					<option>押金</option>
+					<option>福利金</option>
+					<option>上期结余</option>
+					<option>预留资金</option>
+					</select>
+				</td>
+				<td>二级科目:</td>
+				<td>
+					<select name="b" id="classs">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>单价（元）:</td>
+				<td><input type="text"  name="d" required="ture"></td>
+				<td>数量:</td>
+				<td><input type="text" name="e" required="ture"></td>
+				<td>申请金额：</td>
+				<td><input type="text" name="f" required="ture"></td>
+				<td>期望审批日期：</td>
+				<td><input type="text" name="g" required="ture" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/></td>
+				<td>备注</td>
+				<td><input type="text" name="other"></td>
+			</tr>
+			<tr>
+				<td>明细：</td>
+				<td><input type="text" name="c"></td>				
+			</tr>
+		</table>
+		</div>
+	</div>
+</form>
+
+<div  id="adv_search">
+				<form method="post" action="" name="form_data" id="form_data">
+		<div class="operate panel panel-default">
+			<div class="panel-body">
+				<div class="pull-left">
+					<input class="btn btn-sm btn-danger" type="submit" name="aax" value="审核通过" />
+					<input class="btn btn-sm btn-danger" type="submit" name="lose" value="审核失败" />
+					<input class="btn btn-sm btn-danger" type="submit" name="bt" value="退回修改" />
+				</div>
+				<div class="pull-right">
+					<input class="btn btn-sm btn-primary" onclick="change()" value="直接修改" />
+					<input class="btn btn-sm btn-primary" type="submit" name="dl" value="删除" />
+				</div>
+			</div>
+		</div>
+
+	<div style="overflow-x:auto;overflow-y:auto;max-height: 500px;">
+	<div class="ul_table message-container" style="width:2400px;">
+		<ul>
+		<li class="thead">
+			<label class="inline pull-left col-3">
+				<input class="ace" type="checkbox" name="id-toggle-all" id="id-toggle-all" />
+				<span class="lbl"></span></label>
+			<span class="col-8 text-center">状态</span>
+			<span class="col-10 text-center">申请校区</span>
+			<span class="col-10 text-center">归属校区</span>
+			<span class="col-10 text-center">审核部门</span>
+			<span class="col-10 text-center">成本类型</span>
+			<span class="col-10 text-center">二级科目</span>
+			<span class="col-20 text-center">明细</span>
+			<span class="col-8 text-right">单价（元）</span>
+			<span class="col-8 text-right">数量</span>
+			<span class="col-8 text-right">申请金额</span>
+			<span class="col-15 text-center">期望审批日期</span>			
+			<span class="col-10 text-center">类型</span>
+			<span class="col-20 text-center">预算周期</span>
+			<span class="col-10 text-center">接收校区</span>
+			<span class="col-10 text-center">接收人</span>
+			<span class="col-20 text-center">卡号</span>
+			<span class="col-10 text-center">财务</span>
+			<span class="col-15 text-center">申请原因</span>
+			<span class="col-20 text-center">备注</span>
+		</li>
+			<form method="post" action="{:U('delt')}" id="form_b">
+				<foreach name="list" item="vo">
+					<li class="tbody data_item">
+						<label class="inline pull-left col-3">
+							<input class="ace" type="checkbox" name="id[]" value="{$vo.id}" />
+							<span class="lbl"></span></label>
+							<span class="col-8 text-center">
+								<switch name="vo.state" >
+								<case value="0"><a style="color:red;">退回修改</a></case>
+								<case value="1"><a style="color:fuchsia;">校区审核</a></case>
+								<case value="2"><a style="color:#6666FF;">部门审核</a></case>
+								<case value="3"><a style="color:#99CC00;">总裁审核</a></case>
+								<case value="4"><a style="color:#333333;">财务确认</a></case>
+								<case value="5"><a style="color:#009933;">审核通过</a></case>
+								</switch>
+							</span>
+							<span class="col-10 text-center">{$vo.school}</span>
+							<span class="col-10 text-center"><empty name="vo.gs">&nbsp;<else />{$vo.gs}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.bm">&nbsp;<else />{$vo.bm}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.aa">&nbsp;<else />{$vo.aa}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.b">&nbsp;<else />{$vo.b}</empty></span>
+							<span class="col-20 text-center"><empty name="vo.c">&nbsp;<else />{$vo.c}</empty></span>
+							<span class="col-8 text-right"><empty name="vo.d">&nbsp;<else />{$vo.d}</empty></span>
+							<span class="col-8 text-right"><empty name="vo.e">&nbsp;<else />{$vo.e}</empty></span>
+							<span class="col-8 text-right"><php>$f=$vo['d']*$vo['e'];$h+=$f;echo($f);</php></span>
+							<span class="col-15 text-center"><empty name="vo.g">&nbsp;<else />{$vo.g}</empty></span>
+							<span class="col-10 text-center"><if condition="$vo.class eq 1">常规性预算<else />临时性预算</if></span>
+							<span class="col-20 text-center"><empty name="vo.week">&nbsp;<else />{$vo.week}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.jsxq">&nbsp;<else />{$vo.jsxq}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.jsr">&nbsp;<else />{$vo.jsr}</empty></span>
+							<span class="col-20 text-center"><empty name="vo.card">&nbsp;<else />{$vo.card}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.name">&nbsp;<else />{$vo.name}</empty></span>
+							<span class="col-15 text-center"><empty name="vo.why">&nbsp;<else />{$vo.why}</empty></span>
+							<span class="col-20 text-center"><empty name="vo.other">&nbsp;<else />{$vo.other}</empty></span>
+					</li>
+				</foreach>
+			</empty>
+				<foreach name="list2" item="voo">
+					<li class="tbody data_item">
+						<label class="inline pull-left col-3">
+							<a class="ace">&nbsp;</a>
+							<span class="lbl"></span></label>
+							<span class="col-8 text-center">
+								<switch name="voo.state" >
+									<case value="-1"><a style="color:red;">审核失败</a></case>
+									<case value="0"><a style="color:red;">退回修改</a></case>
+									<case value="1"><a style="color:fuchsia;">校区审核</a></case>
+									<case value="2"><a style="color:#6666FF;">部门审核</a></case>
+									<case value="3"><a style="color:#99CC00;">总裁审核</a></case>
+									<case value="4"><a style="color:#333333;">财务确认</a></case>
+									<case value="5"><a style="color:#009933;">审核通过</a></case>
+								</switch>
+							</span>
+								<span class="col-10 text-center">{$voo.school}</span>
+								<span class="col-10 text-center"><empty name="voo.gs">&nbsp;<else />{$voo.gs}</empty></span>
+								<span class="col-10 text-center"><empty name="voo.bm">&nbsp;<else />{$voo.bm}</empty></span>
+								<span class="col-10 text-center"><empty name="voo.aa">&nbsp;<else />{$voo.aa}</empty></span>
+								<span class="col-10 text-center"><empty name="voo.b">&nbsp;<else />{$voo.b}</empty></span>
+								<span class="col-20 text-center"><empty name="voo.c">&nbsp;<else />{$voo.c}</empty></span>
+								<span class="col-8 text-right"><empty name="voo.d">&nbsp;<else />{$voo.d}</empty></span>
+								<span class="col-8 text-right"><empty name="voo.e">&nbsp;<else />{$voo.e}</empty></span>
+								<span class="col-8 text-right"><php>$f=$voo['d']*$voo['e'];$hj+=$f;echo($f);</php></span>
+								<span class="col-15 text-center"><empty name="voo.g">&nbsp;<else />{$voo.g}</empty></span>
+								<span class="col-10 text-center"><if condition="$voo.class eq 1">常规性预算<else />临时性预算</if></span>
+								<span class="col-20 text-center"><empty name="voo.week">&nbsp;<else />{$voo.week}</empty></span>
+								<span class="col-10 text-center"><empty name="voo.jsxq">&nbsp;<else />{$voo.jsxq}</empty></span>
+								<span class="col-10 text-center"><empty name="voo.jsr">&nbsp;<else />{$voo.jsr}</empty></span>
+								<span class="col-20 text-center"><empty name="voo.card">&nbsp;<else />{$voo.card}</empty></span>
+								<span class="col-10 text-center"><empty name="voo.name">&nbsp;<else />{$voo.name}</empty></span>
+								<span class="col-15 text-center"><empty name="voo.why">&nbsp;<else />{$voo.why}</empty></span>
+								<span class="col-20 text-center"><empty name="voo.other">&nbsp;<else />{$voo.other}</empty></span>
+					</li>
+				</foreach>
+		</ul>
+	</div>
+	</div>
+				</form>
+</div>
+			<div class="je">
+				审核中的项目合计：<php>echo round($h,2)</php>元,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核通过的项目合计<php>echo round($hj,2)</php>元。
+			</div>

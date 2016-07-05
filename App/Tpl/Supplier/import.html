@@ -1,0 +1,22 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'导入供应商','search'=>'N'))}
+
+<form method='post' id="form_data" enctype="multipart/form-data">
+	<input type="hidden" name="opmode" value="import">
+	<ol>
+		<li class="col-xs-12 line-height-32">
+			下载Excel格式&nbsp;<a href="__PUBLIC__/templete/supplier.xlsx" target="_blank"><span class="fa fa-download-alt"></span></a>
+		</li>
+		<li class="col-xs-12 line-height-32">
+			按照Excel格式，整理供应商信息，不要调整列循序
+		</li>
+		<li class="col-xs-12 line-height-32">
+			选择要导入的文件&nbsp;
+			<input type="file"  name="uploadfile"  value="" class="form-control col-30">
+		</li>
+	</ol>
+	<div class="action">
+		<input class="btn btn-sm btn-primary" type="button" value="导入" onclick="save();">
+		<input  class="btn btn-sm btn-default" type="button" value="取消" onclick="go_return_url();">
+	</div>
+</form>

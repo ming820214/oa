@@ -1,0 +1,86 @@
+<layout name='Layout/ace_layout' />
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th rowspan="2">学员姓名</th>
+          <th rowspan="2">年级</th>
+          <th colspan="5">授课教师</th>
+          <th rowspan="2">上周预排课时</th>
+          <th rowspan="2">实际完成课时</th>
+          <th rowspan="2">本周已排课时</th>
+          <th rowspan="2">上次维护时间</th>
+          <th rowspan="2">账户剩余</th>
+          <th rowspan="2">学员档案</th>
+          <th rowspan="2">维护记录</th>
+          <th rowspan="2">日授课记录</th>
+          <th rowspan="2">维护操作</th>
+        </tr>
+        <tr>
+          <th>数学</th>
+          <th>物理</th>
+          <th>化学</th>
+          <th>英语</th>
+          <th>生物</th>
+        </tr>
+      </thead>
+      <tbody>
+      <volist name="data" id="list">
+          <tr>
+            <td>{$list.name}</td>
+            <td>{$list.grade}</td>
+            <td>{$list.data.数学}</td>
+            <td>{$list.data.物理}</td>
+            <td>{$list.data.化学}</td>
+            <td>{$list.data.英语}</td>
+            <td>{$list.data.生物}</td>
+            <td>{$list.data.上周排课}</td>
+            <td>{$list.data.上周完成}</td>
+            <td>{$list.data.本周排课}</td>
+            <td>{$list.data.上次维护}</td>
+            <td></td>
+            <td><input type="submit" class="btn btn-minier btn-primary" name="search" onclick="info({$list.id})" value="查询"/></td>
+            <td><input type="submit" class="btn btn-minier btn-primary" name="search" onclick="weihu_record({$list.id})" value="查询"/></td>
+            <td><input type="submit" class="btn btn-minier btn-primary" name="search" onclick="fankuiq_record({$list.id})" value="查询"/></td>
+            <td><a class="btn btn-minier btn-primary" onclick="weihu_zhudong({$v.stuid})">添加维护</a></td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    {$page}
+  </div>
+</div>
+
+<!-- 全日制反馈记录 =========================================-->
+<div class="box" id="fankuiq_record" style="display: none"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3 class="titleh">日授课记录</h3></div><input type="hidden" name="stuid" class="stuid">
+  <table border="2" align="center" width="95%" style="background-color: ghostwhite;" cellpadding="20">
+    <tr height="30px">
+      <th width="220px">周期</th>
+      <th width="80px">类别</th>
+      <th>详情</th>
+    </tr>
+      <tr>
+        <td height="300px">
+          <div style="overflow-y: auto;max-height: 250px;" id="week">          
+            <volist name="week" id="w">
+            <span week="{$i}" <if condition="$i eq date('W')">class="week"</if>>第{$i}周（{$w[0]}-{$w[1]}）</span><br/>
+            </volist>
+          </div>
+        </td>
+        <th id="km">
+            <span>数学</span><br/>
+            <span>物理</span><br/>
+            <span>化学</span><br/>
+            <span>英语</span><br/>
+            <span>生物</span><br/>
+        </th>
+        <td><div class="info"></div></td>
+      </tr>
+    </table>
+</div>
+<include file="box"/>

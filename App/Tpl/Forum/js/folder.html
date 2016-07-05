@@ -1,0 +1,54 @@
+<script type="text/javascript">
+	function add() {
+		window.open("{:U('add?fid='.$folder_id)}", "_self");
+	}
+
+	function mark(action) {
+		var vars = $("#form_data").serialize();
+		switch(action) {
+			case "del":
+				ui_confirm('确定要删除吗?',function(){
+					sendAjax("{:U('mark?action=del')}", vars, function(data) {
+						if (data.status){
+							ui_alert(data.info,function(){
+								$("input[name='id[]']:checkbox:checked").each(function() {
+									$(this).parents("li").remove();
+								})
+							});	
+						}
+					});
+				})
+				break;
+				case "is_top":
+				ui_confirm('确认要置顶或取消置顶？',function(){
+					sendAjax("{:u('mark?action=is_top')}",vars, function(data) {
+						if (data.status){
+							ui_alert(data.info,function(){
+								$("input[name='id[]']:checkbox:checked").each(function() {
+									window.open("{:U('folder?fid='.$folder_id)}", "_self");
+								})
+							});	
+						}
+					});
+				})
+					break;
+			default:
+		}
+	}
+
+	function move_to(val) {
+		var vars = $("#form_data").serialize();
+		sendAjax("{:U('mark?action=move_folder')}", 'val=' + val + '&' + vars);
+		$("input[name='id[]']:checkbox:checked").each(function() {
+			$(this).parent().parent().hide();
+		})
+	}
+
+
+	$(document).ready(function() {
+		set_return_url();
+		$("#move_to li").click(function() {
+			move_to($(this).attr("id"));
+		})
+	}); 
+</script>

@@ -1,0 +1,107 @@
+<layout name='Layout/ace_layout' />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/time/WdatePicker.js"></script>
+<link href="__PUBLIC__/time/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+<div align="center" style="background: rgb(255, 245, 228);padding: 20px 0px;">
+<form action="" method="post">时间：<input name="time" class="Wdate" type="text" onclick="WdatePicker()" style="line-height:0;height:33px;" />&nbsp;&nbsp;&nbsp;<input type="submit" value="查询"/></form>
+<h2>校区运营状态时时数据统计({$dayy}日统计)</h2>
+<table style="margin-top: 20px;" class="table table-bordered table-condensed">
+  <tr>
+    <th>名次</th>
+    <th scope="col">校区</th>
+    <th scope="col">数学</th>
+    <th scope="col">语文</th>
+    <th scope="col">英语</th>
+    <th scope="col">物理</th>
+    <th scope="col">化学</th>
+    <th scope="col">生物</th>
+    <th scope="col">政治</th>
+    <th scope="col">历史</th>
+    <th scope="col">地理</th>
+    <th scope="col">本日合计</th>
+  </tr>
+<php>$d=array();$con=1;</php>
+<foreach name="vd" item="day">
+  <tr>
+    <th>第{$con++}名</th>
+    <th scope="row"><a href="../school/index.php/cs/index/school/{$key}" target="_blank">{$key}</a></th>
+    <td>{$day.数学}</td>
+    <td>{$day.语文}</td>
+    <td>{$day.英语}</td>
+    <td>{$day.物理}</td>
+    <td>{$day.化学}</td>
+    <td>{$day.生物}</td>
+    <td>{$day.政治}</td>
+    <td>{$day.历史}</td>
+    <td>{$day.地理}</td>
+    <td><php>echo($day['数学']+$day['语文']+$day['英语']+$day['物理']+$day['化学']+$day['生物']+$day['政治']+$day['历史']+$day['地理'])</php></td>
+    <php>$d['数学']+=$day['数学'];$d['语文']+=$day['语文'];$d['英语']+=$day['英语'];$d['物理']+=$day['物理'];$d['化学']+=$day['化学'];$d['生物']+=$day['生物'];$d['政治']+=$day['政治'];$d['历史']+=$day['历史'];$d['地理']+=$day['地理'];</php>
+  </tr>
+  </foreach>
+  <tr>
+  <th></th>
+  <th></th>
+  <td>合计：<php>echo($d['数学']);</php></td>
+  <td>合计：<php>echo($d['语文']);</php></td>
+  <td>合计：<php>echo($d['英语']);</php></td>
+  <td>合计：<php>echo($d['物理']);</php></td>
+  <td>合计：<php>echo($d['化学']);</php></td>
+  <td>合计：<php>echo($d['生物']);</php></td>
+  <td>合计：<php>echo($d['政治']);</php></td>
+  <td>合计：<php>echo($d['历史']);</php></td>
+  <td>合计：<php>echo($d['地理']);</php></td>
+  <td style="color: red;">总计：<php>echo($d['数学']+$d['语文']+$d['英语']+$d['物理']+$d['化学']+$d['生物']+$d['政治']+$d['历史']+$d['地理'])</php></td>
+  </tr>
+</table>
+<br/>
+<h2>校区运营状态时时数据统计({$ms}月统计)</h2>
+<table style="margin-top: 20px;" class="table table-bordered table-condensed">
+  <tr>
+    <th width="60px">名次</th>
+    <th width="100px">校区</th>
+    <th scope="col">数学</th>
+    <th scope="col">语文</th>
+    <th scope="col">英语</th>
+    <th scope="col">物理</th>
+    <th scope="col">化学</th>
+    <th scope="col">生物</th>
+    <th scope="col">政治</th>
+    <th scope="col">历史</th>
+    <th scope="col">地理</th>
+    <th scope="col">本月合计</th>
+  </tr>
+<php>$m=array();$conn=1;</php>
+<foreach name="vm" item="month">
+  <tr>
+    <th>第{$conn++}名</th>
+    <th scope="row">{$key}</th>
+    <td>{$month.数学}&nbsp;&nbsp;&nbsp;<a>※<php>if($key!='松原特训营' and $key!='盘锦特训营')echo(substr($month['数学']-$bh[$key]['a'],0,5));</php></a></td>
+    <td>{$month.语文}&nbsp;&nbsp;&nbsp;<a>※<php>if($key!='松原特训营' and $key!='盘锦特训营')echo(substr($month['语文']-$bh[$key]['b'],0,5));</php></a></td>
+    <td>{$month.英语}&nbsp;&nbsp;&nbsp;<a>※<php>if($key!='松原特训营' and $key!='盘锦特训营')echo(substr($month['英语']-$bh[$key]['c'],0,5));</php></a></td>
+    <td>{$month.物理}&nbsp;&nbsp;&nbsp;<a>※<php>if($key!='松原特训营' and $key!='盘锦特训营')echo(substr($month['物理']-$bh[$key]['d'],0,5));</php></a></td>
+    <td>{$month.化学}&nbsp;&nbsp;&nbsp;<a>※<php>if($key!='松原特训营' and $key!='盘锦特训营')echo(substr($month['化学']-$bh[$key]['e'],0,5));</php></a></td>
+    <td>{$month.生物}&nbsp;&nbsp;&nbsp;<a>※<php>if($key!='松原特训营' and $key!='盘锦特训营')echo(substr($month['生物']-$bh[$key]['f'],0,5));</php></a></td>
+    <td>{$month.政治}&nbsp;&nbsp;&nbsp;<a>※<php>if($key!='松原特训营' and $key!='盘锦特训营')echo(substr($month['政治']-$bh[$key]['g'],0,5));</php></a></td>
+    <td>{$month.历史}&nbsp;&nbsp;&nbsp;<a>※<php>if($key!='松原特训营' and $key!='盘锦特训营')echo(substr($month['历史']-$bh[$key]['h'],0,5));</php></a></td>
+    <td>{$month.地理}&nbsp;&nbsp;&nbsp;<a>※<php>if($key!='松原特训营' and $key!='盘锦特训营')echo(substr($month['地理']-$bh[$key]['i'],0,5));</php></a></td>
+    <td>{$month['数学']+$month['语文']+$month['英语']+$month['物理']+$month['化学']+$month['生物']+$month['政治']+$month['历史']+$month['地理']}&nbsp;&nbsp;&nbsp;<a>※<if condition="($key neq '松原特训营') and ($key neq '盘锦特训营')">{$month['数学']+$month['语文']+$month['英语']+$month['物理']+$month['化学']+$month['生物']+$month['政治']+$month['历史']+$month['地理']-$bh[$key]['a']-$bh[$key]['b']-$bh[$key]['c']-$bh[$key]['d']-$bh[$key]['e']-$bh[$key]['f']-$bh[$key]['g']-$bh[$key]['h']-$bh[$key]['i']}</if></a></td>
+    <php>$m['数学']+=$month['数学'];$m['语文']+=$month['语文'];$m['英语']+=$month['英语'];$m['物理']+=$month['物理'];$m['化学']+=$month['化学'];$m['生物']+=$month['生物'];$m['政治']+=$month['政治'];$m['历史']+=$month['历史'];$m['地理']+=$month['地理'];</php>
+    <php>$m2['数学']+=$bh[$key]['a'];$m2['语文']+=$bh[$key]['b'];$m2['英语']+=$bh[$key]['c'];$m2['物理']+=$bh[$key]['d'];$m2['化学']+=$bh[$key]['e'];$m2['生物']+=$bh[$key]['f'];$m2['政治']+=$bh[$key]['g'];$m2['历史']+=$bh[$key]['h'];$m2['地理']+=$bh[$key]['i'];</php>
+  </tr>
+  </foreach>
+  <tr>
+  <th></th>
+  <th></th>
+  <td>合计：<php>echo(round($m['数学'],2));</php>&nbsp;&nbsp;&nbsp;<a>※<php>echo(round($m['数学']-$m2['数学'],2));</php></a></td>
+  <td>合计：<php>echo(round($m['语文'],2));</php>&nbsp;&nbsp;&nbsp;<a>※<php>echo(round($m['语文']-$m2['语文'],2));</php></a></td>
+  <td>合计：<php>echo(round($m['英语'],2));</php>&nbsp;&nbsp;&nbsp;<a>※<php>echo(round($m['英语']-$m2['英语'],2));</php></a></td>
+  <td>合计：<php>echo(round($m['物理'],2));</php>&nbsp;&nbsp;&nbsp;<a>※<php>echo(round($m['物理']-$m2['物理'],2));</php></a></td>
+  <td>合计：<php>echo(round($m['化学'],2));</php>&nbsp;&nbsp;&nbsp;<a>※<php>echo(round($m['化学']-$m2['化学'],2));</php></a></td>
+  <td>合计：<php>echo(round($m['生物'],2));</php>&nbsp;&nbsp;&nbsp;<a>※<php>echo(round($m['生物']-$m2['生物'],2));</php></a></td>
+  <td>合计：<php>echo(round($m['政治'],2));</php>&nbsp;&nbsp;&nbsp;<a>※<php>echo(round($m['政治']-$m2['政治'],2));</php></a></td>
+  <td>合计：<php>echo(round($m['历史'],2));</php>&nbsp;&nbsp;&nbsp;<a>※<php>echo(round($m['历史']-$m2['历史'],2));</php></a></td>
+  <td>合计：<php>echo(round($m['地理'],2));</php>&nbsp;&nbsp;&nbsp;<a>※<php>echo(round($m['地理']-$m2['地理'],2));</php></a></td>
+  <td style="color: red;">总计：<php>echo(round($m['数学']+$m['语文']+$m['英语']+$m['物理']+$m['化学']+$m['生物']+$m['政治']+$m['历史']+$m['地理'],2))</php>&nbsp;&nbsp;&nbsp;<a>※<php>echo(substr($m['数学']+$m['语文']+$m['英语']+$m['物理']+$m['化学']+$m['生物']+$m['政治']+$m['历史']+$m['地理']-$m2['数学']-$m2['语文']-$m2['英语']-$m2['物理']-$m2['化学']-$m2['生物']-$m2['政治']-$m2['历史']-$m2['地理'],0,5));</php></a></td>
+  </tr>
+</table>
+<br/>
+</div>

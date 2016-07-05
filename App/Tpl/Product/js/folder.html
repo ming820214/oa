@@ -1,0 +1,17 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		set_return_url();
+		$(".p-scroll img").mouseenter(function(){
+			$img=$(this).attr("src");
+			$(this).parents(".product-wrap").find(".p-img img").attr("src",$img);
+		})
+
+		$(".p-scroll img").click(function(){
+			$img=$(this).attr("src");
+			$(this).parents(".product-wrap").find(".p-img img").attr("src",$img);
+		})
+	}); 
+	function add() {
+		window.open("{:U('type?fid='.$folder)}", "_self");
+	}
+</script>

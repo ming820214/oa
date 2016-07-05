@@ -1,0 +1,22 @@
+<layout name='Layout/ace_popup' />
+{:W('PageHeader',array('name'=>'请选择父节点','search'=>'N'))}
+<div class="operate panel panel-default">
+	<div class="panel-body">
+		<div class="pull-left">
+			<a  onclick="save();" class="btn btn-sm btn-primary">确定</a>
+		</div>
+		<div class="pull-right">
+			<a  onclick="myclose();" class="btn btn-sm btn-primary">关闭</a>
+		</div>
+	</div>
+</div>
+<div class="popup_tree_menu">
+	<ul class="tree_menu">
+		<li>
+			<a node="0"><i class="icon"></i> <span>根节点</span> </a>
+			{$menu}
+		</li>
+	</ul>
+</div>
+<input type="hidden" name="val" id="val">
+<input type="hidden" name="name" id="name">

@@ -1,0 +1,60 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'咨询副校长','search'=>'A'))}
+<include file='level_search'/>
+<div class="row">
+	<table class="table table-bordered" id="inp">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>工号</th>
+				<th>姓名</th>
+				<th>单位</th>
+				<th>职级</th>
+				<th width="120px">校区招生目标</th>
+				<th>保级目标</th>
+				<th width="120px">个人业绩</th>
+				<th>配置</th>
+				<th>升级团队目标</th>
+				<th>团队业绩</th>
+				<th>核算后级别</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='vo'>
+			<tr pid="{$vo.id}">
+				<td>{$i}</td>
+				<td>HW{$vo.id}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.school}</td>
+				<td>{$vo.level}</td>
+				<td>{$vo.school_mb}</td>
+				<td class="bj_mubiao">{$vo.bj_mubiao}</td>
+				<td class="yeji" contenteditable="true" style="border-color: brown;">{$vo.yeji}</td>
+				<td class="pz" contenteditable="true" style="border-color: brown;">{$vo.pz}</td>
+				<td class="sj_mubiao">{$vo.sj_mubiao}</td>
+				<td>{$vo.team_yeji}</td>
+				<td class="new">{$vo.new}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>
+<style>
+	#inp input{
+		width: 100%;
+	}
+</style>
+<script>
+	$(".yeji,.pz").blur(function() {
+		var xx	=	$(this).parent(),
+		    id  =	xx.attr("pid"),
+			yeji=	xx.find(".yeji").text();
+			pz	=	xx.find(".pz").text();
+			$.getJSON("{:U('level_b')}",{pid:id,yeji:yeji,pz:pz},function(msg){
+				xx.find(".new").text(msg.new);
+				xx.find(".bj_mubiao").text(msg.bj_mubiao);
+				xx.find(".sj_mubiao").text(msg.sj_mubiao);
+			})
+	});
+</script>

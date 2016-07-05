@@ -1,0 +1,38 @@
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+				<if condition="ACTION_NAME eq 'kq_c'">
+					<a class="btn btn-sm btn-primary" href="{:U('kq_cc')}">灵活假期管理</a>
+				</if>
+				<if condition="ACTION_NAME eq 'kq_rule'">
+					<a class="btn btn-sm btn-primary" onclick="$('#addrule').show()">新增规则</a>
+				</if>
+				<if condition="ACTION_NAME eq 'kq_rules'">
+					<a class="btn btn-sm btn-primary" onclick="$('#addrule').show()">新增分组</a>
+				</if>
+				<if condition="ACTION_NAME eq 'kq_kq'">
+					<a class="btn btn-sm btn-primary" onclick="return confirm('说明：重新生成报表将重置所有校区的报表数据，请在所有人都正确绑定考勤规则的情况下使用，如果仅个别情况可以单独重置数据，确定重新生成报表吗？');" href="{:U('kq_rest')}">重新生成报表</a>
+				</if>
+			</div>
+			<div class="pull-right">
+				<if condition="ACTION_NAME eq 'kq_info'">
+					时间：<input type="text" name="date1" onfocus="WdatePicker({isShowWeek:true})" class="col-10" required/>--<input type="text" name="date2" onfocus="WdatePicker({isShowWeek:true})" class="col-10" required/>
+				</if>
+				<if condition="$Think.session.schooll eq '集团'">
+				姓名：<input type="text" name="name" class="col-10"/>
+				校区：<select name="school" class="col-10"><option></option>{:W('School')}</select>&nbsp;&nbsp;&nbsp;
+				部门：<select name="part" class="col-10"><option></option>{:W('School','part')}</select>&nbsp;&nbsp;&nbsp;
+				职务：<select name="position" class="col-10"><option></option>{:W('School','position')}</select>&nbsp;&nbsp;&nbsp;
+				</if>
+				<if condition="ACTION_NAME eq 'kq_ruled'">
+					绑定状态：<select name="state"><option value=""></option><option value="1">已绑定</option><option value="2">未绑定</option></select>&nbsp;&nbsp;&nbsp;
+				</if>
+				<input type="submit" class="btn btn-sm btn-primary" name="search" value="查询">
+				<if condition="(ACTION_NAME neq 'kq_rule') and ($Think.session.schooll eq '集团')">
+					<input type="submit" name="import" class="btn btn-sm btn-primary" value="导出数据">
+				</if>
+			</div>
+		</div>
+	</div>
+</form>

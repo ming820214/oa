@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,">
+<title>退费申请</title>
+<link rel="stylesheet" href="../Public/money.css" type="text/css"/>
+</head>
+<body>
+ <ul>
+  <li><a>期&nbsp;&nbsp;次：</a><input class="mx" type="month" name="date" value="{$Think.session.date}"/></li>
+  <li><a>学员姓名：</a><input class="mx" type="text" name="student" /></li>
+ 	<li><a>年级：</a>
+      <select class="srkx" name="grade"><option>高一</option><option>高二</option><option>高三</option><option>初一</option><option>初二</option><option>初三</option>
+      </select>
+ 	</li>
+ 	<li><a>联系电话：</a><input class="mx" type="text" name="tel" /></li>
+  <li><a>教学主任：</a><input class="mx" type="text" name="aa" /></li>
+ 	<li><a>学管理师：</a><input class="mx" type="text" name="bb" /></li>
+  <li><a>课程类型：</a><input class="mx" type="text" name="class" /></li>
+  <li><a>交费日期：</a><input class="mx" type="date" name="timed" /></li>
+  <li><a>交费总额：</a><input class="mx" type="text" name="ze" /></li>
+  <li><a>交费课时：</a><input class="mx" type="text" name="count" /></li>
+  <li><a>已上课时：</a><input class="mx" type="text" name="countd" /></li>
+  <li><a>科目/教师：</a><input class="mx" type="text" name="km" /></li>
+  <li><a>剩余计算：</a><input class="mx" type="text" name="sy" /></li>
+  <li><a>应退金额：</a><input class="mx" type="text" name="je" /></li>
+  <li><a>具体原因：</a><input class="mx" type="text" name="why2" /></li>
+  <li><a>备注：</a><input class="mx" type="text" name="other" /></li>
+  <li style="background-color:#ebf7fd; color:#707071;">
+    退费原因：<input style="margin:0px 5px 0px 10px;" type="checkbox" name="why[]">
+    时间冲突<input style="margin:0px 5px 0px 10px;" type="checkbox" name="why[]">
+    难易程度不适合<input  style="margin:0px 5px 0px 10px;" type="checkbox" name="why[]">
+    座位不理想<input  style="margin:0px 5px 0px 10px;" type="checkbox" name="why[]">
+    教师的问题<input  style="margin:0px 5px 0px 10px;" type="checkbox" name="why[]">
+    内容不符合需要、不合适<input  style="margin:0px 5px 0px 10px;" type="checkbox" name="why[]">
+    路程太远<input  style="margin:0px 5px 0px 10px;" type="checkbox" name="why[]">
+    环境不喜欢<input  style="margin:0px 5px 0px 10px;" type="checkbox" name="why[]">
+    转班<input  style="margin:0px 5px 0px 10px;" type="checkbox" name="why[]">
+    其他个人原因（请详细标明退费，可多选在□内打√）</li>
+
+   	<div class="anniu"><input class="anniun" type="submit" value="提交" /></div>
+ </ul>
+</body>
+</html>

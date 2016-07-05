@@ -1,0 +1,19 @@
+<layout name='Layout/ace_popup' />
+{:W('PageHeader',array('name'=>'选择部门','search'=>'N'))}
+<input type="hidden" name="val" id="val">
+<input type="hidden" name="name" id="name">
+<div class="operate panel panel-default">
+	<div class="panel-body">
+		<div class="pull-left">
+			<a  onclick="save();" class="btn btn-sm btn-primary">确定</a>
+		</div>
+		<div class="pull-right">
+			<a  onclick="myclose();" class="btn btn-sm btn-primary">关闭</a>
+		</div>
+	</div>
+</div>
+<div class="popup_tree_menu well">
+	<ul class="tree_menu">
+		{$menu}
+	</ul>
+</div>

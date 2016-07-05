@@ -1,0 +1,239 @@
+<layout name='Layout/layout' />
+<div data-role="page" id="list">
+  <!-- 顶部日期切换 -->
+  <!-- 内容 -->
+  <div data-role="content">
+    <table width="100%">
+      <tr>
+        <td><notempty name="list1"><h2>预算部分</h2></notempty></td>
+        <td align="right"><a href="#date" data-rel="dialog" style="color:white;text-decoration:none;"><img src="../Public/img/money01.png"></a><br>{$Think.session.date}</td>
+      </tr>
+    </table>
+    <!-- 预算数据 -->
+    <div data-role="collapsible-set" data-inset="false">
+      <volist name="list1" id="v">
+        <div data-role="collapsible">
+          <h3>{$v.c}---{$v['d']*$v['e']|round=###,2}元<a style="float:right;">{$v.state|state=###,2}</a></h3>
+          <div style="overflow-x:auto;">
+          <table class="list" cellspacing="5">
+            <tr>
+              <td>序号:</td>
+              <td>{$v.id}</td>
+              <td>类别:</td>
+              <td>{$v.class}</td>
+            </tr>
+            <tr>
+              <td>接收校区:</td>
+              <td>{$v.jsxq}</td>
+              <td>归属:</td>
+              <td>{$v.gs}</td>
+            </tr>
+            <tr>
+              <td>明细:</td>
+              <td>{$v.c}</td>
+              <td>金额:</td>
+              <td>{$v.d}*{$v.e}={$v['d']*$v['e']|round=###,2}元</td>
+            </tr>
+            <tr>
+              <td>申请日期:</td>
+              <td>{$v.time}</td>
+              <td>期望审批:</td>
+              <td>{$v.g}</td>
+            </tr>
+            <tr>
+              <td>成本类型:</td>
+              <td>{$v.aa}</td>
+              <td>二级科目:</td>
+              <td>{$v.b}</td>
+            </tr>
+            <tr>
+              <td>申请原因:</td>
+              <td>{$v.why}</td>
+              <td>卡号:</td>
+              <td>{$v.other}</td>
+            </tr>
+            <tr>
+              <td>审核部门：</td>
+              <td>{$v.bm}</td>
+              <td>审批状态：</td>
+              <td>{$v.state|state=###,2}</td>
+            </tr>
+          </table></div>
+          <notempty name="button">
+            <div class="ui-grid-b">
+              <div class="ui-block-a"><button data-theme="a" onclick="check(this,'budget',{$v.id},'a');" >通过</button></div>
+              <div class="ui-block-b"><button data-theme="a" onclick="check(this,'budget',{$v.id},'b');" >退回</button></div>
+              <div class="ui-block-c"><button data-theme="a" onclick="check(this,'budget',{$v.id},'c');" >拒绝</button></div>
+            </div>
+          </notempty>
+        </div>
+      </volist>
+    </div>
+    <notempty name="buttonx">
+      <button onclick="check(this,'budget',0,'d');" >全部通过</button><hr/>
+    </notempty>
+    <!-- 花销数据 -->
+    <notempty name="list2"><h2>花销部分</h2></notempty>
+    <div data-role="collapsible-set" data-inset="false">
+      <volist name="list2" id="v">
+        <div data-role="collapsible">
+          <h3>{$v.d}---{$v.i}---{$v['kk']*$v['l']|round=###,2}元<a style="float:right;">{$v.state|state=###,1}</a></h3>
+          <div style="overflow-x:auto;">
+          <table class="list" cellspacing="5">
+            <tr>
+              <td>序号:</td>
+              <td>{$v.id}</td>
+              <td>凭证号:</td>
+              <td>{$v.aa}</td>
+            </tr>
+            <tr>
+              <td>花销:</td>
+              <td>{$v.b}</td>
+              <td>归属:</td>
+              <td>{$v.c}</td>
+            </tr>
+            <tr>
+              <td>发生日期:</td>
+              <td>{$v.e}</td>
+              <td>报销日期:</td>
+              <td>{$v.d}</td>
+            </tr>
+            <tr>
+              <td>成本类型:</td>
+              <td>{$v.g}</td>
+              <td>二级科目:</td>
+              <td>{$v.h}</td>
+            </tr>
+            <tr>
+              <td>明细:</td>
+              <td>{$v.j}</td>
+              <td>备注:</td>
+              <td>{$v.other}</td>
+            </tr>
+            <tr>
+              <td>报销人：</td>
+              <td>{$v.o}</td>
+              <td>经手人：</td>
+              <td>{$v.n}</td>
+            </tr>
+          </table></div>
+          <notempty name="button">
+            <div class="ui-grid-b">
+              <div class="ui-block-a"><button data-theme="a" onclick="check(this,'money',{$v.id},'a');" >通过</button></div>
+              <div class="ui-block-b"><button data-theme="a" onclick="check(this,'money',{$v.id},'b');" >退回</button></div>
+              <div class="ui-block-c"><button data-theme="a" onclick="check(this,'money',{$v.id},'c');" >拒绝</button></div>
+            </div>
+          </notempty>
+        </div>
+      </volist>
+    </div>
+    <!-- 退费数据 -->
+    <notempty name="list3"><h2>退费部分</h2></notempty>
+    <div data-role="collapsible-set" data-inset="false">
+      <volist name="list3" id="v">
+        <div data-role="collapsible">
+          <h3>{$v.student}---{$v.aa}---{$v.time1}<a style="float:right;">{$v.state|state=###,3}</a></h3>
+          <div style="overflow-x:auto;">
+          <table class="list" cellspacing="5">
+            <tr>
+              <td>序号:</td>
+              <td>{$v.id}</td>
+              <td>学员:</td>
+              <td>{$v.student}</td>
+            </tr>
+            <tr>
+              <td>年级:</td>
+              <td>{$v.grade}</td>
+              <td>电话:</td>
+              <td>{$v.tel}</td>
+            </tr>
+            <tr>
+              <td>教学主任:</td>
+              <td>{$v.aa}</td>
+              <td>学管:</td>
+              <td>{$v.bb}</td>
+            </tr>
+            <tr>
+              <td>课程类型:</td>
+              <td>{$v.class}</td>
+              <td>交费时间:</td>
+              <td>{$v.timed}</td>
+            </tr>
+            <tr>
+              <td>交费总额:</td>
+              <td>{$v.ze}</td>
+              <td>交费课时:</td>
+              <td>{$v.count}</td>
+            </tr>
+            <tr>
+              <td>已上课时：</td>
+              <td>{$v.countd}</td>
+              <td>科目</td>
+              <td>{$v.km}</td>
+            </tr>
+            <tr>
+              <td>剩余计算：</td>
+              <td>{$v.sy}</td>
+              <td>因退金额</td>
+              <td>{$v.je}</td>
+            </tr>
+            <tr>
+              <td>退费原因：</td>
+              <td colspan="3">{$v.why1}</td>
+            </tr>
+            <tr>
+              <td>具体原因：</td>
+              <td colspan="3">{$v.why2}</td>
+            </tr>
+            <tr>
+              <td>总部沟通：</td>
+              <td colspan="3">{$v.why3}</td>
+            </tr>
+            <tr>
+              <td>备注：</td>
+              <td colspan="3">{$v.other}</td>
+            </tr>
+          </table></div>
+          <notempty name="button">
+            <div class="ui-grid-b">
+              <div class="ui-block-a"><button data-theme="a" onclick="check(this,'return',{$v.id},'a');" >通过</button></div>
+              <div class="ui-block-b"><button data-theme="a" onclick="check(this,'return',{$v.id},'b');" >退回</button></div>
+              <div class="ui-block-c"><button data-theme="a" onclick="check(this,'return',{$v.id},'c');" >拒绝</button></div>
+            </div>
+          </notempty>
+        </div>
+      </volist>
+    </div>
+  </div>
+
+</div>
+
+<div data-role="page" id="date">
+  <div data-role="header">
+    <h1>选择查询日期</h1>
+    <a href="#list" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
+  </div>
+
+  <div data-role="content">
+    <form method="post" data-ajax="false">
+    <h3>输入要查询的日期</h3>
+    <input type="month" name="date" id="bday"><input type="submit" data-role="button" name="search" value="查询">
+    </form>
+  </div>
+</div> 
+
+<script type="text/javascript">
+</script>
+<style type="text/css">
+  table img{width: 50px;}
+  .list td{padding: 5px 20px;background: beige;font-size: small;}
+</style>
+<script type="text/javascript">
+  function check(th,type,id,abc){
+    $.get("{:U('check')}",{type:type,id:id,abc:abc},function(msg){
+      if(msg=='ok'){
+        $(th).parents(".ui-collapsible").hide();
+      }
+    })
+  }
+</script>

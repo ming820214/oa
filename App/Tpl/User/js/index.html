@@ -1,0 +1,84 @@
+<script type="text/javascript">
+	function add() {
+		$("#opmode").val("add");
+		$("#id").val("");
+		if (check_form("form_data")){
+			sendForm("form_data", "{:U('save')}", "__URL__");
+		}
+	};
+
+	function del() {
+		var vars = $("#form_data").serialize();
+		ui_confirm('确定要删除吗?',function(){
+			sendAjax("{:U('del')}", vars, function(data) {
+				if (data.status) {
+					ui_alert(data.info,function(){
+						location.reload();
+					});									
+				}
+			});
+		})
+	}
+
+	function reset_pwd() {
+		if ($("#id").val().length < 1) {
+			ui_error("请选择用户");
+			return false;
+		}
+		winopen("{:U('password')}?id=" + $("#id").val(), 730, 300);
+	}
+
+	function select_dept() {
+		winopen("{:U('dept/winpop2')}", 730, 500);
+	}
+
+	function select_avatar() {
+		winopen("{:U('popup/avatar')}?id=" + $("#id").val(), 730, 500);
+	}
+
+	function btn_search() {
+		sendForm("form_search", "__SELF__");
+		$("#form_search").submit();
+	}
+
+	function key_search() {
+		if (event.keyCode == 13) {
+			sendForm("form_search", "__SELF__");
+			return false;
+		}
+	}
+
+	function save(){
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}");
+		}
+	}
+
+	function showdata(result) {
+		$("#form_data select ").each(function() {
+			$(this).find('option:first').attr('selected', 'selected');
+		});
+		for (var s in result.data) {
+			set_val(s, result.data[s]);
+		}
+		$("#dept_name").val($("#dept_list option[value='" + $("#dept_id").val() + "']").text());
+		img_url = "{:get_save_url()}" + $("#pic").val()+"?t="+Math.random();
+		$("#emp_pic").attr("src", img_url);
+		$("#save_name").val("");
+		$("#opmode").val("edit");
+	}
+
+	$(document).ready(function(){
+		set_return_url();
+		set_val('eq_is_del', "{$eq_is_del}");
+		$(".sub_left_menu tbody tr").click(function() {
+			$(".sub_left_menu tbody tr.active").removeClass("active");
+			$(this).attr("class", "active");
+			sendAjax("{:U('read')}", "id=" + $(this).attr("id"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+	});
+
+</script>

@@ -1,0 +1,58 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'离职查询'))}
+<include file='search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>工号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>单位</th>
+				<th>部门</th>
+				<th>职务</th>
+				<th>离职类型</th>
+				<th>离职时间</th>
+				<th>离职原因</th>
+				<th>跟踪价值</th>
+				<th>操作</th>
+				<th>操作时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="data" id="v">
+			<tr>
+				<td>{$v.id}</td>
+				<td>HW{$v.pid}</td>
+				<td>{$v.name}</td>
+				<td>{$v.sex|sex}</td>
+				<td>{$v.school}</td>
+				<td>{$v.part}</td>
+				<td>{$v.position}</td>
+				<td>{$v.b_a}</td>
+				<td>{$v.b_t}</td>
+				<td>{$v.b_b}</td>
+				<td><select name="b_c" sid="{$v.id}"><option value="{$v.b_c}">{$v.b_c}</option><option value="很高">很高</option><option value="一般">一般</option><option value="无">无</option></select></td>
+				<td><a class="btn btn-sm btn-primary" onclick="fz(this,{$v.pid})">复职</a></td>
+				<td>{$v.timestamp}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<script>
+	$("table select[name='b_c']").change(function () {
+		var b_c = $(this).val(),
+			id = $(this).attr('sid');
+		$.post("{:U('lizhi')}",{id:id,b_c:b_c},function(){
+			Msg("数据保存完成",1);
+		})
+	});
+	function fz(th,pid){
+		$.post("{:U('lizhi')}",{fz:pid},function(){
+			Msg("复职操作完成",1);
+			$(th).parents("tr").hide();
+		})
+	}
+</script>

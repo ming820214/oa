@@ -1,0 +1,23 @@
+<script type="text/javascript">
+	function login() {
+		if (check_form("form_login")) {
+			sendForm("form_login", "{:U('login/check_login')}");
+		}
+	}
+	
+	$(document).ready(function() {
+		var $dom="#password";
+		<notempty name="is_verify_code">
+			$dom="#verify";
+		</notempty>
+
+		$($dom).keydown(function(event) {
+			if (event.keyCode == 13) {
+				if (check_form("form_login")) {
+					sendForm("form_login", "{:U('login/check_login')}");
+					return false;
+				}
+			}
+		})
+	})
+</script>

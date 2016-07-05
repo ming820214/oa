@@ -1,0 +1,29 @@
+<layout name='Layout/ace_layout' />
+<script type="text/javascript"></script>
+<form method="post" action="" id="form_search" name="form_search">
+	{:W('PageHeader',array('name'=>'系统信息','search'=>'N'))}
+
+</form>
+<div class="row" >
+	<div class="pull-right">
+		<a onclick="save()" class="btn btn-sm btn-primary">保存</a>
+	</div>
+</div>
+<form id="form_data" name="form_data"method="post" action="">
+	<div class="row ">
+		<div class="row form-horizontal">
+			<div class="form-group col-xs-12">
+				<label class="col-sm-2 control-label">域名\主机名：</label>
+				<div class="col-sm-10 "><p class="form-control-static">{$SERVER_NAME}</p>
+				</div>
+			</div>
+			<div class="form-horizontal">
+				<div class="form-group col-xs-12">
+					<label class="col-sm-2 control-label">授权状态*：</label>
+					<div class="col-sm-10 ">
+						<p class="form-control-static">{$SERVER_NAME}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+</form>

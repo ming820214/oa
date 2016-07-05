@@ -1,0 +1,90 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'添加消费记录','search'=>'N'))}
+<form method='post' id="form_data" class="well form-horizontal">
+	<input type="hidden" name="opmode" value="add">
+	<input type="hidden" name="ajax" id="ajax" value="0">
+	<input type="hidden" name="vip_id" id="vip_id" value="{$vip_id}">
+	<div class="form-group col-xs-12">
+		<label class="col-sm-2 control-label" for="product">款号：</label>
+		<div class="col-sm-4">
+			<input class="form-control" type="text" id="product" name="product" >
+		</div>
+	</div>
+	<div class="form-group col-xs-12">
+		<label class="col-sm-2 control-label" for="area">尺寸：</label>
+		<div class="col-sm-10">
+						<div class="checkbox col-sm-2">
+				<label>
+					<input name="size[]" class="ace size" type="checkbox" value="XXL">
+					<span class="lbl"> XXL</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="size[]" class="ace size" type="checkbox"  value="XL">
+					<span class="lbl"> XL</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="size[]" class="ace size" type="checkbox"  value="L">
+					<span class="lbl"> L</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="size[]" class="ace size" type="checkbox"  value="M">
+					<span class="lbl"> M</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="size[]" class="ace size" type="checkbox" value="XS">
+					<span class="lbl"> XS</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="size[]" class="ace size" type="checkbox"  value="S">
+					<span class="lbl"> S</span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-group col-xs-12">
+		<label class="col-sm-2 control-label" for="sales_date">日期：</label>
+		<div class="col-sm-4">
+			<input data-date-format="yyyy-mm-dd" class="form-control input-date" type="text" id="sales_date" name="sales_date" >
+		</div>
+	</div>
+	<div class="form-group col-xs-12">
+		<label class="col-sm-2 control-label" for="qty">销售数量：</label>
+		<div class="col-sm-4">
+			<input class="form-control" type="text" id="qty" name="qty" >
+		</div>
+	</div>
+	<div class="form-group col-xs-12">
+		<label class="col-sm-2 control-label" for="discount">销售折扣：</label>
+		<div class="col-sm-4">
+			<input class="form-control" type="text" id="discount" name="discount" >
+		</div>
+	</div>
+	<div class="form-group col-xs-12">
+		<label class="col-sm-2 control-label" for="amount">销售金额：</label>
+		<div class="col-sm-4">
+			<input class="form-control" type="text" id="amount" name="amount" >
+		</div>
+	</div>
+	<div class="form-group col-xs-12">
+		<label class="col-sm-2 control-label" for="point">购物积分：</label>
+		<div class="col-sm-4">
+			<input class="form-control" type="text" id="point" name="point" >
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<hr>
+	<div class="action">
+		<input class="btn btn-sm btn-primary" type="button" value="保存" onclick="save();">
+		<input  class="btn btn-sm btn-default" type="button" value="取消" onclick="go_return_url(1);">
+	</div>
+</form>

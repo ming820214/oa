@@ -1,0 +1,126 @@
+<script type="text/javascript">
+
+function zhankai() {	
+		$("#adv_search").removeClass("display-none");
+		$("#zhan").hide();
+     	$("#adv_aa").addClass("display-none");
+}
+
+function zhankaii() {
+		$("#adv_search").addClass("display-none");
+		$("#zhan").show();
+     	$("#adv_aa").addClass("display-none");
+}
+$(document).ready(function(){
+	if({$ss}){		
+		zhankaii();
+	}
+});
+function sc(){
+	if($("#sc").is(':hidden')){
+		$("#dc").hide();
+		$("#sc").show();
+	}else{
+		$("#sc").hide();
+	}
+};
+
+function scc(){
+	if($("#scc").is(':hidden')){
+		$("#dc").hide();
+		$("#scc").show();
+	}else{
+		$("#scc").hide();
+	}
+};
+
+
+function dc(){
+	if($("#dc").is(':hidden')){
+		$("#sc").hide();
+		$("#dc").show();
+	}else{
+		$("#dc").hide();
+	}
+}
+
+function delt () {
+	$("#delt").submit();
+}
+
+function change(){
+	var id=$("input[name='id[]']:checkbox:checked").val();
+	      $.ajax({
+	         url: "{:U('Budget/api_c')}",
+	         data: "id="+id,
+	         type: "POST",
+	         async:true,
+	         dataType:"json",
+
+	         success: function(msg){
+	         	$("#adv_aa").removeClass("display-none");
+	         	$("#adv_aa").find("select[name='aa']").val(msg.aa);
+	         	$("#adv_aa").find("input[name='e']").val(msg.e);
+	         	$("#adv_aa").find("input[name='d']").val(msg.d);
+	         	$("#adv_aa").find("input[name='f']").val(msg.f);
+	         	$("#adv_aa").find("input[name='g']").val(msg.g);
+	         	$("#adv_aa").find("input[name='other']").val(msg.other);
+	         	$("#adv_aa").find("select[name='b']").append('<option>'+msg.b+'</option>');
+	         	$("#adv_aa").find("input[name='why']").val(msg.why);
+	         	$("#adv_aa").find("input[name='card']").val(msg.card);
+	         	$("#adv_aa").find("input[name='jsr']").val(msg.jsr);
+	         	$("#adv_aa").find("input[name='week']").val(msg.week);
+	         	$("#adv_aa").find("input[name='time']").val(msg.time);
+	         	$("#adv_aa").find("input[name='id']").val(msg.id);
+	         	$("#adv_aa").find("input[name='c']").val(msg.c);
+	         	$("#adv_aa").find("select[name='gs']").val(msg.gs);
+	         	$("#adv_aa").find("select[name='aa']").val(msg.aa);
+	         	$("#adv_aa").find("select[name='bm']").val(msg.bm);
+	         	$("#adv_aa").find("select[name='jsxq']").val(msg.jsxq);
+	         }
+	      });
+}
+
+function change_c(){
+     	$("#adv_aa").addClass("display-none");
+}
+
+$("#all1").click(function(){
+	if(this.checked){   
+		$("#box1").find("input[name='id[]']").each(function(){this.checked=true;});
+	}else{   
+		$("#box1").find("input[name='id[]']").each(function(){this.checked=false;});   
+	}   
+}); 
+$("#all2").click(function(){   
+	if(this.checked){   
+		$("#box2").find("input[name='id[]']").each(function(){this.checked=true;});
+	}else{   
+		$("#box2").find("input[name='id[]']").each(function(){this.checked=false;});   
+	}   
+}); 
+
+
+$(document).ready(function() {
+	//根据类型输出科目
+	$("#class").change(function(){
+	var p=$(this).val();
+    $("#classs").empty();
+		      $.ajax({
+		         url: "{:U('money/api')}",
+		         data: "p="+p,
+		         type: "POST",
+		         async:true,
+		         dataType:"json",
+		         success: function(msg){
+				    for(var i=0; i < msg.length;i++)
+				    {
+				            mg=msg[i];
+				            $("#classs").append('<option>'+mg.sort+'</option>');
+				     }
+		         }
+		      });
+	});
+});
+
+</script>

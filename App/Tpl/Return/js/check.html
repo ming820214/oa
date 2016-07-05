@@ -1,0 +1,39 @@
+<script type="text/javascript">
+
+	function change(){
+		var id=$("input[name='id[]']:checkbox:checked").val();
+		      $.ajax({
+		         url: "{:U('Return/api_c')}",
+		         data: "id="+id,
+		         type: "POST",
+		         async:true,
+		         dataType:"json",
+
+		         success: function(msg){
+		         	$("#adv_aa").removeClass("display-none");
+		         	$("#adv_aa").find("input[name='student']").val(msg.student);
+		         	$("#adv_aa").find("select[name='grade']").val(msg.grade);
+		         	$("#adv_aa").find("input[name='tel']").val(msg.tel);
+		         	$("#adv_aa").find("input[name='aa']").val(msg.aa);
+		         	$("#adv_aa").find("input[name='bb']").val(msg.bb);
+		         	$("#adv_aa").find("input[name='class']").val(msg.class);
+		         	$("#adv_aa").find("input[name='timed']").val(msg.timed);
+		         	$("#adv_aa").find("input[name='ze']").val(msg.ze);
+		         	$("#adv_aa").find("input[name='count']").val(msg.count);
+		         	$("#adv_aa").find("input[name='countd']").val(msg.countd);
+		         	$("#adv_aa").find("input[name='km']").val(msg.km);
+		         	$("#adv_aa").find("input[name='sy']").val(msg.sy);
+		         	$("#adv_aa").find("input[name='je']").val(msg.je);
+		         	$("#adv_aa").find("input[name='id']").val(msg.id);
+		         	$("#adv_aa").find("input[name='why2']").val(msg.why2);
+		         	$("#adv_aa").find("input[name='why3']").val(msg.why3);
+		         	$("#adv_aa").find("input[name='other']").val(msg.other);
+		         }
+		      });
+	}
+
+	function change_c(){
+         	$("#adv_aa").addClass("display-none");
+	}
+
+</script>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,">
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<title>财务审核 > 预算申请 </title>
+<link rel="stylesheet" href="../Public/money.css" type="text/css"/>
+</head>
+
+<body>
+    <h3 class="title">=》预算申请 ：</h3>
+<form method="post">
+ <ul>
+ 	<li><a>期&nbsp;&nbsp;次：</a><input class="mx" type="month" name="date" value="{$Think.session.date}"  />&nbsp;</li>
+    <li><a>预算类型：</a><input type="radio" name="class" value="1" checked/>常规<input type="radio" name="class" value="0" />临时</li>
+    <li><a>预算周期：</a><input class="mx" type="text" name="week" />&nbsp;</li>
+    <li><a>接收校区：</a><select class="srkx" name="school">{:W('School')}</select></li>
+    <li><a>归属校区:</a><select class="srkx" name="gs">{:W('School')}</select></li>
+    <li><a>明&nbsp;&nbsp;细：</a><input class="mx" type="text" name="c" />&nbsp;</li>
+    <li><a>单价（元）：</a><input class="mx" type="text" name="d" required/>&nbsp;</li>
+ 	<li><a>数&nbsp;&nbsp;量：</a><input class="mx" type="text" name="e" onkeyup="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''" required/>&nbsp;</li>
+    <li><a>成本类型：</a>
+        <select class="srkx" name="aa" id="aa">
+            <option>行政办公</option>
+            <option>固定资产</option>
+            <option>场地费用</option>
+            <option>寝室费用</option>
+            <option>环境建设</option>
+            <option>校区活动金</option>
+            <option>工资费用</option>
+            <option>员工福利</option>
+            <option>员工借款</option>
+            <option>培训费用</option>
+            <option>宣传费用</option>
+            <option>营销（刚性）</option>
+            <option>营销（柔性）</option>
+            <option>招聘费用</option>
+            <option>关系运作</option>
+            <option>终极逆转特训营</option>
+            <option>艺术生特训营</option>
+            <option>校庆</option>
+            <option>押金</option>
+            <option>福利金</option>
+            <option>上期结余</option>
+            <option>预留资金</option>
+        </select>
+    </li>
+    <li><a>二&nbsp;级&nbsp;科&nbsp;目：</a><select class="srkx" name="b" id="b"></select></li>
+    <li><a>审核部门：</a><select class="srkx" name="cars">{:W('School','part')}</select></li>
+    <li><a>期望审批日期：</a><input class="mx" type="date" name="g" required/>&nbsp;</li>
+ 	<li><a>申请原因：</a><input class="mx" type="text" name="why" />&nbsp;</li>
+    <li><a>接&nbsp;收&nbsp;人：</a><input class="mx" type="text" name="jsr" required/>&nbsp;</li>
+    <li><a>卡号：</a><input class="mx" type="text" name="card" />&nbsp;</li>
+ 	<li><a>备&nbsp;&nbsp;注：</a><input class="mx" type="text" name="other" />&nbsp;</li>
+ 	<div class="anniu"><input class="anniun" type="submit" value="提交申请" /></div>
+ </ul> 
+ </form>
+</body>
+<script type="text/javascript">
+    //根据类型输出二级科目
+    $("#aa").change(function(){
+        var p=$(this).val();
+        $("#b").empty();
+        $.post("{:U('api')}",{p:p},function(msg){
+            for(var i=0; i < msg.length;i++)
+            {
+                mg=msg[i];
+                $("#b").append('<option>'+mg.sort+'</option>');
+             }
+        },"json");
+    });
+</script>
+</html>

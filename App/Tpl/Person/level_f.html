@@ -1,0 +1,64 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'讲师','search'=>'A'))}
+<include file='level_search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>工号</th>
+				<th>姓名</th>
+				<th>单位</th>
+				<th>职级</th>
+				<th>备课评定要求</th>
+				<th>课时要求</th>
+				<th>实际备课评定</th>
+				<th>实际月课时</th>
+				<th>秒杀</th>
+				<th>周测试</th>
+				<th>是否达标</th>
+				<th>试讲</th>
+				<th>笔试</th>
+				<th>结果</th>
+				<th>核算后级别</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='vo'>
+			<tr pid="{$vo.id}">
+				<td>{$i}</td>
+				<td>HW{$vo.id}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.school}</td>
+				<td>{$vo.level}</td>
+				<td>{$vo.tc_a}</td>
+				<td>{$vo.tc_b}</td>
+				<td><input type="text" name="a" style="width:35px;height:20px;" value="{$vo.a}">%</td>
+				<td>{$vo.count}</td>
+				<td><input type="text" name="c" value="{$vo.c}" style="width:35px;"></td>
+				<td><input type="text" name="d" value="{$vo.d}" style="width:35px;"></td>
+				<td class="dabiao">{$vo.dabiao}</td>
+				<td><if condition="$vo.e eq 1">是<else/>否</if></td>
+				<td><if condition="$vo.f eq 1">是<else/>否</if></td>
+				<td class="tc_pass"><select name="tc_pass"><if condition="$vo.tc_pass eq 1"><option value="1">通过</option><else/><option></option></if><option value="0">失败</option><option value="1">通过</option></select></td>
+				<td class="new">{$vo.new}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>
+<script>
+	$("table input,table select").on('change',function() {
+		var xx=$(this).parent(),
+		    id=xx.parent().attr("pid"),
+			aa=xx.parent().find("input[name='a']").val(),
+			c=xx.parent().find("input[name='c']").val();
+			d=xx.parent().find("input[name='d']").val();
+			tc_pass=xx.parent().find("select[name='tc_pass']").val();
+			$.getJSON("{:U('level_f')}",{pid:id,aa:aa,c:c,d:d,tc_pass:tc_pass},function(msg){
+				xx.parent().find(".dabiao").text(msg.dabiao);
+				xx.parent().find(".new").text(msg.new);
+			})
+	});
+</script>

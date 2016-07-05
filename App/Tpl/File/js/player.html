@@ -1,0 +1,78 @@
+<script src="__PUBLIC__/js/swfobject/swfobject.js"></script>
+<!--<input type="button" id="hhh" value="save" onclick="studayHIs();" />-->
+<script>
+	var video_file = "/{$video_file}?" + Date.parse(new Date());
+	var file_ext = "{$video_ext}";
+	var f2 = "{$file2|default=$uri}";
+	var user_id = "{$user_id}";
+	var _sec = 0;
+	var _type = "{$_GET.type}";
+	var _video_id = "{$_GET.id}";
+	var _course_id = "{$_GET.course}";
+	var _start_time = "{:date('Y-m-d H:i:s')}";
+	var _play = "{$play}";
+
+	function initData() {
+		var type = "{$_GET.type}";
+		//ui_error("{$cknum|default=C2('PX_CK')}");
+		//alert(t+' : '+_notStuday);
+		if (type == "learn" && _play == "1") {
+			document.getElementById("player").initData($("#vod_url").val(), user_id, '', 3, .80);
+		} else {
+			document.getElementById("player").initData($("#vod_url").val(), user_id, '', 5, .8, 10, 0, 0, false);
+		}
+	}
+
+	function courseResult(result) {
+		if ((result[0] == '1' || parseInt(result[0]) > 0) && _type == 'learn') {
+			learn_his();
+		}
+	}
+
+	function learn_his() {
+		$.post("{:U('course/save_his')}", {
+			course_id : _course_id,
+			user_id : user_id,
+			type : _type,
+			video_id : _video_id,
+			file : video_file,
+			start_time : _start_time,
+			sec : _sec
+		});
+	}
+
+	function _courseResult(result) {
+		ui_error("_" + result[0]);
+	}
+
+	function online(sec) {
+		_sec = sec;
+	}
+
+
+	$(document).ready(function(e) {
+		if (user_id != "") {
+			if (file_ext == "mp4") {
+				$("#vod_url").val(video_file);
+				var flashvars = {};
+				var params = {
+					menu : "false",
+					allowfullscreen : "true",
+					allowscriptaccess : "true"
+				};
+				var attributes = {
+					id : "player",
+					name : "player"
+				};
+				swfobject.embedSWF("__PUBLIC__/js/player/player.swf", "flashContent", "550", "400", "9.0.0", "expressInstall.swf", flashvars, params, attributes);
+			} else {
+				ui_error("格式不正确");
+				setTimeout(function() {
+					myclose();
+				}, 0)
+			}
+		} else {
+			ui_error("请重新登陆！");
+		}
+	}); 
+</script>

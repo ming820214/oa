@@ -1,0 +1,37 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'生日查询'))}
+<include file='search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>工号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>单位</th>
+				<th>部门</th>
+				<th>职务</th>
+				<th>生日类型</th>
+				<th>阴历(农历)</th>
+				<th>阳历(公历)</th>
+				<th>剩余天数</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="data" id="v"><if condition="$v.sort egt 0">
+			<tr>
+				<td>HW{$v.id}</td>
+				<td>{$v.name}</td>
+				<td>{$v.sex|sex}</td>
+				<td>{$v.school}</td>
+				<td>{$v.part}</td>
+				<td>{$v.position}</td>
+				<td><if condition="$v.birthstyle eq 1">阴历<else/>阳历</if></td>
+				<td>{$v.nl}</td>
+				<td>{$v.date}</td>
+				<td>{$v.sort}</td>
+			</tr></if>
+			</volist>
+		</tbody>
+	</table>
+</div>

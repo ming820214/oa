@@ -1,0 +1,63 @@
+﻿<layout name='Layout/ace_layout' />
+<form method="post">
+<div class="operate panel panel-default">
+  <div class="panel-body">
+    <div class="pull-left">
+      <b>日期：</b><input type="text" name="date" onclick="WdatePicker()" value="{$date}"><input type="submit" class="btn btn-sm btn-primary" value="查询">
+    </div>
+  </div>
+</div>
+</form>
+<form method="post">
+<div class="operate panel panel-default" id="save" style="display:none;">
+  <div class="panel-body">
+    <div class="pull-left"><input type="hidden" name="id" id="saveid">
+      <b>开始时间：</b><input type="text" name="time1" onclick="WdatePicker({dateFmt:'HH:mm'})" required id="time1">
+      <b>结束时间：</b><input type="text" name="time2" onclick="WdatePicker({dateFmt:'HH:mm'})" required id="time2">
+      <b>实际课时：</b><select name="count"><option></option><for start="0.25" end="4"  step="0.25"><option>{$i}</option></for></select>
+      <b>完成状态：</b><select name="state"><option value="1">完成</option><option value="2">旷课</option></select>
+      <b>变更说明：</b><input type="text" name="why">
+    </div>
+    <div class="pull-right">
+      <input type="submit" class="btn btn-sm btn-primary" name="save" value="保存">
+      <a class="btn btn-sm btn-primary" onclick="$('#save').hide()">关闭</a>
+    </div>
+  </div>
+</div>
+</form>
+<table class="table table-bordered table-condensed">
+  <tr>
+    <th>开始时间</th>
+    <th>结束时间</th>
+    <th>类型</th>
+    <th>上课学员</th>
+    <th>科目</th>
+    <th>讲师</th>
+    <th>课时量</th>
+    <th width="200px;">变更说明</th>
+    <th>完成状态</th>
+    <th>添加人</th>
+    <th>教务确认</th>
+    <th>财务确认</th>
+    <th>操作</th>
+  </tr>
+  <volist name="list" id="v">
+    <tr>
+      <td>{$v.time1}</td>
+      <td>{$v.time2}</td>
+      <td><if condition="$v.grade eq 0">一对一<else/>小组课</if></td>
+      <td>{$v.student}</td>
+      <td>{$v.class}</td>
+      <td>{$v.teacher}</td>
+      <td>{$v.count}</td>
+      <td>{$v.why}</td>
+      <td><if condition="$v.state eq 1">已完成<elseif condition="$v.state eq 2"/>旷课<else/></if></td>
+      <td>{$v.add}</td>
+      <td>{$v.qr}</td>
+      <td>{$v.cwqr}</td>
+      <td><if condition="($v.qr neq '')and($v.timee elt date('Y-m-d'))"><empty name="v.cwqr"><a href="{:U()}&qr={$v.id}&date={$date}" class="btn btn-sm btn-primary">确认</a>|<a class="btn btn-sm btn-primary" onclick="$('#save').show();$('#saveid').val({$v.id});$('#time1').val('{$v.time1}');$('#time2').val('{$v.time2}');">修改</a></empty><else/><a style="color: red;">等待教务先确认……</a></if></td>
+    </tr>
+  </volist>
+</table>
+<script>
+</script>

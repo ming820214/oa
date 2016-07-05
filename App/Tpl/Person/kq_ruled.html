@@ -1,0 +1,32 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'规则分配','search'=>'A'))}
+<include file='kq_search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>员工ID</th>
+				<th>姓名</th>
+				<th>单位</th>
+				<th>部门</th>
+				<th>职位</th>
+				<th>考勤方案</th>
+				<th>状态</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='vo'>
+			<tr>
+				<td>{$vo.id}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.school}</td>
+				<td>{$vo.part}</td>
+				<td>{$vo.position}</td>
+				<td>{$vo.rules}</td>
+				<td><empty name="vo.rules"><a style="color:red;">未绑定</a><else/>已绑定</empty></td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>

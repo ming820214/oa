@@ -1,0 +1,29 @@
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-right">
+				姓名：<input type="text" name="name" class="col-10"/>&nbsp;&nbsp;&nbsp;
+				校区：<select name="school" class="col-10"><option></option>{:W('School')}</select>&nbsp;&nbsp;&nbsp;
+				<if condition="ACTION_NAME eq 'level_a'">
+					职务级别：<select name="level"><option></option><option>初级业务副校长</option><option>中级业务副校长</option><option>高级业务副校长</option></select>&nbsp;&nbsp;&nbsp;
+				</if>
+				<if condition="ACTION_NAME eq 'level_b'">
+					职务级别：<select name="level"><option></option><option>初级咨询副校长</option><option>中级咨询副校长</option><option>高级咨询副校长</option></select>&nbsp;&nbsp;&nbsp;
+				</if>
+				<if condition="ACTION_NAME eq 'level_c'">
+					职务级别：<select name="level"><option></option><option>初级维护副校长</option><option>中级维护副校长</option><option>高级维护副校长</option></select>&nbsp;&nbsp;&nbsp;
+				</if>
+				<if condition="ACTION_NAME eq 'level_d'">
+					职务级别：<select name="level"><option></option><option>初级教学主任</option><option>中级教学主任</option><option>高级教学主任</option></select>&nbsp;&nbsp;&nbsp;
+				</if>
+				<if condition="ACTION_NAME eq 'level_e'">
+					职务级别：<select name="level"><option></option><option>初级学习管理师</option><option>中级学习管理师</option><option>高级学习管理师</option></select>&nbsp;&nbsp;&nbsp;
+				</if>
+				<if condition="ACTION_NAME eq 'level_f'">
+					职务级别：<select name="level"><option></option><option>初级讲师</option><option>中级讲师</option><option>高级讲师</option></select>&nbsp;&nbsp;&nbsp;
+				</if>
+				<input type="submit" class="btn btn-sm btn-primary" name="search" value="查询">
+			</div>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,157 @@
+<layout name='Layout/ace_layout' />
+<include file="search" />
+<div class="row">
+	<table class="table table-bordered" id="rule">
+		<thead>
+			<tr>
+				<th>员工ID</th>
+				<th>姓名</th>
+				<th>是否缴纳</th>
+				<th>低薪是否缴纳</th>
+				<th>工龄（年）</th>
+				<th>个人比例</th>
+				<th>单位比例</th>
+				<th>个人累计（截止08.01）</th>
+				<th>单位累计（截止08.01）</th>
+				<th>帐号余额</th>
+				<th>操作</th>
+				<th>提取记录</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='v'>
+			<tr id="{$v.id}">
+				<td>{$v.id}</td>
+				<td>{$v.name}</td>
+				<td><select name="state"><option value="0">否</option><option value="1" <if condition="$v.state eq 1">selected</if>>是</option></select></td>
+				<td><select name="dixin"><option value="0">否</option><option value="1" <if condition="$v.dixin eq 1">selected</if>>是</option></select></td>
+				<td>{$v.age}</td>
+				<td>{$v['bili']*100}%</td>
+				<td>{$v['bili2']*100}%</td>
+				<td contenteditable class="fuli1">{$v.geren}</td>
+				<td contenteditable class="fuli2">{$v.danwei}</td>
+				<td>{$v['geren']+$v['danwei']-$v['tiqu']}</td>
+				<td width="160px;"><a class="btn btn-sm btn-primary" onclick="record({$v.id})">存入记录</a>|<a class="btn btn-sm btn-danger" onclick="add({$v.id})">提取</a></td>
+				<td width="200px;">{$v.record}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>
+<!-- 提取录入 -->
+<div id="add"><a onclick="clos(this)" class="clos">X</a>
+	<form method="post">
+	<table align="center" cellpadding="10" border="1" background-color="beige">
+		<tr>
+			<th>提取时间:<input type="hidden" name="id"></th>
+			<td><input type="text" name="date" onclick="WdatePicker()" required></td>
+			<th>提起金额：</th>
+			<th><input type="text" name="money" required></th>
+			<th>备注：</th>
+			<th><input type="text" name="other" required></th>
+			<th><input class="btn btn-sm btn-primary" type="submit" name="add"  value="确定提取"></th>
+		</tr>
+	</table>
+	</form>
+</div>
+<div id="record"><a onclick="clos(this)" class="clos">X</a>
+	<table align="center" width="100%" cellpadding="10" border="1" background-color="beige">
+		<thead>
+			<tr>
+				<th>期次</th>
+				<th>个人存入金额</th>
+				<th>单位存入金额</th>
+				<th>合计金额</th>
+			</tr>
+		</thead>
+		<tbody id="record_body">
+			
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+	function clos (th) {
+	    $(th).parent().hide();
+	    $(".shade").hide();
+	}
+	//添加提取记录
+	function add (id) {
+		$("#add input[name='id']").val(id);
+	    $(".shade").show();
+		$("#add").show();
+	}
+	//保存页面的数据更改
+	$("select").change(function() {
+		var id=$(this).parents("tr").attr("id"),
+			aa=$(this).attr("name"),
+			info=$(this).val();
+			$.post("{:U()}",{id:id,aa:aa,info:info});
+	})
+	//保存页面的数据更改(数据存储到3月份，作为基数，后期需要删除)
+	$("td").blur(function() {
+		var id=$(this).parents("tr").attr("id"),
+			aa=$(this).attr("class"),
+			info=$(this).text();
+			$.post("{:U('fuli_save')}",{id:id,aa:aa,info:info});
+	})
+	//获取福利金记录
+	function record(id){
+		$.post("{:U('')}",{record:id},function(msg){
+		$("#record_body").empty();
+		var info='';
+		for (var i = 0; i < msg.length; i++) {
+			info+='<tr>';
+			info+='<td>'+msg[i]['date']+'</td>';
+			info+='<td>'+msg[i]['fuli1']+'</td>';
+			info+='<td>'+msg[i]['fuli2']+'</td>';
+			info+='<td>'+msg[i]['fuli3']+'</td>';
+			info+='</tr>';
+		};
+		$("#record_body").append(info);
+	    $(".shade").show();
+		$("#record").show();
+		},"json");
+	}
+</script>
+<style type="text/css">
+.clos{
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	font-size: 20px;
+	color: white;
+	cursor: pointer;
+}
+#add{
+	width: 940px;
+	position: fixed;
+	background-color: burlywood;
+	top: 250px;
+	left: -470px;
+	margin-left: 50%;
+	display: none;
+	padding: 15px;
+	padding-top: 40px;
+	max-height: 500px;
+	padding-bottom: 25px;
+    overflow-y:auto;
+    z-index: 9999;
+}
+#record{
+	width: 500px;
+	position: fixed;
+	background-color: burlywood;
+	top: 250px;
+	left: -250px;
+	margin-left: 50%;
+	display: none;
+	padding: 15px;
+	padding-top: 40px;
+	max-height: 400px;
+	padding-bottom: 25px;
+    overflow-y:auto;
+    z-index: 9999;
+}
+</style>

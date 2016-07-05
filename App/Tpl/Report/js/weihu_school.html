@@ -1,0 +1,172 @@
+<div id="boox" class="boox" style="display:none"><a onclick="clos(this)" style="position: absolute;top:10px;right:10px;font-size: 18px;">X</a>
+	<table class="table table-bordered" style="margin-bottom:0px;">
+	<thead>
+		<tr>
+			<td width="45px">序号</td>
+			<td width="60px">姓名</td>
+			<td width="45px">年级</td>
+			<td width="45px">文理</td>
+			<td width="60px">学管师</td>
+			<td width="60px">总状态</td>
+			<td width="60px">语文</td>
+			<td width="60px">数学</td>
+			<td width="60px">英语</td>
+			<td width="60px">物/地</td>
+			<td width="60px">化/历</td>
+			<td>生/政</td>
+			<td width="75px">处理结果</td>
+			<td width="75px">上次维护</td>
+			<td width="75px">本次维护</td>
+			<td width="230px">操作</td>
+			<td width="15px"></td>
+		</tr>
+	</thead>
+	</table>
+	<div class="booxx">
+		<table class="table table-bordered">
+			<tbody id="content">
+			</tbody>
+		</table>
+	</div>
+	<br/><p style="color:red;">说明：'无'表示该科目从未上过课，'0'表示曾经上过。</p>
+</div>
+<style type="text/css">
+.t1{
+	border: 1px solid black;
+}
+.th{
+	text-align: center;
+	font-size: 18px;
+	padding: 15px;
+	background-color: moccasin;
+	color: brown;
+}
+a{
+	cursor: pointer;
+}
+.boox{
+	width: 1200px;
+	height: 480px;
+	position: fixed;
+	background-color: lavender;
+	top: 100px;
+	z-index: 1000;
+	left: -600px;
+	padding: 30px;
+	margin-left: 50%;
+}
+.booxx{
+	max-height:360px;
+	overflow-y:auto;
+	background-color: white;
+}
+.ch{
+	display: none;
+}
+.box1{
+  padding: 30px;
+  margin: 20px 30px;
+  background-color: antiquewhite;
+  font-size: 13px;
+  font-weight: bolder;
+}
+#set span{
+  line-height: 28px;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.week{
+  background-color: rgb(175, 95, 95);
+  color: cornsilk;
+}
+.type{
+  background-color: rgb(175, 95, 95);
+  color: cornsilk;
+}
+</style>
+<script>
+  $(document).ready(function(){
+    //查询保持不变
+    <notempty name="Think.post.search">
+      $("#school").val(get_cookie("s1"));
+    </notempty>
+
+    $("#search").on("click",function () {
+      set_cookie("s1",$("#school").val());
+    });
+
+  });
+
+
+  function clos (th) {
+    $(th).parent().hide();
+  }
+  $(".pa").on("click",function(){
+  	$(this).parent().children(".ch").toggle("slow");
+  });
+
+ $("table a").on("click",function(){
+ 	$("#boox").show();
+ 	$("#content").empty();
+ 	var dat =$(this).attr('data');
+ 	var nm = $(this).attr('nm');
+ 	var school = $("#school").val();
+
+ 	$.getJSON('{:U('weihu_apis')}',{data:dat,nm:nm,school:school},function(data){
+ 		for (var i = 0; i < data.length; i++) {
+ 			$("#content").append("<tr><td style='width:45px'>"+(i+1)+"</td><td style='width:60px'>"+data[i]['info']['name']+"</td><td style='width:45px'>"+data[i]['info']['grade']+"</td><td style='width:45px'>"+data[i]['info']['wl']+"</td><td style='width:60px'>"+data[i]['info']['xueguan']+"</td><td style='width:60px'>"+data[i]['state']+"</td><td style='width:60px'>"+data[i]['a']+"</td><td style='width:60px'>"+data[i]['b']+"</td><td style='width:60px'>"+data[i]['c']+"</td><td style='width:60px'>"+data[i]['d']+"</td><td style='width:60px'>"+data[i]['e']+'</td><td>'+data[i]['f']+"</td><td style='width:75px'>"+data[i]['tag']+"</td><td style='width:75px'>"+data[i]['weihu'][0]+"</td><td style='width:75px'>"+data[i]['weihu'][1]+"</td><td style='width:230px'>"+"<input type='submit' class='btn btn-minier btn-danger' name='search' onclick='set("+data[i]['info']['id']+")' value='添加' /><input type='submit' class='btn btn-minier btn-danger' name='search' onclick='set_record("+data[i]['info']['id']+")' value='查看' /><input type='submit' class='btn btn-minier btn-primary' name='weihu' onclick='weihu_record("+data[i]['info']['id']+")' value='维护' /><input type='submit' class='btn btn-minier btn-primary' name='search' onclick='fankui_record("+data[i]['info']['id']+")' value='反馈' /><input type='submit' class='btn btn-minier btn-primary' name='search' onclick='info("+data[i]['info']['id']+")' value='学员信息' />"+'</td></tr>');
+ 		};
+ 	})
+ })
+
+
+function set (sid) {
+  $("#set").show();
+  $(".stuid").val(sid);
+}
+
+//日授课记录处理
+  $("#week span").on('click',function(){
+      $("#week span").removeClass("week");
+      $(this).addClass("week");
+  });
+  $("#type span").on('click',function(){
+      $("#type span").removeClass("type");
+      $(this).addClass("type");
+  });
+  $("#set .bt").on('click',function() {
+    var stuid=$("#set .stuid").val();
+    var date=$("#week .week").attr("data");
+    var type=$("#type .type").attr("data");
+    var m=$("#m").val();
+    $.get("{:U('Xueguan/set_add')}&stuid="+stuid+"&date="+date+"&mm="+m+"&type="+type,function(data){
+      if(data==1){
+        alert("任务添加成功……");
+        $("#set").hide();
+      }else{
+        alert("添加失败……");
+      }
+    },"json");
+  });
+
+
+function set_record (sid) {
+  $("#set_record").show();
+  $(".stuid").val(sid);
+}
+
+  //查询维护任务
+function set_record (sid) {
+	$("#set_record").show();
+	$("#set_record td").remove();
+	var info = '';
+	$.getJSON("{:U('Xueguan/set_record')}",'&stuid='+sid,function(data){
+	  for (var i=0;i<data.length;i++){
+	  	info+='<tr><td>第'+data[i]['week']+'周</td><td>'+data[i]['type']+'</td><td>'+data[i]['date']+'</td><td>'+data[i]['xueguan']+"</td><td><a class='btn btn-xs btn-danger' href='{:U('Xueguan/set_delt')}&wd="+data[i]['id']+"'>删除</a></td>"
+	  }
+		$("#set_record .content").append(info);
+	});
+}
+</script>

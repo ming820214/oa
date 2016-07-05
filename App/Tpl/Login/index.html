@@ -1,0 +1,59 @@
+<layout name='Layout/ace_page' />
+<div class="container" >
+	<!-- /container -->
+	<div class="row">
+		<div class="col-xs-12 hidden-xs" style="margin-top:120px;"> </div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 hidden-xs">
+			<div class="img"></div>
+		</div>
+		<div class="col-sm-4 well">
+			<div style="margin-bottom:44px;margin-top:50px;">
+				<h1 class="text-center">{:get_system_config("SYSTEM_NAME")}</h1>
+			</div>
+			<form method="post" id="form_login" class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-3  control-label" for="emp_no">帐号：</label>
+					<div class="col-sm-8">
+						<input class="form-control" id="emp_no" name="emp_no" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3  control-label" for="password">密码：</label>
+					<div class="col-sm-8">
+						<input class="form-control" id="password" type="password" name="password" />
+					</div>
+				</div>
+				<notempty name="is_verify_code">
+					<div class="form-group">
+						<label class="col-sm-3  control-label" for="verify">验证码：</label>
+						<div class="col-sm-9 row">
+							<div class="col-xs-8">
+								<input class="form-control" id="verify" name="verify" />
+							</div>
+							<div class="col-xs-4">
+								<img src='__URL__/verify' / style='cursor:pointer' title='刷新验证码' id='verifyImg' onClick='freshVerify()'>
+							</div>
+						</div>
+					</div>
+				</notempty>
+				<div class="form-group display-none">
+					<span class="col-sm-3  control-label"> </span>
+					<div class="col-sm-9">
+						<label class="inline pull-left col-3">
+							<input class="ace" type="checkbox" name="id[]" value="{$vo.id}" />
+							<span class="lbl"> </span> </label>
+						<label for="remember-me">记住我的登录状态</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-3 col-sm-9">
+						<input type="button" value="登录" onclick="login();" class="btn btn-sm btn-primary col-10">
+					</div>
+				</div>
+			</form>
+			<div style="margin-bottom: 10px;text-align: center;margin-top: 100px;">2014鸿文教育版权所有</div>
+		</div>
+	</div>
+</div>

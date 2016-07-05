@@ -1,0 +1,52 @@
+<script type="text/javascript">
+	function save() {
+		$("#node_list").val('');
+		$(".wrap .tree_menu input[name='node_id']:checked").each(function() {
+			$("#node_list").val($("#node_list").val() + $(this).val() + ",");
+		})
+		sendForm("form_data", "{:U('set_node')}");
+	};
+
+	function showdata(result) {
+		$(".wrap .tree_menu input").each(function() {
+			$(this).prop("checked", false);
+			//$(this).parents("td").removeClass("active");
+		});
+		for (var s in result.data) {
+			$(".wrap .tree_menu input[name='node_id'][value=" + result.data[s].node_id + "]").prop("checked", "true");
+			//$(".wrap .tree_menu input[name='node_id'][value=" + result.data[s].node_id + "]").parents("td").addClass("active");
+
+			if (result.data[s].admin == 1) {
+				$(".wrap .tree_menu input[name='admin[]'][value=" + result.data[s].node_id + "]").prop("checked", "true");
+				//$(".wrap .tree_menu input[name='admin[]'][value=" + result.data[s].node_id + "]").parents("td").addClass("active");
+			}
+			if (result.data[s].write == 1) {
+				$(".wrap .tree_menu input[name='write[]'][value=" + result.data[s].node_id + "]").prop("checked", "true");
+				//$(".wrap .tree_menu input[name='write[]'][value=" + result.data[s].node_id + "]").parents("td").addClass("active");
+			}
+			if (result.data[s].read == 1) {
+				$(".wrap .tree_menu input[name='read[]'][value=" + result.data[s].node_id + "]").prop("checked", "true");
+				//$(".wrap .tree_menu input[name='read[]'][value=" + result.data[s].node_id + "]").parents("td").addClass("active");
+			}
+		};
+		$("#org_node_list").val('');
+		$(".wrap .tree_menu input[name='node_id']:checked").each(function() {;
+			$("#org_node_list").val($("#org_node_list").val() + $(this).val() + ",");
+		})
+		$("#opmode").val("edit");
+	};
+
+	$(document).ready(function() {
+		set_return_url();
+		set_val('eq_pid', '{$eq_pid}');
+		$(".role_list tbody tr").click(function() {
+			$(".role_list  tr").removeClass("active");
+			$(this).attr("class", "active");
+			$("#role_id").val($(this).attr("id"));
+			sendAjax("{:U('get_node_list')}", "role_id=" + $(this).attr("id"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+	}); 
+</script>

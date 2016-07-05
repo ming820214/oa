@@ -1,0 +1,118 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>array('编辑：',$flow_type['name']),'search'=>'N'))}
+<div class="operate panel panel-default">
+	<div class="panel-body">
+		<div class="pull-left">
+			<a onclick="go_return_url();" class="btn btn-sm btn-primary">返回</a>
+			<neq name="flow_type.type" value="1">
+				<a onclick="popup_confirm();"  class="btn btn-sm btn-primary">选择审批流程</a>
+			</neq>
+		</div>
+		<div class="pull-right">
+			<a onclick="save(10);"  class="btn btn-sm btn-primary">临时保存</a>
+			<a onclick="save(20);"  class="btn btn-sm btn-primary">提交</a>
+		</div>
+	</div>
+</div>
+
+<form method='post' id="form_data" name="form_data" enctype="multipart/form-data" class="well form-horizontal">
+	<input type="hidden" id="id" name="id" value="{$vo.id}">
+	<input type="hidden" id="ajax" name="ajax" value="0">
+	<input type="hidden" id="add_file" name="add_file" >
+	<input type="hidden" id="type" name="type" value="{$flow_type.id}">
+	<input type="hidden" id="opmode" name="opmode" value="edit">
+	<input type="hidden" id="confirm" name="confirm" value="">
+	<input type="hidden" id="confirm_name" name="confirm_name" value="">
+	<input type="hidden" id="consult" name="consult" value="">
+	<input type="hidden" id="consult_name" name="consult_name" value="">
+	<input type="hidden" id="refer" name="refer" value="">
+	<input type="hidden" id="refer_name" name="refer_name" value="">
+	<input type="hidden" id="step" name="step" value="">
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="name">标题*：</label>
+		<div class="col-sm-10">
+			<input value="{$vo.name}" class="form-control" type="text" id="name" name="name" check="require" msg="请输入标题">
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" >文件编号*：</label>
+		<div class="col-sm-8">
+			<p class="form-control-static">
+				{$flow_type.doc_no_format}
+			</p>
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" >日期：</label>
+		<div class="col-sm-8">
+			<p class="form-control-static">
+				{$vo.create_time|toDate='Y-m-d'}
+			</p>
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" >编写人：</label>
+		<div class="col-sm-8">
+			<p class="form-control-static">
+				{$vo.user_name}
+			</p>
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" >部门：</label>
+		<div class="col-sm-8">
+			<p class="form-control-static">
+				{$vo.dept_name}
+			</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" >审批：</label>
+		<div class="col-sm-10">
+			<p id="confirm_wrap" class="form-control-static address_list">
+				{$vo.confirm_name}
+			</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" >协商：</label>
+		<div class="col-sm-10">
+			<p id="consult_wrap" class="form-control-static address_list">
+				{$vo.consult_name}
+			</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" >抄送：</label>
+		<div class="col-sm-10">
+			<p id="refer_wrap" class="form-control-static address_list">
+				{$vo.consult_name}
+			</p>
+		</div>
+	</div>
+<hr></hr>
+	<volist name="field_list" id="field_vo">
+		{:W('FlowField',$field_vo)}
+	</volist>
+
+	<div class="form-group">
+		<div class="col-xs-12">
+			<textarea class="editor" id="content" name="content" style="width:100%;height:300px;">{$flow_type.content}</textarea>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" >附件：</label>
+		<div class="col-sm-10">
+			{:W('File',array('add_file'=>$vo['add_file'],'mode'=>'edit'))}
+		</div>
+	</div>
+</form>

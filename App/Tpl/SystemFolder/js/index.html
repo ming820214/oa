@@ -1,0 +1,104 @@
+<script type="text/javascript">
+	function add() {
+		$("#opmode").val("add");
+		$("#id").val("");
+		$("#admin").val("");
+		$("#admin_list span.address_list span").each(function(){			
+			$("#admin").val($("#admin").val() + $(this).text().replace(';', '') + '|' + $(this).attr("data") + ";")
+		})
+
+		$("#write").val("");
+		$("#write_list span.address_list span").each(function() {
+			$("#write").val($("#write").val() + $(this).text().replace(';', '') + '|' + $(this).attr("data") + ";")
+		})
+
+		$("#read").val("");
+		$("#read_list span.address_list span").each(function() {
+			$("#read").val($("#read").val() + $(this).text().replace(';', '') + '|' + $(this).attr("data") + ";")
+		})
+		if (check_form("form_data")){
+			sendForm("form_data", "{:U('save')}","{:U('index')}");
+		}
+	};
+
+	function del() {
+		var vars = $("#form_data").serialize();
+		ui_confirm('确定要删除吗?',function(){
+			sendAjax("{:U('del')}", vars, function(data) {
+				if (data.status) {
+					ui_alert(data.info,function(){
+						location.reload();
+					});	
+				}
+			});
+		})
+	}
+
+	function save(){
+		if ($("#opmode").val() == "") {
+			ui_error("请选择要保存的数据");
+			return false;
+		}
+		$("#admin").val("");
+		$("#admin_list span.address_list span").each(function() {
+			$("#admin").val($("#admin").val() + $(this).text().replace(';', '') + '|' + $(this).attr("data") + ";")
+		})
+
+		$("#write").val("");
+		$("#write_list span.address_list span").each(function() {
+			$("#write").val($("#write").val() + $(this).text().replace(';', '') + '|' + $(this).attr("data") + ";")
+		})
+
+		$("#read").val("");
+		$("#read_list span.address_list span").each(function() {
+			$("#read").val($("#read").val() + $(this).text().replace(';', '') + '|' + $(this).attr("data") + ";")
+		})
+		if (check_form("form_data")) {
+			sendForm("form_data","{:U('save')}");
+		}
+	};
+
+	function showdata(result) {
+		for (var s in result.data) {
+			set_val(s, result.data[s]);
+		}
+		$("#admin_list span.address_list").html(contact_conv($("#admin").val()));
+		$("#write_list span.address_list").html(contact_conv($("#write").val()));
+		$("#read_list span.address_list").html(contact_conv($("#read").val()));
+		$("#folder_name").val($("#folder_list option[value='" + $("#pid").val() + "']").text());
+		$("#opmode").val("edit");
+	}
+
+	function popup_auth() {
+		winopen("{:U('popup/auth')}", 730, 574);
+	}
+
+	function select_auth() {
+		winopen("{:U('popup/auth')}", 730, 574);
+	}
+
+	function select_pid() {
+		winopen("{:U('winpop')}", 730, 400);
+	}
+
+	$(document).ready(function() {
+		set_return_url();
+
+		$(document).on("click", ".inputbox .address_list a.del", function() {
+			$(this).parent().parent().remove();
+		});
+
+		$(".sub_left_menu .tree_menu  a").click(function() {
+			$(".sub_left_menu .tree_menu  a").attr("class", "");
+			$(this).attr("class", "active");
+			sendAjax("{:U('read')}", "id=" + $(this).attr("node"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+		// 双击添加到收件人 因后添加的数据 所以需要用live函数
+		$(".address_list span").on("dblclick", function() {
+			$(this).remove();
+		});
+	}); 
+</script>

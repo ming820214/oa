@@ -1,0 +1,89 @@
+<layout name='Layout/ace_layout' />
+<input type="hidden" id="id" name="id" value="{$vo.id}">
+{:W('PageHeader',array('name'=>$vo['name'],'search'=>'N'))}
+<div class="operate panel panel-default">
+	<div class="panel-body">
+		<div class="pull-left">
+			<a onclick="go_return_url();" class="btn btn-sm btn-primary">返回</a>
+			<if condition="$auth['admin']">
+				<a onclick="del();" class="btn btn-sm btn-danger">删除</a>
+			</if>
+		</div>
+		<div class="pull-right">
+        	<!--增加签收-->
+            <if condition="$is_sign eq 0">
+			<a onclick="sign()" class="btn btn-sm btn-primary">请签收</a>
+            </if>
+         	<!--增加签收-->
+			<a onclick="winprint()" class="btn btn-sm btn-primary">打印</a>
+			<if condition="$auth['write']">
+				<a onclick="edit();" class="btn btn-sm btn-primary">修改</a>
+			</if>
+		</div>
+	</div>
+</div>
+<form method='post' id="frm_content" name="frm_content" enctype="multipart/form-data"  class="well form-horizontal">
+	<input type="hidden" id="id" name="id" value="{$vo.id}">
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label">编号：</label>
+		<div class="col-sm-8">
+			<p class="form-control-static">
+				{$vo.notice_no}
+			</p>
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" >登录日期：</label>
+		<div class="col-sm-8">
+			<p class="form-control-static">
+				{$vo.create_time|toDate='Y年m月d日 H:i'}
+			</p>
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" >登录人：</label>
+		<div class="col-sm-8">
+			<p class="form-control-static">
+				{$vo.user_name}
+			</p>
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" >管理者：</label>
+		<div class="col-sm-8">
+			<p class="form-control-static">
+				{$admin|show_contact}
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="form-group">
+		<div class="col-xs-12">
+			<div class="content_wrap" >
+				<iframe class="content_iframe"></iframe>
+				<textarea  class="editor content" name="content" style="width:100%;display:none">{$vo.content}</textarea>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="name">附件：</label>
+		<div class="col-sm-10">
+			{:W('File',array('add_file'=>$vo['add_file'],'mode'=>'show'))}
+		</div>
+	</div>
+    <!--增加签收-->
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="name">已签收人员：</label>
+		<div class="col-sm-10">        	
+			<div class="sign_box">
+				<volist name="signlist" id="vosign">
+					&lt; {$vosign.user_name} {$vosign.sign_time|toDate='Y-m-d H:i'} &gt;
+				</volist>            
+			</div>
+		</div>
+	</div>
+    <!--增加签收-->
+</form>

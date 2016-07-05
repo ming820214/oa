@@ -1,0 +1,139 @@
+
+<table width="8000px" border="2" cellpadding="10">
+	<tr bgcolor="darkgrey">
+		<th width="110px">姓名</th>
+		<th width="150px">职级</th>
+		<th>底薪</th>
+		<th>绩效奖金</th>
+		<th>绩效系数</th>
+		<th>应出勤天数</th>
+		<th>核算出勤天数</th>
+		<th>出勤核算</th>
+		<th>课时消耗</th>
+		<th>提成比例1</th>
+		<th>提成比例2</th>
+		<th>提成比例3</th>
+		<th>提成比例4</th>
+		<th>提成比例5</th>
+		<th>提成比例6</th>
+		<th>提成比例7</th>
+		<th>提成比例8</th>
+		<th>提成比例9</th>
+		<th>提成比例10</th>
+		<th>消耗完成</th>
+		<th>授课提成</th>
+		<th>个人招生业绩</th>
+		<th>提成比例11</th>
+		<th>提成比例12</th>
+		<th>提成比例13</th>
+		<th>提成比例14</th>
+		<th>提成比例15</th>
+		<th>提成比例16</th>
+		<th>个人招生提成</th>
+		<th>个人消耗业绩</th>
+		<th>提成比例17</th>
+		<th>提成比例18</th>
+		<th>提成比例19</th>
+		<th>提成比例20</th>
+		<th>个人消耗提成</th>
+		<th>团队业绩</th>
+		<th>提成比例</th>
+		<th>团队业绩提成</th>
+		<th>团队消耗</th>
+		<th>提成比例</th>
+		<th>团队消耗完成率</th>
+		<th>社保补贴</th>
+		<th>拓展补贴</th>
+		<th>督学奖金</th>
+		<th>组长提成</th>
+		<th>其它奖金</th>
+		<th>退费扣款</th>
+		<th>其它扣款</th>
+		<th>其它工资</th>
+		<th bgcolor="gold">应付工资</th>
+		<if condition="$dt.type neq 1">
+			<th>五险一金（个人）</th>
+			<th>五险一金（单位）</th>
+			<th>五险一金（合计）</th>
+			<th>补助</th>
+			<th bgcolor="gold">险后工资</th>
+			<th>福利金（个人）</th>
+			<th>福利金（单位）</th>
+			<th>福利金（合计存入）</th>
+			<th>福利金（存入后账户余额）</th>
+			<th>个人借款</th>
+			<th>借款归还</th>
+			<th bgcolor="gold">实发工资</th>
+			<th>单位总支出</th>
+		</if>
+			<th>备注</th>
+	</tr>
+	<tr bgcolor="antiquewhite">
+		<td>{$dt.name}</td>
+		<td>{$dt.level}</td>
+		<td>{$dt.d}</td>
+		<td>{$dt.e}</td>
+		<td>{$dt.f}</td>
+		<td>{$dt.g}</td>
+		<td>{$dt.h}</td>
+		<td>{$dt.i}</td>
+		<td>{$dt.j}</td>
+		<td>{$dt.k}</td>
+		<td>{$dt.l}</td>
+		<td>{$dt.m}</td>
+		<td>{$dt.n}</td>
+		<td>{$dt.o}</td>
+		<td>{$dt.p}</td>
+		<td>{$dt.q}</td>
+		<td>{$dt.r}</td>
+		<td>{$dt.s}</td>
+		<td>{$dt.t}</td>
+		<td>{$dt.u}</td>
+		<td>{$dt.v}</td>
+		<td>{$dt.w}</td>
+		<td>{$dt.x}</td>
+		<td>{$dt.y}</td>
+		<td>{$dt.z}</td>
+		<td>{$dt.aa}</td>
+		<td>{$dt.ab}</td>
+		<td>{$dt.ac}</td>
+		<td>{$dt.ad}</td>
+		<td>{$dt.ae}</td>
+		<td>{$dt.af}</td>
+		<td>{$dt.ag}</td>
+		<td>{$dt.ah}</td>
+		<td>{$dt.ai}</td>
+		<td>{$dt.aj}</td>
+		<td>{$dt.ak}</td>
+		<td>{$dt.al}</td>
+		<td>{$dt.am}</td>
+		<td>{$dt.an}</td>
+		<td>{$dt.ao}</td>
+		<td>{$dt.ap}</td>
+		<td>{$dt.aq}</td>
+		<td>{$dt.ar}</td>
+		<td>{$dt.as}</td>
+		<td>{$dt.at}</td>
+		<td>{$dt.au}</td>
+		<td>{$dt.av}</td>
+		<td>{$dt.aw}</td>
+		<td>{$dt.count}</td>
+		<td>{$dt.count1}</td><!-- 应付工资 -->
+		<if condition="$dt.type neq 1">
+			<td>{$dt.5x1}</td>
+			<td>{$dt.5x2}</td>
+			<td>{$dt.5x3}</td>
+			<td>{$dt.buzhu}</td>
+			<td>{$dt.count2}</td><!-- 险后工资 -->
+			<td>{$dt['fuli1']}</td>
+			<td>{$dt['fuli2']}</td>
+			<td>{$dt['fuli3']}</td>
+			<td>{$dt['fuli4']}</td>
+			<td>{$dt.bn}</td>
+			<td>{$dt.bo}</td>
+			<td>{$dt.count3}</td>
+			<td>{$dt.danwei}</td>
+		</if>
+			<td>{$dt.other}</td>
+	</tr>
+</table>

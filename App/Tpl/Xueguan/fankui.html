@@ -1,0 +1,123 @@
+<layout name='Layout/ace_layout' />
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="col-8 text-center">学员ID</th>
+          <th>姓名</th>
+          <th>上课日期</th>
+          <th>开始时间</th>
+          <th>结束时间</th>
+          <th>科目</th>
+          <th>授课反馈</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="data" id="v"><form method="post">
+          <tr>
+            <td>{$v.stuid}</td>
+            <td><if condition="$v.stuid eq 88888">#试听#</if>{$v.student.name}</td>
+            <td>{$v.timee}</td>
+            <td>{$v.time1}</td>
+            <td>{$v.time2}</td>
+            <td>{$v.class}</td>
+            <td><if condition="$v['student']['type'] eq 全日制"><a class="btn btn-minier btn-danger" onclick="fankuiq({$v.id})">授课反馈</a><else/><if condition="$v.stuid eq 88888"><input type="submit" class="btn btn-minier btn-primary" name="kuangke" value="试听确认" /><else/><a class="btn btn-minier btn-danger" onclick="fankui({$v.id})">授课反馈</a></if></if>
+            <input type="hidden" name="cid" value="{$v.id}">
+            <input type="submit" class="btn btn-minier btn-primary" name="kuangke" value="学员旷课" /></td>
+            <td><a class="btn btn-minier btn-primary" onclick="fankui_record({$v.stuid})">授课反馈记录</a></td>
+          </tr></form>
+        </volist>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    {$page}
+  </div>
+</div>
+
+<!-- 普通学员授课反馈 -->
+<form method="post" action="{:U('Xueguan/fankui')}">
+<div class="box" id="fankui" style="display: none;height: 580px;"><a onclick="clos(this)" class="close">X</a><input type="hidden" name="cid" class="cid"><input type="hidden" name="stuid" class="stuid">
+  <div class="title"><h3>授课反馈</h3></div>
+  <table style="background-color:white;width:720px;" border="1px" cellpadding="7" cellspacing="10" align="center">
+    <tr>
+      <td>日期<input type="hidden" name="date" class="date"></td>
+      <td width="200px" class="date"></td>
+      <td>上课时间</td>
+      <td class="time"></td>
+    </tr>
+    <tr>
+      <td width="100px">讲师<input type="hidden" name="teacher" class="teacher"></td>
+      <td class="teacher"></td>
+      <td width="100px">科目<input type="hidden" name="class" class="class"></td>
+      <td class="class"></td>
+    </tr>
+    <tr>
+      <td>授课模块</td>
+      <td colspan="3"><input type="text" name="fk_a" class="form-control" required></td>
+    </tr>
+    <tr>
+      <td>授课内容</td>
+      <td colspan="3"><input type="radio" name="fk_b" value="新课" checked="checked">新课<input type="radio" name="fk_b" value="复习课">复习课<input type="radio" name="fk_b" value="习题课">习题课<input type="radio" name="fk_b" value="课前冲刺课">课前冲刺课<input type="radio" name="fk_b" value="答疑课">答疑课</td>
+    </tr>
+    <tr>
+      <td>学员听课状态</td>
+      <td colspan="3"><input type="checkbox" name="fk_c[]" value="聚精会神">聚精会神<input type="checkbox" name="fk_c[]" value="思考积极">思考积极<input type="checkbox" name="fk_c[]" value="互动积极">互动积极<input type="checkbox" name="fk_c[]" value="思维敏捷">思维敏捷<input type="checkbox" name="fk_c[]" value="偶尔走神">偶尔走神<input type="checkbox" name="fk_c[]" value="思维混乱">思维混乱<input type="checkbox" name="fk_c[]" value="互动消极">互动消极<input type="checkbox" name="fk_c[]" value="易困疲劳">易困疲劳<br/>其它<input style="height:20px;" type="text" name="fk_c[]"></td>
+    </tr>
+    <tr>
+      <td>本节提升亮点</td>
+      <td colspan="3"><input type="text" name="fk_d" class="form-control" required></td>
+    </tr>
+    <tr>
+      <td>预留作业安排</td>
+      <td colspan="3"><input type="text" name="fk_e" class="form-control" required></td>
+    </tr>
+    <tr>
+      <td>作业完成情况</td>
+      <td><input type="radio" name="fk_f" value="没有完成">没有完成<input type="radio" name="fk_f" value="部分完成">部分完成<br/><input type="radio" name="fk_f" value="全部完成"  checked="checked">全部完成</td>
+      <td>沟通需要</td>
+      <td><input type="radio" name="fk_g" value="需与学管沟通">需与学管沟通<input type="radio" name="fk_g" value="需与家长沟通">需与家长沟通<br/><input type="radio" name="fk_g" value="无需与家长沟通"  checked="checked">无需与家长沟通</td>
+    </tr>
+    <tr>
+      <td>备注信息：</td>
+      <td colspan="3" contenteditable="true" name="fk_h"><input type="text" name="fk_h" class="form-control"></td>
+    </tr>
+  </table>
+    <input type="submit" class="bt" style="margin-left:600px;" name="add" value="更新保存" />
+</div>
+</form>
+
+<!-- 全日制学员反馈 -->
+<form method="post" action="{:U('Xueguan/fankui')}">
+<div class="box" id="fankuiq" style="display:none;"><a onclick="clos(this)" class="close">X</a><input type="hidden" name="cid" class="cid"><input type="hidden" name="stuid" class="stuid"><input type="hidden" name="date" class="date"><input type="hidden" name="teacher" class="teacher"><input type="hidden" name="class" class="class">
+  <div class="title"><h3>全日制授课记录</h3></div>
+  <div class="box1">
+    <table border="2" cellpadding="8" width="100%">
+      <tr>
+        <td width="200px">本日教学内容</td>
+        <td><input type="text" class="form-control" name="fkq_a" required></td>
+      </tr>
+      <tr>
+        <td>学员课堂表现</td>
+        <td><input type="text" class="form-control" name="fkq_b" required></td>
+      </tr>
+      <tr>
+        <td>本日作业</td>
+        <td><input type="text" class="form-control" name="fkq_c" required></td>
+      </tr>
+      <tr>
+        <td>昨日作业完成情况</td>
+        <td><input type="text" class="form-control" name="fkq_d" required></td>
+      </tr>
+      <tr>
+        <td>晚间答疑跟进问题</td>
+        <td><input type="text" class="form-control" name="fkq_e" required></td>
+      </tr>
+    </table>
+  </div>
+    <input type="submit" class="bt" style="margin-left:600px;" name="add" value="更新保存" />
+</div>
+</form>
+<include file="box" />

@@ -1,0 +1,23 @@
+<script type="text/javascript">
+	function save() {
+		if ($("#name").val().length > 0) {
+			$("#dept_name", parent.document).val($("#name").val());
+			$("#dept_id", parent.document).val($("#val").val());
+			
+		} else {
+			ui_error("请选择部门");
+			return false;
+		}
+		myclose();
+	}
+
+
+	$(document).ready(function() {
+		$(".popup_tree_menu a").click(function() {
+			$("#val").val($(this).attr("node"));
+			$("#name").val($(this).children("span").text());
+			$(".popup_tree_menu .tree_menu  a.active").removeClass("active");
+			$(this).addClass("active");
+		})
+	}); 
+</script>

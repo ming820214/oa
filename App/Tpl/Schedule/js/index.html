@@ -1,0 +1,76 @@
+<script type="text/javascript" src="__PUBLIC__/js/calendar.js"></script>
+<script type="text/javascript">
+	function showdata() {
+		y = $("#year").val();
+		m = $("#month").val();
+		$("#panel").html(y + "年" + m + "月");
+		start_date1 = $("#UL0").attr("class").substr(4);
+		end_date1 = $("#UL41").attr("class").substr(4);
+		$.getJSON("{:U('json')}", {
+			start_date : start_date1,
+			end_date : end_date1
+		}, function(data) {
+			count = 0;
+			prev_date = '';
+			$(".mv-container ul").html("");
+			if (data != null) {
+				$.each(data, function(i) {
+					html = '<li id=li_' + data[i].id + ' style=background-color:' + schedule_bg(data[i].priority) + ">";
+					html += '<a id=' + data[i].id + ' class="event_msg" title="' + data[i].name + '">';
+					html += data[i].name;
+					html += ' </a>';
+					html += "</li>";
+					if (prev_date == data[i].start_date) {
+						count++;
+						if (count == 4) {
+							$("ul.div_" + data[i].start_date).append('<li class=\"all\">显示全部...</li>');
+						}
+					}
+					prev_date = data[i].start_date;
+					$("ul.div_" + data[i].start_date).append(html);
+				})
+			}
+		});
+	}
+
+
+	$(document).ready(function() {
+		initial();
+		set_return_url();
+
+		$(document).on("click", "a.event_msg", (function() {
+			var msg_list = "";
+			current = $(this).attr('id');
+			$("a#" + current).parent().parent().find('a.event_msg').each(function() {
+				msg_list += $(this).attr("id") + "|";
+			});
+			winopen("{:U('read')}?id=" + $(this).attr('id') + "&list=" + msg_list, 730, 490);
+		}))
+		$("#dialog2").mouseleave(function() {
+			$("#dialog2").hide();
+		});
+		$(document).on("click", "li.all", function() {
+			//$("li.all").on("click",function(){
+			$(this).parent().find("li.all").hide();
+			html = $(this).parent().html();
+			$(this).parent().find("li.all").show();
+			html = $("<ol></ol>").html(html);
+			$("#dialog2").html(html);
+			$("#dialog2").show();
+
+			$("#dialog2").css("left", $(this).parents("ul").offset().left - $(".Schedule").offset().left - 8);
+			$("#dialog2").css("top", $(this).parents("ul").offset().top - $(".Schedule").offset().top - 8);
+		})
+	})
+	function add() {
+		window.open("{:U('add')}", "_self");
+	}
+
+	function month_view() {
+		window.open('__URL__', "_self");
+	}
+
+	function day_view() {
+		window.open("{:U('day_view')}", "_self");
+	}
+</script>

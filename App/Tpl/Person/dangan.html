@@ -1,0 +1,195 @@
+<form action="{:U('Person/add')}" method="post" enctype="mutltipart/form-data">
+<input type="hidden" name="pid" value="{$Think.get.id}">
+<input type="hidden" name="id" value="{$info.id}">
+<table align="center" id="add" cellpadding="10" border="1" background-color="beige">
+	<tr>
+		<th width="100px">姓名：</th>
+		<td width="100px"><input type="text" name="name" value="{$info.name}" required="true"></td>
+		<th width="80px">性别：</th>
+		<td width="130px"><input style="width:20%;" type="radio" name="sex" value="0" <if condition="$info.sex eq 0">checked="true"</if>>女&nbsp;&nbsp;<input style="width:20%;" type="radio" name="sex" value="1" <if condition="$info.sex eq 1">checked="true"</if> >男</td>
+		<th width="120px">出生日期：</td>
+		<td width="120px"><input type="text" name="birthday" value="{$info.birth}" onclick="WdatePicker()" required="true"></td>
+		<th width="70px">民族：</th>
+		<td width="80px"><input type="text" name="mz" value="{$info.mz}" required="true"></td>
+		<td width="150px" rowspan="4"><br><br><br>上传照片<input type="file" name="f" class="btn btn-sm btn-primary" ></td>
+	</tr>
+	<tr>
+		<th>籍贯:</th>
+		<td colspan="3"><input type="text" name="jiguan" value="{$info.jiguan}" required="true"></td>
+		<th>身份证号：</th>
+		<td colspan="3"><input type="text" name="card" value="{$info.card}" required="true"></td>
+	</tr>
+	<tr>
+		<th>户口所在地:</th>
+		<td colspan="3"><input type="text" name="address1" value="{$info.address1}" required="true"></td>
+		<th>家庭住址：</th>
+		<td colspan="3"><input type="text" name="address2" value="{$info.address2}" required="true"></td>
+	</tr>
+	<tr>
+		<th>现住址:</th>
+		<td colspan="3"><input type="text" name="address3" value="{$info.address3}"></td>
+		<th>固定电话：</th>
+		<td colspan="3"><input type="text" name="hometel" value="{$info.hometel}"></td>
+	</tr>
+	<tr>
+		<th>政治面貌:</th>
+		<td><input type="text" name="mian" value="{$info.mian}" required="true"></td>
+		<th>毕业时间</th>
+		<td><input type="text" name="biyedate" value="{$info.biyedate}" onclick="WdatePicker()" required="true"></td>
+		<th>婚姻状况:</th>
+		<td><input type="text" name="hunyin" value="{$info.hunyin}" required="true"></td>
+		<th colspan="2">健康状况</th>
+		<td><input type="text" name="jiankang" value="{$info.jiankang}"></td>
+	</tr>
+	<tr>
+		<th>毕业学校:</th>
+		<td colspan="3"><input type="text" name="xuexiao" value="{$info.xuexiao}" required="true"></td>
+		<th>学历：</th>
+		<td><input type="text" name="xueli" value="{$info.xueli}" required="true"></td>
+		<th colspan="2">专业</th>
+		<td><input type="text" name="zhuanye" value="{$info.zhuanye}" required="true"></td>
+	</tr>
+	<tr>
+		<th>生日</th>
+		<td colspan="2"><input style="width:20%;" type="radio" name="birthstyle" value="0" <if condition="$info.birthstyle eq 0">checked</if>>阳历&nbsp;&nbsp;<input style="width:20%;" type="radio" name="birthstyle" value="1" <if condition="$info.birthstyle eq 1">checked</if> >阴历</td>
+		<td><input type="text" name="birthday" value="{$info.birthday}" onclick="WdatePicker({dateFmt:'MM-dd'})"></td>
+		<th colspan="2">云考勤员工id</th>
+		<td colspan="3"><input type="text" name="cc" value="{$info.cc}" required="true"></td>
+	</tr>
+	<tr>
+		<th>联系电话</th>
+		<td colspan="3"><input type="text" name="tel" value="{$info.tel}" required="true"></td>
+		<th colspan="2">电子邮箱</th>
+		<td colspan="3"><input type="text" name="email" value="{$info.email}"></td>
+	</tr>
+	<tr>
+		<th>QQ号码</th>
+		<td colspan="3"><input type="text" name="qq" value="{$info.qq}"></td>
+		<th colspan="2">微信企业号：</th>
+		<td colspan="3"><input type="text" name="userid" value="{$info.userid}" required="true"></td>
+	</tr>
+	<tr>
+		<th>入职时间</th>
+		<td colspan="3"><input type="text" name="ruzhi" value="{$info.ruzhi}" onclick="WdatePicker()" required="true"></td>
+		<th colspan="2">合同状态</th>
+		<td colspan="3"><notempty name="Think.get.id"><if condition="$info.state eq 1">在职<else/>离职</if></notempty></td>
+	</tr>
+	<tr>
+		<th>转正时间</th>
+		<td colspan="3"><input type="text" name="shiyong" value="{$info.shiyong}" required="true" onclick="WdatePicker()"></td>
+		<th colspan="2">五险一金开始缴纳时间</th>
+		<td colspan="3"><input type="text" name="5x1" value="{$info.5x1}" required="true" onclick="WdatePicker({dateFmt:'yyyy-MM'})"></td>
+	</tr>
+	<empty name="Think.get.id5">
+	<tr>
+		<th>单位</th>
+		<td colspan="8"><select name="school" class="col-10" id="school">{:W('School')}</select>
+		部门:<select name="part" class="col-10" id="part"><option></option>{:W('School','part')}</select>
+		职务:<select name="position" class="col-10" id="position"><option></option>{:W('School','position')}</select></td>
+	</tr>
+	</empty>
+	<tr>
+		<td colspan="9" align="center"><input class="btn btn-sm btn-primary" type="submit"  value="更新档案"></td>
+	</tr>
+</table>
+</form>
+<if condition="$Think.get.id neq ''">
+<!-- 调动记录 -->
+	<br/>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>调入区域</th>
+				<th>调入部门</th>
+				<th>调入职务</th>
+				<th>调入时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="data.调动" id="v1">
+			<tr>
+				<td>{$v1.a_c}</td>
+				<td>{$v1.a_a}</td>
+				<td>{$v1.a_b}</td>
+				<td>{$v1.a_t}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+<!-- 奖励记录 -->
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>获奖时间</th>
+				<th>获奖项目</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="data.奖励" id="v2">
+			<tr>
+				<td>{$v2.c_t}</td>
+				<td>{$v2._a}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+<!-- 处罚记录 -->
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>处罚时间</th>
+				<th>处罚原因</th>
+				<th>处罚结果</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="data.处罚" id="v3">
+			<tr>
+				<td>{$v3.d_t}</td>
+				<td>{$v3.d_a}</td>
+				<td>{$v3.d_b}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+<!-- 离职记录 -->
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>离职类型</th>
+				<th>离职时间</th>
+				<th>离职原因</th>
+				<th>跟踪价值</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="data.离职" id="v4">
+			<tr>
+				<td>{$v4.b_a}</td>
+				<td>{$v4.b_t}</td>
+				<td>{$v4.b_b}</td>
+				<td>{$v4.b_c}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</if>
+<style type="text/css">
+#add input{
+	width: 100%;
+}
+</style>
+<script>
+	$("#school").val("{$info.school}");
+	$("#part").val("{$info.part}");
+	$("#position").val("{$info.position}");
+	$("#position").change(function(){
+		var p=$(this).val();
+		$("#level").empty();
+		$.getJSON("{:U('api_level')}",{position:p},function(msg){
+			for (var i = 0; i < msg.length; i++) {
+				$("#level").append("<option>"+msg[i]+"</option>");
+			};
+		});
+	})
+</script>

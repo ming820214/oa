@@ -1,0 +1,57 @@
+<script type="text/javascript">
+	function add() {
+		$("#opmode").val("add");
+		$("#id").val("");
+		if (check_form("form_data")){
+			sendForm("form_data", "{:U('save')}", "__URL__");
+		}
+	};
+
+	function save(){
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}", "__URL__");
+		}
+	}
+
+	function del(){
+		var vars = $("#form_data").serialize();		
+		if($(".sub_left_menu a.active").parent().find(".tree_menu").html()!=undefined){
+			ui_error("有子目录不能删除");
+			return false;
+		}
+		ui_confirm('确定要删除吗?',function(){
+			sendAjax("{:U('del')}",vars, function(data) {
+				if (data.status) {
+					ui_alert(data.info,function(){
+						location.reload();
+					});
+				}
+			});
+		})
+	}
+
+	function select_pid() {
+		winopen("{:U('winpop')}", 730, 500);
+	}
+
+	function showdata(result) {
+		for (var s in result.data) {
+			set_val(s, result.data[s]);
+		}
+		$("#dept_name").val($("#dept_list option[value='" + $("#pid").val() + "']").text());
+		$("#opmode").val("edit");
+	}
+
+
+	$(document).ready(function(){
+		set_val('eq_is_del', "{$eq_is_del}");
+		$(".sub_left_menu .tree_menu a").click(function() {
+			$(".sub_left_menu .tree_menu a.active").removeClass("active");
+			$(this).addClass("active");
+			sendAjax("{:U('read')}", "id=" + $(this).attr("node"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+	}); 
+</script>

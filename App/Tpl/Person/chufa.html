@@ -1,0 +1,39 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'处罚查询'))}
+<include file='search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>工号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>单位</th>
+				<th>部门</th>
+				<th>职务</th>
+				<th>处罚时间</th>
+				<th>处罚原因</th>
+				<th>处罚结果</th>
+				<th>操作时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="data" id="v">
+			<tr>
+				<td>{$v.id}</td>
+				<td>HW{$v.pid}</td>
+				<td>{$v.name}</td>
+				<td>{$v.sex|sex}</td>
+				<td>{$v.school}</td>
+				<td>{$v.part}</td>
+				<td>{$v.position}</td>
+				<td>{$v.d_t}</td>
+				<td>{$v.d_a}</td>
+				<td>{$v.d_b}</td>
+				<td>{$v.timestamp}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>

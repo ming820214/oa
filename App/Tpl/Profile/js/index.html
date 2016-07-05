@@ -1,0 +1,21 @@
+<script type="text/javascript">
+	function reset_pwd() {
+		winopen("{:U('password')}", 730, 300);
+	}
+
+	function select_avatar() {
+		winopen("{:U('popup/avatar')}?id=" + $("#id").val(), 730, 500);
+	}
+
+	function save() {
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}", "__URL__");
+		}
+	}
+
+
+	$(document).ready(function() {
+		set_return_url();
+		set_val('sex', '{$vo.sex}');
+	}); 
+</script>

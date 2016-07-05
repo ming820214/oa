@@ -1,0 +1,21 @@
+<script type="text/javascript">
+	function edit() {
+		window.open(fix_url("{:U('edit')}?id=" + $("#id").val()), "_self");
+	}
+
+	$(document).ready(function(){
+		set_return_url(document.location,1);
+		<empty name = "is_edit" >
+			show_content();
+		</empty>
+		$(".p-scroll img").mouseenter(function(){
+			$img=$(this).attr("src");
+			$(this).parents(".product-wrap").find(".p-img img").attr("src",$img);
+		})
+
+		$(".p-scroll img").click(function(){
+			$img=$(this).attr("src");
+			$(this).parents(".product-wrap").find(".p-img img").attr("src",$img);
+		})
+	}); 
+</script>

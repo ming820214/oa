@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Mobiscroll</title>
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+
+    <style type="text/css">
+        .demo {
+            /*display: none;*/
+        }
+    </style>
+
+    <script src="../Public/js/mobiscroll.core.js"></script>
+    <script src="../Public/js/mobiscroll.scroller.js" type="text/javascript"></script>
+
+    <script src="../Public/js/mobiscroll.datetime.js" type="text/javascript"></script>
+<!--     // <script src="../Public/js/mobiscroll.select.js" type="text/javascript"></script> -->
+<!-- 
+    <script src="../Public/js/mobiscroll.scroller.jqm.js" type="text/javascript"></script>
+    <script src="../Public/js/mobiscroll.scroller.ios.js" type="text/javascript"></script>
+    <script src="../Public/js/mobiscroll.scroller.android.js" type="text/javascript"></script>
+    <script src="../Public/js/mobiscroll.scroller.android-holo.js" type="text/javascript"></script>
+    <script src="../Public/js/mobiscroll.scroller.wp.js" type="text/javascript"></script>
+
+    <script src="../Public/js/i18n/mobiscroll.i18n.de.js" type="text/javascript"></script>
+    <script src="../Public/js/i18n/mobiscroll.i18n.es.js" type="text/javascript"></script>
+    <script src="../Public/js/i18n/mobiscroll.i18n.fr.js" type="text/javascript"></script>
+    <script src="../Public/js/i18n/mobiscroll.i18n.hu.js" type="text/javascript"></script>
+    <script src="../Public/js/i18n/mobiscroll.i18n.it.js" type="text/javascript"></script>
+    <script src="../Public/js/i18n/mobiscroll.i18n.no.js" type="text/javascript"></script>
+    <script src="../Public/js/i18n/mobiscroll.i18n.pt-BR.js" type="text/javascript"></script>
+    <script src="../Public/js/i18n/mobiscroll.i18n.zh.js" type="text/javascript"></script>
+ -->
+    <!-- <link href="../Public/css/mobiscroll.icons.css" rel="stylesheet" type="text/css" /> -->
+    <link href="../Public/css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+<!--     <link href="../Public/css/mobiscroll.scroller.jqm.css" rel="stylesheet" type="text/css" />
+    <link href="../Public/css/mobiscroll.scroller.android.css" rel="stylesheet" type="text/css" />
+    <link href="../Public/css/mobiscroll.scroller.android-holo.css" rel="stylesheet" type="text/css" />
+    <link href="../Public/css/mobiscroll.scroller.ios.css" rel="stylesheet" type="text/css" />
+    <link href="../Public/css/mobiscroll.scroller.sense-ui.css" rel="stylesheet" type="text/css" />
+    <link href="../Public/css/mobiscroll.scroller.wp.css" rel="stylesheet" type="text/css" />
+    <link href="../Public/css/css/mobiscroll.animation.css" rel="stylesheet" type="text/css" />
+ -->
+    <script type="text/javascript">
+        $(function () {
+            var curr = new Date().getFullYear();
+            var opt = {
+                'datetime': {
+                    preset: 'datetime',
+                    minDate: new Date(2012, 3, 10, 9, 22),
+                    maxDate: new Date(2014, 7, 30, 15, 44),
+                    stepMinute: 1,
+                    theme: 'default',
+                    mode: 'mixed',
+                    lang: '',
+                    display: 'modal',
+                    animate: ''
+                }
+            }
+
+            // $('.settings select').bind('change', function() {
+                var demo = 'datetime';
+
+                $('.demo-test-' + demo).scroller('destroy').scroller($.extend(opt[demo], {
+                }));
+                $('.demo').hide();
+                $('.demo-' + demo).show();
+            // });
+
+            $('#demo').trigger('change');
+
+        });
+    </script>
+</head>
+
+<body>
+    <div data-role="page">
+        <div data-role="header">
+            <h1>Mobiscroll</h1>
+        </div>
+
+        <div data-role="content">
+            <div class="settings">
+                <div data-role="fieldcontain">
+                    <label for="theme">Theme</label>
+                    <select name="theme" id="theme">
+                        <option value="default">Default</option>
+                        <option value="jqm">jQuery Mobile</option>
+                        <option value="android-holo">Android Holo</option>
+                        <option value="android-holo light">Android Holo Light</option>
+                        <option value="android">Android</option>
+                        <option value="sense-ui">Sense UI</option>
+                        <option value="ios">iOS</option>
+                        <option value="wp">Windows Phone</option>
+                        <option value="wp light">Windows Phone Light</option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="mode">Mode</label>
+                    <select name="mode" id="mode">
+                        <option value="scroller">Scroller</option>
+                        <option value="clickpick">Clickpick</option>
+                        <option value="mixed">Mixed</option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="language">Language</label>
+                    <select name="language" id="language">
+                        <option value="">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="hu">Magyar</option>
+                        <option value="it">Italiano</option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="display">Display</label>
+                    <select name="display" id="display">
+                        <option value="modal">Modal</option>
+                        <option value="inline">Inline</option>
+                        <option value="bubble">Bubble</option>
+                        <option value="top">Top</option>
+                        <option value="bottom">Bottom</option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="animation">Animation</label>
+                    <select name="animation" id="animation" class="settings">
+                        <option value="">None</option>
+                        <option value="fade">Fade</option>
+                        <option value="flip">Flip</option>
+                        <option value="pop">Pop</option>
+                        <option value="swing">Swing</option>
+                        <option value="slidehorizontal">Slide Horizontal</option>
+                        <option value="slidevertical">Slide Vertical</option>
+                        <option value="slidedown">Slide Down</option>
+                        <option value="slideup">Slide Up</option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="demo">Demo</label>
+                    <select name="demo" id="demo">
+                        <option value="date">Date</option>
+                        <option value="datetime">Datetime</option>
+                        <option value="time">Time</option>
+                        <option value="credit">Credit card expiration</option>
+                        <option value="select">Select</option>
+                        <option value="select-opt">Group Select</option>
+                    </select>
+                </div>
+            </div>
+            <div data-role="fieldcontain" class="demo demo-date demo-datetime demo-time demo-credit">
+                <label for="test">Click here to try</label>
+                <input name="test" id="test" class="demo-test-date demo-test-datetime demo-test-time demo-test-credit" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,105 @@
+<layout name='Layout/ace_layout' />
+<form method="post" id="form_search" name="form_adv_search">
+  <div class="operate panel panel-default">
+    <div class="panel-body">
+      <div class="pull-left">
+        <label  for="state"><b>任务状态:</b></label>
+        <select id="state" name="state" class="col-10">
+          <option></option>
+          <option value="普通维护">普通维护</option>
+          <option value="A级维护">A级维护</option>
+          <option value="2A级维护">2A级维护</option>
+          <option value="3A级维护">3A级维护</option>
+        </select>&nbsp;&nbsp;&nbsp;
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="查询" />
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>学员ID</th>
+          <th>姓名</th>
+          <th>联系电话</th>
+          <th>年级</th>
+          <th>任务状态</th>
+          <th>剩余时间</th>
+          <th>截止日期</th>
+          <th>超时提示</th>
+          <th>学习管理师</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="data">
+          <tr>
+            <td>{$data.s.id}</td>
+            <td>{$data.s.name}</td>
+            <td>{$data.s.tel}</td>
+            <td>{$data.s.grade}</td>
+            <td><if condition="$data['state']">任务已完成<else/>任务未完成</if></td>
+            <td><php>$s=intval((strtotime($data['date'])-time())/86400);echo($s);</php></td>
+            <td>{$data.date}</td>
+            <td><if condition="$s lt 0">任务超时</if></td>
+            <td>{$data.xueguan}</td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    {$page}
+  </div>
+</div>
+
+<!-- 维护设置 -->
+<form method="post">
+<div class="box" id="set" style="display: none;height: 360px;"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3>维护设置</h3></div>
+  <div class="box1"><input type="hidden" name="stuid" class="stuid">
+    <table cellpadding="15" border="3" width="95%">
+      <tr>
+        <td>周次</td>
+        <td>维护级别</td>
+        <td>任务截止时间</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="date" value="2015-01-18">第04周（01.18-01.24）<br/>
+          <input type="radio" name="date" value="2015-01-25">第05周（01.25-01.31）<br/>
+          <input type="radio" name="date" value="2015-02-01">第06周（02.01-02.07）<br/>
+          <input type="radio" name="date" value="2015-02-08">第07周（02.08-02.14）<br/>
+          <input type="radio" name="date" value="2015-02-15">第08周（02.15-02.21）<br/>
+        </td>
+        <td>
+        <input type="radio" name="wh_class" value="普通">普通（电话维护）<br/>
+        <input type="radio" name="wh_class" value="A级">A级（学管沟通）<br/>
+        <input type="radio" name="wh_class" value="2A级">2A级（小型学情）<br/>
+        <input type="radio" name="wh_class" value="3A级">3A级（大型学情）<br/>
+        </td>
+        <td><select name="m">
+          <option value="1">星期一</option>
+          <option value="2">星期二</option>
+          <option value="3">星期三</option>
+          <option value="4">星期四</option>
+          <option value="5">星期五</option>
+          <option value="6">星期六</option>
+          <option value="0">星期日</option>
+        </select>》》》<input type="submit" class="bt" name="add" value="执行维护任务"/>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+</form>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    $("#state").val({$Think.post.state});
+  });
+</script>
+
+<include file="box"/>

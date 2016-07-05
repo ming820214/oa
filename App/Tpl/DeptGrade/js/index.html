@@ -1,0 +1,48 @@
+<script type="text/javascript">
+	function add() {
+		$("#opmode").val("add");
+		$("#id").val("");
+		if (check_form("form_data")){
+			sendForm("form_data", "{:U('save')}", "__SELF__");
+		}
+	};
+
+	function del() {
+		var vars = $("#form_data").serialize();
+		ui_confirm('确定要删除吗?',function(){
+			sendAjax("{:U('del')}", vars, function(data){
+				if (data.status) {
+					ui_alert(data.info,function(){
+						location.reload();
+					});
+				}
+			});
+		})
+	}
+
+	function save() {
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}", "__SELF__");
+		}
+	}
+
+	function showdata(result) {
+		for (var s in result.data) {
+			set_val(s, result.data[s]);
+		}
+		$("#opmode").val("edit");
+	}
+
+
+	$(document).ready(function() {
+		set_return_url();
+		$(".sub_left_menu tbody tr").click(function() {
+			$(".sub_left_menu  tr.active").removeClass("active");
+			$(this).attr("class", "active");
+			sendAjax("{:U('read')}", "id=" + $(this).attr("id"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+	}); 
+</script>

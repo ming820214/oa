@@ -1,0 +1,88 @@
+<layout name='Layout/ace_layout' />
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>学员姓名</th>
+          <th>授课讲师</th>
+          <th>科目</th>
+          <th>学习管理师</th>
+          <th colspan="2">维护意见</th>
+          <th>时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+      <volist name="data" id="list"><form method="post">
+          <tr>
+            <td><h4>{$list.name}</h4></td>
+            <td><h4>{$list.teacher}</h4></td>
+            <td><h4>{$list.class}</h4></td>
+            <td><h4>{$list.xueguan}</h4></td>
+            <td>类型：</td>
+            <td>{$list.type}</td>
+            <td>{$list.timestamp}</td>
+            <td rowspan="2"><input type="hidden" name="id" value="{$list.id}"><if condition="$Think.session.position eq '讲师'"><input type="submit" class="btn btn-sm btn-primary" name="qr" value="确认解决" /><else/><input type="submit" class="btn btn-sm btn-primary" name="hf" value="学管回复" /></if></td>
+          </tr>
+          <tr>
+            <td>建议：</td>
+            <td colspan="3" width="50%">{$list.advice}</td>
+            <td>结果：</td>
+            <td><if condition="$Think.session.position eq '讲师'">{$list.results}<else/><empty name="list.results"><input type="text" name="results" required="true" class="form-control"><else/>{$list.results}</empty></if></td>
+            <td>{$list.time2}</td>
+          </tr></form>
+        </volist>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    {$page}
+  </div>
+</div>
+
+<if condition="$Think.session.position eq '讲师'">
+  <form method="post">
+  <div class="operate panel panel-default" style="position:fixed;bottom: 0px;">
+    <div class="panel-body">
+      <div class="pull-left">
+        <label  for="state"><b>状态:</b></label>
+        <select id="state" name="state" class="col-10">
+          <option value="1">正常在读</option>
+          <option value="2">非正常在读</option>
+          <option value="3">待激活</option>
+        </select>
+        <label ><b>学员:</b></label>
+        <select  name="stuid" class="col-10" id="statee">
+          <volist name="student" id="s">
+          <option value="{$s.id}">{$s.name}</option>
+          </volist>
+        </select>&nbsp;&nbsp;&nbsp;
+        <label ><b>建议类型:</b></label>
+        <select name="type" class="col-10">
+          <option>加课</option>
+          <option>学员作业问题</option>
+          <option>学员状态问题</option>
+          <option>转介绍挖掘</option>
+          <option>其它</option>
+        </select>&nbsp;&nbsp;&nbsp;
+        <label><b>建议原因:</b></label><input type="text" name="advice1">
+        <label><b>建议内容:</b></label><input type="text" name="advice2">
+        <input type="submit" class="btn btn-sm btn-primary" name="add" value="提交维护意见" />
+      </div>
+    </div>
+  </div>
+  </form>
+</if>
+<script type="text/javascript">
+  $("#state").on("change",function(){
+    var state=$(this).val();
+    $("#statee").empty();
+    $.getJSON("{:U('Xueguan/advice_api')}",'&state='+state,function(data){
+      for (var i = 0; i < data.length; i++) {
+        $("#statee").append('<option value='+data[i]['id']+'>'+data[i]['name']+'</option>');
+      };
+    });
+  });
+</script>
+<include file="box" />

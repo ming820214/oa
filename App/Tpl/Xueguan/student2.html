@@ -1,0 +1,126 @@
+<layout name='Layout/ace_layout' />
+<form method="post" id="form_search" name="form_adv_search" method="post">
+<input type="hidden" name="ajax" id="ajax" value="1">
+  <div class="operate panel panel-default">
+    <div class="panel-body">
+      <div class="pull-left">
+	    <if condition="$Think.session.position neq '讲师'">
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="所有学员" />
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="全日制学员" />
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="普通学员"/>
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="非正常在读"/>
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="待激活学员" />
+		</if>
+		<if condition="$Think.session.position eq '讲师'">
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="我的学员" />
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="正常在读"/>
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="非正常在读"/>
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="流失学员"/>
+        <a class="btn btn-sm btn-danger" href="../school/index.php/Cs/index/school/5/t/{$Think.session.user_name}" target="_blank">我的课表</a>
+		</if>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>学员ID</th>
+          <th>姓名</th>
+          <th>年级</th>
+          <th>学员类型</th>
+		  <if condition="$Think.session.position neq '讲师'">
+          <th>剩余课时</th>
+          <th>剩余费用</th>
+		  </if>
+          <th>学习管理师</th>
+          <th>教学主任</th>
+          <th>状态</th>
+          <th colspan="2" width="30%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="data">
+          <tr>
+            <td><php>$count++;</php>{$count}</td>
+            <td>{$data.id}</td>
+            <td><a href="../school/index.php/class/all/sid/{$data.id}" target="_blank">{$data.name}</a></td>
+            <td>{$data.grade}</td>
+            <td>{$data.type}</td>
+			<if condition="$Think.session.position neq '讲师'">
+            <td>{$data.ks}</td>
+            <td>{$data.fy}</td>
+			</if>
+            <td>{$data.xueguan}</td>
+            <td>{$data.jiaoxue}</td>
+            <td><switch name="data.state" >
+                <case value="1">正常</case>
+                <case value="2">停课</case>
+                <case value="3">结课</case>
+                <case value="4">毕业</case>
+                <case value="5">退费</case>
+                </switch></td>
+            <td><input type="submit" class="btn btn-minier btn-primary" name="search" onclick="fankui_record({$data.id})" value="授课反馈记录" />
+              <if condition="$Think.session.position neq '讲师'">
+              <input type="submit" class="btn btn-minier btn-primary" name="weihu" onclick="weihu_record({$data.id})" value="维护记录" />
+              <input type="submit" class="btn btn-minier btn-primary" name="search" onclick="info({$data.id})" value="学员信息" />
+              <if condition="$data['学情']"><input type="submit" class="btn btn-minier btn-danger" name="search" onclick="xueqing({$data['学情']})" value="学情分析" /></if>
+            </if></td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    {$page}
+  </div>
+</div>
+
+<form method="post">
+<div class="box" id="xueqing" style="display:none;height: 550px;"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3>维护设置</h3></div><input type="hidden" name="id" class="id">
+  <div class="box1">
+  <table width="95%" cellpadding="8">
+    <tr>
+      <td>主持人</td>
+      <td><input type="text" name="xq_a"></td>
+      <td>授课讲师</td>
+      <td><input type="text" name="xq_b"></td>
+    </tr>
+    <tr>
+      <td>参会人员</td>
+      <td><input type="text" name="xq_c"></td>
+      <td>记录人</td>
+      <td><input type="text" name="xq_d"></td>
+    </tr>
+    <tr>
+      <td>学员存在的问题<br/>分析诊断</td>
+      <td colspan="3" width="80%">
+      <textarea rows="3" cols="20" name="xq_info1" style="width:95%;"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>学员存在的问题<br/>解决办法</td>
+      <td colspan="3">
+      <textarea rows="3" cols="20" name="xq_info2" style="width:95%;"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>家长意见</td>
+      <td colspan="3">
+      <textarea rows="3" cols="20" name="xq_info3" style="width:95%;"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4"><input type="submit" class="bt" name="保存录入"></td>
+    </tr>
+  </table>
+  </div>
+</div>
+</form>
+
+<include file="box" />

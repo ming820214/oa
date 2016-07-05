@@ -1,0 +1,154 @@
+<layout name='Layout/ace_layout' />
+	<table width="100%" align="center" class="t1" border="3" cellpadding="10">
+		<tr>
+			<th colspan="13" align="center">正常在读学员课时状态监控</th>
+		</tr>
+		<tr>
+			<td>我的学员</td>
+			<td><a data="aa1">{$data.aa1}</a></td>
+			<td>变化量</td>
+			<td>课时数</td>
+			<td>数学</td>
+			<td>语文</td>
+			<td>英语</td>
+			<td>物理</td>
+			<td>化学</td>
+			<td>生物</td>
+			<td>政治</td>
+			<td>历史</td>
+			<td>地理</td>
+		</tr>
+		<tr>
+			<td>本月正常在读</td>
+			<td><a data="aa2">{$data.aa2}</a></td>
+			<td><a data="aa3">#</a></td>
+			<td>{$data.aa4}</td>
+			<td>{$data.aaa.数学}</td>
+			<td>{$data.aaa.语文}</td>
+			<td>{$data.aaa.英语}</td>
+			<td>{$data.aaa.物理}</td>
+			<td>{$data.aaa.生物}</td>
+			<td>{$data.aaa.化学}</td>
+			<td>{$data.aaa.政治}</td>
+			<td>{$data.aaa.历史}</td>
+			<td>{$data.aaa.地理}</td>
+		</tr>
+	</table>
+
+	<table class="t1" width="100%" align="center" border="3" cellpadding="10">
+		<tr>
+			<th colspan="13">非正常在读学员课时状态监控</th>
+		</tr>
+		<tr>
+			<td>项目</td>
+			<td>人数</td>
+			<td>项目</td>
+			<td>数学</td>
+			<td>语文</td>
+			<td>英语</td>
+			<td>物理</td>
+			<td>化学</td>
+			<td>生物</td>
+			<td>政治</td>
+			<td>历史</td>
+			<td>地理</td>
+		</tr>
+		<tr>
+			<td>非正常在读学员数量</td>
+			<td><a data="ab1">{$data.ab1}</a>人</td>
+			<td>单科非正常状态人数</td>
+			<td><a data="ab2" km="数学">{$data['aba']['数学']}</a>人</td>
+			<td><a data="ab2" km="语文">{$data['aba']['语文']}</a>人</td>
+			<td><a data="ab2" km="英语">{$data['aba']['英语']}</a>人</td>
+			<td><a data="ab2" km="物理">{$data['aba']['物理']}</a>人</td>
+			<td><a data="ab2" km="化学">{$data['aba']['化学']}</a>人</td>
+			<td><a data="ab2" km="生物">{$data['aba']['生物']}</a>人</td>
+			<td><a data="ab2" km="政治">{$data['aba']['政治']}</a>人</td>
+			<td><a data="ab2" km="历史">{$data['aba']['历史']}</a>人</td>
+			<td><a data="ab2" km="地理">{$data['aba']['地理']}</a>人</td>
+		</tr>
+	</table>
+
+	<table width="100%" align="center" class="t1" border="3" cellpadding="10">
+		<tr>
+			<th colspan="8">流失学员数据监控</th>
+		</tr>
+		<tr>
+		<td>停课人数</td>
+		<td><a data="ac1">{$data.ac1}</a>人</td>
+		<td>上月新增停课人数</td>
+		<td><a data="ac2">#</a>人</td>
+		<td>本月新增停课人数</td>
+		<td><a data="ac3">#</a>人</td>
+		<td>本月激活</td>
+		<td><a data="ac4">#</a></td>
+		</tr>
+		<tr>
+		<td>退费人数</td>
+		<td><a data="ac5">{$data.ac5}</a>人</td>
+		<td>上月新增退费人数</td>
+		<td><a data="ac6">#</a>人</td>
+		<td>本月新增退费人数</td>
+		<td><a data="ac7">#</a>人</td>
+		<td>本月激活</td>
+		<td><a data="ac8">#</a></td>
+		</tr>
+		<tr>
+		<td>结课人数</td>
+		<td><a data="ac9">{$data.ac9}</a>人</td>
+		<td>上月新增结课人数</td>
+		<td><a data="ac10">#</a>人</td>
+		<td>本月新增结课人数</td>
+		<td><a data="ac11">#</a>人</td>
+		<td>本月激活</td>
+		<td><a data="ac12">#</a></td>
+		</tr>
+	</table>
+	<table width="100%" align="center" class="t1" border="3" cellpadding="10">
+		<tr>
+			<th colspan="6">本月任务监控</th>
+		</tr>
+		<tr>
+			<td>普通维护任务</td>
+			<td><a data="ad1">{$data.ada.普通维护|count}</a>件</td>
+			<td>已完成</td>
+			<td><a data=""><php>echo(count($data['ada']['普通维护'])-count($data['adb']['普通维护']));</php></a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round((1-count($data['adb']['普通维护'])/count($data['ada']['普通维护']))*100,2));</php>%</td>
+		</tr>
+		<tr>
+			<td>A级维护任务</td>
+			<td><a data="ad3">{$data.ada.A级维护|count}</a>件</td>
+			<td>已完成</td>
+			<td><a data=""><php>echo(count($data['ada']['A级维护'])-count($data['adb']['A级维护']));</php></a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round((1-count($data['adb']['A级维护'])/count($data['ada']['A级维护']))*100,2));</php>%</td>
+		</tr>
+		<tr>
+			<td>2A级维护任务</td>
+			<td><a data="ad5">{$data.ada.2A级维护|count}</a>件</td>
+			<td>已完成</td>
+			<td><a data=""><php>echo(count($data['ada']['2A级维护'])-count($data['adb']['2A级维护']));</php></a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round((1-count($data['adb']['2A级维护'])/count($data['ada']['2A级维护']))*100,2));</php>%</td>
+		</tr>
+		<tr>
+			<td>3A级维护任务</td>
+			<td><a data="ad7">{$data.ada.3A级维护|count}</a>件</td>
+			<td>已完成</td>
+			<td><a data=""><php>echo(count($data['ada']['3A级维护'])-count($data['adb']['3A级维护']));</php></a>件</td>
+			<td>完成率</td>
+			<td><php>echo(round((1-count($data['adb']['3A级维护'])/count($data['ada']['3A级维护']))*100,2));</php>%</td>
+		</tr>
+		<tr>
+			<td>老师维护意见</td>
+			<td><a data="ad9">{$data.adc}</a>件</td>
+			<td>已完成</td>
+			<td><a data="">{$data.add}</a>件</td>
+			<td>完成率</td>
+			<td>{$data['add']/$data['adc']*100|round=###,2}%</td>
+		</tr>
+		<tr>
+			<td colspan="6" align="center">提示：蓝色数字可以点击显示详情，数据中课时数仅供参考……</td>
+		</tr>
+	</table>

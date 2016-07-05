@@ -1,0 +1,75 @@
+<script type="text/javascript">
+	function save() {
+		if ($(":checkbox:checked").length == 0) {
+			ui_error("请至少选择一项");
+			$("#sender_check").focus();
+			return false;
+		}
+
+		if (($("#sender_check").prop("checked") == "checked") && ($("#sender_key").val() == "")) {
+			ui_error("内容不能为空1");
+			$("#sender_key").focus();
+			return false;
+		}
+
+		if (($("#domain_check").prop("checked") == "checked") && ($("#domain_key").val() == "")) {
+			ui_error("内容不能为空2");
+			$("#domain_key").focus();
+			return false;
+		}
+
+		if (($("#recever_check").prop("checked") == "checked") && ($("#recever_key").val() == "")) {
+			ui_error("内容不能为空3");
+			$("#recever_key").focus();
+			return false;
+		}
+
+		if (($("#title_check").prop("checked") == "checked") && ($("#title_key").val() == "")) {
+			ui_error("内容不能为空4");
+			$("#title_key").focus();
+			return false;
+		}
+		if ($("#to").val() == "") {
+			ui_error("请选择文件夹");
+			$("#to").focus();
+			return false;
+		}
+		sendForm("form_data", "{:U('save')}");
+	}
+
+
+	$(document).ready(function() {
+
+		$("div.combo input").focus(function() {
+			$(this).parent().find("label").hide();
+		})
+		$("div.combo input").blur(function() {
+			if ($(this).val().length == 0) {
+				$(this).parent().find("label").show();
+			}
+		})
+		set_val("sender_check", "{$vo.sender_check}");
+		set_val("sender_option", "{$vo.sender_option}");
+		set_val("sender_key", "{$vo.sender_key}");
+
+		set_val("recever_check", "{$vo.recever_check}");
+		set_val("recever_option", "{$vo.recever_option}");
+		set_val("recever_key", "{$vo.recever_key}");
+
+		set_val("domain_check", "{$vo.domain_check}");
+		set_val("domain_option", "{$vo.domain_option}");
+		set_val("domain_key", "{$vo.domain_key}");
+
+		set_val("title_check", "{$vo.title_check}");
+		set_val("title_option", "{$vo.title_option}");
+		set_val("title_key", "{$vo.title_key}");
+		set_val("is_del", "{$vo.is_del}");
+
+		set_val("to", "{$vo.to}");
+		$("div.combo input").each(function() {
+			if ($(this).val().length > 1) {
+				$(this).parent().find("label").hide();
+			}
+		})
+	}); 
+</script>

@@ -1,0 +1,44 @@
+<script type="text/javascript">
+	function save() {
+		window.onbeforeunload=null;
+		editor.sync();
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}");
+		}
+	}
+$(document).ready(function(){
+		//发送要保存的数据
+		$(".t1,.t2,.t3").blur(function() {
+			var t0=$(this).parent().parent().find('.t0').html();
+			var t1=$(this).parent().parent().find('.t1').html();
+			var t2=$(this).parent().parent().find('.t2').html();
+			var t3=$(this).parent().parent().find('.t3').html();
+				var t4=parseFloat(t0)-parseFloat(t1)-parseFloat(t2);
+				$(this).parent().parent().find('.t4').html(t4);
+			var s = $(this).parent().parent().find('.t6').html();
+				$.ajax({
+				   type: "POST",
+				   url: "{:U('Report/note')}",
+				   data: "b="+t1+"&c="+t2+"&e="+t3+"&s="+s,
+					  success: function(msg){
+					  	if(msg)Msg('更新成功……',1);
+					  }
+				});
+		});
+});
+</script>
+
+<style type="text/css">
+.table{
+	font-size: 15px;
+}
+.t1{
+	border: 1px solid rgb(240, 223, 214);
+}
+.t2{
+	border: 1px solid rgb(240, 223, 214);
+}
+.t3{
+	border: 1px solid rgb(240, 223, 214);
+}
+</style>

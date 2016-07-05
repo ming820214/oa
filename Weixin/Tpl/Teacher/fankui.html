@@ -1,0 +1,178 @@
+<layout name='Layout/layout' />
+
+<!-- 列表页面 -->
+<div data-role="page" id="list">
+  <div data-role="header">
+  <h1>授课待反馈列表</h1>
+  </div>
+  <div data-role="content">
+    <ul data-role="listview" data-inset="true">
+      <empty name="list"><h3>暂无需要填写的反馈……</h3></empty>
+      <volist name="list" id="vo">
+      <li><a href="#xuan" cid="{$vo.id}" stuid="{$vo.stuid}" tp="{$vo.student.type}">{$vo.timee}&nbsp;&nbsp;{$vo.time1}--{$vo.time2}&nbsp;&nbsp;{$vo.student.name}&nbsp;&nbsp;{$vo.student.xueguan}<if condition="$vo.stuid eq 88888">试听课</if></a></li>
+      </volist>
+    </ul>
+  </div>
+</div>
+
+<!-- 操作选择页面 -->
+<div data-role="page" id="xuan">
+  <div data-role="header">
+    <h1>选择操作</h1>
+  </div>
+
+  <form method="post" action="{:U('Teacher/fankui')}" data-ajax="false">
+    <div data-role="content" id="xuan2" style="text-align: center;">
+      <input type="hidden" name="cid" class="cid"><br/>
+      <input type="submit" name="kuangke" data-theme="a" value="学员旷课" onclick="return confirm('确认学员已旷课？')"><br/><br/>
+    </div>
+  </form>
+</div>
+
+<!-- 填写普通反馈页面 -->
+<div data-role="page" id="fankui">
+  <div data-role="header">
+  <h1>填写反馈</h1>
+  </div>
+    <div data-role="content" data-theme="e">
+        <h4 class="title"></h4>
+    </div>
+  <form method="post" action="{:U('Teacher/fankui')}" data-ajax="false">
+    <div data-role="content">
+        <input type="hidden" name="cid" class="cid"><input type="hidden" name="stuid" class="stuid">
+        <fieldset data-role="collapsible" data-content-theme="e">
+          <legend>授课模块、授课内容</legend>
+            <label for="a0">授课模块</label>
+            <input type="text" name="fk_a" id="a0" required="true">
+            <p>授课内容：</p>
+          <div data-role="controlgroup">
+            <label for="a1">新课</label>
+            <input type="radio" name="fk_b" id="a1" value="新课">
+            <label for="a2">复习课</label>
+            <input type="radio" name="fk_b" id="a2" value="复习课">
+            <label for="a3">习题课</label>
+            <input type="radio" name="fk_b" id="a3" value="习题课">
+            <label for="a4">课前冲刺课</label>
+            <input type="radio" name="fk_b" id="a4" value="课前冲刺课">
+            <label for="a5">答疑课</label>
+            <input type="radio" name="fk_b" id="a5" value="答疑课">
+          </div>
+        </fieldset>
+        <fieldset data-role="collapsible" data-content-theme="e">
+          <legend>学员听课状态</legend>
+          <div data-role="controlgroup">
+        <label for="a6">聚精会神</label>
+        <input type="checkbox" name="fk_c[]" id="a6" value="聚精会神">
+        <label for="a7">思考积极</label>
+        <input type="checkbox" name="fk_c[]" id="a7" value="思考积极">
+        <label for="a8">互动积极</label>
+        <input type="checkbox" name="fk_c[]" id="a8" value="互动积极">
+        <label for="a9">思维敏捷</label>
+        <input type="checkbox" name="fk_c[]" id="a9" value="思维敏捷">
+        <label for="a10">偶尔走神</label>
+        <input type="checkbox" name="fk_c[]" id="a10" value="偶尔走神">
+        <label for="a11">思维混乱</label>
+        <input type="checkbox" name="fk_c[]" id="a11" value="思维混乱">
+        <label for="a12">互动消极</label>
+        <input type="checkbox" name="fk_c[]" id="a12" value="互动消极">
+        <label for="a13">易困疲劳</label>
+        <input type="checkbox" name="fk_c[]" id="a13" value="易困疲劳">
+          </div>  
+            <label for="a14">其它：</label>
+            <input type="text" name="fk_c[]" id="a14">
+        </fieldset>
+        <h4>本节提升亮点</h4>
+        <input type="text" name="fk_d" required="true">
+        <h4>预留作业安排</h4>
+        <input type="text" name="fk_e" required="true">
+        <fieldset data-role="collapsible" data-content-theme="e">
+          <legend>作业完成情况</legend>
+          <div data-role="controlgroup">
+            <label for="a15">没有完成</label>
+            <input type="radio" name="fk_f" id="a15" value="没有完成">
+            <label for="a16">部分完成</label>
+            <input type="radio" name="fk_f" id="a16" value="部分完成">
+            <label for="a17">全部完成</label>
+            <input type="radio" name="fk_f" id="a17" value="全部完成">
+          </div>  
+        </fieldset>
+        <fieldset data-role="collapsible" data-content-theme="e">
+          <legend>沟通需要</legend>
+          <div data-role="controlgroup">
+            <label for="a18">需与学管沟通</label>
+            <input type="radio" name="fk_g" id="a18" value="需与学管沟通">
+            <label for="a19">需与家长沟通</label>
+            <input type="radio" name="fk_g" id="a19" value="需与家长沟通">
+            <label for="a20">无需与家长沟通</label>
+            <input type="radio" name="fk_g" id="a20" value="无需与家长沟通">
+          </div>
+        </fieldset>
+            <label for="a21">备注：</label>
+            <input type="text" name="fk_h" id="a21"><br/>
+        <input type="submit" value="提交" data-theme="a" onclick="return confirm('确认吗？')">
+    </div>
+  </form>
+</div>
+
+<!-- 填写全日制反馈页面 -->
+<div data-role="page" id="fankuiq">
+  <div data-role="header">
+  <h1>填写反馈</h1>
+  </div>
+    <div data-role="content" data-theme="e">
+        <h4 class="title"></h4>
+    </div>
+  <form method="post" action="{:U('Teacher/fankui')}" data-ajax="false">
+    <div data-role="content">
+        <input type="hidden" name="cid" class="cid"><input type="hidden" name="stuid" class="stuid">
+        <h4>本日教学内容</h4>
+        <textarea  name="fkq_a" required="true"></textarea>
+        <h4>学员课堂表现</h4>
+        <textarea  name="fkq_b" required="true"></textarea>
+        <h4>本日作业</h4>
+        <textarea  name="fkq_c" required="true"></textarea>
+        <h4>昨日作业完成情况</h4>
+        <textarea  name="fkq_d" required="true"></textarea>
+        <h4>晚间答疑跟进问题</h4>
+        <textarea  name="fkq_e" required="true"></textarea>
+        <input type="submit" value="提交" data-theme="a" onclick="return confirm('确认吗？')">
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript">
+  $("#list a").on('click',function() {
+    $("#xuan2 .bt").remove();
+    if($(this).attr("stuid")==88888){
+      $("#xuan2").append("<input type='submit' name='kuangke' data-role='none'  class='bt' value='试听确认'>");
+    }else if($(this).attr("tp")=="全日制"){
+      $("#xuan2").append("<a href='#fankuiq' data-role='none' class='bt'>填写反馈</a>");
+    }else{
+      $("#xuan2").append("<a href='#fankui' data-role='none' class='bt'>填写反馈</a>");
+    }
+    $(".title").text($(this).text());
+    $(".cid").val($(this).attr("cid"));
+    $(".stuid").val($(this).attr("stuid"));
+  });
+</script>
+<style type="text/css">
+.bt{
+  margin-left:auto;
+  margin-right:auto;
+  background-color: coral;
+  border-radius: 1em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 35%;
+  padding-right: 35%;
+  font-size: 18px;
+  font-weight: bolder;
+}
+.bt a{
+  color: white;
+  text-decoration: none;
+}.bt a:link{
+  color: white;
+  text-decoration: none;
+}
+</style>

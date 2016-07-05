@@ -1,0 +1,11 @@
+<script>
+	function save_report() {
+		window.onbeforeunload=null;
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save_report')}");
+		}
+	}
+	$(document).ready(function() {
+		show_content();
+	}); 
+</script>

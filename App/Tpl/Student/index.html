@@ -1,0 +1,308 @@
+<layout name='Layout/ace_layout' />
+<input type="hidden" name="ajax" id="ajax" value="1">
+<select name="dept_list" id="dept_list" class="display-none">
+  {:fill_option($dept_list)}
+</select>
+{:W('PageHeader',array('name'=>'学员档案','search'=>'S'))}
+<form method="post" id="form_search" name="form_adv_search" action="{:U('index')}">
+<input type="hidden" name="ajax" id="ajax" value="1">
+  <div class="operate panel panel-default">
+    <div class="panel-body">
+      <div class="pull-left">
+        <label  for="state"><b>状态:</b></label>
+        <select id="state" name="state" class="col-10">
+          <option value="">全部</option>
+          <option value="1">正常</option>
+          <option value="2">停课</option>
+          <option value="3">结课</option>
+      <option value="4">毕业</option>
+      <option value="5">退费</option>
+        </select>
+        <label  for="type"><b>学员类型:</b></label>
+        <select id="type" name="type" class="col-10">
+          <option value="">全部</option>
+          <option value="普通">普通</option>
+          <option value="全日制">全日制</option>
+        </select>
+
+        <label  for="xueguan"><b>学习管理师:</b></label>
+        <select id="xueguan" name="xueguan" class="col-10">
+          <option value="">全部</option>
+          <option value="无">无</option>
+          <foreach name="xueguan" item="vx"><option value="{$vx}">{$vx}</option></foreach>
+        </select>
+
+        <label  for="jiaoxue"><b>教学主任:</b></label>
+        <select id="jiaoxue" name="jiaoxue" class="col-10">
+          <option value="">全部</option>
+          <option value="无">无</option>
+          <foreach name="jiaoxue" item="vj"><option value="{$vj}">{$vj}</option></foreach>
+        </select>
+
+        <label  for="grade"><b>年级:</b></label>
+        <select id="grade" name="grade" class="col-10">
+          <option value="">全部</option>
+        <optgroup label="初中">
+          <option value="初一">初一</option>
+          <option value="初二">初二</option>
+          <option value="初三">初三</option>
+        </optgroup>
+        <optgroup label="高中">
+          <option value="高一">高一</option>
+          <option value="高二">高二</option>
+          <option value="高三">高三</option>
+        </optgroup>
+        </select>
+      </div>
+      <div class="pull-right">
+      <input type="submit" class="btn btn-sm btn-primary" name="search" value="查询" id="search" />
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-sm-7 sub_left_menu ">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>姓名</th>
+          <th>年级</th>
+          <th>联系电话</th>
+          <th>学习管理师</th>
+          <th>教学主任</th>
+          <th>状态</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="data">
+          <tr id="{$data.id}">
+            <td>{$data.id}</td>
+            <td><a href="../school/index.php/class/all/sid/{$data.id}" target="_blank">{$data.name}</a></td>
+            <td>{$data.grade}</td>
+            <td>{$data.tel}</td>
+            <td>{$data.xueguan}</td>
+            <td>{$data.jiaoxue}</td>
+            <td><switch name="data.state" >
+                <case value="1">正常</case>
+                <case value="2">停课</case>
+                <case value="3">结课</case>
+                <case value="4">毕业</case>
+                <case value="5">退费</case>
+                </switch></td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    <div class="pagination">
+      {$page}
+    </div>    
+  </div>
+  <div class="col-sm-5">
+    <form id="form_data" method="post" class="form-horizontal" action="{:U('index')}">
+      <input type="hidden" name="id" id="id">
+      <table class="table table-bordered" >
+        <tr>
+          <th>姓名</th>
+          <td>
+          <input class="col-10" type="text" name="name"  required="true">
+          </td>
+          <th>联系电话</th>
+          <td>
+          <input  class="form-control" type="text" name="tel"  required="true">
+          </td>
+        </tr>
+        <tr>
+          <th>性别</th>
+          <td>
+          <select name="sex" id="sex" class="form-control col-10">
+            <option  value="1">男</option>
+            <option value="0">女</option>
+          </select></td>
+          <th>家庭电话</th>
+          <td>
+          <input  type="text" name="hometel" class="form-control">
+          </td>
+        </tr>
+        <tr>
+          <th>年级</th>
+          <td>
+            <select id="grade2" name="grade" class="col-10">
+            <optgroup label="初中">
+              <option value="初一">初一</option>
+              <option value="初二">初二</option>
+              <option value="初三">初三</option>
+            </optgroup>
+            <optgroup label="高中">
+              <option value="高一">高一</option>
+              <option value="高二">高二</option>
+              <option value="高三">高三</option>
+            </optgroup>
+            </select>
+          </td>
+          <th>文理</th>
+          <td><select name="wl" id="wl" class="form-control col-10">
+                <option  value="理">理</option>
+                <option value="文">文</option>
+              </select></td>
+        </tr>
+        <tr>
+          <th>
+          <nobr>
+            现就读学校
+          </nobr></th>
+          <td>
+          <input type="text" id="schoolx" name="schoolx" class="form-control">
+          </td>
+          <th>
+          <nobr>
+            家庭地址
+          </nobr></th>
+          <td>
+          <input type="text" id="mobile_tel" name="address" class="form-control">
+          </td>
+        </tr>
+        <tr>
+          <th>学习管理师</th>
+          <td>
+              <select name="xueguan" class="col-10"><option value="">未分配</option>
+                <foreach name="xueguan" item="vx"><option value="{$vx}">{$vx}</option></foreach>
+              </select>
+          </td>
+          <th>教学主任</th>
+          <td>
+            <select name="jiaoxue" class="col-10"><option value="">未分配</option>
+              <foreach name="jiaoxue" item="vj"><option value="{$vj}">{$vj}</option></foreach>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>优惠系数</th>
+          <td><input type="text" name="youhui" class="form-control col-10" readonly="readonly" value="1" /></td>
+          <th>学员类型</th>
+          <td>
+            <select class="form-control col-10"  name="type" id="type2">
+              <option>普通</option>
+              <option>全日制</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>最后更新时间</th>
+          <td id="timestamp"></td>
+          <th>状态</th>
+          <td>
+            <select class="form-control col-10"  name="state" id="state2">
+              <option value="1">正常</option>
+              <option value="2">停课</option>
+              <option value="3">结课</option>
+              <option value="4">毕业</option>
+              <option value="5">退费</option>
+              <option value="6">自习学员</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>备注信息</th>
+          <td colspan="3">
+          <input type="text" id="other" name="other" class="form-control">
+          </td>
+        </tr>
+        <tr>
+          <th>勾选已停课科目</th>
+          <td colspan="3" style="letter-spacing: 3px;"><input type="checkbox" name="tk[]" value="语文">&nbsp;语文<input type="checkbox" name="tk[]" value="数学">&nbsp;数学<input  id="eng" type="checkbox" name="tk[]" value="英语">&nbsp;英语<input type="checkbox" name="tk[]" value="物理/地理">&nbsp;物理/地理<input type="checkbox" name="tk[]" value="化学/历史">&nbsp;化学/历史<input type="checkbox" name="tk[]" value="生物/政治">&nbsp;生物/政治</td>
+        </tr>
+        <tr>
+          <th>标签</th>
+          <td colspan="3" style="letter-spacing: 3px;"><input type="checkbox" name="tk[]" value="临时">&nbsp;临时加课类学员</td>
+        </tr>
+        <tr><td colspan="4">
+<!--               <div class="pull-left">
+              <input type="submit" class="btn btn-sm btn-success" name="price" value="资费明细" />
+              <a class="btn btn-sm btn-success" />课程反馈</a>
+              <a class="btn btn-sm btn-success" />维护明细</a>
+              </div>
+ -->
+              <div class="pull-right">
+              <input type="submit" class="btn btn-sm btn-primary" name="add" value="新增" />|
+              <a class="btn btn-sm btn-primary" onclick="sub()">保存</a>
+              <!-- <input type="submit" class="btn btn-sm btn-danger" name="delt" value="删除" /> -->
+              </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+
+  </div>
+
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    $(".sub_left_menu tbody tr").click(function() {
+          $(".sub_left_menu tbody tr.active").removeClass("active");
+          $(this).attr("class", "active");
+          $.ajax({ url: "{:U('info')}&id=" + $(this).attr("id"),dataType:"json", context: document.body, success: function(msg){
+              setform(msg);
+
+          }});
+    })
+    //查询保持不变
+    <notempty name="Think.post.search">
+      $("#state").val(get_cookie("s1"));
+      $("#type").val(get_cookie("s2"));
+      $("#grade").val(get_cookie("s3"));
+      $("#xueguan").val(get_cookie("s4"));
+      $("#jiaoxue").val(get_cookie("s5"));
+    </notempty>
+
+    $("#search").on("click",function () {
+      set_cookie("s1",$("#state").val());
+      set_cookie("s2",$("#type").val());
+      set_cookie("s3",$("#grade").val());
+      set_cookie("s4",$("#xueguan").val());
+      set_cookie("s5",$("#jiaoxue").val());
+    });
+
+  });
+
+  function setform (msg) {
+    $('#form_data').find("input[name='id']").val(msg.id);
+    $('#form_data').find("input[name='name']").val(msg.name);
+    $("#form_data").find("select[name='sex']").val(msg.sex);
+    $("#form_data").find("select[name='wl']").val(msg.wl);
+    $('#form_data').find("input[name='tel']").val(msg.tel);
+    $('#form_data').find("input[name='hometel']").val(msg.hometel);
+    $('#form_data').find("select[name='grade']").val(msg.grade);
+    $('#form_data').find("input[name='schoolx']").val(msg.schoolx);
+    $('#form_data').find("input[name='address']").val(msg.address);
+    $('#form_data').find("select[name='xueguan']").val(msg.xueguan);
+    $('#form_data').find("select[name='jiaoxue']").val(msg.jiaoxue);
+    $('#form_data').find("input[name='other']").val(msg.other);
+    $("#form_data").find("select[name='state']").val(msg.state);
+    $("#form_data").find("select[name='type']").val(msg.type);
+    $("#form_data input[name='tk[]']").prop("checked", false);
+
+    for (var i = 0; i < msg.tk.length; i++) {
+      $("#form_data input[name='tk[]']").each(function(){
+        if($(this).val()==msg['tk'][i])
+          $(this).prop("checked", true);
+      });
+    };
+    $("#timestamp").text(msg.timestamp);
+  }
+
+  //保存，新增，删除操作
+  function sub() {
+    $.post("{:U('savex')}", $("#form_data").serialize(),function(data){
+      if(data==1){
+        alert('数据更新成功……');
+      }else{
+        alert('数据更新失败……');
+      }
+    },"json");
+  }
+
+</script>

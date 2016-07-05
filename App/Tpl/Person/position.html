@@ -1,0 +1,40 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'职级管理'))}
+<div class="row">
+	<div class="col-sm-6"><h3>员工职级</h3>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>岗位名称</th>
+					<th>职务级别</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="data1" id="v">
+				<tr>
+					<td>{$v.position}</td>
+					<td>{$v.level}</td>
+				</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-sm-6"><h3>校长职级</h3>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>岗位名称</th>
+					<th>职务级别</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="data2" id="v">
+				<tr>
+					<td>{$v.position}</td>
+					<td>{$v.level}</td>
+				</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+</div>

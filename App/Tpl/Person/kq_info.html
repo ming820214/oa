@@ -1,0 +1,34 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'考勤明细','search'=>'A'))}
+<include file='kq_search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>cc</th>
+				<th>日期</th>
+				<th>姓名</th>
+				<th>单位</th>
+				<th>职位</th>
+				<th>首次打卡</th>
+				<th>最后打卡</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='data' id='vo'>
+			<tr>
+				<td>{$i}</td>
+				<td>{$vo.cc}</td>
+				<td>{$vo.date}</td>
+				<td>{$all[$vo['cc']]['name']}</td>
+				<td>{$all[$vo['cc']]['school']}</td>
+				<td>{$all[$vo['cc']]['position']}</td>
+				<td>{$vo.t1|date="H:i:s",###}</td>
+				<td>{$vo.t2|date="H:i:s",###}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>

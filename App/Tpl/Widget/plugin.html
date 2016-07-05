@@ -1,0 +1,45 @@
+
+<notempty name="widget.jquery-ui">
+	<script src="__PUBLIC__/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="__PUBLIC__/js/jquery.ui.touch-punch.min.js"></script>
+</notempty>
+
+<notempty name="widget.date">
+	<script src="__PUBLIC__/js/date-time/bootstrap-datepicker.js"></script>
+	<script src="__PUBLIC__/js/date-time/locales/bootstrap-datepicker.zh-CN.js"></script>
+</notempty>
+
+<notempty name="widget.uploader">
+	<script type="text/javascript" src="__PUBLIC__/plupload/plupload.full.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/plupload/plupload.setting.js"></script>
+</notempty>
+
+<notempty name="widget.editor">
+	<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/editor/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.setting.js"></script>
+</notempty>
+<script src="__PUBLIC__/js/jquery.gritter.min.js"></script>
+<script src="__PUBLIC__/js/bootbox.min.js"></script>
+
+<script type="text/javascript">
+		$(document).ready(function() {
+			<notempty name="widget.date">
+				$('.input-date').datepicker({
+					language:"zh-CN",
+					autoclose : true
+				});
+				$(".input-daterange").datepicker({
+					 format: "yyyy-mm-dd",
+					 language:"zh-CN",
+					 keyboardNavigation: false,
+					 forceParse: false,
+					 autoclose: true,
+				});
+			</notempty>
+
+			<notempty name="widget.editor">
+				editor_init();
+			</notempty>
+	});
+</script>

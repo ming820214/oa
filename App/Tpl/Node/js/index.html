@@ -1,0 +1,60 @@
+<script type="text/javascript">
+	function add() {
+		$("#opmode").val("add");
+		$("#id").val("");
+		if (check_form("form_data")){
+			sendForm("form_data", "{:U('save')}", "__URL__");
+		}
+	};
+
+	function del() {
+		var vars = $("#form_data").serialize();
+		ui_confirm('确定要删除吗?',function(){
+			sendAjax("{:U('del')}", vars, function(data) {
+				if (data.status) {
+					ui_alert(data.info,function(){
+						location.reload();
+					});						
+				}
+			});
+		})
+	}
+
+	function save() {
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('node/save')}", fix_url("{:U('node/index')}?eq_pid=" + $("#eq_pid").val()));
+		}
+	}
+
+	function select_pid() {
+		winopen("{:U('winpop')}", 730, 500);
+	}
+
+	function showdata(result) {
+		for (var s in result.data) {
+			set_val(s, result.data[s]);
+		}
+		$("#node_name").val($("#node_list option[value='" + $("#pid").val() + "']").text());
+		$("#opmode").val("edit");
+	}
+
+
+	$(document).ready(function() {
+		set_return_url();
+		set_val('eq_pid', '{$eq_pid}');
+		$(".sub_left_menu .tree_menu a").click(function() {
+			$(".sub_left_menu .tree_menu  a").each(function() {
+				$(this).attr("class", "");
+			});
+			$(this).attr("class", "active");
+			sendAjax("{:U('read')}", "id=" + $(this).attr("node"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+		sendAjax("{:U('read')}", "id={$eq_pid}", function(data) {
+			showdata(data);
+		});
+	});
+
+</script>

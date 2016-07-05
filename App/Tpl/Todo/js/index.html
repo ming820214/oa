@@ -1,0 +1,79 @@
+<script type="text/javascript">
+	function add() {
+		window.open("{:U('add')}", "_self");
+	}
+
+	function del(obj) {
+		ui_confirm('确定要删除吗?',function(){
+			id = $(obj).parent().parent().find("input.node").val();
+			sendAjax("{:U('del')}", "id=" + id, function(data) {
+				if (data.status) {
+					ui_alert(data.info,function(){
+						$(obj).parent().parent().remove();
+					});	
+				}
+			});
+		})
+	}
+
+
+	$(document).ready(function() {
+		set_return_url();
+		$("#dialog2").mouseleave(function() {
+			//$("#dialog2").hide();
+		});
+
+		$("li a.status").on("click", (function() {
+			$("#dialog2").css("left", $(this).parents("span").offset().left - $(".Todo").offset().left);
+			$("#dialog2").css("top", $(this).parents("span").offset().top - $(".Todo").offset().top);
+			$("#dialog2").show();
+			node = $(this).parents("li").find("input.node").val();
+			$("#dialog2").attr("node", node);
+		}))
+
+		$("li").each(function() {
+			$(this).css("background-color", schedule_bg($(this).find("input.priority").val()));
+		})
+		$("a.up").click(function() {
+			moveUp($(this));
+		})
+		$("a.down").click(function() {
+			moveDown($(this));
+		})
+	})
+	function moveUp(obj) {
+		var current = $(obj).parent().parent();
+		var prev = current.prev();
+		if (current.index() > 1) {
+			current.insertBefore(prev);
+		}
+		set_sort();
+	}
+
+	function moveDown(obj) {
+		var current = $(obj).parent().parent();
+		var next = current.next();
+		if (next) {
+			current.insertAfter(next);
+		}
+		set_sort();
+	}
+
+	function mark_status(val) {
+		node = $("#dialog2").attr("node");
+		if (node) {
+			sendAjax("{:U('mark_status')}", "id=" + node + "&val=" + val, function(data) {
+				location.reload();
+			});
+		}
+	}
+
+	function set_sort() {
+		$("li.tbody").each(function() {
+			$(this).find("input.sort").val($(this).index());
+		})
+		var vars = $("#form_data").serialize();
+		sendAjax("{:U('set_sort')}", vars);
+	}
+
+</script>

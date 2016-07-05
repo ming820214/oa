@@ -1,0 +1,106 @@
+<script type="text/javascript">
+
+	function submit_delt(){
+		$("#form_b").submit();
+	}
+
+
+	$(document).ready(function() {
+		set_return_url();
+		$(".ul_table .data").each(function() {
+			$(this).text(formatMoney($(this).text()));
+		})
+
+		//根据类型输出科目
+		$("#class").change(function(){
+		var p=$(this).val();
+	    $("#classs").empty();
+			      $.ajax({
+			         url: "{:U('money/api')}",
+			         data: "p="+p,
+			         type: "POST",
+			         async:true,
+			         dataType:"json",
+
+			         success: function(msg){
+
+					    for(var i=0; i < msg.length;i++)
+					    {
+					            mg=msg[i];
+					            $("#classs").append('<option>'+mg.sort+'</option>');
+					     }
+			         }
+
+			      });
+
+		});
+		//根据类型输出科目
+		$("#class2").change(function(){
+		var p=$(this).val();
+	    $("#classs2").empty();
+			      $.ajax({
+			         url: "{:U('money/api')}",
+			         data: "p="+p,
+			         type: "POST",
+			         async:true,
+			         dataType:"json",
+
+			         success: function(msg){
+
+					    for(var i=0; i < msg.length;i++)
+					    {
+					            mg=msg[i];
+					            $("#classs2").append('<option>'+mg.sort+'</option>');
+					     }
+			         }
+
+			      });
+
+		});
+
+	}); 
+
+	function change(){
+		var id=$("input[name='id[]']:checkbox:checked").val();
+		      $.ajax({
+		         url: "{:U('money/api_c')}",
+		         data: "id="+id,
+		         type: "POST",
+		         async:true,
+		         dataType:"json",
+
+		         success: function(msg){
+		         	$("#adv_search").addClass("display-none");
+		         	$("#adv_aa").removeClass("display-none");
+		         	$("#adv_aa").find("input[name='aa']").val(msg.aa);
+		         	$("#adv_aa").find("input[name='e']").val(msg.e);
+		         	$("#adv_aa").find("input[name='d']").val(msg.d);
+		         	$("#adv_aa").find("input[name='j']").val(msg.j);
+		         	$("#adv_aa").find("input[name='kk']").val(msg.kk);
+		         	$("#adv_aa").find("input[name='l']").val(msg.l);
+		         	$("#adv_aa").find("input[name='o']").val(msg.o);
+		         	$("#adv_aa").find("input[name='p']").val(msg.p);
+		         	$("#adv_aa").find("input[name='n']").val(msg.n);
+		         	$("#adv_aa").find("input[name='date']").val(msg.date);
+		         	$("#adv_aa").find("input[name='i']").val(msg.i);
+		         	$("#adv_aa").find("input[name='t']").val(msg.t);
+		         	$("#adv_aa").find("input[name='id']").val(msg.id);
+		         	$("#adv_aa").find("select[name='h']").append('<option>'+msg.h+'</option>');
+		         	$("#adv_aa").find("input[name='f']").val(msg.f);
+		         	$("#adv_aa").find("input[name='mm']").val(msg.mm);
+		         	$("#adv_aa").find("input[name='other']").val(msg.other);
+		         	$("#adv_aa").find("select[name='c']").val(msg.c);
+		         	$("#adv_aa").find("select[name='g']").val(msg.g);
+		         }
+		      });
+	}
+
+	function change_c(){
+         	$("#adv_b").addClass("display-none");
+         	$("#adv_search").removeClass("display-none");
+	}
+
+</script>
+<style type="text/css">
+
+</style>

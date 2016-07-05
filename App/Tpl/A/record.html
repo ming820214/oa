@@ -1,0 +1,30 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'人事系统操作记录,仅截取前300条记录'))}
+<form action="{:U('record?part=1')}" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left"><input type="hidden" name="part" value="1">
+				操作类型：<select name="type"><option value=""></option><option value="添加员工">添加员工</option><option value="变更档案">变更档案</option><option value="复职">复职</option><option value="离职">离职</option><option value="奖励">奖励</option><option value="调动">调动</option><option value="处罚">处罚</option></select>
+				员工：<input type="text" name="name" class="col-8">
+				操作时间：<input type="text" name="date1" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" class="col-10">--<input type="text" name="date2" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" class="col-10">
+				<input type="submit" class="btn btn-sm btn-primary" name="search" value="进入查询" id="search">
+			</div>
+		</div>
+	</div>
+</form>
+<table class="table">
+	<tr>
+		<th>操作时间</th>
+		<th>操作类型</th>
+		<th>员工</th>
+		<th>操作人</th>
+	</tr>
+	<volist name="list" id="vo">
+	<tr>
+		<td>{$vo.4}</td>
+		<td>{$vo.0}</td>
+		<td>HW{$vo.1}--{$vo.2}</td>
+		<td>{$vo.3}</td>
+	</tr>
+	</volist>
+</table>

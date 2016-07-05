@@ -1,0 +1,408 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>array('编辑VIP：',$vo['name']),'search'=>'N'))}
+<form method='post' id="form_data" class="well form-horizontal">
+	<input type="hidden" name="opmode" value="edit">
+	<input type="hidden" name="id" id="id" value="{$vo.id}">
+	<input type="hidden" name="ajax" id="ajax" value="0">
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="vip_type">VIP类别*：</label>
+		<div class="col-sm-8">
+			<select id="vip_type" name="vip_type">
+				<option value="金卡" > 金卡</option>
+				<option value="白金卡">白金卡</option>
+				<option value="黑金卡">黑金卡</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="vip_no">VIP卡号：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" id="vip_no" name="vip_no" value="{$vo.vip_no}">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="wechat_vip_no">微信VIP卡号：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" id="wechat_vip_no" name="wechat_vip_no"  value="{$vo.wechat_vip_no}">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="area">地区：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" name="area" id="area" value="{$vo.area}">
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="active_shop">开卡店铺：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" id="active_shop" name="active_shop"  value="{$vo.active_shop}">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="active_date">开卡日期：</label>
+		<div class="col-sm-8">
+			<input class="form-control input-date" type="text" id="active_date" name="active_date"  data-date-format="yyyy-mm-dd" value="{$vo.active_date}">
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<hr>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="name">姓名*：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" id="name" name="name" check="require" msg="请输入姓名"  value="{$vo.name}">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="english_name">英文名：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" id="english_name" name="english_name" value="{$vo.english_name}">
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="birthday">出生日期：</label>
+		<div class="col-sm-8">
+			<input class="form-control input-date" type="text" id="birthday" name="birthday"  data-date-format="yyyy-mm-dd"  value="{$vo.birthday}">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="sex">性别：</label>
+		<div class="col-sm-8">
+			<select name="sex" id="sex">
+				<option value="male">男</option>
+				<option value="female">女</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="paper_type">证件类型：</label>
+		<div class="col-sm-8">
+			<select name="paper_type" id="paper_type">
+				<option value="身份证">身份证</option>
+				<option value="护照">护照</option>
+				<option value="军官证">军官证</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="paper_no">证件号：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" id="paper_no" name="paper_no"  value="{$vo.paper_no}">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="office_tel">固定电话：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" id="office_tel" name="office_tel"  value="{$vo.office_tel}">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="mobile_tel">手机号：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" id="mobile_tel" name="mobile_tel"  value="{$vo.mobile_tel}"  check="require" msg="请输入手机号">
+		</div>
+	</div>
+
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="address">邮寄地址：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" id="address" name="address"  value="{$vo.address}">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" for="wechat_no">微信号：</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" id="wechat_no" name="wechat_no"  value="{$vo.wechat_no}">
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" >消费金额：</label>
+		<div class="col-sm-8">
+			<p class="form-control-static" >
+				<span id="total_amount" class="pull-right">{$total_amount}</span>
+				<a  onclick="add_sales({$vo.id})">填加消费</a>
+			</p>
+		</div>
+	</div>
+	<div class="form-group col-sm-6">
+		<label class="col-sm-4 control-label" >消费积分：</label>
+		<div class="col-sm-8">
+			<p class="form-control-static text-right">
+				{$total_point}
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<hr>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">喜好信息：</label>
+		<div class="col-sm-9" >
+			<p class="form-control-static"></p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" >穿衣风格</label>
+		<div class="col-sm-9" >
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="时尚">
+					<span class="lbl"> 时尚</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="休闲">
+					<span class="lbl"> 休闲</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="商务"> 
+					<span class="lbl"> 商务</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="优雅">
+					<span class="lbl"> 优雅</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="甜美">
+					<span class="lbl"> 甜美</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="简约">
+					<span class="lbl"> 简约</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="职业">
+					<span class="lbl"> 职业</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="性感">
+					<span class="lbl"> 性感</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="华丽">
+					<span class="lbl"> 华丽</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="高贵">
+					<span class="lbl"> 高贵</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="dressing_style[]" class="ace dressing_style" type="checkbox" value="前卫">
+					<span class="lbl"> 前卫</span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label"  >上衣尺寸</label>
+		<div class="col-sm-9" >
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="top_size[]" class="ace top_size" type="checkbox" value="XXL">
+					<span class="lbl"> XXL</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="top_size[]" class="ace top_size" type="checkbox"  value="XL">
+					<span class="lbl"> XL</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="top_size[]" class="ace top_size" type="checkbox"  value="L">
+					<span class="lbl"> L</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="top_size[]" class="ace top_size" type="checkbox"  value="M">
+					<span class="lbl"> M</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="top_size[]" class="ace top_size" type="checkbox" value="XS">
+					<span class="lbl"> XS</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="top_size[]" class="ace top_size" type="checkbox"  value="S">
+					<span class="lbl"> S</span>
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">下衣尺寸</label>
+		<div class="col-sm-9" >
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="bottom_size[]" class="ace bottom_size" type="checkbox" value="XXL">
+					<span class="lbl"> XXL</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="bottom_size[]" class="ace bottom_size" type="checkbox"  value="XL">
+					<span class="lbl"> XL</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="bottom_size[]" class="ace bottom_size" type="checkbox"  value="L">
+					<span class="lbl"> L</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="bottom_size[]" class="ace bottom_size" type="checkbox"  value="M">
+					<span class="lbl"> M</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="bottom_size[]" class="ace bottom_size" type="checkbox" value="XS">
+					<span class="lbl"> XS</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="bottom_size[]" class="ace bottom_size" type="checkbox"  value="S">
+					<span class="lbl"> S</span>
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" >喜好颜色</label>
+		<div class="col-sm-9" >
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox" value="红色系">
+					<span class="lbl"> 红色系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox" value="蓝色系">
+					<span class="lbl"> 蓝色系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox" value="橙色系">
+					<span class="lbl"> 橙色系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox" value="绿色系">
+					<span class="lbl"> 绿色系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox" value="黄色系">
+					<span class="lbl"> 黄色系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox" value="黑白色系">
+					<span class="lbl"> 黑白色系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox" value=" 灰卡其系">
+					<span class="lbl"> 灰卡其系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox"  value="豹纹系">
+					<span class="lbl"> 豹纹系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox"  value="桔色系">
+					<span class="lbl"> 桔色系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox"  value="咖啡色系">
+					<span class="lbl"> 咖啡色系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox"  value="酒红色系">
+					<span class="lbl"> 酒红色系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox" value="粉色系">
+					<span class="lbl"> 粉色系</span>
+				</label>
+			</div>
+			<div class="checkbox col-sm-2">
+				<label>
+					<input name="like_color[]" class="ace like_color" type="checkbox" value="米色系">
+					<span class="lbl"> 米色系</span>
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group col-sm-12">
+		<label class="col-sm-2 control-label" for="like_shop">常逛商场</label>
+		<div class="col-sm-4">
+			<input class="form-control" type="text" id="like_shop" name="like_shop" value="{$vo.like_shop}">
+		</div>
+	</div>
+	<div class="form-group col-sm-12">
+		<label class="col-sm-2 control-label" for="like_brand">喜欢品牌</label>
+		<div class="col-sm-4">
+			<input class="form-control" type="text" id="like_brand" name="like_brand" value="{$vo.like_brand}" >
+		</div>
+	</div>
+<div class="clearfix"></div>
+<hr >
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="remark" >顾客说明：</label>
+		<div class="col-sm-9" >
+			<textarea class="form-control" name="remark" rows="5" class="col-xs-12" ></textarea>
+		</div>
+	</div>
+	<div class="action">
+		<input class="btn btn-sm btn-primary" type="button" value="保存" onclick="save();">
+		<input  class="btn btn-sm btn-default" type="button" value="取消" onclick="go_return_url();">
+	</div>
+</form>

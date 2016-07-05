@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>校区课时数据统计</title>
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+</head>
+<body>
+
+<!-- 今日数据统计 -->
+<div data-role="page" id="day">
+
+  <div data-role="content">
+    <h2 class="tt"><if condition="$Think.post.date neq null">{$Think.post.date}<else />今日</if>排行榜：</h2>
+    <div data-role="collapsible-set" data-inset="false">
+      <volist name="day" id="d">
+        <div data-role="collapsible">
+          <h3>第{$i}名： {$key}<a style="float:right;">{$d.合计}课时</a></h3>
+          <p>语文：{$d.语文}<php>$day['语文']+=$d['语文'];</php></p>
+          <p>数学：{$d.数学}<php>$day['数学']+=$d['数学'];</php></p>
+          <p>英语：{$d.英语}<php>$day['英语']+=$d['英语'];</php></p>
+          <p>政治：{$d.政治}<php>$day['政治']+=$d['政治'];</php></p>
+          <p>历史：{$d.历史}<php>$day['历史']+=$d['历史'];</php></p>
+          <p>地理：{$d.地理}<php>$day['地理']+=$d['地理'];</php></p>
+          <p>物理：{$d.物理}<php>$day['物理']+=$d['物理'];</php></p>
+          <p>化学：{$d.化学}<php>$day['化学']+=$d['化学'];</php></p>
+          <p>生物：{$d.生物}<php>$day['生物']+=$d['生物'];</php></p>
+          <p>合计：{$d.合计}<php>$day['合计']+=$d['合计'];</php></p>
+        </div>
+      </volist>
+    </div>
+    <div class="bg">
+    <h3 class="tt">集团数据</h3>
+          <p>语文：{$day.语文}</p>
+          <p>数学：{$day.数学}</p>
+          <p>英语：{$day.英语}</p>
+          <p>政治：{$day.政治}</p>
+          <p>历史：{$day.历史}</p>
+          <p>地理：{$day.地理}</p>
+          <p>物理：{$day.物理}</p>
+          <p>化学：{$day.化学}</p>
+          <p>生物：{$day.生物}</p>
+          <p>合计：{$day.合计}</p>
+    </div>
+  </div>
+
+  <div data-role="footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#day" data-icon="home">日数据</a></li>
+        <li><a href="#month" data-icon="grid">月数据</a></li>
+        <li><a href="#search" data-rel="dialog" data-icon="search">数据查询</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 本月数据统计 -->
+<div data-role="page" id="month">
+
+  <div data-role="content">
+    <h2 class="tt">月排行榜：</h2>
+    <div data-role="collapsible-set" data-inset="false">
+      <volist name="month" id="d">
+        <div data-role="collapsible">
+          <h3>第{$i}名： {$key}<a style="float:right;">{$d.合计|round=###,2}课时</a></h3>
+          <p>语文：{$d.语文|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['语文']-$m2[$key]['b'],2));</php></a> <php>$month['语文']+=$d['语文'];</php></p>
+          <p>数学：{$d.数学|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['数学']-$m2[$key]['a'],2));</php></a> <php>$month['数学']+=$d['数学'];</php></p>
+          <p>英语：{$d.英语|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['英语']-$m2[$key]['c'],2));</php></a> <php>$month['英语']+=$d['英语'];</php></p>
+          <p>政治：{$d.政治|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['政治']-$m2[$key]['g'],2));</php></a> <php>$month['政治']+=$d['政治'];</php></p>
+          <p>历史：{$d.历史|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['历史']-$m2[$key]['h'],2));</php></a> <php>$month['历史']+=$d['历史'];</php></p>
+          <p>地理：{$d.地理|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['地理']-$m2[$key]['i'],2));</php></a> <php>$month['地理']+=$d['地理'];</php></p>
+          <p>物理：{$d.物理|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['物理']-$m2[$key]['d'],2));</php></a> <php>$month['物理']+=$d['物理'];</php></p>
+          <p>化学：{$d.化学|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['化学']-$m2[$key]['e'],2));</php></a> <php>$month['化学']+=$d['化学'];</php></p>
+          <p>生物：{$d.生物|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['生物']-$m2[$key]['f'],2));</php></a> <php>$month['生物']+=$d['生物'];</php></p>
+          <p>合计：{$d.合计|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['合计']-$m2[$key]['合计'],2));</php></a> <php>$month['合计']+=$d['合计'];</php></p>
+          <p>历史数据：
+            <php>
+              echo(round($m3[$key]['合计'],2));
+            </php>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;增长率：
+            <php>
+              echo((round(($d['合计']-$m3[$key]['合计'])/$m3[$key]['合计'],2)*100).'%');
+              $lishi+=round($m3[$key]['合计'],2);
+            </php>
+          </p>
+        </div>
+      </volist>
+    </div>
+    <div class="bg">
+    <h3 class="tt">集团数据</h3>
+          <p>语文：{$month.语文|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($month['语文']-$m2['b'],2));</php></a></p>
+          <p>数学：{$month.数学|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($month['数学']-$m2['a'],2));</php></a></p>
+          <p>英语：{$month.英语|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($month['英语']-$m2['c'],2));</php></a></p>
+          <p>政治：{$month.政治|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($month['政治']-$m2['g'],2));</php></a></p>
+          <p>历史：{$month.历史|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($month['历史']-$m2['h'],2));</php></a></p>
+          <p>地理：{$month.地理|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($month['地理']-$m2['i'],2));</php></a></p>
+          <p>物理：{$month.物理|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($month['物理']-$m2['d'],2));</php></a></p>
+          <p>化学：{$month.化学|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($month['化学']-$m2['e'],2));</php></a></p>
+          <p>生物：{$month.生物|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($month['生物']-$m2['f'],2));</php></a></p>
+          <p>合计：{$month.合计|round=###,2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($month['合计']-$m2['合计'],2));</php></a></p>
+          <p>历史数据：{$lishi}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;增长率：<php>echo((round(($month['合计']-$lishi)/$lishi,2)*100).'%');</php></p>
+    </div>
+  </div>
+
+  <div data-role="footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#day" data-icon="home">日数据</a></li>
+        <li><a href="#month" data-icon="grid">月数据</a></li>
+        <li><a href="#search" data-rel="dialog" data-icon="search">数据查询</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div data-role="page" id="search">
+  <div data-role="header">
+    <h1>选择查询日期</h1>
+    <a href="#day" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
+  </div>
+
+  <div data-role="content">
+    <form method="post" data-ajax="false">
+    <h3>输入要查询的日期</h3>
+    <input type="date" name="date" id="bday"><input type="submit" data-role="button" name="search" value="查询">
+    </form>
+  </div>
+</div> 
+<style>
+.tt{
+background: goldenrod;
+padding: 10px 20px;
+}
+.bg{
+padding: 20px;
+background: khaki;
+border-radius: 10px;
+}
+</style>
+</body>
+</html>

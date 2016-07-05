@@ -1,0 +1,49 @@
+<script type="text/javascript">
+	function add(){
+		$("#opmode").val("add");
+		$("#id").val("");
+		if (check_form("form_data")){
+			sendForm("form_data","", "__SELF__");
+		}
+	};
+
+	function del(){
+		ui_confirm('相应的子目录也会自动删除,真的要删除吗?',function(){
+			$("#opmode").val("del");
+			if (check_form("form_data")) {
+				sendForm("form_data", "", "__SELF__");
+			}
+		})
+	}
+
+	function save() {
+		if (check_form("form_data")) {
+			sendForm("form_data", "", "__SELF__");
+		}
+	};
+
+	function showdata(result) {
+		for (var s in result.data) {
+			set_val(s, result.data[s]);
+		}
+		$("#opmode").val("edit");
+	}
+
+	function select_pid() {
+		winopen("{:U('user_tag/winpop?module='.MODULE_NAME)}", 730, 400);
+	}
+
+
+	$(document).ready(function() {
+		$(".sub_left_menu .tree_menu  a").click(function() {
+			$(".sub_left_menu .tree_menu  a").each(function() {
+				$(this).attr("class", "");
+			});
+			$(this).attr("class", "active");
+			sendAjax("{:U('user_tag/read')}", "id=" + $(this).attr("node"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+	}); 
+</script>

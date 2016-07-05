@@ -1,0 +1,58 @@
+<script type="text/javascript">
+	function save() {
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}", "__URL__");
+		}
+	}
+
+	function showdata(result) {
+		$(".user_list li.tbody").remove();
+		for (var s in result.data) {
+			$("#sample .emp_no").text(result.data[s].emp_no);
+			$("#sample .name").text(result.data[s].name);
+			$("#sample .position").text(result.data[s].position_name);
+			$("#sample .rank").text(result.data[s].rank_name);
+			$("#sample .email").text(result.data[s].email);
+
+			$("#sample li").attr("email", result.data[s].email);
+			$("#sample li").attr("duty", result.data[s].duty);
+			$("#sample li").attr("name", result.data[s].name);
+			$("#sample li").attr("office_tel", result.data[s].office_tel);
+			$("#sample li").attr("mobile_tel", result.data[s].mobile_tel);
+			$("#sample li").attr("pic", result.data[s].pic + '?t=' + Math.random());
+			html = $("#sample").html();
+
+			$(".user_list ul").append(html);
+
+			$("#sample li span").text("");
+		}
+		if ($(".user_list li.tbody").length > 0) {
+			$(".user_list li.tbody").get(0).click();
+		} else {
+			$(".user_info .info").text("");
+			$("#emp_pic").prop('src', "");
+		}
+	}
+
+	$(document).ready(function() {
+		$(".sub_left_menu .tree_menu a").click(function() {
+			$(".sub_left_menu .tree_menu a").each(function() {
+				$(this).attr("class", "");
+			});
+			$(this).attr("class", "active");
+			sendAjax("{:U('read')}", "id=" + $(this).attr("node"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+		$(document).on("click", ".user_list .tbody", function() {
+			$(".user_info .name").text($(this).attr("name"));
+			$(".user_info .office_tel").text($(this).attr("office_tel"));
+			$(".user_info .mobile_tel").text($(this).attr("mobile_tel"));
+			$(".user_info .email").text($(this).attr("email"));
+			$(".user_info .duty").text($(this).attr("duty"));
+			$("#emp_pic").prop("src", "{:get_save_url()}" + $(this).attr("pic"));
+		})
+	});
+
+</script>

@@ -1,0 +1,237 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'员工薪酬计算','search'=>'A'))}
+<include file="search" />
+<div class="row">
+	<table class="table table-bordered" id="rule">
+		<thead>
+			<tr>
+				<th>员工ID</th>
+				<th>姓名</th>
+				<th>单位</th>
+				<th>职务级别</th>
+				<th hd="1">应出勤</th>
+				<th hd="1">核算出勤</th>
+				<th hd="1">是否满勤</th>
+				<th hd="1">职称补助</th>
+				<th hd="1">兼职补助</th>
+				<th hd="1">拓展补助</th>
+				<th hd="1">城市补助</th>
+				<th hd="1">运营奖</th>
+				<th hd="1">工龄奖金</th>
+				<th hd="1">绩效系数%</th>
+				<th hd="1">退费人数</th>
+				<if condition="ACTION_NAME eq xc_xc1as">
+					<th hd="2">1v1课时</th>
+					<th hd="2">1v3课时</th>
+					<th hd="2">1v4课时</th>
+					<th hd="2">初中课时</th>
+				<else/>
+					<th hd="2">讲师课时消耗</th>
+					<th hd="2">元老补助%</th>
+					<th hd="2">A级讲师课时费</th>
+				</if>
+				<th hd="2">招生业绩</th>
+				<th hd="2">学管课时消耗</th>
+				<th hd="2">续费业绩</th>
+				<th hd="2">住房补贴</th>
+				<th hd="2">贡献补贴</th>
+				<th hd="2">社保补贴</th>
+				<th hd="2">督学奖金</th>
+				<th hd="2">组长提成</th>
+				<th hd="3">其他奖金</th>
+				<th hd="3">退费扣款</th>
+				<th hd="3">其它扣款</th>
+				<th hd="3">个人借款</th>
+				<th hd="3">借款归还</th>
+				<th hd="3">个人补充医疗保险</th>
+				<th hd="3">单位补充医疗保险</th>
+				<th hd="3">备注</th>
+				<th width="160px"></th>
+			</tr>
+		</thead>
+		<tbody>
+	<!-- 添加兼职工资明细部分 -->
+			<tr save="0" bgcolor="beige" id="other_xc" style="display:none;">
+				<td class="pid"></td>
+				<th>++>></th>
+				<th><select name="school" class="col-10"><option></option>{:W('School')}</select></th>
+				<th><select name="level"><option></option><volist name="level" id="vo"><option>{$vo}</option></volist></select></th>
+				<td hd="1"></td>
+				<td hd="1"></td>
+				<td hd="1"></td>
+				<td hd="1" class="j"></td>
+				<td hd="1" class="k"></td>
+				<td hd="1" class="l"></td>
+				<td hd="1" class="m"></td>
+				<td hd="1" class="n"></td>
+				<td hd="1" class="o"></td>
+				<td hd="1" class="p"></td>
+				<td hd="1" class="u"></td>
+				<if condition="ACTION_NAME eq xc_xc1as">
+					<td hd="2" class="1v1"></td>
+					<td hd="2" class="1v3"></td>
+					<td hd="2" class="1v4"></td>
+					<td hd="2" class="chu"></td>
+				<else/>
+					<td hd="2" class="x"></td>
+					<td hd="2" class="z"></td>
+					<td hd="2" class="ab"></td>
+				</if>
+				<td hd="2" class="ac"></td>
+				<td hd="2" class="ak"></td>
+				<td hd="2" class="an"></td>
+				<td hd="2" class="aq"></td>
+				<td hd="2" class="ar"></td>
+				<td hd="2" class="as"></td>
+				<td hd="2" class="at"></td>
+				<td hd="2" class="au"></td>
+				<td hd="3" class="av"></td>
+				<td hd="3" class="aw"></td>
+				<td hd="3" class="ax"></td>
+				<td hd="3" class="bn"></td>
+				<td hd="3" class="bo"></td>
+				<td hd="3" class="bu_geren"></td>
+				<td hd="3" class="bu_danwei"></td>
+				<td hd="3" class="cd"></td>
+				<th><input class="btn btn-sm btn-danger" name="other_add" onclick="location=location"  value="添加兼职记录"/></th>
+			</tr>
+			<volist name='list' id='v'>
+	<!-- 正常工资明细部分 -->
+			<tr id="{$v.id}" save="{$v.state}" pid="{$v.pid}" <if condition="$v.type eq 1">bgcolor="beige"</if>>
+				<th>{$v.pid}</th>
+				<th>{$v.name}</th>
+				<th>{$v.school}</th>
+				<th><select name="level"><option>{$v.level}</option><volist name="level" id="vo"><option>{$vo}</option></volist></select></th>
+				<th hd="1">{$v.r}</th>
+				<th hd="1">{$v.s}</th>
+				<th hd="1">{$v.t}</th>
+				<td hd="1" class="j">{$v.j}</td>
+				<td hd="1" class="k">{$v.k}</td>
+				<td hd="1" class="l">{$v.l}</td>
+				<td hd="1" class="m">{$v.m}</td>
+				<td hd="1" class="n">{$v.n}</td>
+				<td hd="1" class="o">{$v.o}</td>
+				<td hd="1" class="p">{$v.p}</td>
+				<td hd="1" class="u">{$v.u}</td>
+				<if condition="ACTION_NAME eq xc_xc1as">
+					<td hd="2" class="1v1">{$v.1v1}</td>
+					<td hd="2" class="1v3">{$v.1v3}</td>
+					<td hd="2" class="1v4">{$v.1v4}</td>
+					<td hd="2" class="chu">{$v.chu}</td>
+				<else/>
+					<td hd="2" class="x">{$v.x}</td>
+					<td hd="2" class="z">{$v.z}</td>
+					<td hd="2" class="ab">{$v.ab}</td>
+				</if>
+				<td hd="2" class="ac">{$v.ac}</td>
+				<td hd="2" class="ak">{$v.ak}</td>
+				<td hd="2" class="an">{$v.an}</td>
+				<td hd="2" class="aq">{$v.aq}</td>
+				<td hd="2" class="ar">{$v.ar}</td>
+				<td hd="2" class="as">{$v.as}</td>
+				<td hd="2" class="at">{$v.at}</td>
+				<td hd="2" class="au">{$v.au}</td>
+				<td hd="3" class="av">{$v.av}</td>
+				<td hd="3" class="aw">{$v.aw}</td>
+				<td hd="3" class="ax">{$v.ax}</td>
+				<td hd="3" class="bn">{$v.bn}</td>
+				<td hd="3" class="bo">{$v.bo}</td>
+				<td hd="3" class="bu_geren">{$v.bu_geren}</td>
+				<td hd="3" class="bu_danwei">{$v.bu_danwei}</td>
+				<td hd="3" class="cd">{$v.cd}</td>
+				<th><a href="javascript:void(0);" onclick="hs({$v.id})" class="btn btn-sm btn-primary">详情</a><if condition="$v.state eq 0"><a href="javascript:void(0);" onclick="save(this)" class="btn btn-sm btn-primary">存档</a><if condition="$v.type eq 1"><a onclick="xc_other_delt(this)" class="btn btn-sm btn-primary">-</a></if></if></th>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>
+<div id="hs"><a onclick="$(this).parent().hide();" class="clos">X</a>
+	<div id="hss"></div>
+</div>
+<script type="text/javascript">
+	$("td[hd],th[hd]").hide();
+	$("td[hd='1'],th[hd='1']").show();
+	$("td").blur(function () {
+		var id = $(this).parent().attr("id");
+		var aa = $(this).attr("class");
+		var info = $(this).text();
+		$.post("{:U('xc_xc1')}",{id:id,aa:aa,info:info});
+	})
+	$(document).on('change',"table select",function(){
+		var id = $(this).parent().parent().attr("id");
+		var aa = $(this).attr("name");
+		var info = $(this).val();
+		$.post("{:U('xc_xc1')}",{id:id,aa:aa,info:info});		
+	})
+	//隐藏表格列
+	function hd(i){
+		$("td[hd],th[hd]").hide();
+		if(i==1)$("td[hd='1'],th[hd='1']").show();
+		if(i==2)$("td[hd='2'],th[hd='2']").show();
+		if(i==3)$("td[hd='3'],th[hd='3']").show();
+	}
+	//显示核算的薪酬
+	function hs(i){
+		$("#hs").show();
+		$("#hss").empty();
+		$.get("{:U('xc_xc11')}",{i:i<if condition="ACTION_NAME eq xc_xc1as">,as:'555'</if>},function(msg){
+			$("#hss").append(msg);
+		});
+	}
+
+	//存档数据
+	function save(th){
+		var id=$(th).parents("tr").attr("id");
+		$(th).parents("tr").children("td").removeAttr("contenteditable");
+		$.get("{:U(xc_xc1)}&save="+id);
+		$(th).next().hide();
+		$(th).hide();
+	}
+
+	$("tr").each(function(){
+		if($(this).attr("save")==0){
+			$(this).children("td").attr({contenteditable:true});
+		}
+	})
+	//附加新的工资项目
+	function xc_other(){
+		$.getJSON("{:U('xc_other')}&id=-1",function(msg){
+			$("#other_xc").attr("id",msg);
+		});
+		$("#other_xc").show();
+	}
+	//删除兼职工资条
+	function xc_other_delt(th){
+		var id=$(th).parents("tr").attr("id");
+		$.get("{:U('xc_other')}",{delt:id},function(msg){
+			if(msg=='ok')$(th).parents("tr").remove();
+		})
+	}
+</script>
+<style type="text/css">
+#hs{
+	width: 900px;
+	height: 140px;
+	bottom: 300px;
+	position: fixed;
+	padding: 20px;
+	margin-left: 50%;
+	left: -450px;
+	background: beige;
+	display: none;
+	z-index: 9999;
+}
+#hss{
+	width: 100%;
+	overflow-x: auto;
+}
+.clos {
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	font-size: 20px;
+	color: brown;
+	cursor: pointer;
+}
+</style>

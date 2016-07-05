@@ -1,0 +1,46 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'排课系统帐号，初始密码为：ok','search'=>'S'))}
+<div style="text-align: center;margin: 10px;background-color: darkgray;padding: 5px;">
+<form action="__URL__/add" method="post">
+	所属校区<select name="school">
+	<volist name="school" id="v">
+		<option value="{$v.school}">{$v.school}</option>
+	</volist>
+	</select>
+	职务：<select name="position">
+		<option>学习管理师</option>
+		<option>教学主任</option>
+		<option>教学副校长</option>
+		<option>业务副校长</option>
+		<option>教务</option>
+		<option>校长</option>
+	</select>
+	姓名：<input type="text" name="user" required="true" />
+	联系电话：<input type="text" name="tel" required="true"/>
+	备注：<input type="text" name="other"/>
+	<input type="submit" value="添加" />
+</form>
+</div>
+<table class="table">
+	<tr>
+		<th>所属校区</th>
+		<th>职务</th>
+		<th>帐号姓名</th>
+		<th>联系电话</th>
+		<th>备注信息</th>
+		<th>操作</th>
+	</tr>
+	<volist name="item" id="vo">
+	<tr>
+		<td>{$vo.school}</td>
+		<td>{$vo.position}</td>
+		<td>{$vo.user}</td>
+		<td>{$vo.tel}</td>
+		<td>{$vo.other}</td>
+		<td><a href="__URL__/reset/id/{$vo.id}">重置密码</a>--<a href="__URL__/delt/id/{$vo.id}">删除帐号</a></td>
+	</tr>
+	</volist>
+</table>
+  <div class="pagination">
+    {$page}
+  </div>

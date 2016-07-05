@@ -1,0 +1,41 @@
+<script type="text/javascript">
+	function add() {
+		$("#opmode").val("add");
+		$("#id").val("");
+		if (check_form("form_data")){
+			sendForm("form_data", "{:U('save')}", "__URL__");
+		}
+	}
+
+	function save() {
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}", "__URL__");
+		}
+	}
+
+	function test() {
+		form_search.submit();
+	};
+
+	function showdata(result) {
+		for (var s in result.data) {
+			set_val(s, result.data[s]);
+		}
+		$("#opmode").val("edit");
+	}
+
+
+	$(document).ready(function() {
+		$(".sub_left_menu .tree_menu  a").click(function() {
+			$(".sub_left_menu .tree_menu  a").each(function() {
+				$(this).attr("class", "");
+			});
+			$(this).attr("class", "active");
+			sendAjax("{:U('read')}", "id=" + $(this).attr("node"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+	});
+
+</script>

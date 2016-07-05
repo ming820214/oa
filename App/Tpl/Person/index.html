@@ -1,0 +1,153 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'档案管理'))}
+<include file='search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>工号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>单位</th>
+				<th>部门</th>
+				<th>职务</th>
+				<th>联系电话</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='vo'>
+			<tr>
+				<td>{$i}</td>
+				<td>HW{$vo.id}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.sex|sex}</td>
+				<td>{$vo.school}</td>
+				<td>{$vo.part}</td>
+				<td>{$vo.position}</td>
+				<td>{$vo.tel}</td>
+				<td><a class="btn btn-minier btn-danger" onclick="dangan({$vo.id})">档案</a><a class="btn btn-minier btn-primary"  onclick="diaodong({$vo.id})">调动</a><a class="btn btn-minier btn-danger" onclick="jiangli({$vo.id})">奖励</a><a class="btn btn-minier btn-primary" onclick="chufa({$vo.id})">处罚</a><a class="btn btn-minier btn-danger" onclick="lizhi({$vo.id})">离职</a></td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>
+<!-- 查看档案 -->
+<div id="dangan" class="window"><a onclick="clos(this)" class="clos">X</a></div>
+<!-- 调动 -->
+<div id="diaodong" class="diaodong"><a onclick="clos(this)" class="clos">X</a><form method="post" action="{:U('Person/record')}">
+	<h3>人事调动</h3><hr/><input type="hidden" name="aa" value="调动"><input type="hidden" name="pid">
+	调入区域：<select name="a_c" class="col-10">{:W('School')}</select>
+	调入部门：<select name="a_a" class="col-10"><option></option>{:W('School','part')}</select>
+	调入职务：<select name="a_b" class="col-10"><option></option>{:W('School','position')}</select>
+	调入时间：<input type="text" name="a_t" onclick="WdatePicker()" class="col-10" required="true">
+	<input type="submit" class="btn btn-sm btn-danger" value="确定"><hr></form>
+</div>
+<!-- 奖励 -->
+<div id="jiangli" class="diaodong"><a onclick="clos(this)" class="clos">X</a><form method="post" action="{:U('Person/record')}">
+	<h3>添加奖励</h3><hr/><input type="hidden" name="aa" value="奖励"><input type="hidden" name="pid">
+	获奖时间：<input type="text" name="c_t" onclick="WdatePicker()" required="true">
+	获奖项目：<input type="text" name="c_a" required="true">
+	<input type="submit" class="btn btn-sm btn-danger" value="确定"><hr></form>
+</div>
+<!-- 处罚 -->
+<div id="chufa" class="diaodong"><a onclick="clos(this)" class="clos">X</a><form method="post" action="{:U('Person/record')}">
+	<h3>添加处罚</h3><hr/><input type="hidden" name="aa" value="处罚"><input type="hidden" name="pid">
+	处罚时间：<input type="text" name="d_t" onclick="WdatePicker()" required="true">
+	处罚原因：<input type="text" name="d_a" required="true">
+	处罚结果：<input type="text" name="d_b" required="true">
+	<input type="submit" class="btn btn-sm btn-danger" value="确定"><hr></form>
+</div>
+<!-- 离职 -->
+<div id="lizhi" class="diaodong"><a onclick="clos(this)" class="clos">X</a><form method="post" action="{:U('Person/record')}">
+	<h3>离职操作</h3><hr/><input type="hidden" name="aa" value="离职"><input type="hidden" name="pid">
+	离职类型：<select name="b_a"> <option value="辞职">辞职</option> <option value="辞退">辞退</option> <option value="合同到期">合同到期</option> </select>
+	离职时间：<input type="text" name="b_t" onclick="WdatePicker()" required="true">
+	离职原因：<input type="text" name="b_b" required="true">
+	跟踪价值：<select name="b_c"> <option value="很高">很高</option><option value="一般">一般</option><option value="无">无</option></select>
+	<input type="submit" class="btn btn-sm btn-danger" value="确定"><hr>
+</div>
+<style>
+.clos{
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	font-size: 20px;
+	color: white;
+	cursor: pointer;
+}
+#dangan{
+	width: 940px;
+	position: fixed;
+	background-color: cadetblue;
+	top: 150px;
+	left: -470px;
+	margin-left: 50%;
+	display: none;
+	padding: 15px;
+	padding-top: 40px;
+	z-index: 9999;
+}
+.dangan{
+	max-height: 500px;
+	background-color: beige;
+    overflow-y:auto;
+}
+.diaodong{
+	width: 940px;
+	position: fixed;
+	background-color: cadetblue;
+	top: 150px;
+	left: -470px;
+	margin-left: 50%;
+	display: none;
+	padding: 45px;
+	padding-top: 40px;
+}
+</style>
+<script>
+	function clos (th) {
+	    $(th).parent().hide();
+	}
+	function dangan_new () {
+		$("#dangan,#diaodong,#jiangli,#chufa,#lizhi").hide();
+		$("#dangan").show();
+		$(".dangan").empty();
+	    $.get("{:U('add')}",function(data){
+	        $("<div class='dangan'>").html(data).appendTo($("#dangan"));
+	    });
+	}
+	function dangan (id) {
+		$("#dangan,#diaodong,#jiangli,#chufa,#lizhi").hide();
+		$("#dangan").show();
+		$(".dangan").empty();
+	    $.get("{:U('info')}&id="+id,function(data){
+	        $("<div class='dangan'>").html(data).appendTo($("#dangan"));
+	    });
+		$("#dangan :input[name='pid']").val(id);
+	}
+	function diaodong (id) {
+		$("#dangan,#diaodong,#jiangli,#chufa,#lizhi").hide();
+		$("#diaodong").show();
+		$("#diaodong :input[name='pid']").val(id);
+	}
+	function jiangli (id) {
+		$("#dangan,#diaodong,#jiangli,#chufa,#lizhi").hide();
+		$("#jiangli").show();
+		$("#jiangli :input[name='pid']").val(id);
+	}
+	function chufa (id) {
+		$("#dangan,#diaodong,#jiangli,#chufa,#lizhi").hide();
+		$("#chufa").show();
+		$("#chufa :input[name='pid']").val(id);
+	}
+	function lizhi (id) {
+		$("#dangan,#diaodong,#jiangli,#chufa,#lizhi").hide();
+		$("#lizhi").show();
+		$("#lizhi :input[name='pid']").val(id);
+	}
+
+
+</script>

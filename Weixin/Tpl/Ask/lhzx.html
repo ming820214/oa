@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/jquerymobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+
+<script src="../Public/js/mobiscroll.core.js"></script>
+<script src="../Public/js/mobiscroll.scroller.js" type="text/javascript"></script>
+<script src="../Public/js/mobiscroll.datetime.js" type="text/javascript"></script>
+<link href="../Public/css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $(function () {
+        var curr = new Date().getFullYear();
+        /*var opt = {'date': {} }
+            $('.date').scroller('destroy').scroller($.extend(opt['date'], {
+                preset: 'date',dateOrder: 'yymmdd',dateFormat: 'yy-mm-dd',
+                theme: 'default',mode: 'scroller',lang: '',display: 'modal',
+                animate: '',monthText: '月',dayText: '日',yearText: '年'
+            }));
+      配合温家宝同事的人员考情系统，在灵活作息页面中添加灵活作息上班开始时间和结束时间，后台未做任何改动，只是修改前台页面。将原代码注释掉
+    */
+
+    var opt = {'date': {} }
+        $('.date').scroller('destroy').scroller($.extend(opt['date'], {
+            preset: 'date',dateOrder: 'yymmdd',dateFormat: 'yy-mm-dd',
+            theme: 'default',mode: 'scroller',lang: '',display: 'modal',showNow:false,
+            animate: '',monthText: '月',dayText: '日',yearText: '年',setText:'确定',cancelText:'清空'
+        }));
+      
+        $('.datetime').scroller('destroy').scroller($.extend(opt['datetime'], {
+                preset: 'datetime',dateOrder: 'yymmdd',dateFormat: 'yy-mm-dd',timeWheels: 'HHii',timeFormat: 'HH:ii',
+                theme: 'default',mode: 'scroller',lang: '',display: 'modal',
+                animate: '',monthText: '月',dayText: '日',yearText: '年',hourText:'点',minuteText:'分',setText:'确定',cancelText:'清空',nowText:'现时'
+            }));
+
+
+        $('#b_form_submit').click(function(){
+          
+          if($.trim($("#date").val()) == ''){
+            alert("注意：请填写申请日期！");
+            return;
+          }
+          
+          var t1 = $('#time1').val();
+          var t2 = $('#time2').val();
+          
+          if(t1 != '' && t2 != ''){
+            var minutes = 1000 * 60
+        var hours = minutes * 60
+        var v_day = hours * 7.5
+        //var days = hours * 24
+        //var years = days * 365
+            var dt1 = Date.parse(new Date(t1));
+            var dt2 = Date.parse(new Date(t2));
+            if((dt2-dt1)<v_day){
+              alert("申请失败!灵活作息时长需同正常作息时长一致（不少于7.5小时/天）。");
+              return;
+            }
+          }else{
+            alert("注意：填写开始和结束时间！");
+            return;
+          }
+          
+          if($.trim($("#info").val()) == ''){
+            alert("注意：请填写灵活作息方案！");
+            return;
+          }
+          
+          if(confirm( '确认提交申请吗？（页面会自动跳转请勿重复点击提交）')){
+            $('#lhzx_form').submit();
+          }
+         });
+
+    });
+</script>
+
+</head>
+<body>
+
+
+<div data-role="page" id="page1">
+
+  <div data-role="header">
+  <h1>灵活作息</h1>
+  </div>
+
+  <div data-role="content">
+    <form id="lhzx_form" method="post" data-ajax="false">
+    <input type="hidden" name="wname" value="{$Think.session.name}">
+      <!-- <div data-role="fieldcontain">
+        <label for="date">申请日期:</label>
+        <input name="date" id="date" class="date" required="true"/>
+      </div> -->
+      <div data-role="fieldcontain">
+        <label for="date">申请日期:</label>
+        <input name="date" id="date" class="date" required="true"/>
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="info">灵活方案:</label>
+        <textarea name="info" id="info" required="true"></textarea>
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="time1">上班开始时间:</label>
+        <input name="time1" id="time1" class="datetime" required="true"/>
+      </div>
+      <div data-role="fieldcontain">
+        <label for="time2">上班结束时间:</label>
+        <input name="time2" id="time2" class="datetime" required="true"/>
+      </div>
+
+      <div style="height:10px;"></div>     
+      <!-- <input type="submit" data-theme="b" value="提交" onclick="return confirm( '请把上班开始和结束时间填全，确认提交申请吗？（页面会自动跳转请勿重复点击提交）')">
+       -->
+      <input type="button" data-theme="b" value="提交" id="b_form_submit">
+
+      <a href="#page2" date-role="button">关于讲师灵活作息制度</a>
+    </form>
+  </div>
+
+</div>
+
+<div data-role="page" id="page2">
+  <div data-role="content">
+
+    <p>一、由于讲师工作的特殊性，须根据学员的时间进行排课，为了更好调整作息，保障讲师的休息，所有讲师可申请灵活作息制度；</p>
+    <p>二、无特殊情况，讲师须按照公司考勤制度进行出勤；</p>
+    <p>三、特殊情况，讲师排课时间在非正常工作时间时，在不影响校区正常运作的情况下，相关讲师可通过微信行政助手向校长提出灵活作息时间申请，校长可根据校区实际情况进行审批；</p>
+    <p>四、对于讲师早上有课，下午没课，晚上仍然有课的，可参考的灵活作息方案为：上午正常上课，下午上班时间延后，晚上正常上课；</p>
+    <p>五、对于讲师早上有课，晚上没课的，可参考的灵活作息方案为：讲师早上和下午的课正常上课，下午课结束后，提前下班；</p>
+    <p>六、对于讲师白天没课，晚上最后一节课下课时间超过21点的，可参考的灵活作息方案为：上班时间延后；</p>
+    <p>七、除以上情况外，校长可根据校区实际情况确定灵活作息方案；</p>
+    <p>八、执行灵活作息制度的同时，仍然要进行打卡。</p>
+
+    <a href="#page1" data-ajax="false">返回</a>
+  </div>
+</div>
+
+
+
+
+
+</body>
+</html>

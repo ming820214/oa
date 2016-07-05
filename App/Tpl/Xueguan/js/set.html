@@ -1,0 +1,93 @@
+<style type="text/css">
+.box1{
+  padding: 30px;
+  margin: 20px 30px;
+  background-color: antiquewhite;
+  font-size: 13px;
+  font-weight: bolder;
+}
+#set span{
+  line-height: 28px;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.week{
+  background-color: rgb(175, 95, 95);
+  color: cornsilk;
+}
+.type{
+  background-color: rgb(175, 95, 95);
+  color: cornsilk;
+}
+</style>
+
+<script type="text/javascript">
+
+
+function set (sid) {
+  $("#set").show();
+  $(".stuid").val(sid);
+}
+
+//日授课记录处理
+  $("#week span").on('click',function(){
+      $("#week span").removeClass("week");
+      $(this).addClass("week");
+  });
+  $("#type span").on('click',function(){
+      $("#type span").removeClass("type");
+      $(this).addClass("type");
+  });
+  $("#set .bt").on('click',function() {
+    var stuid=$("#set .stuid").val();
+    var date=$("#week .week").attr("data");
+    var type=$("#type .type").attr("data");
+    var m=$("#m").val();
+    $.get("{:U('set_add')}&stuid="+stuid+"&date="+date+"&mm="+m+"&type="+type,function(data){
+      if(data==1){
+        alert("任务添加成功……");
+        $("#set").hide();
+      }else{
+        alert("添加失败……");
+      }
+    },"json");
+  });
+
+
+function set_record (sid) {
+  $("#set_record").show();
+  $(".stuid").val(sid);
+}
+  //查询维护任务
+function set_record (sid) {
+	$("#set_record").show();
+	$("#set_record td").remove();
+	var info = '';
+	$.getJSON("{:U('Xueguan/set_record')}",'&stuid='+sid,function(data){
+	  for (var i=0;i<data.length;i++){
+	  	info+='<tr><td>第'+data[i]['week']+'周</td><td>'+data[i]['type']+'</td><td>'+data[i]['date']+'</td><td>'+data[i]['xueguan']+"</td><td><a class='btn btn-xs btn-danger' href='{:U('Xueguan/set_delt')}&wd="+data[i]['id']+"'>删除</a></td>"
+	  }
+		$("#set_record .content").append(info);
+	});
+}
+
+$("#search").on("click",function () {
+  set_cookie("s1",$("#state").val());
+  set_cookie("s2",$("#type").val());
+  set_cookie("s3",$("#grade").val());
+  set_cookie("s4",$("#xueguan").val());
+  set_cookie("s5",$("#state2").val());
+  set_cookie("s6",$("#type2").val());
+});
+
+<notempty name="Think.post.search">
+  $("#state").val(get_cookie("s1"));
+  $("#type").val(get_cookie("s2"));
+  $("#grade").val(get_cookie("s3"));
+  $("#xueguan").val(get_cookie("s4"));
+  $("#state2").val(get_cookie("s5"));
+  $("#type2").val(get_cookie("s6"));
+</notempty>
+</script>

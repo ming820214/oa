@@ -1,0 +1,100 @@
+<script type="text/javascript">
+	function import_data() {
+		window.open("{:U('import')}", "_self");
+		return false;
+	}
+
+	function dec_add(num1, num2) {
+		var reg = /\./i;
+		if (!reg.test(num1) && !reg.test(num2)) {
+			return parseInt(num1) + parseInt(num2);
+		}
+		var r1 = 0, r2 = 0, m;
+		var str1 = num1.toString(), str2 = num2.toString();
+		if (str1.indexOf('.') > -1) {
+			r1 = str1.split('.')[1].length;
+		}
+		if (str2.indexOf('.') > -1) {
+			r2 = str2.split('.')[1].length;
+		}
+		m = Math.pow(10, Math.max(r1, r2));
+		return (dec_mul(num1, m) + dec_mul(num2, m)) / m;
+	}
+
+	function formatMoney(numStr, separator) {
+		s = numStr;
+		if (/[^0-9\.\-]/.test(s))
+			return "　";
+		s = s.replace(/^(-)?(\d*)$/, "$1$2.");
+		s = (s + "00").replace(/(-)?(\d*\.\d\d)\d*/, "$1$2");
+		s = s.replace(".", ",");
+		var re = /(\d)(\d{3},)/;
+		while (re.test(s))
+		s = s.replace(re, "$1,$2");
+		s = s.replace(/,(\d\d)$/, ".$1");
+		return s.replace(/^\./, "0.")
+	}
+
+	function formatQty(numStr, separator) {
+		s = numStr;
+		if (/[^0-9\.\-]/.test(s))
+			return "　";
+		s = s.replace(/^(-)?(\d*)$/, "$1$2.");
+		s = (s + "00").replace(/(-)?(\d*\.\d\d)\d*/, "$1$2");
+		s = s.replace(".", ",");
+		var re = /(\d)(\d{3},)/;
+		while (re.test(s))
+		s = s.replace(re, "$1,$2");
+		s = s.replace(/,(\d\d)$/, ".$1");
+		s = s.replace(/^\./, "0.");
+		if (s.split(".")[1] == "00")
+			s = s.split(".")[0];
+		return s
+	}
+
+	function total_init() {
+		for (var i = 1; i < 11; i++) {
+			total = 0;
+			item_selecter = ".data_item .data_" + i;
+
+			$(item_selecter).each(function() {
+				total = dec_add(total, $(this).text());
+			})
+			total_selecter = ".data_total .data_" + i;
+			$(total_selecter).text(total);
+		}
+		$(".ul_table .data").each(function() {
+			$(this).text(formatMoney($(this).text()));
+		})
+	}
+
+	function mark(action) {
+		var vars = $("#form_data").serialize();
+		switch (action) {
+			case "del_forever":
+				ui_confirm('确定要删除吗?',function(){
+					sendAjax("{:U('mark?action=del_forever')}", vars, function(data) {
+						if (data.status) {
+							ui_alert(data.info,function(){
+								$("input[name='id[]']:checkbox:checked").each(function() {
+									$(this).parents("li").remove();
+								})
+							});	
+						}
+					});
+				})
+				break;
+			default:
+		}
+		$("#id-toggle-all").attr("checked", false);
+	}
+
+
+	$(document).ready(function() {
+		set_return_url();
+		//total_init();
+		$(".ul_table .data").each(function() {
+			$(this).text(formatMoney($(this).text()));
+		})
+	}); 
+</script>

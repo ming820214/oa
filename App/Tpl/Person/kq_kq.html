@@ -1,0 +1,163 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'考勤报表','search'=>'A'))}
+<include file='kq_search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th width="80px">员工ID</th>
+				<th width="80px">姓名</th>
+				<th width="120px">单位</th>
+				<th width="110px">部门 </th>
+				<th width="110px">职位</th>
+				<th width="60px">迟到</th>
+				<th width="60px">早退</th>
+				<th width="80px">未打卡</th>
+				<th width="60px">旷工</th>
+				<th width="80px">应出勤</th>
+				<th width="60px">请假</th>
+				<th width="60px">加班</th>
+				<th width="80px">核算出勤</th>
+				<th>满勤</th>
+				<th>平衡值</th>
+				<th>重置</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='data' id='vo'>
+			<tr pid="{$vo.id}">
+				<th>{$vo.id}</th>
+				<th>{$vo.name}</th>
+				<th>{$vo.school}</th>
+				<th>{$vo.part}</th>
+				<th>{$vo.position}</th>
+				<td <if condition="($vo['kq']['save'] eq 0) and ($vo['kq']['aa'] neq 0)">class="click"</if> name="aa">{$vo.kq.aa}</td>
+				<td <if condition="($vo['kq']['save'] eq 0) and ($vo['kq']['bb'] neq 0)">class="click"</if> name="bb">{$vo.kq.bb}</td>
+				<td <if condition="($vo['kq']['save'] eq 0) and ($vo['kq']['cc'] neq 0)">class="click"</if> name="cc">{$vo.kq.cc}</td>
+				<td <if condition="($vo['kq']['save'] eq 0) and ($vo['kq']['dd'] neq 0)">class="click"</if> name="dd">{$vo.kq.dd}</td>
+				<th class="r"<if condition="($vo['kq']['rules'] eq 0)and($vo['kq']['save'] eq 0)"> contenteditable  style="border:2px solid rgb(94, 214, 77);"</if>>{$vo.kq.r}</th>
+				<td <if condition="($vo['kq']['save'] eq 0)and($vo['kq']['qingjia']) neq ''">class="click qingjia"</if> name="qingjia">{$vo.kq.qingjia}</td>
+				<td <if condition="($vo['kq']['save'] eq 0)and($vo['kq']['jiaban']) neq ''">class="click jiaban"</if> name="jiaban">{$vo.kq.jiaban}</td>
+				<th class="s">{$vo.kq.s}</th>
+				<th class="t">{$vo.kq.t}</th>
+				<th class="ee"<if condition="$vo['kq']['save'] eq 0"> contenteditable</if>>{$vo.kq.ee}</th>
+				<th><a class="btn btn-sm btn-danger" href="{:U('kq_rest',['pid'=>$vo['id'],'type'=>2])}">重置数据</a><if condition="$vo['kq']['save'] eq 0"><a class="btn btn-sm btn-primary" onclick="save(this)">核准存档</a></if></th>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div id="record" aa="1"><a onclick="clos();" class="clos">X</a></div>
+<script>
+	function clos(){
+		var pid=$(".xuan").parents("tr").attr('pid');
+		var aa=$(".xuan").attr('name');
+		var ff=$(".xuan").parents("tr");
+	    $.getJSON("{:U('ajax_kq_clos')}",{pid:pid,aa:aa},function(msg){
+	    	$(".xuan").text(msg[aa]);
+	    	$(".xuan").parents("tr").find(".s").text(msg.s);
+	    	$(".xuan").parents("tr").find(".t").text(msg.t);
+			$('#record').hide();
+			$('.shade').hide();
+			$(".xuan").removeClass("xuan");
+	    });
+	}
+	//弹出层点击考勤记入按钮
+	function kq_delt(th,type,date,pid) {
+	    $.getJSON("{:U('ajax_kq_delt')}",{type:type,date:date,pid:pid},function(msg){
+	    	if(msg.state=='ok'){
+	    		$(th).parent().text('ok');
+	    		var cont=parseInt($(".xuan").text());
+	    	}else{
+	    		Msg("数据保存失败");
+	    	}
+	    });
+	}
+
+	//弹出层审核请假、加班信息
+	function qingjia_jiaban(th,pid,id,state) {
+	    $.get("{:U('ajax_kq_qingjia')}&pid="+pid+"&id="+id+"&state="+state,function(msg){
+			if(msg=='ok')$(th).parent().text('ok');
+	    });
+	}
+
+	//点击后获取对应的考勤数据详情
+	$("tr").on("click",".click",function() {
+		var pid=$(this).parent().attr("pid"),
+			k2=$(this).attr("name");
+			$(this).addClass("xuan");
+			$(".shade").show();
+		$.ajax({
+		   type: "GET",
+		   url: "{:U('kq_kq_content')}",
+		   data: "pid="+pid+"&way="+1+"&aa="+k2,
+		  success: function(msg){
+			$("#record").show();
+			$(".record").remove();
+	        $("<div class='record'>").html(msg).appendTo($("#record"));
+		  }
+		});
+	});
+
+  	//核准并存档操作
+    function save(th){
+		var xx =$(th).parent().parent(),
+	    pid=xx.attr("pid");
+	    $.get("{:U('ajax_kq_save')}&pid="+pid,function(msg){
+			if(msg==1){
+				$(th).hide();
+				xx.children().removeClass("click");
+				xx.find(".ee").attr("contenteditable",'false');
+				xx.find(".r").attr("contenteditable",'false');
+			}
+	    })
+    }
+
+    //录入平衡值
+    $(".ee").blur(function(){
+    	var pid=$(this).parents("tr").attr('pid');
+    	var ee=$(this).text();
+    	$.get("{:U('ajax_kq_ee')}",{pid:pid,ee:ee},function(msg){
+    		if(msg=='ok')Msg("数据已保存");
+    	})
+    })
+    //录入平衡值
+    $(".r").blur(function(){
+    	var pid=$(this).parents("tr").attr('pid');
+    	var ee=$(this).text();
+    	$.get("{:U('ajax_kq_r')}",{pid:pid,r:r},function(msg){
+    		if(msg=='ok')Msg("数据已保存");
+    	})
+    })
+
+</script>
+<style>
+.clos{
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	font-size: 20px;
+	color: white;
+	cursor: pointer;
+}
+#record{
+	width: 940px;
+	position: fixed;
+	background-color: burlywood;
+	top: 50px;
+	left: -470px;
+	margin-left: 50%;
+	display: none;
+	padding: 15px;
+	padding-top: 40px;
+	z-index: 9999;
+}
+.record{
+	max-height: 500px;
+	background-color: darkseagreen;
+    overflow-y:auto;
+}
+.xuan{
+	background-color: darkseagreen;
+}
+</style>

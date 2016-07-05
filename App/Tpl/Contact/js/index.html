@@ -1,0 +1,138 @@
+<script type="text/javascript">
+	function add() {
+		window.open("{:U('add')}", "_self");
+		return false;
+	}
+
+	function edit() {
+		id = $("li.tbody.selected :checkbox").val();
+		if (id == undefined) {
+			ui_error("请选择要编辑的联系人");
+			return false;
+		} else {
+			window.open(fix_url("{:U('edit')}?id=" + id), "_self");
+		}
+	}
+
+	function del() {
+		id = $("li.tbody.selected :checkbox").val();
+		if (id == undefined) {
+			ui_error("请选择要删除的数据");
+			return false;
+		}
+		ui_confirm('确定要删除吗?',function(){
+			if ($("#form_data .ul_table input:checked").length == 0) {
+				$("li.tbody.active :checkbox").attr("checked", true);
+			}
+			sendForm("form_data", "{:U('del')}");
+			$("#form_data input:checked").each(function() {
+				$(this).parents("li").remove();
+			})
+		})
+	}
+
+	function apply() {
+		if ($("#form_data .ul_table input:checked").length == 0) {
+			ui_error("请选择数据");
+			return false;
+		}
+		sendForm("form_data", "{:U('set_tag')}", "__URL__");
+	}
+
+	function create_new_tag() {
+		$(".cmd").hide();
+		$(".new_tag").css("display", "block");
+		$(".apply").show();
+	}
+
+	function key_local_search() {
+		if (event.keyCode == 13) {
+			$(".ul_table li").hide();
+			val = $("#keyword").val().toUpperCase();
+			if (val.length == 0) {
+				$(".page-header .title").html("全部");
+			} else {
+				$(".page-header .title").html("搜索结果");
+			}
+			$(".ul_table li .data").each(function() {
+				if ($(this).text().indexOf(val) >= 0) {
+					$(this).parents("li").show();
+				};
+			})
+		}
+	}
+
+	function btn_local_search() {
+		$(".ul_table li").hide();
+		val = $("#keyword").val().toUpperCase();
+		if (val.length == 0) {
+			$(".title nobr").html("全部");
+		} else {
+			$(".title nobr").html("搜索结果");
+		}
+		$(".ul_table li .data").each(function() {
+			if ($(this).text().indexOf(val) >= 0) {
+				$(this).parents("li").show();
+			};
+		})
+		return false;
+	}
+
+	function export_contact() {
+		window.open("{:U('export')}", "_blank");
+		return false;
+	}
+
+	function import_contact() {
+		window.open("{:U('import')}", "_self");
+		return false;
+	}
+
+	function manage_tag() {
+		window.open("{:U('tag_manage')}", "_self");
+		return false;
+	}
+
+
+	$(document).ready(function() {
+		set_return_url();
+
+		$(".page-header .dropdown-menu li").click(function() {
+			$("#keyword").val("");
+			$(".ul_table li").hide();
+			gid = $(this).attr("gid");
+			$(".page-header .title").html($(this).text());
+			$(".ul_table li div.tag").each(function() {
+				if ($(this).text().indexOf(gid) >= 0) {
+					$(this).parents("li").show();
+				};
+			})
+		})
+
+		$('.tag_list li').click(function(event) {
+			event.stopPropagation();
+		})
+		
+		$("li.tbody").click(function(){
+			$(".table input:checkbox").attr("checked", false);
+			$(".tag_list input[name='tag[]']").attr("checked", false);
+			str=trim($(this).find(".tag").text());
+			
+			strs=str.split(","); 
+			for (i=0;i<strs.length;i++)    
+			 {  
+				 $(".tag_list input[name='tag[]'][value='"+strs[i]+"']").prop("checked",true);
+			}
+		})
+		
+		$('.tag_list input').on('change', function(event) {
+			if (($('.tag_list input:checked').length == 0) && ($(".tag_list input[name='new_tag']").val() == "")) {
+				$(".cmd").show();
+				$(".apply").hide();
+			} else {
+				$(".cmd").hide();
+				$(".apply").show();
+			}
+		});
+	}); 
+</script>

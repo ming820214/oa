@@ -1,0 +1,106 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'退费审核','search'=>'A'))}
+
+<div  id="adv_search">
+<!-- 导出数据 -->
+		<form action="{:U('import')}" method="post" >
+		<div class="operate panel panel-default" >
+			<div class="panel-body">
+				<div class="pull-left">
+					所属校区：
+					<select name="school">
+						<option></option>
+					<volist name="selt" id="school">
+						<option>{$school.sort}</option>
+					</volist>
+					</select>
+					期次：<input  type="text" name="date" onclick="WdatePicker({dateFmt:'yyyy-MM'})">
+					状态：
+					<select name="state">
+					<option value="5">完成</option>
+					<option value="">全部</option>
+					</select>
+					<input class="btn btn-sm btn-primary" type="submit" value="导出"/>
+				</div>
+			</div>
+		</div>
+		</form>
+<!-- 导出数据 -->
+
+		<div style="overflow-x:auto;overflow-y:auto;max-height: 500px;">
+		<div class="ul_table message-container" style="width:2900px;">
+			<ul>
+				<li class="thead">
+					<label class="inline pull-left col-3">
+						<input class="ace" type="checkbox" name="id-toggle-all" id="id-toggle-all"/>
+						<span class="lbl"></span></label>
+					<span class="col-8 text-center">序号</span>
+					<span class="col-8 text-center">状态</span>
+					<span class="col-8 text-center">校区</span>
+					<span class="col-8 text-center">学员姓名</span>
+					<span class="col-5 text-center">年级</span>
+					<span class="col-10 text-center">联系电话</span>
+					<span class="col-8 text-center">教学主任</span>
+					<span class="col-8 text-center">学习管理师</span>
+					<span class="col-15 text-center">课程类型</span>
+					<span class="col-10 text-center">交费日期</span>
+					<span class="col-8 text-right">交费总额</span>
+					<span class="col-8 text-right">交费课时数</span>
+					<span class="col-8 text-right">已上课时</span>
+					<span class="col-20 text-center">科目/教师</span>
+					<span class="col-25 text-center">剩余计算</span>
+					<span class="col-8 text-right">应退金额</span>
+					<span class="col-25 text-center">退费原因</span>
+					<span class="col-25 text-center">校区反馈</span>			
+					<span class="col-25 text-center">总部沟通</span>
+					<span class="col-10 text-center">申请时间</span>			
+					<span class="col-10 text-center">部门审批</span>			
+					<span class="col-10 text-center">退费时间</span>
+					<span class="col-10 text-center">备注</span>
+				</li>
+					<form method="post" action="{:U('delt')}" id="form_b">
+						<foreach name="list" item="vo">
+							<li class="tbody data_item">
+								<label class="inline pull-left col-3">
+									<input class="ace" type="checkbox" name="id[]" value="{$vo.id}" />
+									<span class="lbl"></span></label>
+									<span class="col-8 text-center">{$vo.id}</span>
+									<span class="col-10 text-center">
+										<switch name="vo.state" >
+										<case value="0"><a style="color:red;">退回修改</a></case>
+										<case value="1"><a style="color:fuchsia;">财务确认</a></case>
+										<case value="2"><a style="color:#6666FF;">校区审核</a></case>
+										<case value="3"><a style="color:#99CC00;">部门审核</a></case>
+										<case value="4"><a style="color:#333333;">集团审批</a></case>
+										<case value="5"><a style="color:#009933;">退款确认</a></case>
+										<case value="6"><a style="color:#009933;">退款完成</a></case>
+										</switch>
+									</span>
+									<span class="col-8 text-center">{$vo.school}</span>
+									<span class="col-8 text-center">{$vo.student}</span>
+									<span class="col-5 text-center">{$vo.grade}</span>
+									<span class="col-10 text-center">{$vo.tel}</span>
+									<span class="col-8 text-center">{$vo.aa}</span>
+									<span class="col-8 text-center">{$vo.bb}</span>
+									<span class="col-15 text-center">{$vo.class}</span>
+									<span class="col-10 text-center">{$vo.timed}</span>
+									<span class="col-8 text-right">{$vo.ze}</span>
+									<span class="col-8 text-right">{$vo.count}</span>
+									<span class="col-8 text-right">{$vo.countd}</span>
+									<span class="col-20 text-center">{$vo.km}</span>
+									<span class="col-25 text-right">{$vo.sy}</span>
+									<span class="col-8 text-right">{$vo.je}</span>
+									<span class="col-25 text-center"><empty name="vo.why1">&nbsp;<else />{$vo.why1}</empty></span>
+									<span class="col-25 text-center"><empty name="vo.why2">&nbsp;<else />{$vo.why2}</empty></span>
+									<span class="col-25 text-center"><empty name="vo.why3">&nbsp;<else />{$vo.why3}</empty></span>
+									<span class="col-10 text-center">{$vo.time1}</span>
+									<span class="col-10 text-center">{$vo.time2}</span>
+									<span class="col-10 text-center">{$vo.time3}</span>
+									<span class="col-10 text-center">{$vo.other}</span>
+							</li>
+						</foreach>
+					</form>
+			</ul>
+		</div>
+		</div>
+</div>

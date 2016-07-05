@@ -1,0 +1,23 @@
+<layout name='Layout/ace_layout' />
+<div class="page-header clearfix">
+	<div class="dropdown col-sm-8">
+		<span class="title">选择产品类型</span>
+	</div>
+	<div class="col-sm-4 pull-right">
+		<div class="search_box">
+			<div class="input-group ">
+				<input type="hidden" value="abc" >
+				<input  class="form-control" type="text"  name="keyword" id="keyword" onkeydown="key_local_search();"/>
+				<div class="input-group-btn">
+					<a class="btn btn-sm btn-info" onclick="btn_local_search();"><i class="fa fa-search" ></i> </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<foreach name="list" item="vo">
+		<div class="col-sm-3 col-xs-6 text-center">
+			<a class="btn btn-info btn-block" href="{:U('add','type='.$vo['id'].'&fid='.$fid)}">{$vo.name}</a>
+			<div class="space-8"></div>
+		</div>
+</foreach>

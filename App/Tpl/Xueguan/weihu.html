@@ -1,0 +1,60 @@
+<layout name='Layout/ace_layout' />
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>学员ID</th>
+          <th>姓名</th>
+          <th>联系电话</th>
+          <th>年级</th>
+          <th>任务状态</th>
+          <th>剩余时间</th>
+          <th>截止日期</th>
+          <th></th>
+          <th width="30%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="data" id="v">
+          <tr>
+            <td>{$v.stuid}</td>
+            <td>{$v.student.name}</td>
+            <td>{$v.student.tel}</td>
+            <td>{$v.student.grade}</td>
+            <td>{$v.超时}</td>
+            <td>{$v.剩余}</td>
+            <td>{$v.date}</td>
+            <td><input type="submit" class="btn btn-minier btn-danger" name="search" onclick="weihu({$v.id})" value="维护" /></td>
+            <td><a class="btn btn-minier btn-primary" onclick="weihu_zhudong({$v.stuid})">添加维护</a>|<input type="submit" class="btn btn-minier btn-primary" name="weihu" onclick="weihu_record({$v.stuid})" value="维护记录" /><input type="submit" class="btn btn-minier btn-primary" name="search" onclick="fankui_record({$v.stuid})" value="授课反馈记录" /><input type="submit" class="btn btn-minier btn-primary" name="search" onclick="info({$v.stuid})" value="学员信息" /></td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    {$page}
+  </div>
+</div>
+
+
+<!-- 学员维护 -->
+<form method="post">
+<div class="box" id="weihu" style="display: none"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3>学员维护</h3></div><input type="hidden" name="id" class="id">
+  <div class="box1">
+    <label>维护时长(分钟)：</label><input type="text" name="count" style="width:70px">
+    <label>接听人：</label><input type="text" name="name" style="width:100px"><hr/>
+    <label>与家长沟通情况：</label>
+    <textarea rows="3" cols="20" name="info1" style="width:95%;"></textarea>
+    <label>家长反馈问题：</label>
+    <textarea rows="3" cols="20" name="info2" style="width:95%;"></textarea>
+  </div>
+  <div class="pull-right">
+    <input type="submit" class="btn btn-sm btn-danger" name="add" value="完成维护" />
+  </div>
+</div>
+</form>
+
+<include file="box" />

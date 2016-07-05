@@ -1,0 +1,50 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'流程管理','search'=>'S'))}
+<!--  功能操作区域  -->
+<div class="operate panel panel-default">
+	<div class="panel-body">
+		<div class="pull-left" >
+			<a class="btn btn-sm btn-danger" onclick="mark('del');">删除</a>
+		</div >
+		<div class="pull-right">
+			<a  onclick="add();" class="btn btn-sm btn-primary">新建</a>
+		</div>
+	</div>
+</div>
+<!-- 功能操作区域结束 -->
+<div class="ul_table border-bottom">
+	<ul>
+		<li class="thead"  >
+			<label class="inline pull-left col-3">
+				<input class="ace" type="checkbox" name="id-toggle-all" id="id-toggle-all" />
+				<span class="lbl"></span></label>
+			<div class="pull-right">		
+				<span  class="col-25">简称</span>
+				<span class="col-6 text-center">状态</span>
+				<span class="col-6 text-center">字段管理</span>	
+			</div>
+			<span class="autocut auto">名称</span>
+		</li>
+		<empty name="list">
+			<li class="no-data">
+				没找到数据
+			</li>
+			<else/>
+			<form method="post" action="" name="form_data" id="form_data">
+				<foreach name="list" item="vo">
+					<li class="tbody" >
+						<label class="inline pull-left col-3">
+							<input class="ace" type="checkbox" name="id[]" value="{$vo.id}" />
+							<span class="lbl"></span></label>
+						<div class="pull-right">
+							<span class="col-25">{$vo.short }&nbsp;</span>
+							<span class="col-6 text-center"  >{$vo.is_del|status}&nbsp;</span>						
+							<span class="col-6 text-center"><a class=" " href="{:U('field','type_id='.$vo['id'])}">字段管理</a></span>	
+						</div >
+						<span class="autocut auto"><a href="{:U('edit?id='.$vo['id'])}">{$vo.name}&nbsp;</a></span>
+					</li>
+				</foreach>
+			</form>
+		</empty>
+	</ul>
+</div>

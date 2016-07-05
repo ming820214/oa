@@ -1,0 +1,22 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'导入自助查询','search'=>'N'))}
+<form method='post' id="form_data" enctype="multipart/form-data" class="form-horizontal well clearfix">
+	<input type="hidden" name="folder" value="{$folder}">
+	<input type="hidden" name="opmode" value="import">
+	<ul class="list-unstyled">
+		<li class="col-xs-12 line-height-32">
+			第一列：用户ID
+		</li>
+		<li class="col-xs-12 line-height-32">
+			第二列开始是用户数据
+		</li>
+		<li class="col-xs-12 line-height-32">
+			选择要导入的文件&nbsp;
+			<input type="file"  name="file" value="" class="form-control col-30">
+		</li>
+	</ul>
+	<div class="action">
+		<input class="btn btn-sm btn-primary" type="button" value="导入" onclick="save();">
+		<input  class="btn btn-sm btn-default" type="button" value="取消" onclick="go_return_url();">
+	</div>
+</form>

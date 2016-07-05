@@ -1,0 +1,23 @@
+<script type="text/javascript">
+	function add() {
+		window.open("{:U('add?fid='.$folder_id)}", "_self");
+	}
+
+	function del() {
+		ui_confirm('确定要删除吗?',function(){
+			sendAjax("{:U('del')}", 'id=' + $("#forum_id").val(), function(data) {
+				if (data.status) {
+					ui_alert(data.info,function(){
+						$("input[name='id[]']:checkbox:checked").each(function() {
+							$(this).parents("li").remove();
+						})
+					});	
+				}
+			});
+		})
+	}
+
+	$(document).ready(function() {
+		set_return_url();
+	}); 
+</script>

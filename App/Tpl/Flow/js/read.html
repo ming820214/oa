@@ -1,0 +1,36 @@
+<script type="text/javascript">
+	function approve() {
+		sendForm("form_confirm", "{:U('mark?action=approve')}", "{:U('read?id='.$vo['id'])}");
+	}
+
+	function reject() {
+		sendForm("form_confirm", "{:U('mark?action=reject')}", "{:U('read?id='.$vo['id'])}");
+	}
+
+	function back_to(emp_no) {
+		sendForm("form_confirm", "{:U('mark?action=back')}?emp_no=" + emp_no, "{:U('read?id='.$vo['id'])}");
+	}
+
+	function save() {
+		window.onbeforeunload=null;
+		editor.sync();
+		sendForm("form_data", "{:U('save')}");
+	}
+
+	function select_confirm() {
+		winopen("{:U('popup/confirm')}", 730, 750);
+	};
+
+	$(document).ready(function(){
+		set_return_url(document.location,1);
+		$("#confirm span").on("dblclick", function() {
+			$("#confirm span").last().find("b").remove();
+		});
+		$("#consult span").on("dblclick", function() {
+			$("#consult span").last().find("b").remove();
+		});
+		<empty name = "is_edit" >
+			show_content();
+		</empty>
+	}); 
+</script>

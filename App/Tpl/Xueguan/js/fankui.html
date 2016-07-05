@@ -1,0 +1,36 @@
+<style type="text/css">
+.box1{
+  padding: 30px;
+  margin: 20px 30px;
+  background-color: antiquewhite;
+}
+#fankui input{
+  margin: 5px;
+}
+</style>
+<script type="text/javascript">
+function fankui (sid) {
+  $("#fankui").show();
+  $.getJSON("{:U('Xueguan/fankui_api')}",'&cid='+sid,function(data){
+  	$("#fankui .class").val(data.class);
+  	$("#fankui .teacher").val(data.teacher);
+  	$("#fankui .stuid").val(data.stuid);
+  	$("#fankui .date").val(data.timee);
+  	$("#fankui .date").text(data.timee);
+  	$("#fankui .class").text(data.class);
+  	$("#fankui .teacher").text(data.teacher);
+  	$("#fankui .time").text(data.time1+'--'+data.time2);
+  });
+  $(".cid").val(sid);
+}
+function fankuiq (sid) {
+  $("#fankuiq").show();
+  $.getJSON("{:U('Xueguan/fankui_api')}",'&cid='+sid,function(data){
+    $("#fankuiq .class").val(data.class);
+    $("#fankuiq .teacher").val(data.teacher);
+    $("#fankuiq .stuid").val(data.stuid);
+    $("#fankuiq .date").val(data.timee);
+  });
+  $(".cid").val(sid);
+}
+</script>

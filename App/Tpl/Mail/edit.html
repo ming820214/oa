@@ -1,0 +1,94 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'写邮件','search'=>'N'))}
+<div class="operate panel panel-default">
+	<div class="panel-body">
+		<div class="left">
+			<a class="btn btn-sm btn-primary" onclick="send(true);">发送</a>
+			<a class="btn btn-sm btn-primary" onclick="send(false);" >临时保管</a>
+		</div>
+	</div>
+</div>
+<form class="well form-horizontal" method='post' id="form_send" name="form_send" enctype="multipart/form-data">
+	<input type="hidden" id="ajax" name="ajax" value="0">
+	<input type="hidden" id="add_file" name="add_file">
+	<input type="hidden" id="id" name="id" value="{$vo.id}">
+	<input type="hidden" id="to" name="to"/>
+	<input type="hidden" id="cc" name="cc"/>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="recever">收件人*：</label>
+		<div class="col-sm-10">
+			<div class="input-group">
+				<div id="recever" class="inputbox form-control">
+					<div class="wrap" >
+						<span class="address_list">{$vo.to|show_contact="edit"}</span>
+						<span class="text" >
+							<input class="letter" type="text"  >
+						</span>
+					</div>
+					<div class="search dropdown ">
+						<ul class="dropdown-menu"></ul>
+					</div>
+				</div>
+				<span class="input-group-btn"> <a class="btn btn-link" onclick="popup_contact();"> <i class="fa fa-user"></i> </a> </span>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-2 control-label">
+			<label for="carbon_copy"> 抄送*：</label>
+			<a onclick="toggle_bcc();"><i id="toggle_bcc_icon" class="fa fa-chevron-down"></i></a>
+		</div>
+		<div class="col-sm-10">
+			<div id="carbon_copy" class="inputbox">
+				<div class="wrap" >
+					<span class="address_list">{$vo.cc|show_contact}</span>
+					<span class="text" >
+						<input class="letter" type="text"  >
+					</span>
+				</div>
+				<div class="search dropdown ">
+					<ul class="dropdown-menu"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="bcc" class="form-group display-none">
+		<label class="col-sm-2 control-label" for="blind_carbon_copy"> 密送*： </label>
+		<div class="col-sm-10">
+			<div id="blind_carbon_copy" class="inputbox">
+				<div class="wrap" >
+					<span class="address_list">{$vo.bcc|show_contact}</span>
+					<span class="text" >
+						<input class="letter" type="text"  >
+					</span>
+				</div>
+				<div class="search dropdown ">
+					<ul class="dropdown-menu"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="mail_title"> 标题*： </label>
+		<div class="col-sm-10">
+			<input class="form-control"  type="text" name="title" id="mail_title"  check="require" msg="请输入标题" value="{$vo.name}">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="mail_title"> 附件*： </label>
+		<div class="col-sm-10">
+			<include file="Widget:uploader" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-xs-12">
+			<textarea  class="editor" id="content" name="content" class="col-xs-12">{$vo.content}</textarea>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="white">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-touch-fullscreen" content="yes">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+</head>
+<body>
+<div data-role="page" id="page1">
+  <div data-role="header">
+    <h1>我的任务列表</h1>
+  </div>
+
+  <div data-role="content">
+    <h3>我的任务列表</h3>
+    <volist name='list1' id='v'>
+    <div data-role="collapsible"  data-content-theme="e" class="father">
+      <h1><a>［{$v.level}］</a>{$v.title}</h1>
+      <h3>任务描述：</h3>
+    <p>开始时间：{$v.t1}</p>
+    <p>结束时间：{$v.t2}</p>
+    <p>{$v.info}</p>
+      <h3>最新进展：</h3>
+      <div class="info">
+        <volist name="v.tasked" id="vv"><if condition="$vv.type eq 1"><p class="reply">》》{$vv.info}</p><else/><p>[{$vv.timestamp|strtotime|date='m/d H:i',###}]{$vv.info}</p></if></volist>
+      </div>
+      <hr />
+      <textarea name="info" onKeyDown="if (this.value.length>=350){alert('超过字数限制……')}"></textarea>
+    <div class="ui-grid-a">
+      <div class="ui-block-a"><button data-theme="a" onclick="task(this);" id="{$v.id}">记录任务进展</button></div>
+      <div class="ui-block-b"><button data-theme="a" onclick="cls({$v.id});" >申请关闭任务</button></div>
+    </div>
+      <button data-theme="a" onclick="ask({$v.id});">申请快速答复</button>
+    </div>
+    </volist><br /><hr />
+    <form method="post" data-ajax="false">
+      <fieldset data-role="collapsible" data-theme="b" data-content-theme="e">
+        <legend>点击 - 新建任务！</legend>
+          <label>任务标题：</label>
+          <input type="text" name="title" required>
+          <label>任务描述：</label>
+          <textarea name="info"></textarea>
+          <p>开始时间</p>
+          <input type="date" name="t1" />
+          <p>结束时间</p>
+          <input type="date" name="t2" />
+          <p>任务标签：</p>
+          <select name="level">
+            <option>一般</option>
+            <option>尽快</option>
+            <option>紧急</option>
+            <option>非常紧急</option>
+          </select>
+          
+      <input type="submit" name="add" value="添加任务" data-inline="true" data-theme="a">
+      </fieldset>
+    </form>
+  </div>
+ 
+  <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar" data-iconpos="left">
+      <ul>
+        <li><a href="#page1" class="ui-btn-active ui-state-persist" data-icon="info">任务列表</a></li>
+        <li><a href="#page2" data-icon="plus">问题反馈</a></li>
+        <li><a href="#page3" data-icon="star">工作组</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div data-role="page" id="page2">
+  <div data-role="header">
+    <h1>问题反馈</h1>
+  </div>
+
+  <div data-role="content">
+      <div class="style4" style="text-shadow:none;">
+        <php>
+          $ac=array_values($advice);
+          for($i=11;$i>=0;$i--){
+            if($ac[$i]['type']){
+              echo("<p class='reply'>》》".$ac[$i]['info']."</p>");
+            }else{
+              echo("<p>".$ac[$i]['info']."</p>");
+            }
+          }
+        </php>
+      </div>
+       <form method="post" data-ajax="false">
+        <label for="fname">关于近期任务的相关问题反馈：</label>
+        <input type="text" name="info" id="fname">
+        <input type="submit" data-inline="true" name="advice" value="提交">
+      </form>
+  </div>
+
+  <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar" data-iconpos="left">
+      <ul>
+        <li><a href="#page1" data-icon="info">任务列表</a></li>
+        <li><a href="#page2" class="ui-btn-active ui-state-persist" data-icon="plus">问题反馈</a></li>
+        <li><a href="#page3" data-icon="star">工作组</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div data-role="page" id="page3">
+  <div data-role="header" data-position="fixed">
+    <h1>任务组列表</h1>
+    <a href="#page1" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
+  </div>
+
+  <div data-role="content">
+  <volist name="list2" id="task"> 
+  <div class="group">
+        <h3>&nbsp;&nbsp;{$task.info.title}</h3>
+        <h5>&nbsp;&nbsp;{$task.info.info}</h5>
+        <foreach name="task.task" item="list">
+        <div data-role="collapsible" data-content-theme="e">
+          <h2>{$key}</h2>
+          <volist name='list' id='v'>
+          <div data-role="collapsible"  data-content-theme="e" id="{$v.id}" class="father">
+            <h1><a>［{$v.level}］</a>{$v.title}</h1>
+            <h3>任务描述：</h3>
+          <p>开始时间：{$v.t1}</p>
+          <p>结束时间：{$v.t2}</p>
+          <p>{$v.info}</p>
+            <h3>最新进展：</h3>
+            <div class="info">
+              <volist name="v.tasked" id="vv"><if condition="$vv.type eq 1"><p class="reply">》》{$vv.info}</p><else/><p>[{$vv.timestamp|strtotime|date='m/d H:i',###}]{$vv.info}</p></if></volist>
+            </div>
+          </div>
+          </volist>
+        </div>
+       </foreach>
+  </div>
+  </volist>
+  </div>
+ 
+  <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar" data-iconpos="left">
+      <ul>
+        <li><a href="#page1" data-icon="info">任务列表</a></li>
+        <li><a href="#page2" data-icon="plus">问题反馈</a></li>
+        <li><a href="#page3" data-icon="star">工作组</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+<style type="text/css">
+.style4{
+    background: bisque;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin: 10px;
+    margin-bottom: 30px;
+}
+.info{
+  padding: 5px;
+  background: burlywood;
+  text-shadow: none;
+  border-radius: 3px;
+}
+.info p{
+  padding: 0px 10px;
+  text-decoration: none;
+}
+.reply{
+  color: blue;
+}
+.group{
+  background: wheat;
+  padding: 5px;
+  border-style: solid;
+  border-color: burlywood;
+  border-width: 1px;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+</style>
+<script type="text/javascript">
+//任务新进展
+  function task(th){
+    var xx=$(th).parents(".father");
+    var info=xx.find("textarea").val();
+    var id=$(th).attr('id');
+    if(info!='')
+    $.getJSON("{:U('')}",{id:id,info:info},function (msg) {
+      xx.find(".info").append("<p>"+msg.info+"&nbsp;&nbsp;&nbsp;&nbsp;["+msg.timestamp+"]</p>");
+      xx.find("textarea").val("");
+    })
+  }
+
+//  申请关闭任务
+  function cls(id){
+    $.get("{:U()}",{delt:id},function(msg){
+      if(msg==1){
+        alert('关闭申请已送达……');
+      }
+    })
+  }
+//  申请快速回复
+  function ask(id){
+    $.get("{:U()}",{ask:id},function(msg){
+      if(msg==1){
+        alert('信息已送达完毕……');
+      }
+    })
+  }
+</script>
+</html>

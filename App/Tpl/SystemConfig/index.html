@@ -1,0 +1,66 @@
+<layout name='Layout/ace_layout' />
+
+{:W('PageHeader',array('name'=>'系统参数','search'=>'S'))}
+<div class="operate panel panel-default">
+	<div class="panel-body">
+		<div class="pull-right" >
+			<a onclick="add()" class="btn btn-sm btn-primary">新增</a>
+		</div>
+	</div>
+</div>
+<table  class="table table-bordered">
+	<tr>
+		<th >
+		<nobr>
+			代码
+		</nobr></th>
+		<th >
+		<nobr>
+			名称
+		</nobr></th>
+
+		<th >
+		<nobr>
+			数据
+		</nobr></th>
+		<th class="text-center">
+		<nobr>
+			状态
+		</nobr></th>
+		<th class="text-center">
+		<nobr>
+			排序
+		</nobr></th>
+	</tr>
+	<foreach name="list" item="vo">
+		<tr>
+			<td>
+			<nobr>
+				{$vo.code}
+			</nobr></td>
+			<td>
+			<nobr>
+				<a href="{:U('edit?id='.$vo['id'])}">
+				<nobr>
+					{$vo.name}
+				</nobr></a>
+			</nobr></td>
+			<td>
+			<nobr>
+				{$vo.val}
+			</nobr></td>
+			<td class="text-center">
+			<nobr>
+				{$vo.is_del|status}
+			</nobr></td>
+			<td class="text-center">
+			<nobr>
+				{$vo.sort}
+			</nobr></td>
+		</tr>
+	</foreach>
+</table>
+<div class="pagination">
+	{$page}
+</div>
+

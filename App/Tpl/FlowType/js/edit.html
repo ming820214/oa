@@ -1,0 +1,51 @@
+<script type="text/javascript">
+	function save() {
+		$("#confirm").val("");
+		$("#confirm_wrap  span.address_list span").each(function() {
+			$("#confirm").val($("#confirm").val() + $(this).attr("data") + '|');
+		})
+
+		$("#confirm_name").val("");
+		$("#confirm_name").val($("#confirm_wrap span.address_list").html());
+
+		$("#consult").val("");
+		$("#consult_wrap span.address_list span").each(function() {
+			$("#consult").val($("#consult").val() + $(this).attr("data") + '|');
+		})
+
+		$("#consult_name").val("");
+		$("#consult_name").val($("#consult_wrap span.address_list").html());
+
+		$("#refer").val("");
+		$("#refer_wrap span.address_list span").each(function() {
+			$("#refer").val($("#refer").val() + $(this).attr("data") + '|');
+		})
+
+		$("#refer_name").val("");
+		$("#refer_name").val($("#refer_wrap span.address_list").html());
+
+		editor.sync();
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}","{:U('index')}");
+		}
+	}
+
+	function popup_flow() {
+		winopen("{:U('popup/flow')}", 730, 574);
+	}
+
+	$(document).ready(function(){
+		$(document).on("dblclick", ".inputbox .address_list b", function(){
+			$(this).parent().parent().remove();
+		});
+
+		$(document).on("click", ".inputbox .address_list a.del", function() {
+			$(this).parent().parent().remove();
+		});
+
+		set_val("is_del", "{$vo.is_del}");
+		set_val("is_edit", "{$vo.is_edit}");
+		set_val("tag", "{$vo.tag}");
+		set_val("is_lock", "{$vo.is_lock}");
+	})
+</script>

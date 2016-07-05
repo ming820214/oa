@@ -1,0 +1,93 @@
+<layout name='Layout/ace_layout' />
+<form method="post" id="form_search" name="form_adv_search">
+  <div class="operate panel panel-default">
+    <div class="panel-body">
+      <div class="pull-left">
+        <label  for="state"><b>维护状态:</b></label>
+        <select id="state" name="state" class="col-10">
+          <option value="">全部</option>
+          <option value="0">处理中</option>
+          <option value="1">已解决</option>
+        </select>&nbsp;&nbsp;&nbsp;
+        <label  for="xueguan"><b>学习管理师:</b></label>
+        <select id="xueguan" name="xueguan" class="col-10">
+          <option value="">全部</option>
+          <option value="无">无</option>
+          <foreach name="xueguan" item="vx"><option value="{$vx}">{$vx}</option></foreach>
+        </select>
+        <label  for="type"><b>建议类型:</b></label>
+        <select id="type" name="type" class="col-10">
+          <option value="">全部</option>
+          <option value="加课">加课</option>
+          <option value="学员作业问题">学员作业问题</option>
+          <option value="学员状态问题">学员状态问题</option>
+          <option value="转介绍挖掘">转介绍挖掘</option>
+          <option value="其它">其它</option>
+        </select>
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="查询" id="search" />
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>学员姓名</th>
+          <th>授课讲师</th>
+          <th>科目</th>
+          <th>学习管理师</th>
+          <th>意见类型</th>
+          <th>处理状态</th>
+        </tr>
+      </thead>
+      <tbody>
+      <volist name="data" id="list"><form method="post">
+          <tr>
+            <td><h5>{$list.name}</h5></td>
+            <td><h5>{$list.teacher}</h5></td>
+            <td><h5>{$list.class}</h5></td>
+            <td><h5>{$list.xueguan}</h5></td>
+            <td>{$list.type}</td>
+            <td><empty name="list.results">处理中</empty><if condition="($list.state eq 0) and ($list.results neq '')">待确认</if><if condition="$list.state eq 1">已处理</if></td>
+          </tr>
+          <tr>
+            <td colspan="6">
+              <table width="100%" border="2">
+                <tr>
+                  <td>建议：</td>
+                  <td width="40%">{$list.advice}</td>
+                  <td>{$list.timestamp}</td>
+                  <td>结果：</td>
+                  <td width="30%">{$list.results}</td>
+                  <td>{$list.time2}</td>
+                </tr>
+              </table>
+            </td>
+          </tr></form>
+        </volist>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    {$page}
+  </div>
+</div>
+<script type="text/javascript">
+
+  $("#search").on("click",function () {
+    set_cookie("s1",$("#state").val());
+    set_cookie("s2",$("#type").val());
+    set_cookie("s4",$("#xueguan").val());
+  });
+
+  <notempty name="Think.post.search">
+  $(document).ready(function(){
+    $("#state").val(get_cookie("s1"));
+    $("#type").val(get_cookie("s2"));
+    $("#xueguan").val(get_cookie("s4"));
+  });
+  </notempty>
+
+</script>

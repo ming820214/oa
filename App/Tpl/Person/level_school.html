@@ -1,0 +1,42 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'校区目标设置','search'=>'A'))}
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+				设置校区：<select name="school">{:W('School')}</select>
+				业绩目标：<input type="text" name="yeji">
+				消耗目标：<input type="text" name="xiaohao">
+				续费目标：<input type="text" name="xufei">
+			</div>
+			<div class="pull-right">
+				<input type="submit" class="btn btn-sm btn-primary" name="add" value="添加目标">
+			</div>
+		</div>
+	</div>
+</form>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>校区</th>
+				<th>业绩目标</th>
+				<th>消耗目标</th>
+				<th>续费目标</th>
+				<th>删除</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='data' id='vo'>
+			<tr>
+				<td>{$vo.school}</td>
+				<td>{$vo.yeji}</td>
+				<td>{$vo.xiaohao}</td>
+				<td>{$vo.xufei}</td>
+				<td><a href="{:U('level_school')}&delt={$vo.id}" class="btn btn-sm btn-primary">删除</a></td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>

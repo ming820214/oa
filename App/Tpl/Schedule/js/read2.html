@@ -1,0 +1,45 @@
+<script type="text/javascript">
+	// 加载编辑器
+	function edit() {
+		parent.window.location.href = "{:U('edit?id='.$vo['id'])}";
+		myclose();
+	}
+
+	function next() {
+		<empty	name = "next" >
+			 alert('没有下一个');
+		<else/>
+			window.location.href = "{:U('read?id='.$next.'&list='.$list)}";
+		</empty>
+	}
+
+	function prev() {
+		<empty name = "prev" >
+			alert('没有上一个');
+		<else />
+		window.location.href = "{:U('read?id='.$prev.'&list='.$list)}";
+		</empty>
+	}
+
+	$(function() {
+		$("#slider-range-priority").slider({
+			range : "min",
+			min : 1,
+			max : 5,
+			value : "{$vo.priority}",
+			slide : function(event, ui) {
+				$("#priority").val(ui.value);
+				$("div.slider_box div.ui-slider").css("background-color", schedule_bg(ui.value));
+				$("div.slider_box div.ui-widget-header").css("background-color", schedule_bg(ui.value));
+			}
+		});
+		$("div.slider_box div.ui-slider").css("background-color", schedule_bg("{$vo.priority}"));
+		$("div.slider_box div.ui-widget-header").css("background-color", schedule_bg("{$vo.priority}"));
+	})
+
+	$(document).ready(function() {
+		fill_time("start_time");
+		fill_time("end_time");
+		show_content();
+	}); 
+</script>

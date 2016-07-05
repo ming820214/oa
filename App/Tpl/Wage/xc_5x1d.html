@@ -1,0 +1,100 @@
+<layout name='Layout/ace_layout' />
+<include file="search" />
+<div class="row">
+	<table class="table table-bordered" id="rule">
+		<thead>
+			<tr>
+				<th>员工ID</th>
+				<th>姓名</th>
+				<th>开始缴纳时间</th>
+				<th>缴纳方式</th>
+				<th>缴纳城市</th>
+				<th>补助</th>
+				<th>备注</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='v'>
+			<tr id="{$v.id}">
+				<td>HW{$v.id}</td>
+				<td>{$v.name}</td>
+				<td>{$v.age}</td>
+				<if condition="$v.state eq 1">
+				<td><select name="type" class="type"><option value="0">补助</option><option value="1" <if condition="$v.type eq 1">selected</if>>缴纳</option></select></td>
+				<td><select name="city" class="city"><option>{$v.city}</option><volist name="city" id="v2"><option>{$v2}</option></volist></select></td>
+				<td contenteditable class="buzhu">{$v.buzhu}</td>
+				<td contenteditable class="other">{$v.other}</td>
+				<td><a class="btn btn-sm btn-primary" onclick="record({$v.id})">缴纳记录</a></td>
+				</if>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div id="record"><a onclick="$(this).parent().hide();" class="clos">X</a>
+	<table align="center" width="100%" cellpadding="10" border="1" background-color="beige">
+		<thead>
+			<tr>
+				<th>期次</th>
+				<th>个人缴纳金额</th>
+				<th>单位缴纳金额</th>
+				<th>合计金额</th>
+			</tr>
+		</thead>
+		<tbody id="record_body">
+			
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+	$("td,select").blur(function() {
+		var id=$(this).parents("tr").attr("id"),
+			aa=$(this).attr("class"),
+			info=$(this).val();
+			if($(this).attr("class")=='buzhu'||$(this).attr("class")=='other')info=$(this).text();
+			$.post("{:U()}",{id:id,aa:aa,info:info});
+	})
+	//获取福利金记录
+	function record(id){
+		$.post("{:U('')}",{record:id},function(msg){
+		$("#record_body").empty();
+		var info='';
+		for (var i = 0; i < msg.length; i++) {
+			info+='<tr>';
+			info+='<td>'+msg[i]['date']+'</td>';
+			info+='<td>'+msg[i]['5x1']+'</td>';
+			info+='<td>'+msg[i]['5x2']+'</td>';
+			info+='<td>'+msg[i]['5x3']+'</td>';
+			info+='</tr>';
+		};
+		$("#record_body").append(info);
+		$("#record").show();
+		},"json");
+	}
+</script>
+<style type="text/css">
+.clos{
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	font-size: 20px;
+	color: white;
+	cursor: pointer;
+}
+#record{
+	width: 500px;
+	position: fixed;
+	background-color: burlywood;
+	top: 250px;
+	left: -250px;
+	margin-left: 50%;
+	display: none;
+	padding: 15px;
+	padding-top: 40px;
+	max-height: 400px;
+	padding-bottom: 25px;
+    overflow-y:auto;
+}
+</style>

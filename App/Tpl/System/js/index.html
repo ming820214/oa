@@ -1,0 +1,18 @@
+<script type="text/JavaScript">
+function $(id) { return document.getElementById(id); }
+
+function get_ip() {
+  var XMLHttp, r;
+  XMLHttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+  XMLHttp.onreadystatechange = function() {
+    if (XMLHttp.readyState == 4)
+    {
+      r = XMLHttp.responseText;
+      if (r == 'false') $('ip_r').innerHTML = '获取外网 IP 失败!';
+      else $('ip_r').innerHTML = '此服务器互联网 IP<br /><a href="http://'+r+'" style="color: #999999;">'+r+'</a>';
+    }
+  }
+  XMLHttp.open("GET", "?act=getip", true);
+  XMLHttp.send();
+}
+</script>

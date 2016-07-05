@@ -1,0 +1,130 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'审核中的项目','search'=>'A'))}
+<form method="post">
+<div  id="adv_search">
+		<div class="operate panel panel-default" id="sc">
+			<div class="panel-body">
+				<div class="pull-left">
+					期次：
+					<select name="date">
+						<option value="{$Think.session.date}">{$Think.session.date}</option>
+						<option value="">全部</option>
+					</select>
+					状态：
+					<select name="state">
+						<option value="5">审核通过</option>
+						<option value="4">财务确认</option>
+						<option value="3">总裁审核</option>
+						<option value="2">部门审核</option>
+						<option value="1">校区审核</option>
+						<option value="0">退回修改</option>
+						<option value="-1">审核失败</option>
+						<option value="全部">全部</option>
+					</select>
+					申请校区：
+					<select name="school">
+						<option></option>
+					<volist name='selt' id='v'>
+						<option>{$v.sort}</option>
+					</volist>
+					</select>
+					归属校区：
+					<select name="gs">
+						<option></option>
+					<volist name='selt' id='v'>
+						<option>{$v.sort}</option>
+					</volist>
+					</select>
+					接收校区：
+					<select name="jsxq">
+						<option></option>
+					<volist name='selt' id='v'>
+						<option>{$v.sort}</option>
+					</volist>
+					</select>
+					成本类型：<input  type="text" name="aa">
+					接收人：<input  type="text" name="jsr">
+				</div>
+				<div class="pull-right">
+					<input class="btn btn-sm btn-primary" type="submit" name="search" value="筛选"/>
+					<a class="btn btn-sm btn-danger" onclick="change()">修改</a>
+					<input class="btn btn-sm btn-danger" type="submit" name="delt" value="删除"/>
+					<input class="btn btn-sm btn-primary" type="submit" name="import" value="导出"/>
+				</div>
+			</div>
+		</div>
+
+	<div style="overflow-x:auto;overflow-y:auto;max-height: 500px;">
+	<div class="ul_table message-container" style="width:2500px;">
+		<ul>
+		<li class="thead">
+			<label class="inline pull-left col-3">
+				<input class="ace" type="checkbox" id="id-toggle-all" />
+				<span class="lbl"></span></label>
+			<span class="col-8 text-center">序号</span>
+			<span class="col-8 text-center">状态</span>
+			<span class="col-10 text-center">申请校区</span>
+			<span class="col-10 text-center">归属校区</span>
+			<span class="col-10 text-center">审核部门</span>
+			<span class="col-10 text-center">成本类型</span>
+			<span class="col-10 text-center">二级科目</span>
+			<span class="col-20 text-center">明细</span>
+			<span class="col-8 text-right">单价（元）</span>
+			<span class="col-8 text-right">数量</span>
+			<span class="col-8 text-right">申请金额</span>
+			<span class="col-15 text-center">期望审批日期</span>			
+			<span class="col-10 text-center">类型</span>
+			<span class="col-20 text-center">预算周期</span>
+			<span class="col-10 text-center">接收校区</span>
+			<span class="col-10 text-center">接收人</span>
+			<span class="col-20 text-center">卡号</span>
+			<span class="col-10 text-center">财务</span>
+			<span class="col-15 text-center">申请原因</span>
+			<span class="col-20 text-center">备注</span>
+		</li>
+				<foreach name="list" item="vo">
+					<li class="tbody data_item">
+							<label class="inline pull-left col-3">
+							<input class="ace" type="checkbox" name="id[]" value="{$vo.id}" />
+							<span class="lbl"></span></label>
+							<span class="col-8 text-center">{$vo.id}</span>
+							<span class="col-8 text-center">
+								<switch name="vo.state" >
+								<case value="-1"><a style="color:red;">审核失败</a></case>
+								<case value="0"><a style="color:red;">退回修改</a></case>
+								<case value="1"><a style="color:fuchsia;">校区审核</a></case>
+								<case value="2"><a style="color:#6666FF;">部门审核</a></case>
+								<case value="3"><a style="color:#99CC00;">总裁审核</a></case>
+								<case value="4"><a style="color:#333333;">财务确认</a></case>
+								<case value="5"><a style="color:#009933;">审核通过</a></case>
+								</switch>
+							</span>
+							<span class="col-10 text-center">{$vo.school}</span>
+							<span class="col-10 text-center"><empty name="vo.gs">&nbsp;<else />{$vo.gs}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.bm">&nbsp;<else />{$vo.bm}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.aa">&nbsp;<else />{$vo.aa}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.b">&nbsp;<else />{$vo.b}</empty></span>
+							<span class="col-20 text-center"><empty name="vo.c">&nbsp;<else />{$vo.c}</empty></span>
+							<span class="col-8 text-right"><empty name="vo.d">&nbsp;<else />{$vo.d}</empty></span>
+							<span class="col-8 text-right"><empty name="vo.e">&nbsp;<else />{$vo.e}</empty></span>
+							<span class="col-8 text-right"><php>$f=$vo['d']*$vo['e'];$h+=$f;echo($f);</php></span>
+							<span class="col-15 text-center"><empty name="vo.g">&nbsp;<else />{$vo.g}</empty></span>
+							<span class="col-10 text-center"><if condition="$vo.class eq 1">常规性预算<else />临时性预算</if></span>
+							<span class="col-20 text-center"><empty name="vo.week">&nbsp;<else />{$vo.week}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.jsxq">&nbsp;<else />{$vo.jsxq}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.jsr">&nbsp;<else />{$vo.jsr}</empty></span>
+							<span class="col-20 text-center"><empty name="vo.card">&nbsp;<else />{$vo.card}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.name">&nbsp;<else />{$vo.name}</empty></span>
+							<span class="col-15 text-center"><empty name="vo.why">&nbsp;<else />{$vo.why}</empty></span>
+							<span class="col-20 text-center"><empty name="vo.other">&nbsp;<else />{$vo.other}</empty></span>
+					</li>
+				</foreach>
+			</empty>
+		</ul>
+	</div>
+	</div>
+</div>
+</form>
+			<div class="je">
+				审核中的项目合计：<php>echo round($h,2)</php>元。
+			</div>

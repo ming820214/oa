@@ -1,0 +1,47 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'微信通讯录','search'=>'S'))}
+<div style="text-align: center;margin: 10px;background-color: darkgray;padding: 5px;">
+<form action="__URL__/user" method="post">
+	所属校区<select name="school">
+	<volist name="school" id="v">
+		<option value="{$v.school}">{$v.school}</option>
+	</volist>
+	</select>
+	职务：<select name="position">
+		<option value="讲师">讲师</option>
+		<option value="教务">教务</option>
+		<option value="校长">校长</option>
+		<option value="学习管理师">学习管理师</option>
+		<option value="教学主任">教学主任</option>
+		<option value="教学副校长">教学副校长</option>
+		<option value="业务副校长">业务副校长</option>
+		<option value="维护副校长">维护副校长</option>
+	</select>
+	微信企业号内帐号：<input type="text" name="userid" required="true"/>
+	姓名：<input type="text" name="name" required="true" />
+	<input type="submit" value="添加" />
+</form>
+</div>
+<table class="table">
+	<tr>
+		<th>所属校区</th>
+		<th>分组</th>
+		<th>职务</th>
+		<th>微信帐号</th>
+		<th>姓名</th>
+		<th>操作</th>
+	</tr>
+	<volist name="item" id="vo">
+	<tr>
+		<td>{$vo.school}</td>
+		<td>{$vo.part}</td>
+		<td>{$vo.position}</td>
+		<td>{$vo.userid}</td>
+		<td>{$vo.name}</td>
+		<td><a href="__URL__/user/id/{$vo.id}">删除帐号</a></td>
+	</tr>
+	</volist>
+</table>
+  <div class="pagination">
+    {$page}
+  </div>

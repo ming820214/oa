@@ -1,0 +1,69 @@
+<script type="text/javascript">
+	jQuery(function($){
+		$('.widget-container-span').sortable({
+			connectWith : '.widget-container-span',
+			cancel : ".widget-body,.nav-tabs",
+			stop : function(event, ui){
+				set_sort()
+			},
+			items : '> .widget-box',
+			opacity : 0.8,
+			revert : true,
+			forceHelperSize : true,
+			placeholder : 'widget-placeholder',
+			forcePlaceholderSize : true,
+			tolerance : 'pointer'
+		});
+
+		init_sort("{$home_sort}");
+	});
+	function init_sort(sort_string){
+		if(sort_string==""){
+			sort_string="11,12,13|21,22,23";
+		}
+		array_sort_string = sort_string.split("|");
+		sort_string_1 = array_sort_string[0];
+		sort_string_2 = array_sort_string[1];
+
+		array_sort = sort_string_1.split(",");
+
+		for (x in array_sort) {
+			index = array_sort[x];
+			last = $("#t1 .widget-box:last");
+			current = $(".widget-box[sort='" + index + "']");
+			if (index !== last.attr("sort")) {
+				current.insertAfter(last);
+			}
+		}
+
+		array_sort = sort_string_2.split(",");
+		for (x in array_sort) {
+			index = array_sort[x];
+			last = $("#t2 .widget-box:last");
+			current = $(".widget-box[sort='" + index + "']");
+			if (index !== last.attr("sort")) {
+				current.insertAfter(last);
+			}
+		}
+	};
+
+	function set_sort(){
+		var sort_string = "";
+		t1_count=$("#t1 .widget-box:not(.display-none)").length;
+		t2_count=$("#t2 .widget-box:not(.display-none)").length;
+
+		if((t1_count==0) || (t2_count==0)){
+			ui_error("至少保留一个");
+			location.reload();
+			return false;
+		}
+		$("#t1 .widget-box").each(function() {
+			sort_string = sort_string + $(this).attr("sort") + ",";
+		})
+		sort_string = sort_string + "|";
+		$("#t2 .widget-box").each(function() {
+			sort_string = sort_string + $(this).attr("sort") + ",";
+		})
+		sendAjax("{:U('set_sort')}", "val=" + sort_string);
+	}
+</script>

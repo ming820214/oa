@@ -1,0 +1,35 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'调动查询'))}
+<include file='search'/>
+<div class="row">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>工号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>调入单位</th>
+				<th>调入部门</th>
+				<th>调入职务</th>
+				<th>调入时间</th>
+				<th>操作时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="data" id="v">
+			<tr>
+				<td>{$v.id}</td>
+				<td>HW{$v.pid}</td>
+				<td>{$v.name}</td>
+				<td>{$v.sex|sex}</td>
+				<td>{$v.a_c}</td>
+				<td>{$v.a_a}</td>
+				<td>{$v.a_b}</td>
+				<td>{$v.a_t}</td>
+				<td>{$v.timestamp}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,52 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'排课系统近期删除记录,仅显示前300条记录'))}
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+				<if condition="$_SESSION['schooll'] eq 集团">
+				查看校区：<select name="school" class="col-8">{:W('School')}</select>
+				</if>
+				查询类型：<select name="type" class="col-8" ><option value=""></option><option value="删除一对一">删除一对一</option><option value="删除小组课">删除小组课</option><option value="一对一调课">一对一调课</option><option value="小组课调课">小组课调课</option></select>
+				学员：<input type="text" name="student" class="col-8">
+				上课讲师：<input type="text" name="teacher" class="col-8">
+				上课日期：<input type="text" name="date" onclick="WdatePicker()" class="col-8">
+				操作人：<input type="text" name="cs" class="col-8">
+				<input type="submit" class="btn btn-sm btn-primary" name="search" value="进入查询" id="search">
+			</div>
+		</div>
+	</div>
+</form>
+<table class="table">
+	<tr>
+		<th>所属校区</th>
+		<th>类型</th>
+		<th>科目id</th>
+		<th>学员姓名</th>
+		<th>讲师</th>
+		<th>时间</th>
+		<th>日期</th>
+		<th>科目</th>
+		<th>原因</th>
+		<th>删除人</th>
+		<th>删除时间</th>
+	</tr>
+	<volist name="data" id="vo" offset="0" length='300'>
+	<tr>
+		<td>{$vo.2}</td>
+		<td>{$vo.0}</td>
+		<td>{$vo.1}</td>
+		<td>{$vo.name.name}</td>
+		<td>{$vo.6}</td>
+		<td>{$vo.9}--{$vo.10}</td>
+		<td>{$vo.12}</td>
+		<td>{$vo.8}</td>
+		<td>{$vo.21}</td>
+		<td>{$vo.23}</td>
+		<td>{$vo.25|date="m/d H:i:s",###}</td>
+	</tr>
+	</volist>
+</table>
+  <div class="pagination">
+    {$page}
+  </div>

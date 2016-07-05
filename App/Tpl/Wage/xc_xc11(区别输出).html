@@ -1,0 +1,191 @@
+
+<table width="8000px" border="2" cellpadding="10">
+	<tr bgcolor="darkgrey">
+			<th width="110px">姓名</th>
+			<th width="150px">职级</th>
+		<if condition="($dt.name.tag eq '教务')or($dt.name.tag eq '财务')or($dt.name.tag eq '助理')or($dt.name.tag eq '保洁')">
+			<th>底薪</th>
+		</if>
+		<if condition="($dt.name.tag eq '讲师')or($dt.name.tag eq '教学主任')or($dt.name.tag eq '学管师')">
+			<th>绩效工资</th>
+			<th>级别津贴</th>
+		</if>		
+		<if condition="$dt.name.tag neq '保洁'">
+			<th>岗位补助</th>
+		</if>
+		<if condition="($dt.name.tag eq '教务')or($dt.name.tag eq '财务')or($dt.name.tag eq '助理')">
+			<th>绩效奖金</th>
+		</if>
+		<if condition="$dt.name.tag eq '学管师'">
+			<th>无退费奖基数</th>
+		</if>
+		<if condition="$dt.name.tag neq '保洁'">
+			<th>职称补助</th>
+			<th>兼职补助</th>
+			<th>拓展补助</th>
+			<th>城市补助</th>
+		</if>
+		<if condition="($dt.name.tag eq '财务')or($dt.name.tag eq '助理')">
+			<th>运营奖</th>
+			<th>工龄奖</th>
+		</if>
+		<if condition="$dt.name.tag neq '保洁'">
+			<th>绩效系数</th>
+			<th>满勤奖</th>
+		</if>
+			<th>应出勤天数</th>
+			<th>核算出勤天数</th>
+		<if condition="$dt.name.tag neq '保洁'">
+			<th>是否满勤</th>
+		</if>
+		<if condition="$dt.name.tag eq '学管师'">
+			<th>退费人数</th>
+			<th>无退费奖金</th>
+		</if>
+			<th>出勤核算</th>
+		<if condition="$dt.name.tag eq '讲师'">
+			<th>课时消耗</th>
+			<th>比例标准</th>
+			<th>元老补助</th>
+			<th>课时费</th>
+			<th>A级讲师课时费</th>
+		</if>
+		<th>招生业绩</th>
+		<th>招生比例1</th>
+		<th>招生比例2</th>
+		<th>招生比例3</th>
+		<th>招生比例4</th>
+		<th>招生比例5</th>
+		<th>招生比例6</th>
+		<th>招生提成</th>
+		<th>学管课时消耗</th>
+		<th>提成比例</th>
+		<th>学管消耗提成</th>
+		<th>续费业绩</th>
+		<th>提成比例</th>
+		<th>续费提成</th>
+		<th>住房补贴</th>
+		<th>贡献补贴</th>
+		<th>社保补贴</th>
+		<th>督学补贴</th>
+		<th>组长提成</th>
+		<th>其它奖金</th>
+		<th>其它奖金</th>
+		<th>退费扣款</th>
+		<th>其它扣款</th>
+		<th bgcolor="gold">应付工资</th>
+		<th>五险一金缴纳城市</th>
+		<th>城市识别</th>
+		<th>保险缴纳基数</th>
+		<th>个人养老保险</th>
+		<th>个人医疗保险</th>
+		<th>个人失业保险</th>
+		<th>个人补充医疗保险</th>
+		<th>公积金缴纳基数</th>
+		<th>个人缴纳公积金</th>
+		<th bgcolor="gold">险后工资</th>
+		<th>个人福利金缴纳比例</th>
+		<th>底薪标志</th>
+		<th>底薪是否缴纳福利金</th>
+		<th>个人福利金缴纳金额</th>
+		<th>个人借款</th>
+		<th>借款归还</th>
+		<th bgcolor="gold">实发工资</th>
+		<th>单位缴纳养老保险</th>
+		<th>单位缴纳医疗保险</th>
+		<th>单位缴纳失业保险</th>
+		<th>单位缴纳工伤保险</th>
+		<th>单位缴纳生育保险</th>
+		<th>单位补充医疗保险</th>
+		<th>单位缴纳公积金</th>
+		<th>单位福利金缴纳比例</th>
+		<th>单位总支出</th>
+		<th>本月存入福利金账户余额</th>
+		<th>截止上月福利金账户余额</th>
+		<th>截止本月福利金账户余额</th>
+		<th>备注</th>
+	</tr>
+	<tr bgcolor="antiquewhite">
+		<td>{$dt.name.name}</td>
+		<td>{$dt.level}</td>
+		<td>{$dt.d}</td>
+		<td>{$dt.e}</td>
+		<td>{$dt.f}</td>
+		<td>{$dt.g}</td>
+		<td>{$dt.h}</td>
+		<td>{$dt.i}</td>
+		<td>{$dt.j}</td>
+		<td>{$dt.k}</td>
+		<td>{$dt.l}</td>
+		<td>{$dt.m}</td>
+		<td>{$dt.n}</td>
+		<td>{$dt.o}</td>
+		<td>{$dt.p}</td>
+		<td>{$dt.q}</td>
+		<td>{$dt.r}</td>
+		<td>{$dt.s}</td>
+		<td>{$dt.t}</td>
+		<td>{$dt.u}</td>
+		<td>{$dt.v}</td>
+		<td>{$dt.w}</td>
+		<td>{$dt.x}</td>
+		<td>{$dt.y}</td>
+		<td>{$dt.z}</td>
+		<td>{$dt.aa}</td>
+		<td>{$dt.ab}</td>
+		<td>{$dt.ac}</td>
+		<td>{$dt.ad}</td>
+		<td>{$dt.ae}</td>
+		<td>{$dt.af}</td>
+		<td>{$dt.ag}</td>
+		<td>{$dt.ah}</td>
+		<td>{$dt.ai}</td>
+		<td>{$dt.aj}</td>
+		<td>{$dt.ak}</td>
+		<td>{$dt.al}</td>
+		<td>{$dt.am}</td>
+		<td>{$dt.an}</td>
+		<td>{$dt.ao}</td>
+		<td>{$dt.ap}</td>
+		<td>{$dt.aq}</td>
+		<td>{$dt.ar}</td>
+		<td>{$dt.as}</td>
+		<td>{$dt.at}</td>
+		<td>{$dt.au}</td>
+		<td>{$dt.av}</td>
+		<td>{$dt.aw}</td>
+		<td>{$dt.ax}</td>
+		<td>{$dt.ay}</td>
+		<td>{$dt.az}</td>
+		<td>{$dt.ba}</td>
+		<td>{$dt.bb}</td>
+		<td>{$dt.bc}</td>
+		<td>{$dt.bd}</td>
+		<td>{$dt.be}</td>
+		<td>{$dt.bf}</td>
+		<td>{$dt.bg}</td>
+		<td>{$dt.bh}</td>
+		<td>{$dt.bi}</td>
+		<td>{$dt.bj}</td>
+		<td>{$dt.bk}</td>
+		<td>{$dt.bl}</td>
+		<td>{$dt.bm}</td>
+		<td>{$dt.bn}</td>
+		<td>{$dt.bo}</td>
+		<td>{$dt.bp}</td>
+		<td>{$dt.bq}</td>
+		<td>{$dt.br}</td>
+		<td>{$dt.bs}</td>
+		<td>{$dt.bt}</td>
+		<td>{$dt.bu}</td>
+		<td>{$dt.bv}</td>
+		<td>{$dt.bw}</td>
+		<td>{$dt.bx}</td>
+		<td>{$dt.by}</td>
+		<td>{$dt.bz}</td>
+		<td>{$dt.ba}</td>
+		<td>{$dt.bb}</td>
+		<td>{$dt.bc}</td>
+		<td>{$dt.bd}</td>
+	</tr>
+</table>

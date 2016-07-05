@@ -1,0 +1,156 @@
+<layout name='Layout/ace_layout' />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/time/WdatePicker.js"></script>
+<link href="__PUBLIC__/time/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+<div align="center" style="background: rgb(255, 245, 228);padding: 0px 0px;">
+    <form action="" method="post" class="well form-inline">
+    <input name="time" class="input-small" type="text" onclick="WdatePicker()" placeholder="开始时间"/>--<input name="time2" class="input-small" type="text" onclick="WdatePicker()" placeholder="结束时间"/>&nbsp;&nbsp;
+    <input type="text" name="teacher" placeholder="讲师"/>&nbsp;&nbsp;
+    <select name="school">
+      <option>所有校区</option>
+      <volist name="sc" id="ss">
+      <option>{$ss.school}</option>
+      </volist>
+    </select>&nbsp;&nbsp;
+    <input type="submit" value="查询" class="btn"/>
+    </form>
+<br/>
+<h2>教师排课统计管理平台({$dayy}周统计)</h2>
+
+<table style="margin-top: 20px;" class="table table-bordered table-condensed">
+  <tr>
+    <th><a href="../school/index.php/cs/index/school/{$school}" target="_blank">{$school}</a></th>
+    <th></th>
+    <th></th>
+    <th colspan="4"><a>周一周二</a></th>
+    <th colspan="4"><a>周三周四周五</a></th>
+    <th colspan="4"><a>周六周日</a></th>
+  </tr>
+  <tr>
+    <th>科目</th>
+    <th>讲师姓名</th>
+    <th>已排课时</th>
+    <th>已排</th>
+    <th>占比</th>
+    <th>21:30后</th>
+    <th>占比</th>
+    <th>已排</th>
+    <th>占比</th>
+    <th>21:30后</th>
+    <th>占比</th>
+    <th>已排</th>
+    <th>占比</th>
+    <th>21:30后</th>
+    <th>占比</th>
+  </tr>
+  <volist name="tw" id="vo">
+    <tr>
+    <th>{$vo.class}</th>
+    <td><a href="../school/index.php/Cs/index/school/5/t/{$vo.name}" target="_blank">{$vo.name}</a></td>
+    <td>{$vo.已排课时}<php>$yp+=$vo['已排课时'];</php></td>
+    <td>{$vo.12}<php>$yp12+=$vo['12'];</php></td>
+    <td><php>echo round($vo['12']/$vo['已排课时']*100,2).'%'</php></td>
+    <td>{$vo.129}<php>$yp129+=$vo['129'];</php></td>
+    <td><php>echo round($vo['129']/$vo['12']*100,2).'%'</php></td>
+    <td>{$vo.345}<php>$yp345+=$vo['345'];</php></td>
+    <td><php>echo round($vo['345']/$vo['已排课时']*100,2).'%'</php></td>
+    <td>{$vo.3459}<php>$yp3459+=$vo['3459'];</php></td>
+    <td><php>echo round($vo['3459']/$vo['345']*100,2).'%'</php></td>
+    <td>{$vo.67}<php>$yp67+=$vo['67'];</php></td>
+    <td><php>echo round($vo['67']/$vo['已排课时']*100,2).'%'</php></td>
+    <td>{$vo.679}<php>$yp679+=$vo['679'];</php></td>
+    <td><php>echo round($vo['679']/$vo['67']*100,2).'%'</php></td>
+    </tr>
+    </volist>
+
+    <tr>
+    <th></th>
+    <th></th>
+    <th>合计：<php>echo($yp);</php></th>
+    <th>合计：<php>echo($yp12);</php></th>
+    <th><php>echo round($yp12/$yp*100,2).'%'</php></th>
+    <th>合计：<php>echo($yp129);</php></th>
+    <th><php>echo round($yp129/$yp12*100,2).'%'</php></th>
+    <th>合计：<php>echo($yp345);</php></th>
+    <th><php>echo round($yp345/$yp*100,2).'%'</php></th>
+    <th>合计：<php>echo($yp3459);</php></th>
+    <th><php>echo round($yp3459/$yp345*100,2).'%'</php></th>
+    <th>合计：<php>echo($yp67);</php></th>
+    <th><php>echo round($yp67/$yp*100,2).'%'</php></th>
+    <th>合计：<php>echo($yp679);</php></th>
+    <th><php>echo round($yp67/$yp679*100,2).'%'</php></th>
+    </tr>
+</table>
+
+
+
+
+
+
+<br/>
+<h2>教师排课统计管理平台({$ms}月统计)</h2>
+<table style="margin-top: 20px;" class="table table-bordered table-condensed">
+  <tr>
+    <th><a href="../school/index.php/cs/index/school/{$school}" target="_blank">{$school}</a></th>
+    <th></th>
+    <th></th>
+    <th colspan="4"><a>周一周二</a></th>
+    <th colspan="4"><a>周三周四周五</a></th>
+    <th colspan="4"><a>周六周日</a></th>
+  </tr>
+  <tr>
+    <th>科目</th>
+    <th>讲师姓名</th>
+    <th>已排课时</th>
+    <th>已排</th>
+    <th>占比</th>
+    <th>21:30后</th>
+    <th>占比</th>
+    <th>已排</th>
+    <th>占比</th>
+    <th>21:30后</th>
+    <th>占比</th>
+    <th>已排</th>
+    <th>占比</th>
+    <th>21:30后</th>
+    <th>占比</th>
+  </tr>
+  <volist name="tm" id="voo">
+    <tr>
+    <th>{$voo.class}</th>
+    <td><a href="../school/index.php/Cs/index/school/5/t/{$voo.name}" target="_blank">{$voo .name}</a></td>
+    <td>{$voo.已排课时}<php>$ypo+=$voo['已排课时'];</php></td>
+    <td>{$voo.12}<php>$ypo12+=$voo['12'];</php></td>
+    <td><php>echo round($voo['12']/$voo['已排课时']*100,2).'%'</php></td>
+    <td>{$voo.129}<php>$ypo129+=$voo['129'];</php></td>
+    <td><php>echo round($voo['129']/$voo['12']*100,2).'%'</php></td>
+    <td>{$voo.345}<php>$ypo345+=$voo['345'];</php></td>
+    <td><php>echo round($voo['345']/$voo['已排课时']*100,2).'%'</php></td>
+    <td>{$voo.3459}<php>$ypo3459+=$voo['3459'];</php></td>
+    <td><php>echo round($voo['3459']/$voo['345']*100,2).'%'</php></td>
+    <td>{$voo.67}<php>$ypo67+=$voo['67'];</php></td>
+    <td><php>echo round($voo['67']/$voo['已排课时']*100,2).'%'</php></td>
+    <td>{$voo.679}<php>$ypo679+=$voo['679'];</php></td>
+    <td><php>echo round($voo['679']/$voo['67']*100,2).'%'</php></td>
+    </tr>
+    </volist>
+
+    <tr>
+    <th></th>
+    <th></th>
+    <th>合计：<php>echo($ypo);</php></th>
+    <th>合计：<php>echo($ypo12);</php></th>
+    <th><php>echo round($ypo12/$ypo*100,2).'%'</php></th>
+    <th>合计：<php>echo($ypo129);</php></th>
+    <th><php>echo round($ypo129/$ypo12*100,2).'%'</php></th>
+    <th>合计：<php>echo($ypo345);</php></th>
+    <th><php>echo round($ypo345/$ypo*100,2).'%'</php></th>
+    <th>合计：<php>echo($ypo3459);</php></th>
+    <th><php>echo round($ypo3459/$ypo345*100,2).'%'</php></th>
+    <th>合计：<php>echo($ypo67);</php></th>
+    <th><php>echo round($ypo67/$ypo*100,2).'%'</php></th>
+    <th>合计：<php>echo($ypo679);</php></th>
+    <th><php>echo round($ypo679/$ypo67*100,2).'%'</php></th>
+    </tr>
+</table>
+<br/>
+</div>

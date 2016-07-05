@@ -1,0 +1,77 @@
+<layout name='Layout/ace_layout' />
+
+{:W('PageHeader',array('name'=>'待办事项','search'=>'L'))}
+<div class="operate panel panel-default">
+	<div class="panel-body">
+		<div class="pull-left"></div>
+		<div class="pull-right">
+			<a  onclick="add();" class="btn btn-sm btn-primary" >新建</a>
+		</div>
+	</div>
+</div>
+<form id="form_data" name="form_data" method='post' >
+	<div>
+		<div class="ul_table border-bottom">
+			<ul>
+				<li class="thead">
+					<span class="col-9 pull-right text-center">操作</span>
+					<span class="col-10 pull-right text-center">状态</span>
+					<span class="col-9 pull-right text-center">截至日期</span>
+					<div class="auto autocut text-left">
+						待办事项
+					</div>
+				</li>
+				<foreach name="list" item="vo" >
+					<li class="tbody" node="{$vo.id}">
+						<input class="node" type="hidden" name="node[]" value="{$vo.id}">
+						<input class="priority" type="hidden" name="priority[]" value="{$vo.priority}">
+						<input class="sort" type="hidden" name="sort[]">
+						<span class="col-3 pull-right text-center"> <a title="删除" class="del" onclick="del(this);"><i class="fa fa fa-times"></i></a> </span>
+						<span class="col-3 pull-right text-center"> <a title="调低优先级" class="down"><i class="fa fa-arrow-down"></i></a> </span>
+						<span class="col-3 pull-right text-center"> <a title="调高优先级" class="up"><i class="fa fa-arrow-up"></i></a> </span>
+						<span class="col-10 pull-right text-center"> <a class="status">{$vo.status|todo_status}</a> </span>
+						<span class="col-9 pull-right text-center">{$vo.end_date}</span>
+						<span class="auto"> <a href="{:U('edit?id='.$vo['id'])}">{$vo.name}</a> </span>
+					</li>
+				</foreach>
+			</ul>
+			<br>
+			<ul>
+				<li class="thead">
+					<span class="col-9 pull-right text-center">操作</span>
+					<span class="col-10 pull-right text-center">状态</span>
+					<span class="col-9 pull-right text-center">完成日期</span>
+					<div class="auto autocut text-left">
+						已完成事项
+					</div>
+				</li>
+				<foreach name="list2" item="vo">
+					<li class="tbody" node="{$vo.id}">
+						<input class="node" type="hidden" name="node[]" value="{$vo.id}">
+						<input class="priority" type="hidden" name="priority[]" value="{$vo.priority}">
+						<input class="sort" type="hidden" name="sort[]">
+						<span class="col-3 pull-right text-center"> <a title="删除" class="del" onclick="del(this);"><i class="fa fa fa-times"></i></a> </span>
+						<span class="col-3 pull-right text-center"> <a title="低" class="down"><i class="fa fa-arrow-down"></i></a> </span>
+						<span class="col-3 pull-right text-center"> <a title="高" class="up"><i class="fa fa-arrow-up"></i></a> </span>
+						<span class="col-10 pull-right text-center"><a class="status">{$vo.status|todo_status}</a> </span>
+						<span class="col-9 pull-right text-center">{$vo.end_date}</span>
+						<span class="auto"> <a href="{:U('edit?id='.$vo['id'])}">{$vo.name}</a> </span>
+					</li>
+				</foreach>
+			</ul>
+		</div>
+	</div>
+</form>
+<div id="dialog2" class="dropdown">
+	<ul class="dropdown-menu">
+		<li>
+			<a onclick="mark_status(1);">尚未开始</a>
+		</li>
+		<li>
+			<a onclick="mark_status(2);">正在进行</a>
+		</li>
+		<li>
+			<a onclick="mark_status(3);">完成</a>
+		</li>
+	</ul>
+</div>

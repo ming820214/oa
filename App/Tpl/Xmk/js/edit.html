@@ -1,0 +1,12 @@
+<script>
+	function save() {
+		window.onbeforeunload=null;
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}");
+		}
+	}
+	$(document).ready(function() {
+		set_val("level",{$vo.level});
+		set_val("status",{$vo.status});
+	}); 
+</script>

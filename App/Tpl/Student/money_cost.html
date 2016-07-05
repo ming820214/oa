@@ -1,0 +1,74 @@
+<layout name='Layout/ace_layout' />
+<form method="post" id="form_search" name="form_adv_search" method="post">
+<input type="hidden" name="ajax" id="ajax" value="1">
+  <div class="operate panel panel-default">
+    <div class="panel-body">
+      <div class="pull-right">
+      <input type="submit" class="btn btn-sm btn-primary" name="search" value="查询" />
+      </div>
+      <div class="pull-right">
+        <label  for="time1"><b>查询时段:</b></label>
+        <input name="time1" class="col-10" class="Wdate" type="text" onclick="WdatePicker()"/>
+        <label  for="time2"><b>到</b></label>
+        <input name="time2" class="col-10" class="Wdate" type="text" onclick="WdatePicker()"/>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>上课日期</th>
+          <th>学员姓名</th>
+          <th>课程类型</th>
+          <th>讲师级别</th>
+          <th>讲师姓名</th>
+          <th>科目</th>
+          <th>开始时间</th>
+          <th>结束时间</th>
+          <th>总计课时</th>
+          <th>课时单价</th>
+          <th>消耗金额</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td>18355</td>
+            <td>2014.12.01</td>
+            <td>常清贺</td>
+            <td>一对一</td>
+            <td>3A</td>
+            <td>杨志新</td>
+            <td>化学</td>
+            <td>18:00</td>
+            <td>20:00</td>
+            <td>2</td>
+            <td>340</td>
+            <td>680</td>
+          </tr>
+        <volist name="list" id="data">
+          <tr id="{$data.id}">
+            <td>{$data.id}</td>
+            <td>{$data.name}</td>
+            <td>{$data.grade}</td>
+            <td>{$data.tel}</td>
+            <td>{$data.school}</td>
+            <td>{$data.state}</td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    {$page}
+  </div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+</script>

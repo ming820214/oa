@@ -1,0 +1,44 @@
+<script type="text/javascript">
+	function popup_actor() {
+		winopen("{:U('popup/actor')}", 730, 574);
+	}
+
+	function save(){
+		window.onbeforeunload=null;
+		editor.sync();
+		$("#actor").val("");
+		$("#actor_wrap span.address_list span").each(function() {
+			$("#actor").val($("#actor").val() + $(this).text().replace(';', '') + '|' + $(this).attr("title") + ";")
+		})
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}");
+		}
+	}
+
+	$(document).ready(function() {
+		$(document).on("click", ".inputbox .address_list a.del", function() {
+			$(this).parent().parent().remove();
+		});
+		fill_time("start_time");
+		fill_time("end_time");
+
+		$("#start_time option[value='{$vo.start_time}']").attr("selected", "selected");
+		$("#end_time option[value='{$vo.end_time}']").attr("selected", "selected");
+
+		$("#priority").val("{$vo.priority}");
+		$("#slider-range-priority").slider({
+			range : "min",
+			min : 1,
+			max : 5,
+			value : "{$vo.priority}",
+			slide : function(event, ui) {
+				$("#priority").val(ui.value);
+				$("div.slider_box div.ui-slider").css("background-color", schedule_bg(ui.value));
+				$("div.slider_box div.ui-widget-header").css("background-color", schedule_bg(ui.value));
+			}
+		});
+		$("div.slider_box div.ui-slider").css("background-color", schedule_bg("{$vo.priority}"));
+		$("div.slider_box div.ui-widget-header").css("background-color", schedule_bg("{$vo.priority}"));
+
+	}); 
+</script>

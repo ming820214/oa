@@ -1,0 +1,57 @@
+<script type="text/javascript">
+	function add() {
+		$("#opmode").val("add");
+		$("#id").val("");
+		if (check_form("form_data")){
+			sendForm("form_data","", "__SELF__");
+		}
+	};
+
+	function del() {
+		ui_confirm('相应的子目录也会自动删除,真的要删除吗?',function(){
+			$("#opmode").val("del");
+			if (check_form("form_data")) {
+				sendForm("form_data", "", "__SELF__");
+			}
+		})
+	}
+
+	function save() {
+		if ($("#opmode").val() == "") {
+			ui_error("请选择文件夹或新增");
+			return false;
+		} else {
+			if (check_form("form_data")) {
+				sendForm("form_data","", "__SELF__");
+			}
+		}
+	};
+
+	function showdata(result) {
+		for (var s in result.data) {
+			set_val(s,result.data[s]);
+		}
+		if($("#pid").val()==0){
+			$("#tag_name").val("根节点");
+		}else{
+			$("#tag_name").val($("#tag_list option[value='" + $("#pid").val() + "']").text());
+		}
+		$("#opmode").val("edit");
+	}
+
+	function select_pid() {
+		winopen("{:U('system_tag/winpop?module='.MODULE_NAME)}", 730, 400);
+	}
+
+	$(document).ready(function() {
+		$(".sub_left_menu .tree_menu  a").click(function() {
+			$(".sub_left_menu .tree_menu  a").removeClass("active");
+			$(this).addClass("active");
+				sendAjax("{:U('system_tag/read')}", "id=" + $(this).attr("node"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+	});
+
+</script>

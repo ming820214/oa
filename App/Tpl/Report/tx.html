@@ -1,0 +1,102 @@
+<layout name='Layout/ace_layout' />
+<input type="hidden" id="id" name="id" value="{$vo.id}">
+{:W('PageHeader',array('name'=>摊销分析,'search'=>'A'))}
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+					期次：<input type="text" name="date" onclick="WdatePicker({dateFmt:'yyyy-MM'})"/>&nbsp;&nbsp;&nbsp;日期：<input type="text" name="time1" onclick="WdatePicker()"/>&nbsp;—&nbsp;<input type="text" name="time2" onclick="WdatePicker()">&nbsp;&nbsp;关键词：<input type="text" name="key">
+			</div>
+			<div class="pull-right">
+				<input type="submit" class="btn btn-sm btn-primary" name="fx" value="数据分析">
+			</div>
+		</div>
+	</div>
+</form>
+
+	<div style="overflow-x:auto;overflow-y:auto;height: 300px;">
+	<div class="ul_table message-container" style="width:2500px;" id="box1">
+		<ul>
+		<li class="thead">
+			<span class="col-8 text-center">期次</span>
+			<span class="col-8 text-center">凭证号</span>
+			<span class="col-10 text-center">花销</span>
+			<span class="col-10 text-center">归属</span>
+			<span class="col-10 text-center">报销日期</span>
+			<span class="col-10 text-center">发生日期</span>
+			<span class="col-8 text-center">成本类型</span>
+			<span class="col-8 text-center">二级科目</span>
+			<span class="col-25 text-center">支出项目</span>
+			<span class="col-40 text-center">明细</span>
+			<span class="col-8 text-right">单价（元）</span>
+			<span class="col-8 text-right">数量</span>
+			<span class="col-8 text-right">合计</span>
+			<span class="col-8 text-right">摊销期次</span>			
+			<span class="col-10 text-center">摊销起点</span>			
+			<span class="col-8 text-center">经手人</span>
+			<span class="col-8 text-center">报销人员</span>
+			<span class="col-8 text-center">审批人员</span>
+			<span class="col-8 text-center">校区财务</span>
+			<span class="col-20 text-center">备注</span>
+		</li>
+			<form method="post" action="{:U('delt')}" id="form_b">
+				<foreach name="list" item="vo">
+					<li class="tbody data_item">
+							<span class="col-8 text-center">{$vo.date}</span>
+							<span class="col-8 text-center"><empty name="vo.aa">&nbsp;<else />{$vo.aa}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.b">&nbsp;<else />{$vo.b}</empty></span>
+							<span class="col-10 text-center">{$vo.c}</span>
+							<span class="col-10 text-center">{$vo.d}</span>
+							<span class="col-10 text-center">{$vo.e}</span>
+							<span class="col-8 text-center">{$vo.g}</span>
+							<span class="col-8 text-center">{$vo.h}</span>
+							<span class="col-25 text-center"><empty name="vo.i">&nbsp;<else />{$vo.i}</empty></span>
+							<span class="col-40 text-center"><empty name="vo.j">&nbsp;<else />{$vo.j}</empty></span>
+							<span class="col-8 text-right"><php>echo round($vo['kk'],2)</php></span>
+							<span class="col-8 text-right">{$vo.l}</span>
+							<span class="col-8 text-right"><php>$h+=$vo['kk']*$vo['l'];echo round($vo['kk']*$vo['l'],2)</php></span>
+							<span class="col-8 text-right"><empty name="vo.mm">&nbsp;<else />{$vo.mm}</empty></span>
+							<span class="col-10 text-center" style='background-color: peachpuff;'><if condition="$vo.f eq (0000-00-00)">&nbsp;<else />{$vo.f}</if></span>
+							<span class="col-8 text-center"><empty name="vo.n">&nbsp;<else />{$vo.n}</empty></span>
+							<span class="col-8 text-center"><empty name="vo.o">&nbsp;<else />{$vo.o}</empty></span>
+							<span class="col-8 text-center"><empty name="vo.p">&nbsp;<else />{$vo.p}</empty></span>
+							<span class="col-8 text-center"><empty name="vo.r">&nbsp;<else />{$vo.r}</empty></span>
+							<span class="col-20 text-center"><empty name="vo.other">&nbsp;<else />{$vo.other}</empty></span>
+					</li>
+					</foreach>
+			</empty>
+		</ul>
+	</div>
+	</div>
+
+<table border="0" class="table">
+  <tr style="background-color: rosybrown;height: 40px;">
+    <th width="130">校区名称</th>
+    <th width="170">花销</th>
+    <th width="170">归属</th>
+    <th width="170">待摊销（未来）</th>
+    <th width="170">当月摊销后</th>
+    <th width="170">之前摊销到当月</th>
+    <th width="170">总摊销成本</th>
+  </tr>
+  <foreach name='school' item='vo'>
+  <tr>
+    <th scope="row" style="background-color: wheat;"><div class="t6">{$key}</div></th>
+    <td>￥{$vo.花销}<php>$h1+=$vo['花销'];</php></td>
+    <td>￥{$vo.归属}<php>$h2+=$vo['归属'];</php></td>
+    <td>￥{$vo.未来}<php>$h3+=$vo['未来'];</php></td>
+    <td>￥<php>$h4+=$vo['归属']-$vo['未来'];echo($vo['归属']-$vo['未来']);</php></td>
+    <td>￥{$vo.曾经}<php>$h5+=$vo['曾经'];</php></td>
+    <td>￥<php>$l=$vo['归属']-$vo['未来']+$vo['曾经'];$h6+=$l;echo($l);</php></td>
+  </tr>
+  </foreach>
+  <tr style="background-color: darkgray;">
+    <th>合计：</th>
+    <th>￥{$h1}</th>
+    <th>￥{$h2}</th>
+    <th>￥{$h3}</th>
+    <th>￥{$h4}</th>
+    <th>￥{$h5}</th>
+    <th>￥{$h6}</th>
+  </tr>
+</table>

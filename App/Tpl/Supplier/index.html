@@ -1,0 +1,141 @@
+<layout name='Layout/ace_layout' />
+<div class="page-header clearfix">
+	<div class="dropdown col-sm-8">
+		<span class="title">全部</span>
+		<b class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-caret-down"></span></b>
+		<ul class="dropdown-menu">
+			<li gid="">
+				<a>全部</a>
+			</li>
+			<foreach name="tag_list" item="vo">
+				<li gid="{$key}">
+					<a>{$vo}</a>
+				</li>
+			</foreach>
+		</ul>
+	</div>
+	<div class="col-sm-4 pull-right">
+		<div class="search_box">
+			<div class="input-group ">
+				<input type="hidden" value="abc" >
+				<input  class="form-control" type="text"  name="keyword" id="keyword" onkeydown="key_local_search();"/>
+				<div class="input-group-btn">
+					<a class="btn btn-sm btn-info" onclick="btn_local_search();"><i class="fa fa-search" ></i> </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<form id="form_data" name="form_data" method='post'>
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+				<div class="btn-group">
+					<a class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" href="#"> 管理 <b class="fa fa-caret-down"></b></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a onclick="manage_tag();">管理组</a>
+						</li>
+						<li>
+							<a onclick="import_contact();">导入</a>
+						</li>
+						<li>
+							<a onclick="export_contact();">导出</a>
+						</li>
+					</ul>
+				</div>
+				<a class="btn btn-sm btn-danger" onclick="del();" >删除</a>
+				<div class="btn-group">
+					<a class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" href="#"> 组 <span class="fa fa-caret-down"></span> </a>
+					<ul class="dropdown-menu tag_list">
+						<li class="dropdown-header">
+							添加到
+						</li>
+						<foreach name="tag_list" item="vo">
+							<li>
+								<label class="clearfix">
+									<input class="ace" type="checkbox" name="tag[]" value="{$key}"/>
+									<span class="lbl"></span><span class="text">{$vo}</span></label>
+							</li>
+						</foreach>
+						<li class="new_tag">
+							<input type="text" name="new_tag" class="input-medium">
+						</li>
+						<li class="divider"></li>
+						<li class="apply">
+							<input class="btn btn-sm btn-primary" type="button" value="应用" onclick="apply();">
+						</li>
+						<li class="cmd">
+							<input class="btn btn-sm btn-primary" type="button" onclick="create_new_tag();" value="新组">
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="pull-right">
+				<a class="btn btn-sm btn-primary" onclick="add();">新建</a>
+			</div>
+		</div>
+	</div>
+	<div class="ul_table border-top border-bottom">
+		<empty name="list">
+			<ul>
+				<li class="no-data">
+					没找到数据
+				</li>
+			</ul>
+			<else/>
+			<ul class="col-xs-12 border">
+				<foreach name="list" item="vo">
+					<li class="tbody">
+						<div class="row">
+							<div class="data" style="display:none">
+								{$vo.letter}
+							</div>
+							<div class="tag" style="display:none">
+								<php>
+									echo($tag_data[$vo["id"]])
+								</php>
+							</div>
+							<div class="col-sm-6 col-xs-12">
+								<label class="inline pull-left col-3">
+									<input class="ace" type="checkbox" name="id[]" value="{$vo.id}" />
+									<span class="lbl"></span></label>
+									<nobr >公司名称：	</nobr>
+								<a href="{:U('read?id='.$vo['id'])}" class="data wrap"> {$vo.name}&nbsp;	</a>
+							</div>
+							<div class="col-sm-6 col-xs-12" >
+								<nobr style="padding-left:30px;">
+									税号：
+								</nobr>
+								<nobr class="data">
+									{$vo.tax_no}
+								</nobr>
+							</div>
+						</div>
+						<div class="row">
+							<div  class="col-sm-6 col-xs-12" >
+								<nobr style="padding-left:30px;">
+									联系人：
+								</nobr>
+								<nobr class="data">
+									{$vo.contact}
+								</nobr>
+							</div>
+							<div  class="col-sm-6 col-xs-12">
+								<nobr style="padding-left:30px;">
+									电话：
+								</nobr>
+								<nobr class="data">
+									{$vo.office_tel}
+									<notempty name="vo.mobile_tel">
+										/ {$vo.mobile_tel}
+									</notempty>
+								</nobr>
+							</div>
+						</div>
+					</li>
+				</foreach>
+			</ul>
+		</empty>
+	</div>
+</form>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/jquerymobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+<style type="text/css">
+.info {
+width: 90%;
+background-color: tan;
+padding: 20px;
+margin: auto;
+border-radius: 5px;
+text-shadow: none;
+}
+.info2 {
+width: 100%;
+background-color: rgb(221, 236, 200);
+padding: 10px;
+margin: auto;
+font-size: small;
+text-shadow: none;
+}
+
+.img{
+width:90%;
+}
+</style>
+</head>
+<body>
+
+<div data-role="page">
+    <div data-role="content">
+      <form method="post" action="__URL__/hiddenInfo3" data-ajax="false">
+      <input type="hidden" name="wname" value="{$name}">
+      <input type="hidden" name="why" id="why">
+        <div data-role="content">
+          <h2>{$vo.class}，项目详情：<input type="hidden" name="id" value="{$vo.id}"></h2>
+          <div class="info">
+            <p>姓名：{$vo.name}</p>
+            <p>部门：{$vo.school}</p>
+            <notempty name="vo.aa"><p>性质：{$vo.aa}</p></notempty>
+            <if condition="(int)$vo['date']"><p>申请时间：{$vo.date}</p></if>
+            <if condition="(int)$vo['time1']"><p>开始时间：{$vo.time1}</p></if>
+            <if condition="(int)$vo['time2']"><p>结束时间：{$vo.time2}</p></if>
+            <if condition="$vo.class eq 请假"><p>共计：{$vo.gong}天</p><elseif condition="$vo.class eq 加班" /><p>共计：{$vo.gong}小时</p></if>
+            <notempty name="vo.info"><p>详情：</p><p>{$vo.info}</p></notempty>
+            <notempty name="vo.pic1"><div style="overflow-x: auto;overflow-y: auto;"><img src="__PUBLIC__/Uploads/ask/{$vo.pic1}" class="img"></div></notempty>
+            <notempty name="vo.pic2"><div style="overflow-x: auto;overflow-y: auto;"><img src="__PUBLIC__/Uploads/ask/{$vo.pic2}" class="img"></div></notempty>
+            <notempty name="vo.pic3"><div style="overflow-x: auto;overflow-y: auto;"><img src="__PUBLIC__/Uploads/ask/{$vo.pic3}" class="img"></div></notempty>
+            <p>状态：{$vo.state}</p>
+          </div>
+          <div class="info2">
+             数据创建时间：{$vo.timestamp}
+             <br/>审核：{$vo.record}
+             <br/>批语：<a>{$vo.why}</a>
+          </div>
+            <if condition="($vo.state eq 审核通过) AND ($vo.gong egt 3)">
+               <div class="ui-grid-b">
+                 <div class="ui-block-a"><input type="submit" data-theme="b" name="yes" value="隐藏"></div>
+               </div>
+            </if>
+        </div>
+      </form>
+    </div>
+</div>
+<script type="text/javascript">
+  $('.img').click(function(){
+    if($(this).css("width")=="700px"){
+      $(this).css({width:"90%"});
+    }else{
+      $(this).css({width:"700px"});   
+    }
+  });
+
+</script>
+</body>
+</html>

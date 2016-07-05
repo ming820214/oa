@@ -1,0 +1,46 @@
+<script type="text/javascript">
+	function add() {
+		$("#opmode").val("add");
+		$("#id").val("");
+		if (check_form("form_data")){
+			sendForm("form_data", "{:U('save')}", "__URL__");
+		}
+	};
+
+	function save() {
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('nav/save')}", fix_url("{:U('nav/index')}?eq_pid=" + $("#eq_pid").val()));
+		}
+	}
+
+	function select_pid() {
+		winopen("{:U('winpop')}", 730, 500);
+	}
+
+	function showdata(result) {
+		for (var s in result.data) {
+			set_val(s, result.data[s]);
+		}
+		$("#nav_name").val($("#nav_list option[value='" + $("#pid").val() + "']").text());
+		$("#opmode").val("edit");
+	}
+
+
+	$(document).ready(function() {
+		set_return_url();
+		set_val('eq_pid', '{$eq_pid}');
+		$(".sub_left_menu .tree_menu a").click(function() {
+			$(".sub_left_menu .tree_menu  a").each(function() {
+				$(this).attr("class", "");
+			});
+			$(this).attr("class", "active");
+			sendAjax("{:U('read')}", "id=" + $(this).attr("node"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+		sendAjax("{:U('read')}", "id={$eq_pid}", function(data) {
+			showdata(data);
+		});
+	}); 
+</script>

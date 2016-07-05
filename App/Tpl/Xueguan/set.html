@@ -1,0 +1,185 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'维护管理','search'=>'S'))}
+<form method="post" id="form_search" name="form_adv_search">
+  <div class="operate panel panel-default">
+    <div class="panel-body">
+      <div class="pull-left">
+        <label  for="state"><b>总状态:</b></label>
+        <select id="state" name="state" class="col-10">
+          <option value="">全部</option>
+          <option value="正常在读" selected="selected">正常在读</option>
+          <option value="非正常在读">非正常在读</option>
+          <option value="流失学员">流失学员</option>
+        </select>
+        <label  for="type"><b>学员类型:</b></label>
+        <select id="type" name="type" class="col-10">
+          <option value="">全部</option>
+          <option value="普通">普通</option>
+          <option value="全日制">全日制</option>
+        </select>
+        <label  for="grade"><b>年级:</b></label>
+        <select id="grade" name="grade" class="col-10">
+          <option value="">全部</option>
+        <optgroup label="初中">
+          <option value="初一">初一</option>
+          <option value="初二">初二</option>
+          <option value="初三">初三</option>
+        </optgroup>
+        <optgroup label="高中">
+          <option value="高一">高一</option>
+          <option value="高二">高二</option>
+          <option value="高三">高三</option>
+        </optgroup>
+        </select>
+        <label  for="xueguan"><b>学习管理师:</b></label>
+        <select id="xueguan" name="xueguan" class="col-10">
+          <option value="">全部</option>
+          <option value="无">无</option>
+          <foreach name="xueguan" item="vx"><option value="{$vx}">{$vx}</option></foreach>
+        </select>
+        <label  for="state2"><b>任务:</b></label>
+        <select id="state2" name="state2" class="col-10">
+          <option value="">全部</option>
+          <option value="1">已分配</option>
+          <option value="2">未分配</option>
+        </select>&nbsp;&nbsp;&nbsp;
+        <label  for="type2"><b>维护类型:</b></label>
+        <select id="type2" name="type2" class="col-10">
+          <option value="">全部</option>
+          <option value="普通维护">普通维护</option>
+          <option value="A级维护">A级维护</option>
+          <option value="2A级维护">2A级维护</option>
+          <option value="3A级维护">3A级维护</option>
+        </select>&nbsp;&nbsp;&nbsp;
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="查询" id="search" />
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div style="overflow-x:auto">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th width="40px">序号</th>
+          <th width="50px">学员姓名</th>
+          <th width="50px">年级</th>
+          <th width="50px">文理</th>
+          <th width="50px">学管师</th>
+          <th width="50px">教学主任</th>
+          <th width="50px">总状态</th>
+          <th width="50px">语文</th>
+          <th width="50px">状态</th>
+          <th width="50px">数学</th>
+          <th width="50px">状态</th>
+          <th width="50px">英语</th>
+          <th width="50px">状态</th>
+          <th width="50px">物理/地理</th>
+          <th width="50px">状态</th>
+          <th width="50px">化学/历史</th>
+          <th width="50px">状态</th>
+          <th width="50px">生物/政治</th>
+          <th width="50px">状态</th>
+          <th width="70px">上次维护</th>
+          <th width="70px">本次截止</th>
+          <th width="50px">任务类型</th>
+          <th width="170px"></th>
+        </tr>
+      </thead>
+    </table>
+    <div style="max-height:500px;overflow-y:auto">
+    <table class="table table-bordered">
+      <tbody>
+        <volist name="list" id="data">
+          <tr>
+            <td width="40px">{$i}</td>
+            <td width="50px"><a href="../school/index.php/class/all/sid/{$data.info.id}" target="_blank">{$data.info.name}</a></td>
+            <td width="50px">{$data.info.grade}</td>
+            <td width="50px">{$data.info.wl}</td>
+            <td width="50px">{$data.info.xueguan}</td>
+            <td width="50px">{$data.info.jiaoxue}</td>
+            <td width="50px">{$data.state}</td>
+            <td width="50px">{$data.class.语文.count}</td>
+            <td width="50px"><if condition="$data['tk']['语文'] eq '停'">停课<else/>{$data.class.语文.state}</if></td>
+            <td width="50px">{$data.class.数学.count}</td>
+            <td width="50px"><if condition="$data['tk']['数学'] eq '停'">停课<else/>{$data.class.数学.state}</if></td>
+            <td width="50px">{$data.class.英语.count}</td>
+            <td width="50px"><if condition="$data['tk']['英语'] eq '停'">停课<else/>{$data.class.英语.state}</if></td>
+            <td width="50px">{$data.class.物理.count}{$data.class.地理.count}</td>
+            <td width="50px"><if condition="$data['class']['物理']['state'] eq 正常">正常<elseif condition="$data['class']['地理']['state'] eq 正常"/>正常<elseif condition="$data['class'][物理]['state'] eq $data['class']['地理']['state']"/>未报名<elseif condition="$data['tk']['物理/地理'] eq '停'"/>停课<else/>非正常</if></td>
+            <td width="50px">{$data['class']['化学']['count']}{$data['class']['历史']['count']}</td>
+            <td width="50px"><if condition="$data['class']['化学']['state'] eq 正常">正常<elseif condition="$data['class']['历史']['state'] eq 正常"/>正常<elseif condition="$data['class'][化学]['state'] eq $data['class']['历史']['state']"/>未报名<elseif condition="$data['tk']['化学/历史'] eq '停'"/>停课<else/>非正常</if></td>
+            <td width="50px">{$data['class']['生物']['count']}{$data['class']['政治']['count']}</td>
+            <td width="50px"><if condition="$data['class']['生物']['state'] eq 正常">正常<elseif condition="$data['class']['政治']['state'] eq 正常"/>正常<elseif condition="$data['class'][生物]['state'] eq $data['class']['政治']['state']"/>未报名<elseif condition="$data['tk']['生物/政治'] eq '停'"/>停课<else/>非正常</if></td>
+            <td width="70px">{$data.上次}</td>
+            <td width="70px">{$data.本次.date}</td>
+            <td width="50px">{$data.本次.type}</td>
+            <td  width="150px"><input type="submit" class="btn btn-minier btn-danger" name="search" onclick="set({$data.info.id})" value="添加" /><input type="submit" class="btn btn-minier btn-danger" name="search" onclick="set_record({$data.info.id})" value="查看" /><input type="submit" class="btn btn-minier btn-primary" name="weihu" onclick="weihu_record({$data.info.id})" value="维护" /><input type="submit" class="btn btn-minier btn-primary" name="search" onclick="fankui_record({$data.info.id})" value="反馈" /><input type="submit" class="btn btn-minier btn-primary" name="search" onclick="info({$data.info.id})" value="学员信息" /></td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="pagination">
+    {$page}
+  </div>
+</div>
+
+<!-- 维护设置 -->
+<div class="box" id="set" style="display: none;height: 400px;"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3>维护设置</h3></div>
+  <div class="box1"><input type="hidden" name="stuid" class="stuid">
+    <table cellpadding="15" border="3" width="95%">
+      <tr>
+        <td>周次</td>
+        <td>维护级别</td>
+        <td>任务截止时间</td>
+      </tr>
+      <tr>
+        <td width="220px">
+          <div style="overflow-y: auto;max-height: 150px;" id="week">          
+            <volist name="week" id="w">
+            <if condition="$i egt date('W')"><span data="{$w[0]}" <if condition="$i eq date('W')">class="week"</if>>第{$i}周（{$w[0]}-{$w[1]}）</span><br/></if>
+            </volist>
+          </div>
+        </td>
+        <td id="type" width="150px">
+        <span data="普通维护" class="type">普通（电话维护）</span><br/>
+        <span data="A级维护">A级（学管沟通）</span><br/>
+        <span data="2A级维护">2A级（小型学情）</span><br/>
+        <span data="3A级维护">3A级（大型学情）</span><br/>
+        </td>
+        <td><select name="week" id="m">
+          <option value="0">星期一</option>
+          <option value="1">星期二</option>
+          <option value="2">星期三</option>
+          <option value="3">星期四</option>
+          <option value="4">星期五</option>
+          <option value="5">星期六</option>
+          <option value="6">星期日</option>
+        </select><button class="bt">执行维护任务</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<!-- 维护任务查看 -->
+<form method="post">
+<div class="box" id="set_record" style="display: none;width:900px;height:inherit;"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3>任务详情(待完成)</h3></div>
+  <div class="box1"><input type="hidden" name="stuid" class="stuid">
+    <table cellpadding="15" border="1"  width="100%" class="content">
+      <tr>
+        <th>周次</th>
+        <th>维护级别</th>
+        <th>任务截止时间</th>
+        <th>学管</th>
+        <th>操作</th>
+      </tr>
+    </table>
+  </div>
+</div>
+</form>
+<include file="box"/>

@@ -1,0 +1,53 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		/*单击删除已选联系人*/
+		$(document).on("click", ".inputbox .address_list a.del", function() {
+			$(this).parent().parent().remove();
+		});
+	})
+	function send(flag) {
+		window.onbeforeunload=null;
+		$("#to").val("");
+		$("#recever .address_list span").each(function() {
+			$("#to").val($("#to").val() + $(this).find("b").text() + '|' + $(this).attr("email") + ";")
+		})
+		$("#cc").val("");
+		$("#carbon_copy .address_list span").each(function() {
+			$("#cc").val($("#cc").val() + $(this).find("b").text() + '|' + $(this).attr("email") + ";")
+		})
+
+		$("#bcc").val("");
+		$("#blind_carbon_copy .address_list span").each(function() {
+			$("#cc").val($("#cc").val() + $(this).find("b").text() + '|' + $(this).attr("email") + ";")
+		})
+		if ($("#to").val().indexOf("@") < 1) {
+			ui_error("请选择收件人");
+			$("#recever letter").focus();
+			return false;
+		}
+		editor.sync();
+		if (check_form("form_send")) {
+			if (flag) {
+				sendForm("form_send", "{:U('send')}");
+			} else {
+				sendForm("form_send", "{:U('save_darft')}");
+			}
+		}
+	}
+
+	function toggle_bcc() {
+		if ($("#bcc").attr("class").indexOf("display-none") < 0) {
+			$("#bcc").addClass("display-none");
+			$("#toggle_bcc_icon").addClass("fa fa-chevron-down");
+			$("#toggle_bcc_icon").removeClass("fa fa-chevron-up");
+		} else {
+			$("#bcc").removeClass("display-none");
+			$("#toggle_bcc_icon").addClass("fa fa-chevron-up");
+			$("#toggle_bcc_icon").removeClass("fa fa-chevron-down");
+		}
+	}
+
+	function popup_contact() {
+		winopen("{:U('popup/contact')}", 730, 574);
+	}
+</script>

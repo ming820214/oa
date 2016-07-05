@@ -1,0 +1,81 @@
+<div id="box" class="box" style="display:none"><a onclick="clos(this)" style="position: absolute;top:10px;right:10px;font-size: 18px;">X</a>
+	<table class="table table-bordered" style="margin-bottom:0px;">
+	<thead>
+		<tr>
+			<td width="45px">序号</td>
+			<td width="60px">姓名</td>
+			<td width="45px">年级</td>
+			<td width="45px">文理</td>
+			<td width="60px">学管师</td>
+			<td width="75px">教学主任</td>
+			<td width="60px">总状态</td>
+			<td width="60px">语文</td>
+			<td width="60px">数学</td>
+			<td width="60px">英语</td>
+			<td width="60px">物/地</td>
+			<td width="60px">化/历</td>
+			<td>生/政</td>
+			<td width="75px">上次维护</td>
+			<td width="75px">本次维护</td>
+			<td width="15px"></td>
+		</tr>
+	</thead>
+	</table>
+	<div class="boxx">
+		<table class="table table-bordered">
+			<tbody id="content">
+			</tbody>
+		</table>
+	</div>
+</div>
+<style type="text/css">
+.t1{
+	border: 1px solid black;
+}
+th{
+	text-align: center;
+	font-size: 18px;
+	padding: 15px;
+	background-color: moccasin;
+	color: brown;
+}
+a{
+	cursor: pointer;
+}
+.box{
+	width: 1000px;
+	height: 450px;
+	position: fixed;
+	background-color: lavender;
+	top: 100px;
+	z-index: 1000;
+	left: -500px;
+	padding: 30px;
+	margin-left: 50%;
+}
+.boxx{
+	max-height:360px;
+	overflow-y:auto;
+	background-color: white;
+}
+.ch{
+	display: none;
+}
+</style>
+<script>
+  function clos (th) {
+    $(th).parent().hide();
+  }
+
+ $("table a").on("click",function(){
+ 	$("#box").show();
+ 	$("#content").empty();
+ 	var dat =$(this).attr('data');
+ 	var km =$(this).attr('km');
+ 	$.getJSON('{:U('weihu_api')}',{data:dat,km:km},function(data){
+ 		for (var i = 0; i < data.length; i++) {
+ 			$("#content").append("<tr><td style='width:45px'>"+(i+1)+"</td><td style='width:60px'>"+data[i]['info']['name']+"</td><td style='width:45px'>"+data[i]['info']['grade']+"</td><td style='width:45px'>"+data[i]['info']['wl']+"</td><td style='width:60px'>"+data[i]['info']['xueguan']+"</td><td style='width:75px'>"+data[i]['info']['jiaoxue']+"</td><td style='width:60px'>"+data[i]['state']+"</td><td style='width:60px'>"+data[i]['a']+"</td><td style='width:60px'>"+data[i]['b']+"</td><td style='width:60px'>"+data[i]['c']+"</td><td style='width:60px'>"+data[i]['d']+"</td><td style='width:60px'>"+data[i]['e']+'</td><td>'+data[i]['f']+"</td><td style='width:75px'>"+data[i]['weihu'][0]+"</td><td style='width:75px'>"+data[i]['weihu'][1]+"</td></tr>");
+ 		};
+ 	})
+ })
+</script>

@@ -1,0 +1,18 @@
+<div id="uploader">
+	<a id="pickfiles" href="javascript:;" class="btn btn-sm btn-primary">添加附件</a>
+		<ul id="file_list" new_upload="" >
+			<notempty name="file_list">
+				<volist name="file_list" id="file">
+					<li class="tbody" id="{$file.sid}" add_file="{$file.sid}" size="{$file.size}" filename="{$file.name}">
+						<div class="loading"></div>
+						<div class="data">
+							<span class="del text-center"><a class="link del">删除</a> </span>
+							<span class="size" >{$file.size|reunit}</span>
+							<span class="auto autocut" title="{$file.name}"> <a target="_blank" href="{:U('down?attach_id='.f_encode($file['id']))}">{$file.name}</a>
+								</span>
+						</div>
+					</li>
+				</volist>
+			</notempty>
+		</ul>	
+</div>

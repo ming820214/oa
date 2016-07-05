@@ -1,0 +1,237 @@
+<!-- 主动添加学员维护 -->
+<form method="post" action="{:U('weihu')}">
+<div class="box" id="weihu_zhudong" style="display: none"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3>学员维护</h3></div><input type="hidden" name="sid">
+  <div class="box1">
+    <label>维护时长(分钟)：</label><input type="text" name="count" style="width:70px">
+    <label>接听人：</label><input type="text" name="name" style="width:100px"><hr/>
+    <label>与家长沟通情况：</label>
+    <textarea rows="3" cols="20" name="info1" style="width:95%;"></textarea>
+    <label>家长反馈问题：</label>
+    <textarea rows="3" cols="20" name="info2" style="width:95%;"></textarea>
+  </div>
+  <div class="pull-right">
+    <input type="submit" class="btn btn-sm btn-danger" name="add" value="完成维护" />
+  </div>
+</div>
+</form>
+
+<!-- 学员档案 -->
+<div class="box" id="info" style="display: none"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3>学员资料</h3></div><br/>
+  <table style="background-color:beige;width:95%;" border="1px" cellpadding="10" cellspacing="10" align="center">
+    <tr>
+      <th width="100px">姓名</th>
+      <td width="200px" class="name"></td>
+      <th width="100px">联系电话</th>
+      <td class="tel"></td>
+    </tr>
+    <tr>
+      <th>年级</th>
+      <td class="grade"></td>
+      <th>家庭电话</th>
+      <td class="tel2"></td>
+    </tr>
+    <tr>
+      <th>性别</th>
+      <td class="sex"></td>
+      <th>现就读学校</th>
+      <td class="schoolx"></td>
+    </tr>
+    <tr>
+      <th>学习管理师</th>
+      <td class="xueguan"></td>
+      <th>教学主任</th>
+      <td class="jiaoxue"></td>
+    </tr>
+    <tr>
+      <th>帐号余额</th>
+      <td></td>
+      <th>剩余课时</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th>备注信息</th>
+      <td colspan="3" class="other"></td>
+    </tr>
+  </table>
+</div>
+
+<!-- 维护记录 -->
+<div class="box" id="weihu_record" style="display: none"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3 class="titleh">维护记录</h3><input type="hidden" name="stuid" class="stuid"></div>
+  <table border="2" align="center" width="95%" style="background-color: ghostwhite;" cellpadding="10">
+    <tr height="50px">
+      <th><input type="submit" class="bt" name="add" onclick="weihu_recordx(1)" value="上次维护记录"><input type="submit" class="bt" name="add" onclick="weihu_recordx(2)" value="本月维护记录"><input type="text" onclick="WdatePicker()" name="t1">-<input type="text" onclick="WdatePicker()" name="t2"><input type="submit" class="bt" name="add" onclick="weihu_recordx(3)" value="查询"></th>
+    </tr>
+      <tr>
+        <td><div style="height:270px;overflow-y: auto;line-height: 26px;" class="content">显示对应查询结果</div></td>
+      </tr>
+    </table>
+</div>
+
+<!-- 反馈记录 -->
+<div class="box" id="fankui_record" style="display: none"><a onclick="clos(this)" class="close">X</a>
+  <div class="title"><h3 class="titleh">反馈记录</h3><input type="hidden" name="stuid" class="stuid"></div>
+  <table border="2" align="center" width="95%" style="background-color: ghostwhite;" cellpadding="10">
+    <tr height="50px">
+      <th><input type="submit" class="bt" name="add" onclick="fankui_recordx(1)" value="一周反馈记录"><input type="submit" class="bt" onclick="fankui_recordx(2)" value="本月反馈记录"><input type="text" name="t1" onclick="WdatePicker()">-<input type="text" name="t2" onclick="WdatePicker()"><input type="submit" class="bt" onclick="fankui_recordx(3)" value="查询"></th>
+    </tr>
+      <tr>
+        <td><div style="height:270px;overflow-y: auto;line-height: 26px;" class="content">显示对应查询结果</div></td>
+      </tr>
+    </table>
+</div>
+
+<style type="text/css">
+#weihu_zhudong .box1{
+  padding: 30px;
+  margin: 20px 30px;
+  background-color: antiquewhite;
+}
+.box{
+  width: 800px;
+  /*height: 450px;*/
+  background-color: gray;
+  position: fixed;
+  top: 40%;
+  margin-top: -250px;
+  left: 50%;
+  margin-left: -400px;
+  padding: 10px;
+  border: 5px solid wheat;
+  border-width: 5px;
+  border-radius: 4px;
+  z-index: 9999;
+}
+.title{
+  margin-top: -15px;
+  text-align: center;
+}
+.close{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.box1{
+  padding: 30px;
+  margin: 20px 30px;
+  background-color: antiquewhite;
+}
+.box3 {
+float: left;
+width: 100px;
+margin: 10px 20px;
+color: whitesmoke;
+}
+.box4 {
+width: 730px;
+margin: auto;
+background-color: white;
+height: 260px;
+}
+.bt{
+background-color: rgb(235, 129, 129);
+padding: 5px 10px;
+margin: 10px;
+color: seashell;
+}
+</style>
+
+<script type="text/javascript">
+  function clos (th) {
+    $(th).parent().hide();
+  }
+
+  //主动学员维护添加
+  function weihu_zhudong(sid) {
+    $("#weihu_zhudong").show();
+    $("#weihu_zhudong input[name='sid']").val(sid);
+  }
+
+  //查询维护记录
+  function weihu_record (sid) {
+    $.getJSON("{:U('Xueguan/info')}",'&stuid='+sid,function(data){
+      $("#weihu_record .titleh").text('维护记录：'+data.name);
+    });
+    $("#weihu_record").show();
+    $("#weihu_record .content").empty();
+    $.getJSON("{:U('Xueguan/weihu_record')}",'&stuid='+sid,function(data){
+      for (var i=0;i<data.length;i++){
+        $("<div>").text(data[i][0]).appendTo($("#weihu_record .content"));
+        $("<div>").text(data[i][1]).appendTo($("#weihu_record .content"));
+        $("<div>").text(data[i][2]).appendTo($("#weihu_record .content"));
+        $("<hr>").appendTo($("#weihu_record .content"));
+      }
+    });
+    $("#weihu_record .stuid").val(sid);
+  }
+
+  //查询维护上的按钮
+  function weihu_recordx (k) {
+    $("#weihu_record .content").empty();
+      var sid=$("#weihu_record .stuid").val();
+      var t1=$("#weihu_record").find("input[name='t1']").val();
+      var t2=$("#weihu_record").find("input[name='t2']").val();
+    $.getJSON("{:U('Xueguan/weihu_record')}",'&stuid='+sid+'&k='+k+'&t1='+t1+'&t2='+t2,function(data){
+      for (var i=0;i<data.length;i++){
+        $("<div>").text(data[i][0]).appendTo($("#weihu_record .content"));
+        $("<div>").text(data[i][1]).appendTo($("#weihu_record .content"));
+        $("<div>").text(data[i][2]).appendTo($("#weihu_record .content"));
+        $("<hr>").appendTo($("#weihu_record .content"));
+      }
+    });
+  }
+
+  //显示学员信息
+  function info (sid) {
+    $("#info td").empty();
+    $.getJSON("{:U('Xueguan/info')}",'&stuid='+sid,function(data){
+      $("#info .name").text(data.name);
+      $("#info .tel").text(data.tel);
+      if(data.sex==1){$("#info .sex").text('男')}else{$("#info .sex").text('女')};
+      $("#info .tel2").text(data.tel2);
+      $("#info .grade").text(data.grade);
+      $("#info .xueguan").text(data.xueguan);
+      $("#info .jiaoxue").text(data.jiaoxue);
+      $("#info .schoolx").text(data.schoolx);
+      $("#info .other").text(data.other);
+    });
+    $("#info").show();
+  }
+
+  //查询授课反馈
+  function fankui_record (sid) {
+    $.getJSON("{:U('Xueguan/info')}",'&stuid='+sid,function(data){
+      $("#fankui_record .titleh").text('反馈记录：'+data.name);
+    });
+    $("#fankui_record").show();
+    $("#fankui_record .content").empty();
+    $.getJSON("{:U('Xueguan/fankui_record')}",'&stuid='+sid,function(data){
+      for (var i=0;i<data.length;i++){
+        $("<div>").text(data[i][0]).appendTo($("#fankui_record .content"));
+        $("<div>").text(data[i][1]).appendTo($("#fankui_record .content"));
+        $("<div>").text(data[i][2]).appendTo($("#fankui_record .content"));
+        $("<hr>").appendTo($("#fankui_record .content"));
+      }
+    });
+    $("#fankui_record .stuid").val(sid);
+  }
+
+  //查询授课上的按钮
+  function fankui_recordx (k) {
+    $("#fankui_record .content").empty();
+      var sid=$("#fankui_record .stuid").val();
+      var t1=$("#fankui_record").find("input[name='t1']").val();
+      var t2=$("#fankui_record").find("input[name='t2']").val();
+    $.getJSON("{:U('Xueguan/fankui_record')}",'&stuid='+sid+'&k='+k+'&t1='+t1+'&t2='+t2,function(data){
+      for (var i=0;i<data.length;i++){
+        $("<div>").text(data[i][0]).appendTo($("#fankui_record .content"));
+        $("<div>").text(data[i][1]).appendTo($("#fankui_record .content"));
+        $("<div>").text(data[i][2]).appendTo($("#fankui_record .content"));
+        $("<hr>").appendTo($("#fankui_record .content"));
+      }
+    });
+  }
+
+</script>

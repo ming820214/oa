@@ -1,0 +1,23 @@
+<script type="text/javascript">
+	function save() {
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}","{:U('index')}");
+		}
+	};
+
+	function popup_flow() {
+		winopen("{:U('popup/flow')}", 730, 574);
+	};
+
+	$(document).ready(function() {
+		/*双击删除已选联系人*/
+		$(document).on("dblclick", ".inputbox .address_list b", function(){
+				$(this).parent().parent().remove();
+		});
+
+		$(document).on("click", ".inputbox .address_list a.del", function() {
+			$(this).parent().parent().remove();
+		});
+
+	})
+</script>

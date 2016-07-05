@@ -1,0 +1,98 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'我的学员','search'=>'S'))}
+<form method="post" id="form_search" name="form_adv_search">
+  <div class="operate panel panel-default">
+    <div class="panel-body">
+      <div class="pull-left">
+        <label  for="state"><b>总状态:</b></label>
+        <select id="state" name="state" class="col-10">
+          <option value="">全部</option>
+          <option value="正常在读" selected="selected">正常在读</option>
+          <option value="非正常在读">非正常在读</option>
+          <option value="流失学员">流失学员</option>
+        </select>
+        <label  for="type"><b>学员类型:</b></label>
+        <select id="type" name="type" class="col-10">
+          <option value="">全部</option>
+          <option value="普通">普通</option>
+          <option value="全日制">全日制</option>
+        </select>
+        <label  for="grade"><b>年级:</b></label>
+        <select id="grade" name="grade" class="col-10">
+          <option value="">全部</option>
+        <optgroup label="初中">
+          <option value="初一">初一</option>
+          <option value="初二">初二</option>
+          <option value="初三">初三</option>
+        </optgroup>
+        <optgroup label="高中">
+          <option value="高一">高一</option>
+          <option value="高二">高二</option>
+          <option value="高三">高三</option>
+        </optgroup>
+        </select>
+        <input type="submit" class="btn btn-sm btn-primary" name="search" value="查询" id="search" />
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>学员姓名</th>
+          <th>年级</th>
+          <th>文理</th>
+          <th>教学主任</th>
+          <th>总状态</th>
+          <th>语文</th>
+          <th>状态</th>
+          <th>数学</th>
+          <th>状态</th>
+          <th>英语</th>
+          <th>状态</th>
+          <th>物理/地理</th>
+          <th>状态</th>
+          <th>化学/历史</th>
+          <th>状态</th>
+          <th>生物/政治</th>
+          <th>状态</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="data">
+          <tr>
+            <td>{$i}</td>
+            <td><a href="../school/index.php/class/all/sid/{$data.info.id}" target="_blank">{$data.info.name}</a></td>
+            <td>{$data.info.grade}</td>
+            <td>{$data.info.wl}</td>
+            <td>{$data.info.jiaoxue}</td>
+            <td>{$data.state}</td>
+            <td>{$data.class.语文.count}</td>
+            <td>{$data.class.语文.state}</td>
+            <td>{$data.class.数学.count}</td>
+            <td>{$data.class.数学.state}</td>
+            <td>{$data.class.英语.count}</td>
+            <td>{$data.class.英语.state}</td>
+            <td>{$data.class.物理.count}{$data.class.地理.count}</td>
+            <td><if condition="$data['class']['物理']['state'] eq 正常">正常<elseif condition="$data['class']['地理']['state'] eq 正常"/>正常<else/>非正常</if></td>
+            <td>{$data['class']['化学']['count']}{$data['class']['历史']['count']}</td>
+            <td><if condition="$data['class']['化学']['state'] eq 正常">正常<elseif condition="$data['class']['历史']['state'] eq 正常"/>正常<else/>非正常</if></td>
+            <td>{$data['class']['生物']['count']}{$data['class']['政治']['count']}</td>
+            <td><if condition="$data['class']['生物']['state'] eq 正常">正常<elseif condition="$data['class']['政治']['state'] eq 正常"/>正常<else/>非正常</if></td>
+            <td><a class="btn btn-minier btn-primary" onclick="weihu_zhudong({$data.info.id})">添加维护</a>|<input type="submit" class="btn btn-minier btn-primary" name="weihu" onclick="weihu_record({$data.info.id})" value="维护记录" /><input type="submit" class="btn btn-minier btn-primary" name="search" onclick="fankui_record({$data.info.id})" value="反馈记录" /><input type="submit" class="btn btn-minier btn-primary" name="search" onclick="info({$data.info.id})" value="学员信息" /></td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    {$page}
+  </div>
+</div>
+
+<include file="box"/>

@@ -1,0 +1,93 @@
+<script type="text/javascript">
+	function mark(action) {
+		var vars = $("#form_data").serialize();
+		switch (action) {
+			case "readed":
+				sendAjax("{:U('mark?action=readed')}", vars, function(data) {
+					if (data.status){
+						$("input[name='id[]']:checked").each(function() {
+							$(this).parents("li").removeClass("bold");
+							$(this).parents("li").addClass("normal");
+						});
+						$("input[name='id[]']:checked").prop('checked', false);
+						$("#id-toggle-all").prop('checked', false);
+					}
+				});
+				break;
+			case "unread":
+				sendAjax("{:U('mark?action=unread')}", vars, function(data) {
+					if (data.status) {
+						$("input[name='id[]']:checked").each(function() {
+							$(this).parents("li").removeClass("normal");
+							$(this).parents("li").addClass("bold");
+						})
+						$("input[name='id[]']:checked").prop('checked', false);
+						$("#id-toggle-all").prop('checked', false);
+					}
+				});
+				break;
+			case "del":
+				sendAjax("{:U('mark?action=del')}", vars, function(data) {
+					if (data.status) {
+						ui_alert(data.info,function(){
+							location.reload();
+						});	
+					}
+				});
+				break;
+			case "del_forever":
+				ui_confirm('确定要删除吗?',function(){
+					sendAjax("{:U('mark?action=del_forever')}", vars, function(data) {
+						if (data.status) {
+							ui_alert(data.info,function(){
+								location.reload();
+							});	
+						}
+					});
+				})
+				break;
+			case "spam":
+				sendAjax("{:U('mark?action=spam')}", vars, function(data) {
+					if (data.status) {
+						ui_alert(data.info,function(){
+							location.reload();
+						});	
+					}
+				});
+				break;
+			default:
+		}
+	}
+
+	function forword() {
+		if ($("input[name='id[]']:checkbox:checked").length == 1) {
+			window.open('{:U("reply")}?id="' + $("input[name='id[]']:checkbox:checked:first").val() + "&type=forward", "_self");
+		} else {
+			ui_error("请选择一封要转发的邮件");
+			return false;
+		};
+	}
+	
+	function receve(){
+		sendAjax("{:U('receve')}");
+	}
+
+	function move_to(val) {
+		var vars = $("#form_data").serialize();
+		sendAjax("{:U('mark?action=move_folder')}", 'val=' + val + '&' + vars);
+		$("input[name='id[]']:checkbox:checked").each(function() {
+			$(this).parents("li").hide();
+		})
+	}
+
+
+	$(document).ready(function() {
+		$("#move_to li").click(function() {
+			move_to($(this).attr("id"));
+		})
+		set_return_url();
+		<notempty
+		name = "receve" > sendAjax("{:U('receve')}");
+		</notempty>
+	}); 
+</script>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,">
+<title>财务审核</title>
+<style type="text/css">
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+ul{
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+li{ 
+	float: left;
+	border-right: 1px solid #efefef;
+	border-bottom: 1px solid #efefef;
+	text-align: center;
+}
+.top{
+	 height: 200px; background-image: url(../Public/images/bannerBJ.jpg); background:no-repeat: repeat; background-position: center;background-size:100% 100%;}
+.top .bt{
+	width: 50%;
+	float: left;
+	margin-top: 130px;
+	text-align: center;
+}
+.an1{
+	padding: 20px 20px 20px 70px;
+	background-image: url(../Public/images/an1.png);
+	background-repeat: no-repeat;
+	border-radius: 20px;
+	font-size: 18px;
+	color: #fff;
+}
+.an1:visited,.an1:active{
+	color: #fff;
+}
+.neil1{
+	padding: 100px 25px 25px 25px;
+	background-image: url(../Public/images/t1.png);
+	background-repeat: no-repeat;
+	/*font-weight: bold;*/
+	background-size: 400px;
+	font-size: 16px;
+	color: #6e6e6e;
+	text-decoration: none;
+	float: left;
+}
+.neil1:hover{
+	background-color: beige;
+}
+</style>
+</head>
+
+<body>
+<div class="top">
+	<div class="bt">
+		<a style="background-color:#3399fe;background-position:30px 15px; " class="an1" href="{:U('faqi')}">我发起的</a>
+	</div>
+	<div class="bt">
+		<a style="background-color:#ff5b02;background-position:-250px 12px;" class="an1" href="{:U('shenhe')}">我审批的</a>
+	</div>
+</div>
+<ul>
+   <li><a style="background-position:33px 30px; "  class="neil1" href="{:U('budget')}">预算申请</a></li>
+   <li><a style="background-position:-150px 30px; "   class="neil1" href="{:U('huaxiao')}">花销申请</a></li>
+   <li><a style="background-position:-325px 30px; "  class="neil1" href="{:U('returm')}">退费申请</a></li>
+</ul>
+</body>
+</html>

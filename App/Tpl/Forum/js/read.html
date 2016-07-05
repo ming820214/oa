@@ -1,0 +1,93 @@
+<script type="text/javascript">
+	function add() {
+		window.open("{:U('add?tid='.$vo['id'])}", "_self");
+	}
+
+	function reply() {
+		window.onbeforeunload=null;
+		editor.sync();
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('post/save')}", "__SELF__");
+		}
+	}
+
+	function del() {
+		ui_confirm('确定要删除吗?',function(){
+			sendAjax("{:U('mark?action=del')}", 'id=' + $("#tid").val(), function(data) {
+				if (data.status) {
+					ui_alert(data.info,function(){
+						go_return_url();
+					});					
+				}
+			});
+		})
+	}
+
+	function del_post(id) {
+		ui_confirm('确定要删除吗?',function(){
+			sendAjax("{:U('post/del')}", 'id=' + id, function(data) {
+				if (data.status) {
+					ui_alert(data.info,function(){
+						location.reload();
+					});							
+				}
+			});
+		})
+	}
+
+	function edit() {
+		window.open(fix_url("{:U('edit')}?id=" + $("#tid").val()), "_self");
+	}
+
+	function edit_post(id) {
+		window.open(fix_url("{:U('post/edit')}?id=" + id), "_self");
+	}
+
+
+	$(document).ready(function() {
+		$("div.face").mouseover(function() {
+			$(this).parent().parent().find("div.read_info").show();
+		})
+
+		$("div.read_info").mouseout(function() {
+			$(this).hide();
+		})
+
+		$('.post img').each(function() {
+			var maxWidth = $("div.operate").width() - 170;
+			// 图片最大宽度
+			var maxHeight = 1020;
+			// 图片最大高度
+			var ratio = 0;
+			// 缩放比例
+			var width = $(this).width();
+			// 图片实际宽度
+			var height = $(this).height();
+			// 图片实际高度
+
+			// 检查图片是否超宽
+			if (width > maxWidth) {
+				ratio = maxWidth / width;
+				// 计算缩放比例
+				$(this).css("width", maxWidth);
+				// 设定实际显示宽度
+				height = height * ratio;
+				// 计算等比例缩放后的高度
+				$(this).css("height", height);
+				// 设定等比例缩放后的高度
+			}
+
+			// 检查图片是否超高
+			if (height > maxHeight) {
+				ratio = maxHeight / height;
+				// 计算缩放比例
+				$(this).css("height", maxHeight);
+				// 设定实际显示高度
+				width = width * ratio;
+				// 计算等比例缩放后的高度
+				$(this).css("width", width * ratio);
+				// 设定等比例缩放后的高度
+			}
+		});
+	}); 
+</script>

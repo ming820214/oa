@@ -1,0 +1,36 @@
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<if condition="ACTION_NAME eq 'index'">
+			<div class="pull-left">
+				<a class="btn btn-sm btn-primary" onclick="dangan_new()">新人登记</a>
+			</div>
+			</if>
+			<div class="pull-right">
+				姓名：<input type="text" name="name" class="col-10"/>&nbsp;&nbsp;&nbsp;
+				<if condition="ACTION_NAME eq 'diaodong'">
+					调入时间：<input type="text" name="a_t" class="col-10" onclick="WdatePicker()" />&nbsp;&nbsp;&nbsp;
+					调入单位：<select name="a_c" class="col-10"><option></option>{:W('School')}</select>&nbsp;&nbsp;&nbsp;
+					调入部门：<select name="a_a" class="col-10"><option></option>{:W('School','part')}</select>&nbsp;&nbsp;&nbsp;
+					调入职务：<select name="a_b" class="col-10"><option></option>{:W('School','position')}</select>&nbsp;&nbsp;&nbsp;
+				<else/>
+					单位：<select name="school" class="col-10"><option></option>{:W('School')}</select>&nbsp;&nbsp;&nbsp;
+					部门：<select name="part" class="col-10"><option></option>{:W('School','part')}</select>&nbsp;&nbsp;&nbsp;
+					职务：<select name="position" class="col-10"><option></option>{:W('School','position')}</select>&nbsp;&nbsp;&nbsp;
+					身份证号：<input type="text" name="card" class="col-10"/>&nbsp;&nbsp;&nbsp;
+				</if>
+				<if condition="ACTION_NAME eq 'jiangli'">
+					奖励时间：<input type="text" name="c_t" class="col-10" onclick="WdatePicker()" />&nbsp;&nbsp;&nbsp;
+				</if>
+				<if condition="ACTION_NAME eq 'chufa'">
+					处罚时间：<input type="text" name="d_t" class="col-10" onclick="WdatePicker()" />&nbsp;&nbsp;&nbsp;
+				</if>
+				<if condition="ACTION_NAME eq 'lizhi'">
+					离职时间：<input type="text" name="b_t" class="col-10" onclick="WdatePicker()" />&nbsp;&nbsp;&nbsp;
+					跟踪价值：<select name="b_c" id="b_c"><option value=""></option><option value="很高">很高</option><option value="一般">一般</option><option value="无">无</option></select>&nbsp;&nbsp;&nbsp;
+				</if>
+				<input type="submit" class="btn btn-sm btn-primary" name="search" value="查询">
+			</div>
+		</div>
+	</div>
+</form>

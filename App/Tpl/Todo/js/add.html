@@ -1,0 +1,30 @@
+<script type="text/javascript">
+	function save() {
+		window.onbeforeunload=null;
+		editor.sync();
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}");
+		}
+	}
+
+
+	$(document).ready(function() {
+		$("#priority").val(3);
+		$("#slider-range-priority").slider({
+			range : "min",
+			min : 1,
+			max : 5,
+			value : 3,
+			slide : function(event, ui) {
+				$("#priority").val(ui.value);
+				$("div.slider_box div.ui-slider").css("background-color", schedule_bg(ui.value));
+				$("div.slider_box div.ui-widget-header").css("background-color", schedule_bg(ui.value));
+			}
+		});
+		$("div.slider_box div.ui-slider").css("background-color", schedule_bg(3));
+		$("div.slider_box div.ui-widget-header").css("background-color", schedule_bg(3));
+	});
+	function month_view() {
+		window.open("__URL__", "_self");
+	}
+</script>

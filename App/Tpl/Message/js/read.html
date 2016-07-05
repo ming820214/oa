@@ -1,0 +1,36 @@
+<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.js"></script>
+<script type="text/javascript">
+	var eoptions = {
+		width : '100%',
+		resizeType : 1,
+		allowPreviewEmoticons : true,
+		uploadJson : upload_url,
+		allowImageUpload : true,
+		syncType : 'form',
+		height : 200,
+		items : ['fontsize', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'image', '|', 'fullscreen'],
+		afterBlur : function() {
+			this.sync();
+		}
+	};
+	function save(){
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('reply')}");
+		}
+	}
+
+	function del_message(message_id){
+		ui_confirm('确定要删除吗?',function(){
+			sendAjax("{:U('del?type=message')}",'message_id='+message_id, function(data){
+				if (data.status){
+					ui_alert(data.info,function(){
+						location.reload();
+					});
+				}
+			});
+		})
+	}
+	$(document).ready(function() {		
+		editor = new KindEditor.create(".editor",eoptions);
+	})
+</script>

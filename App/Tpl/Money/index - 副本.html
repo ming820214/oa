@@ -1,0 +1,303 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'花销录入','search'=>'A'))}
+<script language="javascript" type="text/javascript" src="__PUBLIC__/time/WdatePicker.js"></script>
+<link href="__PUBLIC__/time/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+<form method="post" name="form_adv_search" id="form_adv_search" action="__URL__/add">
+	<div class="adv_search panel panel-default"  id="adv_search">
+		<div class="panel-heading">
+			<div class="row">
+				<h4 class="col-xs-6">花销录入-->{$Think.session.schooll}-->归属：<input  type="text" name="date" onclick="WdatePicker({dateFmt:'yyyy-MM'})" style="width: 70px;" required="ture" value="{$Think.session.date}" />期次-->财务，{$Think.session.user_name}</h4>
+				<div class="col-xs-6 text-right">
+					<input class="btn btn-sm btn-info" type="submit" value="保存"/>
+					<a  class="btn btn-sm " onclick="close_adv_search()">取消</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+		<table align="center" style="width: 100%;">
+			<tr>
+				<td>凭证号:</td>
+				<td><input   type="text" name="aa"  required="ture"></td>
+				<td>归属校区:</td>
+				<td>
+					<select name="c">
+					<volist name='selt' id='v'>
+						<option>{$v.sort}</option>
+					</volist>
+					</select>
+				</td>
+				<td>发生日期:</td>
+				<td><input  type="text" name="e" onclick="WdatePicker()"></td>
+				<td>报销日期:</td>
+				<td><input  type="text" name="d" onclick="WdatePicker()" required="ture"></td>
+			</tr>
+			<tr>
+				<td>成本类型:</td>
+				<td>
+					<select name="g" id="class">
+					<option>行政办公</option>
+					<option>固定资产</option>
+					<option>场地费用</option>
+					<option>寝室费用</option>
+					<option>环境建设</option>
+					<option>校区活动金</option>
+					<option>工资费用</option>
+					<option>员工福利</option>
+					<option>员工借款</option>
+					<option>培训费用</option>
+					<option>宣传费用</option>
+					<option>营销（刚性）</option>
+					<option>营销（柔性）</option>
+					<option>招聘费用</option>
+					<option>关系运作</option>
+					<option>终极逆转特训营</option>
+					<option>艺术生特训营</option>
+					<option>校庆</option>
+					<option>押金</option>
+					<option>福利金</option>
+					<option>上期结余</option>
+					<option>预留资金</option>
+				</td>
+				<td>二级科目:</td>
+				<td>
+					<select name="h" id="classs">
+					<option>办公费用</option>
+					<option>办公用品</option>
+					<option>行政税费</option>
+					</select>
+				</td>
+				<td>支出项目:</td>
+				<td><input type="text" name="i" required="ture"></td>
+				<td>花销明细:</td>
+				<td><input type="text" name="j" required="ture"></td>
+			</tr>
+			<tr>
+				<td>单价（元）:</td>
+				<td><input type="text" id="kk" name="kk" required="ture"></td>
+				<td>数量:</td>
+				<td><input type="text" name="l" required="ture" onkeyup="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''"></td>
+				<td>发票数量:</td>
+				<td><input  type="text" name="t">
+				</td>
+				<td>摊销期次：</td>
+				<td><input  type="text" name="mm" value="1" required="ture"></td>
+			</tr>
+			<tr>
+				<td>经手人:</td>
+				<td><input  type="text" name="n" required="ture"></td>
+				<td>报销人员:</td>
+				<td><input type="text" name="o" required="ture"></td>
+				<td>审批人员:</td>
+				<td><input type="text" name="p" required="ture"></td>
+				<td>其它备注：</td>
+				<td colspan="2"><input  type="text" name="other"></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+</form>
+
+<form method="post" id="form_aa" action="">
+	<div class="adv_search panel panel-default display-none"  id="adv_aa">
+		<div class="panel-heading">
+			<div class="row">
+				<h4 class="col-xs-6">修改-->{$Think.session.schooll}-->归属：<input  type="text" name="date" onclick="WdatePicker({dateFmt:'yyyy-MM'})" style="width: 70px;" required="ture"/>期次-->财务，{$Think.session.user_name}<input type="hidden" name="x" value="1"></h4>
+				<div class="col-xs-6 text-right">
+					<input class="btn btn-sm btn-info" type="submit" name="change" value="保存">
+					<a  class="btn btn-sm " onclick="change_c();">取消</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+		<table align="center" style="width: 100%;" class="inpt">
+			<tr>
+				<td><input type="hidden" name="id" required="ture">凭证号:</td>
+				<td><input   type="text" name="aa"></td>
+				<td>归属校区:</td>
+				<td>
+					<select name="c">
+					<volist name='selt' id='v'>
+						<option>{$v.sort}</option>
+					</volist>
+					</select>
+				</td>
+				<td>发生日期:</td>
+				<td><input  type="text" name="e" onclick="WdatePicker()" required="ture"></td>
+				<td>报销日期:</td>
+				<td><input  type="text" name="d" onclick="WdatePicker()" required="ture"></td>
+			</tr>
+			<tr>
+				<td>成本类型:</td>
+				<td>
+					<select name="g" id="class2">
+					<option>行政办公</option>
+					<option>固定资产</option>
+					<option>场地费用</option>
+					<option>寝室费用</option>
+					<option>环境建设</option>
+					<option>校区活动金</option>
+					<option>工资费用</option>
+					<option>员工福利</option>
+					<option>员工借款</option>
+					<option>培训费用</option>
+					<option>宣传费用</option>
+					<option>营销（刚性）</option>
+					<option>营销（柔性）</option>
+					<option>招聘费用</option>
+					<option>关系运作</option>
+					<option>终极逆转特训营</option>
+					<option>艺术生特训营</option>
+					<option>校庆</option>
+					<option>押金</option>
+					<option>福利金</option>
+					<option>上期结余</option>
+					<option>预留资金</option>
+					</select>
+				</td>
+				<td>二级科目:</td>
+				<td>
+					<select name="h" id="classs2">
+					</select>
+				</td>
+				<td>支出项目:</td>
+				<td><input type="text" name="i" required="ture" required="ture"></td>
+				<td>明细:</td>
+				<td><input type="text" name="j" required="ture"></td>
+			</tr>
+			<tr>
+				<td>单价（元）:</td>
+				<td><input type="text" id="kk" name="kk" required="ture"></td>
+				<td>数量:</td>
+				<td><input type="text" name="l" required="ture"></td>
+				<td>发票数量</td>
+				<td><input type="text" name="t" ></td>
+				<td>摊销期次</td>
+				<td><input  type="text" name="mm"></td>
+			</tr>
+			<tr>
+				<td>经手人:</td>
+				<td><input  type="text" name="n" required="ture"></td>
+				<td>报销人员:</td>
+				<td><input type="text" name="o" required="ture"></td>
+				<td>审批人员:</td>
+				<td><input type="text" name="p" required="ture"></td>
+				<td>其它备注：</td>
+				<td colspan="2"><input  type="text" name="other"></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+</form>
+
+<a  class="btn btn-sm btn-info" onclick="submit_delt()">删除</a>
+<a  class="btn btn-sm btn-info" onclick="change()">修改</a>
+<div style="overflow-x:auto;overflow-y:auto;max-height: 500px;">
+<div class="ul_table message-container" style="width:2600px;">
+	<ul>
+		<li class="thead">
+			<label class="inline pull-left col-3">
+				<input class="ace" type="checkbox" name="id-toggle-all" id="id-toggle-all" />
+				<span class="lbl"></span></label>
+			<span class="col-8 text-center">序号</span>
+			<span class="col-8 text-center">状态</span>
+			<span class="col-8 text-center">期次</span>
+			<span class="col-8 text-center">凭证号</span>
+			<span class="col-10 text-center">花销</span>
+			<span class="col-10 text-center">归属</span>
+			<span class="col-10 text-center">报销日期</span>
+			<span class="col-10 text-center">发生日期</span>
+			<span class="col-8 text-center">成本类型</span>
+			<span class="col-8 text-center">二级科目</span>
+			<span class="col-25 text-center">支出项目</span>
+			<span class="col-40 text-center">明细</span>
+			<span class="col-8 text-right">单价（元）</span>
+			<span class="col-8 text-right">数量</span>
+			<span class="col-8 text-right">合计</span>
+			<span class="col-8 text-right">发票数量</span>
+			<span class="col-8 text-right">摊销期次</span>			
+			<span class="col-8 text-center">经手人</span>
+			<span class="col-8 text-center">报销人员</span>
+			<span class="col-8 text-center">审批人员</span>
+			<span class="col-8 text-center">校区财务</span>
+			<span class="col-20 text-center">备注</span>
+		</li>
+			<form method="post" action="{:U('delt')}" id="form_b">
+				<foreach name="list" item="vo">
+					<li class="tbody data_item">
+						<label class="inline pull-left col-3">
+							<input class="ace" type="checkbox" name="id[]" value="{$vo.id}" />
+							<span class="lbl"></span></label>
+							<span class="col-8 text-center">{$vo.id}</span>
+							<span class="col-8 text-center">
+								<switch name="vo.state" >
+								<case value="0"><a style="color:red;">退回修改</a></case>
+								<case value="1"><a style="color:fuchsia;">校区审核</a></case>
+								<case value="2"><a style="color:#6666FF;">集团审核</a></case>
+								<case value="3"><a style="color:#009933;">审核通过</a></case>
+								</switch>
+							</span>
+							<span class="col-8 text-center">{$vo.date}</span>
+							<span class="col-8 text-center"><empty name="vo.aa">&nbsp;<else />{$vo.aa}</empty></span>
+							<span class="col-10 text-center"><empty name="vo.b">&nbsp;<else />{$vo.b}</empty></span>
+							<span class="col-10 text-center">{$vo.c}</span>
+							<span class="col-10 text-center">{$vo.d}</span>
+							<span class="col-10 text-center">{$vo.e}</span>
+							<span class="col-8 text-center">{$vo.g}</span>
+							<span class="col-8 text-center">{$vo.h}</span>
+							<span class="col-25 text-center"><empty name="vo.i">&nbsp;<else />{$vo.i}</empty></span>
+							<span class="col-40 text-center"><empty name="vo.j">&nbsp;<else />{$vo.j}</empty></span>
+							<span class="col-8 text-right"><php>echo round($vo['kk'],2)</php></span>
+							<span class="col-8 text-right">{$vo.l}</span>
+							<span class="col-8 text-right"><php>$h+=$vo['kk']*$vo['l'];echo round($vo['kk']*$vo['l'],2)</php></span>
+							<span class="col-8 text-right">{$vo.t}</span>
+							<span class="col-8 text-right"><empty name="vo.mm">&nbsp;<else />{$vo.mm}</empty></span>
+							<span class="col-8 text-center"><empty name="vo.n">&nbsp;<else />{$vo.n}</empty></span>
+							<span class="col-8 text-center"><empty name="vo.o">&nbsp;<else />{$vo.o}</empty></span>
+							<span class="col-8 text-center"><empty name="vo.p">&nbsp;<else />{$vo.p}</empty></span>
+							<span class="col-8 text-center"><empty name="vo.r">&nbsp;<else />{$vo.r}</empty></span>
+							<span class="col-20 text-center"><empty name="vo.other">&nbsp;<else />{$vo.other}</empty></span>
+					</li>
+				</foreach>
+			</form>
+			<foreach name="list2" item="voo">
+				<li class="tbody data_item">
+					<label class="inline pull-left col-3">
+						<a class="ace">&nbsp;</a>
+						<span class="lbl"></span></label>
+						<span class="col-8 text-center">{$voo.id}</span>
+						<span class="col-8 text-center">
+							<switch name="voo.state" >
+								<case value="0"><a style="color:red;">退回修改</a></case>
+								<case value="1"><a style="color:fuchsia;">校区审核</a></case>
+								<case value="2"><a style="color:#6666FF;">集团审核</a></case>
+								<case value="3"><a style="color:#009933;">审核通过</a></case>
+							</switch>
+						</span>
+						<span class="col-8 text-center">{$voo.date}</span>
+						<span class="col-8 text-center"><empty name="voo.aa">&nbsp;<else/>{$voo.aa}</empty></span>
+						<span class="col-10 text-center"><empty name="voo.b">&nbsp;<else/>{$voo.b}</empty></span>
+						<span class="col-10 text-center">{$voo.c}</span>
+						<span class="col-10 text-center">{$voo.d}</span>
+						<span class="col-10 text-center">{$voo.e}</span>
+						<span class="col-8 text-center">{$voo.g}</span>
+						<span class="col-8 text-center">{$voo.h}</span>
+						<span class="col-25 text-center"><empty name="voo.i">&nbsp;<else />{$voo.i}</empty></span>
+						<span class="col-40 text-center"><empty name="voo.j">&nbsp;<else />{$voo.j}</empty></span>
+						<span class="col-8 text-right"><php>echo round($voo['kk'],2)</php></span>
+						<span class="col-8 text-right">{$voo.l}</span>
+						<span class="col-8 text-right"><php>$hj+=$voo['kk']*$voo['l'];echo round($voo['kk']*$voo['l'],2)</php></span>
+						<span class="col-8 text-right">{$voo.t}</span>
+						<span class="col-8 text-right"><empty name="voo.mm">&nbsp;<else />{$voo.mm}</empty></span>
+						<span class="col-8 text-center"><empty name="voo.n">&nbsp;<else />{$voo.n}</empty></span>
+						<span class="col-8 text-center"><empty name="voo.o">&nbsp;<else />{$voo.o}</empty></span>
+						<span class="col-8 text-center"><empty name="voo.p">&nbsp;<else />{$voo.p}</empty></span>
+						<span class="col-8 text-center"><empty name="voo.r">&nbsp;<else />{$voo.r}</empty></span>
+						<span class="col-20 text-center"><empty name="voo.other">&nbsp;<else />{$voo.other}</empty></span>
+				</li>
+			</foreach>
+	</ul>
+</div>
+</div>
+			<div class="je">
+				审核中的项目合计：<php>echo round($h,2)</php>元，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成审核项目：<php>echo round($hj,2)</php>元，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合计：<php>echo round($h+$hj,2)</php>元
+			</div>

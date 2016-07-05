@@ -1,0 +1,69 @@
+<script type="text/javascript">
+	function add() {
+		$("#opmode").val("add");
+		$("#id").val("");
+		if (check_form("form_data")){
+			sendForm("form_data", "{:U('save')}", "__SELF__");
+		}
+	};
+
+	function del() {
+		var vars = $("#form_data").serialize();
+		ui_confirm('确定要删除吗?',function(){
+			sendAjax("{:U('del')}", vars, function(data) {
+				if (data.status) {
+					ui_alert(data.info,function(){
+						location.reload();
+					});						
+				}
+			});
+		})
+	}
+
+	function save(){
+		if ($("#opmode").val() == "") {
+			ui_error("请选择文件夹或新增");
+			return false;
+		} else {
+			if (check_form("form_data")) {
+				sendForm("form_data", "{:U('save')}", "__SELF__");
+			}
+		}
+	};
+
+	function showdata(result) {
+		for (var s in result.data) {
+			set_val(s, result.data[s]);
+		}
+		$("#folder_name").val($("#folder_list option[value='" + $("#pid").val() + "']").text());
+		$("#opmode").val("edit");
+	}
+
+	function select_pid() {
+		if ($("div.sub_left_menu a.active").length > 0) {
+			winopen("{:U('winpop')}", 730, 400);
+		} else if ($("div.sub_left_menu a").length == 0) {
+			winopen("{:U('winpop')}", 730, 400);
+		} else if ($("#opmode").val() == "add") {
+			winopen("{:U('winpop')}", 730, 400);
+		} else {
+			ui_error("请选择文件夹");
+			return false;
+		}
+	}
+
+
+	$(document).ready(function() {
+		$(".sub_left_menu .tree_menu  a").click(function() {
+			$(".sub_left_menu .tree_menu  a").each(function() {
+				$(this).attr("class", "");
+			});
+			$(this).attr("class", "active");
+			sendAjax("{:U('read')}", "id=" + $(this).attr("node"), function(data) {
+				showdata(data);
+			});
+			return false;
+		})
+	});
+
+</script>

@@ -1,0 +1,60 @@
+<layout name='Layout/ace_layout' />
+<script language="javascript" type="text/javascript" src="__PUBLIC__/time/WdatePicker.js"></script>
+<link href="__PUBLIC__/time/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+<div align="center" style="background: rgb(255, 245, 228);padding: 0px 0px;">
+    <form action="" method="post" class="well form-inline">
+    <input name="t1" class="input-small" type="text" onclick="WdatePicker()" placeholder="开始时间" required/>--<input name="t2" class="input-small" type="text" onclick="WdatePicker()" placeholder="结束时间" required/>&nbsp;&nbsp;<input type="submit" value="查询" class="btn btn-sm btn-info"/>
+    </form>
+
+<br/>
+<h2>各科讲师人均课时统计(职务为讲师)</h2>
+<table style="margin-top: 20px;" class="table table-bordered table-condensed">
+  <tr>
+    <th></th>
+    <th colspan="2"><a>数学</a></th>
+    <th colspan="2"><a>物理</a></th>
+    <th colspan="2"><a>化学</a></th>
+    <th colspan="2"><a>生物</a></th>
+    <th colspan="2"><a>英语</a></th>
+    <th colspan="2"><a>文综</a></th>
+    <th colspan="2"><a>语文</a></th>
+  </tr>
+  <tr>
+    <th>校区</th>
+    <th>人数</th>
+    <th>人均课时</th>
+    <th>人数</th>
+    <th>人均课时</th>
+    <th>人数</th>
+    <th>人均课时</th>
+    <th>人数</th>
+    <th>人均课时</th>
+    <th>人数</th>
+    <th>人均课时</th>
+    <th>人数</th>
+    <th>人均课时</th>
+    <th>人数</th>
+    <th>人均课时</th>
+  </tr>
+  <volist name="list" id="v">
+  <tr>
+    <th>{$key}</th>
+    <th>{$v.数学.a}</th>
+    <th>{$v.数学.b}</th>
+    <th>{$v.物理.a}</th>
+    <th>{$v.物理.b}</th>
+    <th>{$v.化学.a}</th>
+    <th>{$v.化学.b}</th>
+    <th>{$v.生物.a}</th>
+    <th>{$v.生物.b}</th>
+    <th>{$v.英语.a}</th>
+    <th>{$v.英语.b}</th>
+    <th>{$v.文综.a}</th>
+    <th>{$v.文综.b}</th>
+    <th>{$v.语文.a}</th>
+    <th>{$v.语文.b}</th>
+  </tr>
+  </volist>
+</table>
+说明：数据仅供参考，多科目兼职讲师情况可能会有误差！<br/><br/>
+</div>

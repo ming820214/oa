@@ -1,0 +1,44 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'论坛','search'=>'N'))}
+<div class="ul_table">
+	<ul>
+		<li class="thead">
+			<div class="pull-right">
+				<span class="col-16 text-center"> 管理者 </span>
+				<span class="col-9  text-center"> 主题/帖子</span>			
+				<span class="col-9  text-center"> 今日</span>
+			</div>
+			<div class="auto">
+				 版块
+			</div>
+		</li>
+	</ul>
+	<if condition="count($forum_list) eq 0">
+		<ul>
+			<li class="no-data">
+				没找到数据
+			</li>
+		</ul>
+		<else/>
+		<ul>
+			<foreach name="forum_list" item="vo">
+				<li class="tbody" >
+					<div class="pull-right">
+						<span class="col-16 text-center autocut">{$vo.admin|show_contact}&nbsp;</span>
+						<span class="col-9  text-center"> {$forum_info[$vo['id']]['forum']|default=0}/{$forum_info[$vo['id']]['post']|default=0}</span>
+						<span class="col-9  text-center"> {$today_count[$vo['id']]['today_count']|default=0}</span>
+					</div>
+					<div class="auto">
+						<a href="{:U('folder?fid='.$vo['id'])}" >{$vo.name}
+						<eq name="vo.name|strlen" value="0">
+							无标题
+						</eq></a>
+					</div>
+				</li>
+			</foreach>
+		</ul>
+	</if>
+	<div class="pagination">
+		{$page}
+	</div>
+</div>

@@ -1,0 +1,16 @@
+<div class="page-header clearfix">
+	<h1 class="col-sm-2">{$name}</h1>
+	<div class="col-sm-3  search_box">
+		<form method="post" action="{:U('Money/date')}">
+			<div class="input-group">
+				<div class="input-group-btn">
+					<a class="btn btn-sm btn-info" >选择期次：</a>
+				</div>
+				<input  class="form-control" type="text" name="date" value="{$Think.session.date}" onclick="WdatePicker({dateFmt:'yyyy-MM'})" readonly="readonly" />
+				<div class="input-group-btn">
+					<input type="submit" class="btn btn-sm btn-info" value="确定"/>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

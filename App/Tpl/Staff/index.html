@@ -1,0 +1,68 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'职员查询','search'=>'N'))}
+<div class="row">
+	<div class="col-sm-4 sub_left_menu">
+		<div class="well">
+			<?php echo $menu ?>
+		</div>
+	</div>
+	<div class="col-sm-8" >
+		<div class="ul_table border-bottom user_list"  >
+			<ul>
+				<li class="thead">
+					<div class="col-sm-7">
+						<span class="text-center" style="width:25%;">员工编码</span>
+						<span class="text-center" style="width:25%;">姓名</span>
+						<span class="text-center" style="width:25%">职位</span>
+						<span class="text-center" style="width:25%">职责</span>
+					</div>
+					<div class="col-sm-5">
+						<span style="width:100%;">邮件</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<div class="col-sm-4 text-center">
+				<img id="emp_pic" class="img-thumbnail"/>
+			</div>
+			<div class="col-sm-8 user_info">
+				<table class="table table-bordered">
+					<tr>
+						<th class="th" style="width:30%;">姓名</th>
+						<td style="width: 70%" class="text-center name info"></td>
+					</tr>
+					<tr>
+						<th class="th" style="width:30%;">办公电话</th>
+						<td style="width: 70%" class="text-center office_tel info"></td>
+					</tr>
+					<tr>
+						<th class="th" style="width:30%;">手机</th>
+						<td style="width: 70%" class="text-center mobile_tel info"></td>
+					</tr>
+					<tr>
+						<th class="th" style="width:30%;">邮箱</th>
+						<td style="width: 70%" class="text-center email info"></td>
+					</tr>
+					<tr>
+						<th class="th" style="width:30%;">业务</th>
+						<td style="width: 70%" class="text-center duty info"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="sample" class="display-none">
+	<li class="tbody">
+		<div class="col-sm-7">
+			<span style="width:25%;" class="text-center emp_no"></span>
+			<span style="width:25%;" class="text-center name"></span>
+			<span style="width: 25%" class="text-center position"></span>
+			<span style="width: 25%" class="text-center rank"></span>
+		</div>
+		<div class="col-sm-5">
+			<span style="width:100%;" class="email"></span>
+		</div>
+	</li>
+</div>

@@ -1,0 +1,53 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'消费记录','search'=>'N'))}
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+			<a class="btn btn-sm btn-primary" onclick="go_return_url();">返回</a>
+			</div>
+			<div class="pull-right">
+				<a class="btn btn-sm btn-primary" onclick="add_sales({$vip_id})">新建</a>
+			</div>
+		</div>
+	</div>
+<div class="ul_table message-container">
+	<ul>
+		<li class="thead">			
+			<span class="col-10 text-center">款号</span>
+			<span class="col-10 text-center">日期</span>
+			<span class="col-10 text-right">销售量</span>
+			<span class="col-10 text-right">销售金额</span>
+			<span class="col-10 text-right">购物积分</span>
+			<span class="col-8 text-center">操作</span>
+		</li>
+		<empty name="list">
+			<li class="no-data">
+				没找到数据
+			</li>
+			<else/>
+			<form method="post" action="" name="form_data" id="form_data">
+				<foreach name="list" item="vo">
+					<li class="tbody data_item">
+						<span class="col-10 text-center">{$vo.product}</span>
+						<span class="col-10 text-center">{$vo.sales_date}</span>
+						<span class="col-10 text-right data data_1">{$vo.qty}</span>
+						<span class="col-10 text-right data data_2">{$vo.amount|default=0}</span>
+						<span class="col-10 text-right data data_3">{$vo.point|default=0}</span>
+						<span class="col-4 text-center data "><a class="link" onclick="edit_sales({$vo.id})">修改</a></span>
+						<span class="col-4 text-center data "><a class="link-danger" onclick="del_sales({$vo.id});">删除</a></span>						
+					</li>
+				</foreach>
+				<li class="tbody data_total">
+					<span class="col-20 text-center">合计</span>
+					<span class="col-10 text-right data data_1"></span>
+					<span class="col-10 text-right data data_2"></span>
+					<span class="col-10 text-right data data_3"></span>
+				</li>
+			</form>
+			<div class="pagination">
+				{$page}
+			</div>
+		</empty>
+	</ul>
+</div>
+

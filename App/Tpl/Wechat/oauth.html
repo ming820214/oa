@@ -1,0 +1,66 @@
+<layout name='Layout/ace_page' />
+<div class="container">
+	<!-- /container -->
+	<div class="row">
+		<div class="col-sm-8 hidden-xs">
+		</div>
+		<div class="col-sm-4 well">
+			<div style="margin-bottom:44px;margin-top:20px;">
+					<h1 class="text-center">{:get_system_config("SYSTEM_NAME")} </h1>
+					<h2 class="text-center">微信绑定验证</h1>
+			</div>
+			<form method="post" id="form_login" class="form-horizontal">
+				<input type="hidden" name="openid" value="{$openid}">
+				<div class="form-group">
+					<label class="col-sm-3  control-label" for="emp_no">帐号：</label>
+					<div class="col-sm-9">
+						<input class="form-control" id="emp_no" name="emp_no" check="require" msg="请输入帐号" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3  control-label" for="password">密码：</label>
+					<div class="col-sm-9">
+						<input class="form-control" id="password" type="password" name="password" check="require" msg="请输入密码"/>
+					</div>
+				</div>
+				<div class="form-group display-none">	<span class="col-sm-3  control-label"></span>
+					<div class="col-sm-9">
+						<label class="inline pull-left col-3">
+							<input class="ace" type="checkbox" name="id[]" value="{$vo.id}" />	<span class="lbl"></span>
+						</label>
+						<label for="remember-me">记住我的登录状态</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-3 col-sm-9">
+						<input type="button" value="登录" onclick="login();" class="btn btn-sm btn-primary col-10">
+					</div>
+				</div>
+			</form>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8">
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function login() {
+		if (check_form("form_login")) {
+			sendForm("form_login","__SELF__");
+		}
+	}
+
+	$(document).ready(function() {
+		$("#password").keydown(function(event) {
+			if (event.keyCode == 13) {
+				if (check_form("form_login")) {
+					sendForm("form_login", "{:U('login/check_login')}");
+					return false;
+				}
+			}
+		})
+	})
+</script>

@@ -1,0 +1,127 @@
+<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.js"></script>
+<script type="text/javascript">
+	var eoptions = {
+		width : '100%',
+		resizeType : 1,
+		allowPreviewEmoticons : true,
+		uploadJson : upload_url,
+		allowImageUpload : true,
+		syncType : 'form',
+		height : 200,
+		items : ['fontsize', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'image', '|', 'fullscreen'],
+		afterBlur : function() {
+			this.sync();
+		}
+	};
+
+	$(document).ready(function() {		
+		editor = new KindEditor.create(".editor",eoptions);
+
+		/*单击删除已选联系人*/
+		$(document).on("click", ".inputbox .address_list a.del", function() {
+			$(this).parent().parent().remove();
+		});
+
+		/* 查找联系人input 功能*/
+		$(document).on("click", ".inputbox .search li", function() {
+			name = $(this).text().replace(/<.*>/, '');
+			email = $(this).find("a").attr("title");
+			id=$(this).find("a").attr("data");
+			html = conv_inputbox_item(email, name, email,id);
+
+			inputbox = $(this).parents(".inputbox");
+			inputbox.find("span.address_list").append(html);
+			inputbox.find("input.letter").val("");
+			inputbox.find(".search ul").html("");
+			inputbox.find(".search ul").hide();
+			inputbox.find(".search").hide();
+		})
+		/* 查找联系人input 功能*/
+		$(".inputbox .letter").keyup(function(e) {
+			switch(e.keyCode) {
+				case 40:
+					var $curr = $(this).parents(".inputbox").find(".search li.active").next();
+					if ($curr.html() != null) {
+						$(this).parents(".inputbox").find(".search li").removeClass("active");
+						$curr.addClass("active");
+					}
+					break
+				case 38:
+					var $curr = $(this).parents(".inputbox").find(".search li.active").prev();
+					if ($curr.html() != null) {
+						$(this).parents(".inputbox").find(".search li").removeClass("active");
+						$curr.addClass("active");
+					}
+					break
+				case 13:
+					if ($(this).parents(".inputbox").find(".search ul").html() != "") {
+						name = $(".search li.active").text().replace(/<.*>/, '');
+						email = $(".search li.active a").attr("title");
+						id=$(".search li.active a").attr("data");
+						html = conv_inputbox_item(email, name, email,id);
+						$(this).parents(".inputbox").find("span.address_list").append(html);
+						$(this).parents(".inputbox").find(".search ul").html("");
+						
+						$(this).val("");
+						$(this).parents(".inputbox").find(".search ul").hide();
+					} else {
+						email = $(this).val();
+						if (validate(email, 'email')) {
+							name = email;
+							html = conv_inputbox_item(email, name, email, email);
+							$(this).parents(".inputbox").find("span.address_list").append(html);
+							$(this).val("");
+						} else {
+							ui_error("邮件格式错误");
+							return false;
+						}
+					}
+					break
+				default:
+					var search = $(this).parents(".inputbox").find("div.search ul");
+					if ($(this).val().length > 1) {
+						$.getJSON("{:U('popup/json')}", {
+							key : $(this).val()
+						}, function(json) {							
+							if (json != ""){								
+								if (json.length > 0) {
+									search.html("");
+									$.each(json, function(i) {
+										search.append('<li><a data="'+ json[i].id +'" title="' + json[i].email + '">' + json[i].name + '&lt;' + json[i].email + '&gt;</a></li>')
+									})
+									search.children("li:first").addClass("active");
+									search.show();
+								}
+							} else {
+								search.html("");
+								search.hide();
+							}
+						});
+					} else {
+						search.hide();
+					}
+			}
+		});
+	})
+
+	function save(){
+		window.onbeforeunload=null;
+		$("#to").val("");
+		$("#recever .address_list span").each(function() {
+			$("#to").val($("#to").val() + $(this).find("b").text() + '|' + $(this).attr("id") + ";")
+		})
+
+		if ($("#to").val()=="") {
+			ui_error("请选择收信人");
+			$("#recever .letter").focus();
+			return false;
+		}
+		if (check_form("form_data")) {
+			sendForm("form_data", "{:U('save')}");
+		}
+	}
+
+	function popup_contact() {
+		winopen("{:U('popup/message')}", 730, 570);
+	}
+</script>

@@ -1,0 +1,79 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>'讲师薪酬','search'=>'A'))}
+<include file='kq_search'/>
+<div class="row">
+	<table class="table table-bordered" id="rule">
+		<thead>
+			<tr>
+				<th width="100px">员工ID</th>
+				<th width="80px">姓名</th>
+				<th>单位</th>
+				<th>部门</th>
+				<th>职务</th>
+				<th>职级</th>
+				<th>职务级别</th>
+				<th>底薪</th>
+				<th>应出勤天数</th>
+				<th>核算出勤天数</th>
+				<th>出勤核算</th>
+				<th>校区业绩</th>
+				<th>业绩提成比例</th>
+				<th>校区业绩提成</th>
+				<th>校区消耗</th>
+				<th>消耗提成比例</th>
+				<th>校区消耗提成</th>
+				<th>应付工资</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='vo'><form>
+			<tr>
+				<td>规则{$vo.id}<input type="hidden" name="id" value="{$vo.id}"></td>
+				<td>{$vo.week}</td>
+				<td><if condition="$vo.m1a neq 0">{$vo.m1a|date="H:i",###}</if></td>
+				<td><if condition="$vo.m1b neq 0">{$vo.m1b|date="H:i",###}</if></td>
+				<td><if condition="$vo.m2a neq 0">{$vo.m2a|date="H:i",###}</if></td>
+				<td><if condition="$vo.m2b neq 0">{$vo.m2b|date="H:i",###}</if></td>
+				<td><if condition="$vo.m3a neq 0">{$vo.m3a|date="H:i",###}</if></td>
+				<td><if condition="$vo.m3b neq 0">{$vo.m3b|date="H:i",###}</if></td>
+				<td><if condition="$vo.m4a neq 0">{$vo.m4a|date="H:i",###}</if></td>
+				<td><if condition="$vo.m4b neq 0">{$vo.m4b|date="H:i",###}</if></td>
+				<td><if condition="$vo.m5a neq 0">{$vo.m5a|date="H:i",###}</if></td>
+				<td><if condition="$vo.m5b neq 0">{$vo.m5b|date="H:i",###}</if></td>
+				<td><if condition="$vo.m6a neq 0">{$vo.m6a|date="H:i",###}</if></td>
+				<td><if condition="$vo.m6b neq 0">{$vo.m6b|date="H:i",###}</if></td>
+				<td><if condition="$vo.m7a neq 0">{$vo.m7a|date="H:i",###}</if></td>
+				<td><if condition="$vo.m7b neq 0">{$vo.m7b|date="H:i",###}</if></td>
+			</tr></form>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>
+
+<script type="text/javascript">
+  $("#week span").on('click',function(){
+      $("#week span").removeClass("week");
+      $(this).addClass("week");
+      $(this).nextAll("input[name='week']").val($(this).attr("data"));
+  });
+</script>
+<style type="text/css">
+#week span{
+  line-height: 28px;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.week{
+  background-color: rgb(175, 95, 95);
+  color: cornsilk;
+}
+#addrule td input{
+	width: 100%;
+}
+#rule td input{
+	width: 100%;
+}
+</style>

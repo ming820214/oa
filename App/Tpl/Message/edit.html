@@ -1,0 +1,70 @@
+<layout name='Layout/layout_main' />
+    <div class="row-fluid title">
+        <span>编辑公告</span>
+    </div>
+<form method='post' id="form_data" name="form_data" enctype="multipart/form-data">
+	<input type="hidden" id="ajax" name="ajax" value="0">
+	<input type="hidden" id="id" name="id" value="{$vo.id}">
+	<input type="hidden" id="add_file" name="add_file" value="{$vo.add_file}">
+	<input type="hidden" id="opmode" name="opmode" value="edit">
+	<div class="operate">
+		<div class="span-6 left">
+			<a  onclick="go_return_url();">返回</a>
+		</div>
+		<div class="span-6 last right">
+			<a onclick="save();" >保存</a>
+		</div>
+	</div>
+	<table>
+		<tr>
+			<th style="width:70px"> 标题： </th>
+			<td>
+			<input  type="text" name="title" id="title" value="{$vo.title}">
+			</td>
+		</tr>
+		<tr>
+			<th> 附件： </th>
+			<td>
+			<div class="hidden-phone">
+				<span id="spanButtonPlaceHolder"></span>
+			</div><div id="fsUploadProgress"></div>
+			<gt name="vo.add_file|strlen" value="1">
+				{$vo.add_file|show_file="edit"}
+			</gt></td>
+		</tr>
+		<tr>
+			<th> 内容： </th>
+			<td>			<textarea  class="editor" id="content" name="content" style="width:100%;height:300px;">{$vo.content}
+                            </textarea></td>
+		</tr>
+		</tr>
+	</table>
+</form>
+<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.js"></script>
+<script type="text/javascript">
+
+	// 加载编辑器
+	var editor;
+	$(function() {
+		editor = KindEditor.create("#content", {
+			resizeType : 1,
+			filterMode : true,
+			uploadJson : "/File/upload",
+			afterCreate : function() {
+				editor.width = "100%";
+			}
+		});
+	});
+
+	function save() {
+		editor.sync();
+		if (check_form("form_data")) {			
+			sendForm("form_data", "{:U('save')}");
+		}
+	}
+
+	$(document).ready(function() {
+		editor_init();
+		uploader_init();
+	}); 
+</script>

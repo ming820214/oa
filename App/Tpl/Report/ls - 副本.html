@@ -1,0 +1,55 @@
+<layout name='Layout/ace_layout' />
+{:W('PageHeader',array('name'=>预算管控,'search'=>'A'))}
+<form action="" method="post">
+	<div class="operate panel panel-default">
+		<div class="panel-body">
+			<div class="pull-left">
+					期次：<input type="text" name="date" onclick="WdatePicker({dateFmt:'yyyy-MM'})"/>&nbsp;&nbsp;&nbsp;日期：<input type="text" name="time1" onclick="WdatePicker()"/>&nbsp;—&nbsp;<input type="text" name="time2" onclick="WdatePicker()"/>
+				<input type="submit" class="btn btn-sm btn-primary" name="fx" value="分析">
+			</div>
+		</div>
+	</div>
+</form>
+<table border="0" class="table">
+  <tr style="background-color: rosybrown;height: 40px;">
+    <th width="100">校区名称</th>
+    <th width="150">预算</th>
+    <th width="150">花销A</th>
+    <th width="100">押金B</th>
+    <th width="100">借款C</th>
+    <th width="100">福利金D</th>
+    <th width="100">预算结余</th>
+    <th width="100">@预支金额</th>
+    <th width="100">@预支结余</th>
+    <th width="100">@差额</th>
+    <th width="200">备注</th>
+  </tr>
+  <foreach name='school' item='vo'>
+  <tr>
+    <th scope="row" style="background-color: wheat;"><div class="t6">{$key}</div></th>
+    <td>￥<php>$ys+=$vo['预算'];</php>{$vo.预算}</td>
+    <td>￥<php>$hx+=$vo['花销'];</php>{$vo.花销}</td>
+    <td>￥<php>$yj+=$vo['押金'];</php>{$vo.押金}</td>
+    <td>￥<php>$jk+=$vo['借款'];</php>{$vo.借款}</td>
+    <td>￥<php>$flj+=$vo['福利金'];</php>{$vo.福利金}</td>
+    <td style="color: darkcyan;font-weight: bold;"><div class="t0"><php>$ysjy+=$vo['预算']-$vo['花销']-$vo['押金']-$vo['借款']-$vo['福利金'];echo($vo['预算']-$vo['花销']-$vo['押金']-$vo['借款']-$vo['福利金']);</php></div></td>
+    <td><div style="float: left;">￥</div><div class="t1" contenteditable="true"><php>$yz+=$vo['预支'];</php>{$vo.预支}</div></td>
+    <td><div style="float: left;">￥</div><div class="t2" contenteditable="true"><php>$jy+=$vo['结余'];</php>{$vo.结余}</div></td>
+    <td style="color: darkcyan;font-weight: bold;" class="t4"><div><php>$ce+=$vo['差额'];</php>{$vo['差额']}</div></td>
+    <td><div class="t3" contenteditable="true">{$vo.备注}</div></td>
+  </tr>
+  </foreach>
+  <tr style="background-color: darkgray;">
+    <th>合计：</th>
+    <th>￥{$ys}</th>
+    <th>￥{$hx}</th>
+    <th>￥{$yj}</th>
+    <th>￥{$jk}</th>
+    <th>￥{$flj}</th>
+    <th>￥{$ysjy}</th>
+    <th>￥{$yz}</th>
+    <th>￥{$jy}</th>
+    <th>￥{$ce}</th>
+    <th></th>
+  </tr>
+</table>

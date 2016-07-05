@@ -1,0 +1,77 @@
+{:W('PageHeader',array('name'=>'五险一金规则管理','search'=>'A'))}
+<layout name='Layout/ace_layout' />
+<div class="row">
+	<table class="table table-bordered" id="rule">
+		<thead>
+			<tr>
+				<th>缴纳城市</th>
+				<th>社保基数</th>
+				<th>公积金基数</th>
+				<th>单位养老比例</th>
+				<th>单位医疗比例</th>
+				<th>单位失业比例</th>
+				<th>单位工伤比例</th>
+				<th>单位生育比例</th>
+				<th>个人养老比例</th>
+				<th>个人医疗比例</th>
+				<th>个人失业比例</th>
+				<th>单位公积金比例</th>
+				<th>个人公积金比例</th>
+				<th>个人合计金额</th>
+				<th>单位合计金额</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+			<form method="post">
+			<tr>
+				<th contenteditable><input type="hidden" name="city"></th>
+				<th contenteditable><input type="hidden" name="aa"></th>
+				<th contenteditable><input type="hidden" name="bb"></th>
+				<th contenteditable><input type="hidden" name="c"></th>
+				<th contenteditable><input type="hidden" name="d"></th>
+				<th contenteditable><input type="hidden" name="e"></th>
+				<th contenteditable><input type="hidden" name="f"></th>
+				<th contenteditable><input type="hidden" name="g"></th>
+				<th contenteditable><input type="hidden" name="i"></th>
+				<th contenteditable><input type="hidden" name="j"></th>
+				<th contenteditable><input type="hidden" name="k"></th>
+				<th contenteditable><input type="hidden" name="l"></th>
+				<th contenteditable><input type="hidden" name="m"></th>
+				<th></th>
+				<th></th>
+				<th><input type="submit" value="添加"></th>
+			</tr>
+			</form>
+		<tbody>
+			<volist name='list' id='v'>
+			<tr>
+				<td>{$v.city}</td>
+				<td>{$v.aa}</td>
+				<td>{$v.bb}</td>
+				<td>{$v.c}</td>
+				<td>{$v.d}</td>
+				<td>{$v.e}</td>
+				<td>{$v.f}</td>
+				<td>{$v.g}</td>
+				<td>{$v.i}</td>
+				<td>{$v.j}</td>
+				<td>{$v.k}</td>
+				<td>{$v.l}</td>
+				<td>{$v.m}</td>
+				<td>{$v.con}</td>
+				<td>{$v.cont}</td>
+				<td><a href="{:U()}&delt={$v.id}" onclick="return confirm('确定删除吗！……？')">删除</a></td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+<div>{$page}</div>
+
+<script type="text/javascript">
+$("th").blur(function () {
+	$(this).children("input").val($(this).text());
+})
+</script>
+<style type="text/css">
+</style>
