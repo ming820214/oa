@@ -38,9 +38,9 @@ class PersonAction extends CommonAction {
         $output .= "<TABLE BORDER=1>";
         $output .= "<tr><td>序号</td><td>审核状态</td><td>项目类别</td><td>申请人</td><td>所在校区</td><td>所在部门</td><td>性质</td><td>申请时间</td><td>开始时间</td><td>结束时间</td><td>共计天数</td><td>内容</td><td>附件一</td><td>附件二</td><td>附件三</td><td>数据创建时间</td><td>审核记录</td><td>批语</td></tr>";
             foreach ($mm as $m) {
-                if($m['pic1'])$m['pic1']='http://i.ihongwen.com/oa/Public/Uploads/ask/'.$m['pic1'];
-                if($m['pic2'])$m['pic2']='http://i.ihongwen.com/oa/Public/Uploads/ask/'.$m['pic2'];
-                if($m['pic3'])$m['pic3']='http://i.ihongwen.com/oa/Public/Uploads/ask/'.$m['pic3'];
+                if($m['pic1'])$m['pic1']='http://i.ihongwen.com/oa_old/Public/Uploads/ask/'.$m['pic1'];
+                if($m['pic2'])$m['pic2']='http://i.ihongwen.com/oa_old/Public/Uploads/ask/'.$m['pic2'];
+                if($m['pic3'])$m['pic3']='http://i.ihongwen.com/oa_old/Public/Uploads/ask/'.$m['pic3'];
                 $output .= "<tr><td>".$m['id']."</td><td>".$m['state']."</td><td>".$m['class']."</td><td>".$m['name']."</td><td>".$m['school']."</td><td>".$m['part']."</td><td>".$m['aa']."</td><td>".$m['date']."</td><td>".$m['time1']."</td><td>".$m['time2']."</td><td>".$m['gong']."</td><td>".$m['info']."</td><td>".$m['pic1']."</td><td>".$m['pic2']."</td><td>".$m['pic3']."</td><td>".$m['timestamp']."</td><td>".$m['record']."</td><td>".$m['why']."</td></tr>";
             }
         $output .= "</TABLE>";

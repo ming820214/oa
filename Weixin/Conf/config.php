@@ -12,8 +12,8 @@ return array(
 		'TMPL_TEMPLATE_SUFFIX'=>'.html',
 		'VAR_URL_PARAMS'      => '_URL_', // PATHINFO URL参数变量
 		'VAR_FILTERS'=>'htmlspecialchars',
-		  'CorpID' => 'wx965351f4462ae3ba',//企业号id
-		  'Secret' => '8fYYV_V5kfCCggQuBaoc4pLkJw2d_G7KtEuPlzSMk2YEy7FHoZvImEAuBu1vrwGn',//企业号管理员密钥
+		  'CorpID' => 'wx48efe07c32d6e8fa',//企业号id
+		  'Secret' => 'JrQ85DM3IQetnZDXTrifzYiDuu1lMYlSE4bSx2SSy3Y0ouh6ltDQRwliUTHRfm0Q',//企业号管理员密钥
 		// 'TOKEN_ON'=>true,  // 是否开启令牌验证
 		// 'TOKEN_NAME'=>'__hash__',    // 令牌验证的表单隐藏字段名称
 		// 'TOKEN_TYPE'=>'md5',  //令牌哈希验证规则 默认为MD5

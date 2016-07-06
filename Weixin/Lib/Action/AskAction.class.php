@@ -40,7 +40,7 @@ class AskAction extends CommAction {
                         if($m1['position']=='校长'){//校长请假
                             $m2->state='运营审核';
                             $id=$m2->add();
-                            if($id&&$this->text(6,'王胜鑫','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$id);
+                            if($id&&$this->text(7,'王胜鑫','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$id);
                         }else{
                             $id=$m2->add();
                             if($id&&$this->tz('请假'))$this->success('申请提交成功','info2/id/'.$id);
@@ -66,7 +66,7 @@ class AskAction extends CommAction {
 
                     if($m1['position']=='校长'){//校长请假
                         $d['state']='运营审核';
-                        if($id=$m2->where($w)->save($d)&&$this->text(6,'王胜鑫','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$_POST['id']);
+                        if($id=$m2->where($w)->save($d)&&$this->text(7,'王胜鑫','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$_POST['id']);
                     }else{
                         if($m1['school']=='集团'){//集团成员请假
                             $d['state']='总裁审核';
@@ -236,7 +236,7 @@ class AskAction extends CommAction {
         }
         if(in_array($m['school'],['盘锦一完中校区','盘锦实验中学校区']))$w2=['name'=>'刘浩01'];
         $name=M('person_all')->where($w2)->getField('name');
-        $this->text(6,$name,'小文提示：有'.$info.'待审核，请及时查看……');
+        $this->text(7,$name,'小文提示：有'.$info.'待审核，请及时查看……');
         return true;
     }
 
@@ -244,7 +244,7 @@ class AskAction extends CommAction {
     public function tz2($id){
         $w['id']=$id;
         $name=M('person_ask')->where($w)->getField('name');
-        $this->text(1,$name,'小文提示，亲，您最近申请的项目审核状态有变动，记得关注哦……');
+        $this->text(3,$name,'小文提示，亲，您最近申请的项目审核状态有变动，记得关注哦……');
         return true;
     }
 
@@ -348,7 +348,7 @@ class AskAction extends CommAction {
             if($m['state']=='校区审核' && $m['class']!='请假'){
                 $d['state']='集团确认';
                // $this->text(6,'宫婷','小文提示：有校区申请待确认，请及时查看……');
-                 $this->text(6,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
+                 $this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
             }
 
             //if($m['state']=='集团确认' && session('name')=='宫婷')$d['state']='审核通过';
@@ -363,7 +363,7 @@ class AskAction extends CommAction {
                     }else{
                         if($m['gong']>=3){
                             $d['state']='人事确认';
-                            $this->text(6,'张毅','小文提示：有请假申请待审核，请及时查看……');
+                            $this->text(7,'张毅','小文提示：有请假申请待审核，请及时查看……');
                         }
                     }
                 }else{
@@ -373,7 +373,7 @@ class AskAction extends CommAction {
                     }else{
                         $d['state']='集团确认';
                         //$this->text(6,'宫婷','小文提示：有校区申请待确认，请及时查看……');
-                        $this->text(6,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
+                        $this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
                     }
                     // die('申请已经审核完成，请勿重复操作');
                 }

@@ -6,7 +6,7 @@ class CommAction extends Action {
     Public function _initialize(){
 		if(!session('?name')){
 		//获取员工id
-	    	if (isset($_GET['code'])&&$_GET['code']!=''){
+	    	/*if (isset($_GET['code'])&&$_GET['code']!=''){
                 //==获取code和tokon
                 $code=$_GET['code'];
                 //获取并判断access_tokon是否过期获取tokon
@@ -18,7 +18,7 @@ class CommAction extends Action {
                 }
 
                 //====通过code换取获取员工id信息
-                $url = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=$access_token&code=$code&agentid=0";//$agentid=0调用的应用id
+                $url = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=$access_token&code=$code&agentid=2";//$agentid=0调用的应用id
                 $info=url_get($url);
                 $user_id=$info['UserId'];
 
@@ -36,7 +36,10 @@ class CommAction extends Action {
 		    }else{
 		    	  echo("没有获取到员工信息");
 		    	  exit;
-		    }
+		    }*/
+		    session('pid',123456);
+				session('name','张晓明');
+				session('userid','ww');
 		}
     }
 

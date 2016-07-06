@@ -3,7 +3,7 @@
 class TaskAction extends Comm2Action {
     public function index(){
 
-        $url='http://i.ihongwen.com/oa/weixin.php/task/info/id/';
+        $url='http://i.ihongwen.com/oa_old/weixin.php/task/info/id/';
         if(IS_POST){
             if($this->_post('add')){
                 $mod=M("hw003.task",null);
@@ -12,7 +12,7 @@ class TaskAction extends Comm2Action {
                 $mod->uid=session("uid");
                 $id=$mod->add();
                 
-                if($id)$this->news(14,session('pname'),session('name'),"有新任务：".$_POST['title'],$url.$id);
+                if($id)$this->news(11,session('pname'),session('name'),"有新任务：".$_POST['title'],$url.$id);
             }
             if($this->_post('advice')){
                 $mod=M("hw003.task_advice",null);
@@ -20,7 +20,7 @@ class TaskAction extends Comm2Action {
                 $mod->pid=session('pid');
                 $mod->type=0;
                 $mod->uid=session("uid");
-                if($mod->add())$this->text(14,session('pname'),session('name')."，问题反馈：".$_POST['info']);
+                if($mod->add())$this->text(11,session('pname'),session('name')."，问题反馈：".$_POST['info']);
             }
         }
         if(IS_AJAX){
@@ -28,18 +28,18 @@ class TaskAction extends Comm2Action {
             if($_GET['delt']){
                 $title=M('hw003.task',null)->where(array('id'=>$_GET['delt']))->getField('title');
                 M('hw003.task',null)->where(array('id'=>$_GET['delt']))->setField('level','申请关闭任务');
-                $this->news(14,session('pname'),session('name'),"申请关闭任务",$url.$_GET['delt']);
+                $this->news(11,session('pname'),session('name'),"申请关闭任务",$url.$_GET['delt']);
                 print 1;die;
             }elseif($_GET['ask']){
                 $title=M('hw003.task',null)->where(array('id'=>$_GET['delt']))->getField('title');
                 M('hw003.task',null)->where(array('id'=>$_GET['delt']))->setField('level','等待回复');
-                $this->text(14,session('pname'),session('name')."，申请快速答复：".$title);
+                $this->text(11,session('pname'),session('name')."，申请快速答复：".$title);
                 print 1;die;
             }else{
                 $msg=M('hw003.task_info',null)->add(array('tid'=>$_GET['id'],'info'=>$_GET['info']));
                 if($msg)
                 print_r(json_encode(M('hw003.task_info',null)->find($msg)));
-                $this->news(14,session('pname'),session('name'),"新进展：".$_GET['info'],$url.$_GET['id']);
+                $this->news(11,session('pname'),session('name'),"新进展：".$_GET['info'],$url.$_GET['id']);
                 die;
             }
         }
@@ -79,7 +79,7 @@ class TaskAction extends Comm2Action {
     }
 
     public function reply($date=null){
-        $url='http://i.ihongwen.com/oa/weixin.php/task/info/id/';
+        $url='http://i.ihongwen.com/oa_old/weixin.php/task/info/id/';
         if(IS_POST){
 //      创建工作组
             if($this->_post('group_add')){
@@ -89,7 +89,7 @@ class TaskAction extends Comm2Action {
                 $mod->pid=session('uid');
                 $mod->add();
                 $name=M('hw003.task_user',null)->where(array('id'=>$_POST['uid']))->getField('name');
-                $this->text(14,$name,'新任务：'.$_POST['title'].';'.$_POST['info']);
+                $this->text(11,$name,'新任务：'.$_POST['title'].';'.$_POST['info']);
             }
 //      创建任务
             if($this->_post('add')){
@@ -101,7 +101,7 @@ class TaskAction extends Comm2Action {
                 $mod->uid=$_POST['uid'];
                 $mod->add();
                 $name=M('hw003.task_user',null)->where(array('id'=>$_POST['uid']))->getField('name');
-                $this->text(14,$name,'新任务：'.$_POST['title'].';'.$_POST['info']);
+                $this->text(11,$name,'新任务：'.$_POST['title'].';'.$_POST['info']);
             }
         }
         if(IS_AJAX){
@@ -112,7 +112,7 @@ class TaskAction extends Comm2Action {
                     $uid=M('hw003.task',null)->where(array('id'=>$_GET['tid']))->getField('uid');
                     $name=M('hw003.task_user',null)->find($uid);
                     $info=M('hw003.task_info',null)->where(['tid'=>$_GET['tid'],'type'=>1])->order('id desc')->find();
-                    $this->text(14,$name['name'],$name['title'].",新指示：".$_GET['info']);
+                    $this->text(11,$name['name'],$name['title'].",新指示：".$_GET['info']);
                     print 1;die;
                 }
             }
@@ -127,7 +127,7 @@ class TaskAction extends Comm2Action {
                 if($mod->where(array('id'=>$_GET['change']))->setField('level',$_GET['level'])){
                     $task=$mod->where(array('id'=>$_GET['change']))->find();
                     $name=M('hw003.task_user',null)->where(['id'=>$task['uid']])->getField('name');
-                    $this->text(14,$name,"提示：任务,".$task['title'].",状态变更为：".$_GET['level']);
+                    $this->text(11,$name,"提示：任务,".$task['title'].",状态变更为：".$_GET['level']);
                     $this->ajaxReturn(1);
                 }
             }
@@ -137,7 +137,7 @@ class TaskAction extends Comm2Action {
                 $uid=M('hw003.task_user',null)->where(array('name'=>$_GET['name']))->find();
                 if($msg->add(array('uid'=>$uid['id'],'pid'=>$uid['pid'],'info'=>$_GET['info'],'type'=>1)))
                 print 1;
-                $this->text(14,$_GET['name'],"新反馈：".$_GET['info']);die;
+                $this->text(11,$_GET['name'],"新反馈：".$_GET['info']);die;
             }
 //      关闭任务组
             if($_GET['delt_group']){

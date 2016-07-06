@@ -19,7 +19,7 @@ class Comm2Action extends Action {
                 }
 
                 //====通过code换取获取员工id信息
-                $url = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=$access_token&code=$code&agentid=0";//$agentid=0调用的应用id
+                $url = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=$access_token&code=$code&agentid=2";//$agentid=0调用的应用id
                 $info=url_get($url);
                 $user_id=$info['UserId'];
 
