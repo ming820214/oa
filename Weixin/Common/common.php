@@ -133,7 +133,7 @@ function userid($name){
 //发送微信所有形式数据
 function send($msg){
     $data=ch_json_encode($msg);//处理要发送的数据
-    $tk=M('hw003.access',null)->where('id=1')->find();//获取access_tokon
+    $tk=M('hw003.access',null)->where('id=2')->find();//获取access_tokon
     if((time()-$tk['timestamp'])>7000)$tk['tokon']=accesstokon();// 遇到tokon过期的情况重新获取
     $url='https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token='.$tk['tokon'];
     $out=url_post($url,$data);

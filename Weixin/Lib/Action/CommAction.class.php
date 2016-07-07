@@ -4,16 +4,15 @@ class CommAction extends Action {
 
 	//每次加载是获取用户信息
     Public function _initialize(){
-    	
-		
-		try{
+    		//session('name',null); 清理微信缓存；
 			if(!session('?name')){
 		//获取员工id
 	    	if (isset($_GET['code'])&&$_GET['code']!=''){
                 //==获取code和tokon
                 $code=$_GET['code'];
                 //获取并判断access_tokon是否过期获取tokon
-                $tk=M('hw003.access',null)->find(1);
+                $tk=M('hw003.access',null)->find(2);
+                
                 if((time()-$tk['timestamp'])>7000){
                     $access_token=accesstokon();
                 }else{
@@ -44,11 +43,7 @@ class CommAction extends Action {
 				session('name','张晓明');
 				session('userid','ww');*/
 		}
-		}catch(Exception $e){
-			print $e->getMessage();   
-			exit();   
-		}
-		
+				
     }
 
 /**

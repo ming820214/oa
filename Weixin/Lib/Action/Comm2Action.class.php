@@ -11,7 +11,7 @@ class Comm2Action extends Action {
                 //==获取code和tokon
                 $code=$_GET['code'];
                 //获取并判断access_tokon是否过期获取tokon
-                $tk=M('hw003.access',null)->find(1);
+                $tk=M('hw003.access',null)->find(2);
                 if((time()-$tk['timestamp'])>7000){
                     $access_token=accesstokon();
                 }else{
