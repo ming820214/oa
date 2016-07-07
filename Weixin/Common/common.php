@@ -179,7 +179,7 @@ function accesstokon(){
     $data=url_get($url);
     $dat['tokon']=$data['access_token'];//获取到值
     $dat['timestamp']=time();
-    M('hw003.access',null)->where('id=1')->save($dat);
+    M('hw003.access',null)->where('id=2')->save($dat);
     return $data['access_token'];
 }
 
