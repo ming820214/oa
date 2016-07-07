@@ -6,7 +6,7 @@ class CommAction extends Action {
     Public function _initialize(){
 		if(!session('?name')){
 		//获取员工id
-	    	/*if (isset($_GET['code'])&&$_GET['code']!=''){
+	    	if (isset($_GET['code'])&&$_GET['code']!=''){
                 //==获取code和tokon
                 $code=$_GET['code'];
                 //获取并判断access_tokon是否过期获取tokon
@@ -36,10 +36,10 @@ class CommAction extends Action {
 		    }else{
 		    	  echo("没有获取到员工信息");
 		    	  exit;
-		    }*/
-		    session('pid',123456);
+		    }
+		    	/*session('pid',123456);
 				session('name','张晓明');
-				session('userid','ww');
+				session('userid','ww');*/
 		}
     }
 
