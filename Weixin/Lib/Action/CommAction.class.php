@@ -4,7 +4,10 @@ class CommAction extends Action {
 
 	//每次加载是获取用户信息
     Public function _initialize(){
-		if(!session('?name')){
+    	
+		
+		try{
+			if(!session('?name')){
 		//获取员工id
 	    	if (isset($_GET['code'])&&$_GET['code']!=''){
                 //==获取code和tokon
@@ -41,6 +44,11 @@ class CommAction extends Action {
 				session('name','张晓明');
 				session('userid','ww');*/
 		}
+		}catch(Exception $e){
+			print $e->getMessage();   
+			exit();   
+		}
+		
     }
 
 /**
