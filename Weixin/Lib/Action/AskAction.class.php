@@ -185,6 +185,11 @@ class AskAction extends CommAction {
                     $this->success('数据提交失败！原因：上班开始时间和结束时间未填写，请填写完整后再提交。');
                     die;    
                 }
+				
+				if(((strtotime($m2->time2)-strtotime($m2->time1))/3600)<7.5){
+					 $this->success('申请失败!灵活作息时长需同正常作息时长一致（不少于7.5小时/天）。');
+                    die;  
+				}
                 $m2->name=session('name');
                 $m2->state='校区审核';
                 if($m1['school']=='集团'){
