@@ -120,7 +120,7 @@ class AskAction extends CommAction {
     public function ywsx(){
         if($_POST){
             $this->cf();//放重复提交
-            if((time()-strtotime($_POST['date']))<48*3600){
+            if((time()-strtotime($_POST['date']))<24*3600){
                 //查询该员工信息
                 $w['name']=session('name');
                 $w['state']=1;
@@ -185,6 +185,11 @@ class AskAction extends CommAction {
                     $this->success('数据提交失败！原因：上班开始时间和结束时间未填写，请填写完整后再提交。');
                     die;    
                 }
+				
+				if(($m2->date) != substr($m2->time1,0,10)){
+					$this->success('申请失败!申请日期要和上班开始时间日期一致！');
+                    die;
+				}
 				
 				if(((strtotime($m2->time2)-strtotime($m2->time1))/3600)<7.5){
 					 $this->success('申请失败!灵活作息时长需同正常作息时长一致（不少于7.5小时/天）。');
