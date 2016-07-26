@@ -19,6 +19,13 @@
                 theme: 'default',mode: 'scroller',lang: '',display: 'modal',
                 animate: '',monthText: '月',dayText: '日',yearText: '年'
             }));
+            
+            
+              $('.datetime').scroller('destroy').scroller($.extend(opt['datetime'], {
+                preset: 'datetime',dateOrder: 'yymmdd',dateFormat: 'yy-mm-dd',timeWheels: 'HHii',timeFormat: 'HH:ii',
+                theme: 'default',mode: 'scroller',lang: '',display: 'modal',
+                animate: '',monthText: '月',dayText: '日',yearText: '年',hourText:'点',minuteText:'分',setText:'确定',cancelText:'清空',nowText:'现时'
+            }));
       $('#img').click(function(){
         if($(this).css("width")=="700px"){
           $(this).css({width:"90%"});
@@ -59,7 +66,8 @@
     <input type="hidden" name="wname" value="{$Think.session.name}">
       <div data-role="fieldcontain">
         <label for="date">选择日期:</label>
-        <input name="date" id="date" class="date" required="true"/>
+        <!--<input name="date" id="date" class="date" required="true"/>-->
+        <input name="date" id="date" class="datetime" required="true"/>
       </div>
       <div data-role="fieldcontain">
         <label for="info">请假事由:</label>
