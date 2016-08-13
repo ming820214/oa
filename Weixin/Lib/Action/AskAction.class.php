@@ -103,8 +103,21 @@ class AskAction extends CommAction {
                         $m2->part=$m1['part'];
                         $m2->state='总裁审核';
                     }
-                    $m2->gong=round((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600,1);
-                    if($m2->add()&&$this->tz('加班'))$this->success('申请提交成功');
+					
+					if($m1['position']=='校长'){//校长请假
+                            $m2->state='运营审核';
+							$m2->gong=round((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600,1);
+                            $id=$m2->add();
+                            if($id&&$this->text(7,'王胜鑫','有待处理的加班申请，请及时审核……'))$this->success('申请提交成功');
+                    }else{
+                    	
+						$m2->gong=round((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600,1);
+                    	if($m2->add()&&$this->tz('加班'))$this->success('申请提交成功');
+						
+					}
+					
+                    /*$m2->gong=round((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600,1);
+                    if($m2->add()&&$this->tz('加班'))$this->success('申请提交成功');*/
                 }else{
                     $this->success('数据提交失败！');
                 }
@@ -153,9 +166,21 @@ class AskAction extends CommAction {
                     if($m1['school']=='集团'){
                         $m2->part=$m1['part'];
                         $m2->state='总裁审核';
-                    }                if($m2->add()&&$this->tz('意外事项'))$this->success('申请提交成功');
+                    }                
+                    
+					if($m1['position']=='校长'){//校长请假
+                        $m2->state='运营审核';
+                        $id=$m2->add();
+                        if($id&&$this->text(7,'王胜鑫','有待处理的意外事项申请，请及时审核……'))$this->success('申请提交成功');
+                    }else{
+                    	
+                    	if($m2->add()&&$this->tz('意外事项'))$this->success('申请提交成功');
+						
+					}
+					
+                    /*if($m2->add()&&$this->tz('意外事项'))$this->success('申请提交成功');*/
                 }else{
-                    $this->success('数据提交失败！');
+                    $this->success('人事档案里查无此人，数据提交失败！');
                 }
             }else{
                 $this->error('申请超时……');
@@ -200,9 +225,21 @@ class AskAction extends CommAction {
                 if($m1['school']=='集团'){
                     $m2->part=$m1['part'];
                     $m2->state='总裁审核';
-                }                if($m2->add()&&$this->tz('灵活作息'))$this->success('申请提交成功');
+                }                
+                
+                if($m1['position']=='校长'){//校长请假
+                    $m2->state='运营审核';
+                    $id=$m2->add();
+                    if($id&&$this->text(7,'王胜鑫','有待处理的灵活作息申请，请及时审核……'))$this->success('申请提交成功');
+                }else{
+                	
+                	if($m2->add()&&$this->tz('灵活作息'))$this->success('申请提交成功');
+					
+				}
+                
+                /*if($m2->add()&&$this->tz('灵活作息'))$this->success('申请提交成功');*/
             }else{
-                $this->success('数据提交失败！');
+                $this->success('人事档案里查无此人，数据提交失败！');
             }
         }else{
             $this->display();
