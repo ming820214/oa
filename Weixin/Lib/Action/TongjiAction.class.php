@@ -133,7 +133,7 @@ class TongjiAction extends CommAction {
         //获取昨天的数据
         $m2=M('hw001.tongji',null)->where(array('date'=>date('Y-m-d',$time-24*3600)))->getField('school,a,b,c,d,e,f,g,h,i',true);
         foreach ($m2 as $k => $v) {
-            if($v['school']=='阜新二部' || $v['school']=='阜新实验校区'){
+            if($v['school']=='阜新二部'){
                 $m2['阜新实验校区']['a']+=$v['a'];
                 $m2['阜新实验校区']['b']+=$v['b'];
                 $m2['阜新实验校区']['c']+=$v['c'];
