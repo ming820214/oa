@@ -137,11 +137,14 @@ function send($msg){
     if((time()-$tk['timestamp'])>7000)$tk['tokon']=accesstokon();// 遇到tokon过期的情况重新获取
     $url='https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token='.$tk['tokon'];
     $out=url_post($url,$data);
-    if($out['errmsg']=='ok'){
+    
+    return true;
+    
+    /* if($out['errmsg']=='ok'){
         return true;
     }else{
         var_dump($out);die;
-    }
+    } */
 }
 
 //post发送数据
