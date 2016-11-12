@@ -36,7 +36,14 @@ class AskAction extends CommAction {
                         if($m1['school']=='集团'){//集团成员请假
                             $m2->part=$m1['part'];
                             $m2->state='总裁审核';
+                            if(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+                            	$m2->state= '主管审核';
+                            }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
+                            	$m2->part='教学中心';
+                            }
                         }
+                        
+                        
                         if($m1['position']=='校长'){//校长请假
                             $m2->state='运营审核';
                             $id=$m2->add();
@@ -69,7 +76,14 @@ class AskAction extends CommAction {
                         if($id=$m2->where($w)->save($d)&&$this->text(7,'王胜鑫','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$_POST['id']);
                     }else{
                         if($m1['school']=='集团'){//集团成员请假
-                            $d['state']='总裁审核';
+                        	
+                        	if(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+                        		$d['state']= '主管审核';
+                        	}else{
+                        		$d['state']='总裁审核';
+                        	}
+                        	
+//                             $d['state']='总裁审核';
                         }else{
                             $d['state']='校区审核';
                         }
@@ -84,7 +98,7 @@ class AskAction extends CommAction {
     //加班申请
     public function jb(){
         if($_POST){
-            $this->cf();//放重复提交
+           $this->cf();//放重复提交
             if((time()-strtotime($_POST['time1']))<24*3600){
                 //查询该员工信息
                 $w['name']=session('name');
@@ -102,6 +116,12 @@ class AskAction extends CommAction {
                     if($m1['school']=='集团'){
                         $m2->part=$m1['part'];
                         $m2->state='总裁审核';
+                        
+                        if(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+                        	$m2->state= '主管审核';
+                        }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
+                        	$m2->part='教学中心';
+                        }
                     }
 					
 					if($m1['position']=='校长'){//校长请假
@@ -166,6 +186,12 @@ class AskAction extends CommAction {
                     if($m1['school']=='集团'){
                         $m2->part=$m1['part'];
                         $m2->state='总裁审核';
+                        
+                    	if(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+                        	$m2->state= '主管审核';
+                        }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
+                        	$m2->part='教学中心';
+                        }
                     }                
                     
 					if($m1['position']=='校长'){//校长请假
@@ -225,6 +251,12 @@ class AskAction extends CommAction {
                 if($m1['school']=='集团'){
                     $m2->part=$m1['part'];
                     $m2->state='总裁审核';
+                    
+                    if(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+                    	$m2->state= '主管审核';
+                    }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
+                    	$m2->part='教学中心';
+                    }
                 }                
                 
                 if($m1['position']=='校长'){//校长请假
@@ -277,6 +309,13 @@ class AskAction extends CommAction {
            // $w2['part']=($m['part']=='人事中心')?'教学中心':$m['part']; //张毅要求把所有人事中心的请假，加班信息发给他，教学中心的发给侯海洋；edit by zhangxm at 2016-04-02 at 15:20
             $w2['part']= $m['part'];
             $w2['position']='总裁';
+            
+            if(in_array($m['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+            	$w2['position']= '主管';
+            }elseif(in_array($m['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
+            	$w2['part']= '教学中心';
+            }
+            
             //if(session('name')=='张晓明')$w2=['name'=>'郝振华'];
         }else{
             $w2['position']='校长';
@@ -303,6 +342,8 @@ class AskAction extends CommAction {
         }elseif(session('name')=='张毅'){
             // $w2['_string']="(state='总裁审核' AND part='教学中心') OR (state='人事确认') OR (state='总裁审核' AND part='人事中心')";
             $w2['_string']="(state='人事确认') OR (state='总裁审核' AND part='人事中心')";
+        }elseif(session('name')=='侯海洋'){
+            $w2['_string']="(state='总裁确认') OR (state='总裁审核' AND part='教学中心')";
         }elseif(session('name')=='刘浩01'){
             $w2['school']=['in','盘锦一完中校区,盘锦实验中学校区'];
             $w2['state']='校区审核';
@@ -325,6 +366,10 @@ class AskAction extends CommAction {
             if($m['school']=='集团'){
                 $w2['part']=$m['part'];
                 $w2['state']='总裁审核';
+                
+                if(in_array($m['part'],['师训部','初中部','教研部']) && $m['position'] == '主管'){
+                	$w2['state']= '主管审核';
+                }
             }
         }
       //  if(session('name')=='宫婷'){
@@ -406,11 +451,17 @@ class AskAction extends CommAction {
                // $this->text(6,'宫婷','小文提示：有校区申请待确认，请及时查看……');
                  $this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
             }
+            
+            if($m['state']=='主管审核' && $m['class']!='请假'){
+            	$d['state']='集团确认';
+            	// $this->text(6,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+            	$this->text(7,'彭鑫','小文提示：有部门申请待确认，请及时查看……');
+            }
 
             //if($m['state']=='集团确认' && session('name')=='宫婷')$d['state']='审核通过';
             if($m['state']=='集团确认' && session('name')=='彭鑫')$d['state']='审核通过';
             //请假规则特别处理
-            if($m['class']=='请假'){
+            /* if($m['class']=='请假'){
                 if($m['state'] == '人事确认' && session('name')=='张毅'){
                     $d['state']='审核通过';
                 }elseif($m['state'] == '校区审核' || $m['state'] == '总裁审核' || $m['state'] == '运营审核') {
@@ -433,6 +484,41 @@ class AskAction extends CommAction {
                     }
                     // die('申请已经审核完成，请勿重复操作');
                 }
+            } */
+            
+            if($m['class']=='请假'){
+            	if($m['state'] == '人事确认' && session('name')=='张毅'){
+            		$d['state']='审核通过';
+            	}elseif($m['state'] == '校区审核' || $m['state'] == '主管审核' || $m['state'] == '总裁确认' || $m['state'] == '总裁审核' || $m['state'] == '运营审核') {
+            		if(!($m['pic1'] || $m['pic2'] || $m['pic3'])&&$m['aa']=='病假'){
+            			$d['state']='材料补充';
+            		}else{
+            			/* if($m['gong']>=3){
+            				$d['state']='人事确认';
+            				$this->text(7,'张毅','小文提示：有请假申请待审核，请及时查看……');
+            			} */
+            			
+            			if($m['gong']>=3 && $m['state'] == '主管审核'){
+            				$d['state']='总裁确认';
+            				$this->text(7,'侯海洋','小文提示：有请假>=3天的申请待审核，请及时查看……');
+            			}else{
+            				if($m['gong']>=3){
+            					$d['state']='人事确认';
+            					$this->text(7,'张毅','小文提示：有请假>=3天的申请待审核，请及时查看……');
+            				}
+            			}
+            		}
+            	}else{
+            		//if(session('name')=='宫婷'){
+            		if(session('name')=='彭鑫'){
+            			$d['state']='审核通过';
+            		}else{
+            			$d['state']='集团确认';
+            			//$this->text(6,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+            			$this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
+            		}
+            		// die('申请已经审核完成，请勿重复操作');
+            	}
             }
 
             if(M('person_ask')->where($w)->save($d)&&$this->tz2($w['id'])){
