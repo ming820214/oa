@@ -320,7 +320,13 @@ class AskAction extends CommAction {
         }else{
             $w2['position']='校长';
         }
-        if(in_array($m['school'],['盘锦一完中校区','盘锦实验中学校区']))$w2=['name'=>'李明帅'];
+        if(in_array($m['school'],['盘锦一完中校区','盘锦实验中学校区'])){
+        	$w2=['name'=>'李明帅'];
+        }
+        
+        if(in_array($m['school'],['锦州中学校区','锦州附中校区'])){
+        	$w2=['name'=>'孙旭'];
+        }
         $name=M('person_all')->where($w2)->getField('name');
         $this->text(7,$name,'小文提示：有'.$info.'待审核，请及时查看……');
         return true;
@@ -355,6 +361,9 @@ class AskAction extends CommAction {
             $w2['state']='校区审核';
         }elseif(session('name')=='张玉珠'){
             $w2['school']=['in','盘锦水木清华校区,集团总部'];
+            $w2['state']='校区审核';
+        }elseif(session('name')=='孙旭'){
+            $w2['school']=['in','锦州中学校区,锦州附中校区'];
             $w2['state']='校区审核';
         }elseif(session('name') == '张晓明'){
             $w2['school']=['in','集团'];
