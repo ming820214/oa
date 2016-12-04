@@ -343,12 +343,12 @@ class AskAction extends CommAction {
     //校长、主管审核部分，审核页面
     public function list1(){
         $w['name']=session('name');
-        if(session('name')=='王胜鑫' || session('name')=='张晓明'){
+        if(session('name')=='王胜鑫'){
             $w2['_string']="(state='总裁审核' AND part='运营中心') OR (state='运营审核')";
         }elseif(session('name')=='张毅'){
             // $w2['_string']="(state='总裁审核' AND part='教学中心') OR (state='人事确认') OR (state='总裁审核' AND part='人事中心')";
             $w2['_string']="(state='人事确认') OR (state='总裁审核' AND part='人事中心')";
-        }elseif(session('name')=='侯海洋'){
+        }elseif(session('name')=='侯海洋' || session('name')=='张晓明'){
             $w2['_string']="(state='总裁确认') OR (state='总裁审核' AND part='教学中心')";
         }elseif(session('name')=='李明帅'){
             $w2['school']=['in','盘锦一完中校区,盘锦实验中学校区'];
