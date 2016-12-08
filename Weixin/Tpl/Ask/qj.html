@@ -83,6 +83,19 @@ $(function () {
         <!-- <input name="gong" id="gong" required> -->
         <input type="number" step="0.5" min="0.5" name="gong" id="gong" required>
       </div>
+      <div id="lh2" style="display:none;">
+      	<fieldset data-role="controlgroup">
+	        <legend>是否为延期假（或特殊情况）：</legend>
+	          <label for="postpone1">
+	          <input type="radio" name="postpone" id="postpone1" value="是">是
+	          </label>
+	          
+	          <label for="postpone2">否</label>
+	          <input type="radio" name="postpone" id="postpone2" value="否" checked="checked">
+	      </fieldset>
+      </div>
+        
+      
         <fieldset data-role="collapsible" data-content-theme="e">
           <legend>添加附件（图片不能大于3M）</legend>
           <div data-role="fieldcontain">
@@ -97,8 +110,10 @@ $(function () {
       <div id="lh" style="display:none;">
         <p>一、灵活假期分布在每个财年的不同时段，其中第一季度（9月-11月）包含2天；第二季度（12月-2月）包含1天；第四季度（6月-8月）包含2天；每年6月份额外包含2天，共计7天；</p>
         <p>二、申请灵活假期须正常走请假流程，同时灵活假期只能在星期一至星期五使用，不能在周末或法定节日时使用；</p>
-        <p>三、灵活假期必须在规定的季度或月份进行休假，未能在规定时期休完的假期，不进行补休；</p>
-        <p>四、灵活假期前后相邻日期的事假申请一律不予受理。</p>
+        <p>三、灵活假期要求在规定的季度或月份进行休假，未能在规定时间内休完的假期，一般不进行补休；</p>
+        <p>四、如果员工确实因为校区运营原因需要将当季规定的假期推迟到下一季度的，或确有特殊情况不得不在周末或者法定节假日休息的，在事先取得校长同意的基础上，人力资源部审批通过后方可延期或占用周末或法定节假日。校长必须协调好整个校区内的人员与课程的平衡安排。</p>
+        <p>五、灵活假期前后相邻日期的事假申请一律不予受理，如有特殊情况需要跟校长说明情况，2天以内的灵活假期校长直接审批，大于2天的灵活假期需由校长跟人力资源部申请，审批通过后方可执行。</p>
+        <p>六、灵活假期在当财年必须使用完毕，不可跨财年调休。</p>
       </div>
       <div style="height:10px;"></div>     
       <input type="submit" data-theme="b" name="add" value="提交" onclick="return check()">
@@ -133,8 +148,14 @@ $('#img').click(function(){
 $("#class").change(function(){
   if($(this).val()=='灵活假期'){
     $("#lh").show();
+    $("#lh2").show();
+    $("#postpone1").removeAttr("disabled");
+    $("#postpone2").removeAttr("disabled");
   }else{
     $("#lh").hide();
+    $("#lh2").hide();
+    $("#postpone1").attr('disabled',true);
+    $("#postpone2").attr('disabled',true);
   }
 });
 

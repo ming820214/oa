@@ -14,10 +14,27 @@ class AskAction extends CommAction {
             $m1=M('person_all')->where($w)->find();
                 if($m1){
                     //判断灵活假期
-                    if($_POST['aa']=='灵活假期')
+                    /* if($_POST['aa']=='灵活假期')
                     {
                         self::linhuo();
-                    }
+                    } */
+                	if($_POST['aa']=='灵活假期' && $_POST['postpone'] == '否')
+                	{
+                		self::linhuo();
+                	}elseif($_POST['aa']=='灵活假期' && $_POST['postpone'] == '是'){
+                		$t1=date('m',strtotime($_POST['time1']));
+                		$t2=date('m',strtotime($_POST['time2']));
+                		
+                		if(($t1>='03' && $t1<='05') || ($t2>='03' && $t2<='05')){
+                			// if(session('name') == '朱明' || session('name') == '李莹' || session('name') == '乔庭鹤'){
+                		
+                			// }else{
+                			$this->error('该时间不能使用灵活假期！');
+                			// }
+                		
+                		}
+                		
+                	}
                     //保存提交的相关数据
                     $m2=M('person_ask');
                     $m2->create();
@@ -99,7 +116,7 @@ class AskAction extends CommAction {
     public function jb(){
         if($_POST){
            $this->cf();//放重复提交
-            if((time()-strtotime($_POST['time1']))<24*3600){
+            if((time()-strtotime($_POST['time1']))<48*3600){
                 //查询该员工信息
                 $w['name']=session('name');
                 $w['state']=1;
@@ -126,13 +143,24 @@ class AskAction extends CommAction {
 					
 					if($m1['position']=='校长'){//校长请假
                             $m2->state='运营审核';
-							$m2->gong=round((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600,1);
+                            $temp_count = floor(((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600)/0.5) * 0.5;
+                            if($temp_count){
+                            	$m2->gong=$temp_count;
+                            	$id=$m2->add();
+                            	if($id&&$this->text(7,'王胜鑫','有待处理的加班申请，请及时审核……'))$this->success('申请提交成功');
+                            }
+							/* $m2->gong=round((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600,1);
                             $id=$m2->add();
-                            if($id&&$this->text(7,'王胜鑫','有待处理的加班申请，请及时审核……'))$this->success('申请提交成功');
+                            if($id&&$this->text(7,'王胜鑫','有待处理的加班申请，请及时审核……'))$this->success('申请提交成功'); */
                     }else{
                     	
-						$m2->gong=round((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600,1);
-                    	if($m2->add()&&$this->tz('加班'))$this->success('申请提交成功');
+                    	$temp_count = floor(((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600)/0.5) * 0.5;
+                    	if($temp_count){
+                    		$m2->gong=$temp_count;
+                    		if($m2->add()&&$this->tz('加班'))$this->success('申请提交成功');
+                    	}
+						/* $m2->gong=round((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600,1);
+                    	if($m2->add()&&$this->tz('加班'))$this->success('申请提交成功'); */
 						
 					}
 					
