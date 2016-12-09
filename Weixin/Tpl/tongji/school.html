@@ -18,31 +18,45 @@
       <volist name="day" id="d">
         <div data-role="collapsible">
           <h3>第{$i}名： {$key}<a style="float:right;">{$d.合计}课时</a></h3>
-          <p>语文：{$d.语文}<php>$day['语文']+=$d['语文'];</php></p>
-          <p>数学：{$d.数学}<php>$day['数学']+=$d['数学'];</php></p>
-          <p>英语：{$d.英语}<php>$day['英语']+=$d['英语'];</php></p>
-          <p>政治：{$d.政治}<php>$day['政治']+=$d['政治'];</php></p>
-          <p>历史：{$d.历史}<php>$day['历史']+=$d['历史'];</php></p>
-          <p>地理：{$d.地理}<php>$day['地理']+=$d['地理'];</php></p>
-          <p>物理：{$d.物理}<php>$day['物理']+=$d['物理'];</php></p>
-          <p>化学：{$d.化学}<php>$day['化学']+=$d['化学'];</php></p>
-          <p>生物：{$d.生物}<php>$day['生物']+=$d['生物'];</php></p>
-          <p>合计：{$d.合计}<php>$day['合计']+=$d['合计'];</php></p>
+          <p>语文：{$d.语文}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['语文']-$yesteryear[$key]['语文'],2));</php></a> <php>$day['语文']+=$d['语文'];</php></p>
+          <p>数学：{$d.数学}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['数学']-$yesteryear[$key]['数学'],2));</php></a> <php>$day['数学']+=$d['数学'];</php></p>
+          <p>英语：{$d.英语}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['英语']-$yesteryear[$key]['英语'],2));</php></a> <php>$day['英语']+=$d['英语'];</php></p>
+          <p>政治：{$d.政治}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['政治']-$yesteryear[$key]['政治'],2));</php></a> <php>$day['政治']+=$d['政治'];</php></p>
+          <p>历史：{$d.历史}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['历史']-$yesteryear[$key]['历史'],2));</php></a> <php>$day['历史']+=$d['历史'];</php></p>
+          <p>地理：{$d.地理}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['地理']-$yesteryear[$key]['地理'],2));</php></a> <php>$day['地理']+=$d['地理'];</php></p>
+          <p>物理：{$d.物理}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['物理']-$yesteryear[$key]['物理'],2));</php></a> <php>$day['物理']+=$d['物理'];</php></p>
+          <p>化学：{$d.化学}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['化学']-$yesteryear[$key]['化学'],2));</php></a> <php>$day['化学']+=$d['化学'];</php></p>
+          <p>生物：{$d.生物}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['生物']-$yesteryear[$key]['生物'],2));</php></a> <php>$day['生物']+=$d['生物'];</php></p>
+          <p>合计：{$d.合计}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($d['合计']-$yesteryear[$key]['合计'],2));</php></a> <php>$day['合计']+=$d['合计'];</php></p>
+          
+          <p>历史数据：
+            <php>
+              echo(round($yesteryear[$key]['合计'],2));
+            </php>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;增长率：
+            <php>
+              echo((round(($d['合计']-$yesteryear[$key]['合计'])/$yesteryear[$key]['合计'],2)*100).'%');
+              $lishi_d+=round($yesteryear[$key]['合计'],2);
+            </php>
+          </p>
+          
         </div>
       </volist>
     </div>
     <div class="bg">
     <h3 class="tt">集团数据</h3>
-          <p>语文：{$day.语文}</p>
-          <p>数学：{$day.数学}</p>
-          <p>英语：{$day.英语}</p>
-          <p>政治：{$day.政治}</p>
-          <p>历史：{$day.历史}</p>
-          <p>地理：{$day.地理}</p>
-          <p>物理：{$day.物理}</p>
-          <p>化学：{$day.化学}</p>
-          <p>生物：{$day.生物}</p>
-          <p>合计：{$day.合计}</p>
+          <p>语文：{$day.语文}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['语文']-$yesteryear['语文'],2));</php></a> </p>
+          <p>数学：{$day.数学}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['数学']-$yesteryear['数学'],2));</php></a> </p>
+          <p>英语：{$day.英语}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['英语']-$yesteryear['英语'],2));</php></a> </p>
+          <p>政治：{$day.政治}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['政治']-$yesteryear['政治'],2));</php></a> </p>
+          <p>历史：{$day.历史}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['历史']-$yesteryear['历史'],2));</php></a> </p>
+          <p>地理：{$day.地理}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['地理']-$yesteryear['地理'],2));</php></a> </p>
+          <p>物理：{$day.物理}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['物理']-$yesteryear['物理'],2));</php></a> </p>
+          <p>化学：{$day.化学}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['化学']-$yesteryear['化学'],2));</php></a> </p>
+          <p>生物：{$day.生物}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['生物']-$yesteryear['生物'],2));</php></a> </p>
+          <p>合计：{$day.合计}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['合计']-$yesteryear['合计'],2));</php></a> </p>
+          
+          <p>历史数据：{$lishi_d}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;增长率：<php>echo((round(($day['合计']-$lishi_d)/$lishi_d,2)*100).'%');</php></p>
     </div>
   </div>
 

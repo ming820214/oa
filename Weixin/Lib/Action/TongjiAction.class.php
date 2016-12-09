@@ -159,7 +159,30 @@ class TongjiAction extends CommAction {
             $m2['合计']+=$v['a']+$v['b']+$v['c']+$v['d']+$v['e']+$v['f']+$v['g']+$v['h']+$v['i'];
         }
         $this->m2=$m2;
-
+		
+        //获取去年今天的数据
+        $wd['timee']=array('like',(date('Y',$time)-1).date('-m',$time).date('-d',$time));
+        $wd['state']=1;
+        $wd['cwqr'] = array(array('exp','is not null'),array('NEQ',''));
+        
+        $m=M('hw001.class',null)->where($wd)->order('school,timee,teacher,time1,grade')->group('school,timee,class,grade,time1,teacher,count')->getField('id,school,timee,class,grade,time1,teacher,count,cwqr',true);
+        foreach ($m as $j) {
+        
+        	// 阜新二部、阜新实验校区合并统计为阜新实验校区
+        	if($j['school']=='阜新二部' || $j['school']=='阜新实验校区'){
+        		$j['school']='阜新实验校区';
+        	}
+        
+        	if($j['school']!='集团'&&$j['school']!=''){
+        		$yesteryear[$j['school']][$j['class']]+=$j['count'];
+        		$yesteryear[$j['school']]['合计']+=$j['count'];
+        		$yesteryear[$j['class']]+=$j['count'];
+        		$yesteryear['合计']+=$j['count'];
+        	}
+        }
+         
+        $this->yesteryear = $yesteryear;
+        
         //获取去年数据
         $wc['timee']=array('like',(date('Y',$time)-1).date('-m',$time).'%');
         $wc['state']=1;
