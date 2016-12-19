@@ -161,7 +161,9 @@ class TongjiAction extends CommAction {
         $this->m2=$m2;
 		
         //获取去年今天的数据
-        $wd['timee']=array('like',(date('Y',$time)-1).date('-m',$time).date('-d',$time));
+//         $wd['timee']=array('like',(date('Y',$time)-1).date('-m',$time).date('-d',$time));
+        //获取上周今天的数据
+        $wd['timee']=array('like',(date('Y',($time-7*24*3600))-1).date('-m',($time-7*24*3600)).date('-d',($time-7*24*3600)));
         $wd['state']=1;
         $wd['cwqr'] = array(array('exp','is not null'),array('NEQ',''));
         
