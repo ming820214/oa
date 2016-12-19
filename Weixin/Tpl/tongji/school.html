@@ -54,7 +54,7 @@
           <p>物理：{$day.物理}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['物理']-$yesteryear['物理'],2));</php></a> </p>
           <p>化学：{$day.化学}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['化学']-$yesteryear['化学'],2));</php></a> </p>
           <p>生物：{$day.生物}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['生物']-$yesteryear['生物'],2));</php></a> </p>
-          <p>合计：{$day.合计}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['合计']-$yesteryear['合计'],2));</php></a> </p>
+          <p>合计：{$day.合计}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><php>echo(round($day['合计']-$lishi_d,2));</php></a> </p>
           
           <p>历史数据：{$lishi_d}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;增长率：<php>echo((round(($day['合计']-$lishi_d)/$lishi_d,2)*100).'%');</php></p>
     </div>
