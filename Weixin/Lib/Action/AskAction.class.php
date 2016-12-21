@@ -53,10 +53,12 @@ class AskAction extends CommAction {
                         if($m1['school']=='集团'){//集团成员请假
                             $m2->part=$m1['part'];
                             $m2->state='总裁审核';
-                            if(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+                            if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
                             	$m2->state= '主管审核';
                             }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
                             	$m2->part='教学中心';
+                            }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
+                            	$m2->part='总裁';
                             }
                         }
                         
@@ -94,7 +96,7 @@ class AskAction extends CommAction {
                     }else{
                         if($m1['school']=='集团'){//集团成员请假
                         	
-                        	if(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+                        	if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
                         		$d['state']= '主管审核';
                         	}else{
                         		$d['state']='总裁审核';
@@ -134,10 +136,12 @@ class AskAction extends CommAction {
                         $m2->part=$m1['part'];
                         $m2->state='总裁审核';
                         
-                        if(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+                        if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
                         	$m2->state= '主管审核';
                         }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
                         	$m2->part='教学中心';
+                        }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
+                            $m2->part='总裁';
                         }
                     }
 					
@@ -215,10 +219,12 @@ class AskAction extends CommAction {
                         $m2->part=$m1['part'];
                         $m2->state='总裁审核';
                         
-                    	if(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+                    	if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
                         	$m2->state= '主管审核';
                         }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
                         	$m2->part='教学中心';
+                        }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
+                            $m2->part='总裁';
                         }
                     }                
                     
@@ -280,10 +286,12 @@ class AskAction extends CommAction {
                     $m2->part=$m1['part'];
                     $m2->state='总裁审核';
                     
-                    if(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+                    if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
                     	$m2->state= '主管审核';
                     }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
                     	$m2->part='教学中心';
+                    }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
+                        $m2->part='总裁';
                     }
                 }                
                 
@@ -338,10 +346,12 @@ class AskAction extends CommAction {
             $w2['part']= $m['part'];
             $w2['position']='总裁';
             
-            if(in_array($m['part'],['师训部','初中部','教研部']) && $m1['position'] != '主管'){
+            if(in_array($m['part'],['师训部','组织部','初中部','教研部']) && $m['position'] != '主管'){
             	$w2['position']= '主管';
-            }elseif(in_array($m['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
+            }elseif(in_array($m['part'],['师训部','初中部','教研部']) && $m['position'] == '主管'){
             	$w2['part']= '教学中心';
+            }elseif(in_array($m['part'],['组织部']) && $m['position'] == '主管'){
+                $w2['part']= '总裁';
             }
             
             //if(session('name')=='张晓明')$w2=['name'=>'郝振华'];
@@ -376,8 +386,10 @@ class AskAction extends CommAction {
         }elseif(session('name')=='张毅'){
             // $w2['_string']="(state='总裁审核' AND part='教学中心') OR (state='人事确认') OR (state='总裁审核' AND part='人事中心')";
             $w2['_string']="(state='人事确认') OR (state='总裁审核' AND part='人事中心')";
-        }elseif(session('name')=='侯海洋' || session('name')=='张晓明'){
+        }elseif(session('name')=='侯海洋'){
             $w2['_string']="(state='总裁确认') OR (state='总裁审核' AND part='教学中心')";
+        }elseif(session('name')=='李文龙' || session('name')=='张晓明'){
+            $w2['_string']="(state='总裁审核' AND part='总裁')";
         }elseif(session('name')=='李明帅'){
             $w2['school']=['in','盘锦一完中校区,盘锦实验中学校区'];
             $w2['state']='校区审核';
@@ -404,7 +416,7 @@ class AskAction extends CommAction {
                 $w2['part']=$m['part'];
                 $w2['state']='总裁审核';
                 
-                if(in_array($m['part'],['师训部','初中部','教研部']) && $m['position'] == '主管'){
+                if(in_array($m['part'],['师训部','组织部','初中部','教研部']) && $m['position'] == '主管'){
                 	$w2['state']= '主管审核';
                 }
             }
