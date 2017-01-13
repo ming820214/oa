@@ -395,9 +395,10 @@ class AskAction extends CommAction {
         }else{
             $w2['position']='校长';
         }
-        if(in_array($m['school'],['盘锦一完中校区','盘锦实验中学校区'])){
+        
+        /*if(in_array($m['school'],['盘锦一完中校区','盘锦实验中学校区'])){
         	$w2=['name'=>'李明帅'];
-        }
+        }*/
         
         if(in_array($m['school'],['锦州中学校区','锦州附中校区'])){
         	$w2=['name'=>'孙旭'];
