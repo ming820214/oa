@@ -92,7 +92,12 @@ class AskAction extends CommAction {
             $info=$this->upload();//文件上传保存
             if($info[0]){
                 $w['id']=$_POST['id'];
-                $m1=M('person_ask')->where($w)->find();
+//                 $m1=M('person_ask')->where($w)->find();
+                //查询该员工信息
+                $w2['name']=session('name');
+                $w2['state']=1;
+                $m1=M('person_all')->where($w2)->find();
+                
                 $m2=M('person_ask');
                 if($info[0])$d['pic1']=$info[0]['savename'];
                 if($info[1])$d['pic2']=$info[1]['savename'];
@@ -443,10 +448,10 @@ class AskAction extends CommAction {
         }elseif(session('name')=='孙旭'){
             $w2['school']=['in','锦州中学校区,锦州附中校区'];
             $w2['state']='校区审核';
-        }elseif(session('name') == '张晓明'){
+        }/* elseif(session('name') == '张晓明'){
             $w2['school']=['in','集团'];
             $w2['state']='总裁审核';
-        }else{
+        } */else{
             $m=M('person_all')->where($w)->find();
             $w2['school']=$m['school'];
             $w2['state']='校区审核';
