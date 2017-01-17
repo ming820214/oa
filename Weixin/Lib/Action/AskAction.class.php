@@ -431,7 +431,7 @@ class AskAction extends CommAction {
             $w2['_string']="(state='人事确认') OR (state='总裁审核' AND part='人事中心')";
         }elseif(session('name')=='侯海洋'){
             $w2['_string']="(state='总裁确认') OR (state='总裁审核' AND part='教学中心')";
-        }elseif(session('name')=='李文龙' || session('name')=='张晓明'){
+        }elseif(session('name')=='李文龙' ){
             $w2['_string']="(state='总裁审核' AND part='总裁') OR (state='总裁审核' AND school='长颈鹿项目')";
         }/* elseif(session('name')=='李明帅'){
             $w2['school']=['in','盘锦一完中校区,盘锦实验中学校区'];
