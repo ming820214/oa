@@ -11,7 +11,7 @@ class ChpAction extends CommAction {
 		$condition['user_id'] = session('pid');
 		
 		$worth = $mod->where($condition)->sum('worth'); //剩余积分
-		$this->worth = $worth;
+		$this->worth = $worth?$worth:0;
 		
 		$condition['record_type'] = 1;
 		
@@ -19,7 +19,7 @@ class ChpAction extends CommAction {
 		
 		$score = $mod->where($condition)->sum('worth'); //累计获得积分
 		
-		$this->score = $score;
+		$this->score = $score?$score:0;
 		
 		foreach ($list as &$v) {//跟踪人
 			if($v['record_type'] == 1){
@@ -92,7 +92,7 @@ class ChpAction extends CommAction {
 		
 		$this->consume_list = $consume_list;
 		
-		$this->consume_score = -$consume_score;
+		$this->consume_score = -$consume_score?$consume_score:0;
 		
 		$this->display();
 	}
