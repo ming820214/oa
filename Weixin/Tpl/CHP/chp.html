@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/jquerymobile/1.3.0/jquery.mobile-1.3.0.min.js"></script> -->
+
+<link rel="stylesheet" href="../Public/mobile/jquery.mobile-1.3.2.min.css">
+<script src="../Public/mobile/jquery-1.12.4.min.js"></script>
+<script src="../Public/mobile/jquery.mobile-1.3.2.min.js"></script>
+
+</head>
+<body>
+
+<div data-role="collapsible-set" data-theme="c" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+	<!-- 积分兑换 -->
+	<div data-role="collapsible" data-theme="e" data-content-theme="d" class="exchange">
+        <h3>积分兑换</h3>
+        
+        <form id="exchange_form" action="{:U('exchange')}" method="post" data-ajax="false">
+		    <ul data-role="listview" data-inset="true">
+		        <li data-role="fieldcontain">
+		            <label for="name2">目前可用积分：</label>
+		            {$worth}
+		        </li>
+		       
+		        <li data-role="fieldcontain">
+		        	<fieldset data-role="controlgroup" data-type="horizontal">
+					    <legend>奖励礼品选择:</legend>
+					    <label for="scheme" class="select">奖励方案:</label>
+						<select name="scheme" id="scheme" data-native-menu="false" required="required">
+							<option value=''>请选择</option>
+						    <volist  name="scheme_list" id="mo">
+						    	<option value="{$mo.id}">{$mo.name}</option>
+						    </volist>
+						</select>
+					    <label for="item1" class="select">奖励类别:</label>
+						<select name="item1" id="item1" data-native-menu="false" required="required">
+						    
+						</select>
+					    <label for="item2" class="select">奖励项:</label>
+						<select name="item2" id="item2" data-native-menu="false" required="required">
+						    
+						</select>
+					</fieldset>
+		        </li>
+		        
+		        <li data-role="fieldcontain">
+		            <label for="worth"> 共需积分：</label>
+		            <input type="text" name="worth" id="worth" readonly="readonly"/>
+		        </li>
+		        
+		        <li data-role="fieldcontain">
+		            <label for="descp">备注:</label>
+		        <textarea cols="40" rows="8" name="descp" id="descp"></textarea>
+		        </li>
+		        
+		        <li class="ui-body ui-body-b">
+		            <fieldset class="ui-grid-a">
+		                    <div class="ui-block-a"><button type="button" id="btn_cancel" data-theme="a">取消</button></div>
+		                    <div class="ui-block-b"><button type="submit" data-theme="e">兑换</button></div>
+		            </fieldset>
+		        </li>
+		    </ul>
+		    
+		</form>
+        
+    </div>
+    <!-- 积分累计 -->
+    <div data-role="collapsible" data-theme="b" data-content-theme="b">
+        <h3>累计共获得积分：{$score}</h3>
+		<table data-role="table" id="table-custom-2" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="e" data-column-btn-text="显示列设置..." data-column-popup-theme="a">
+         <thead>
+           <tr class="ui-bar-d">
+             <th data-priority="2">序号</th>
+             <th>明细描述</th>
+             <th>积分值</th>
+             <th data-priority="5">积分方案</th>
+             <th data-priority="3">积分项1</th>
+             <th data-priority="4">积分项2</th>
+           </tr>
+         </thead>
+         <tbody>
+         <volist  name="list" id="data" empty="暂时没有数据" >
+           <tr>
+             <th>{$i}</th>
+             <td>{$data.descp}</td>
+             <td>{$data.worth}</td>
+             <td>{$data.scheme}</td>
+             <td>{$data.item1}</td>
+             <td>{$data.item2}</td>
+           </tr>
+          </volist>
+         </tbody>
+       </table>
+    </div>
+    <!-- 兑换记录 -->
+    <div data-role="collapsible" data-theme="a" data-content-theme="b">
+        <h3>累计消耗积分：{$consume_score}</h3>
+        <table data-role="table" id="table-custom-3" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="e" data-column-btn-text="显示列设置..." data-column-popup-theme="a">
+         <thead>
+           <tr class="ui-bar-d">
+             <th data-priority="2">序号</th>
+             <th>兑换状态</th>
+             <th>明细描述</th>
+             <th>奖励</th>
+             <th>消耗的积分</th>
+             <th data-priority="4">积分奖励方案</th>
+             <th data-priority="3">积分奖励类别</th>
+             
+           </tr>
+         </thead>
+         <tbody>
+         <volist  name="consume_list" id="obj" key="k" empty="暂时没有数据" >
+           <tr>
+             <th>{$k}</th>
+             <td>{$obj.flag}</td>
+             <td>{$obj.descp}</td>
+             <td>{$obj.item2}</td>
+             <td>{$obj.worth}</td>
+             <td>{$obj.scheme}</td>
+             <td>{$obj.item1}</td>
+           </tr>
+          </volist>
+         </tbody>
+       </table>
+    </div>
+</div>
+
+<div data-role="content"> 
+  <a id="warning_dialog" style="display:none;" href="dialog.html" data-role="button" data-inline="true" data-rel="dialog" data-transition="pop">Warning!</a>
+
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+
+	
+	//$.mobile.selectmenu.prototype.options.hidePlaceholderMenuItems = false;
+	$('#scheme').on('change',function(){
+  		if(!$(this).val()){
+  			$('#item1').empty();
+  			$('#item2').empty();
+  			$('#worth').val('');
+  		}else{
+  			$.ajax({
+  	  			type:'post',
+  	  			async: false,
+  	  			url:'{:U('getItems')}',
+  	  			data:{pid:$(this).val()},
+  	  			success:function(msg){
+  	  			
+  	  				if(msg && msg.data.length>0){
+  	  					$('#item1').empty();
+  	  					$('#item2').empty();
+  	  					$('#item1').append("<option value=''>请选择</option>");
+  	  					$.each(msg.data,function(i,n){
+  	  						if(n['leaf'] == 1){
+  	  							$('#item1').append("<option value='" + n['id'] + "' worth='" + n['worth'] + "'>" + n['name'] + "</option>");
+  	  						$('#item2').removeAttr('required');
+  	  						}else{
+  	  							$('#item1').append("<option value='" + n['id'] + "' >" + n['name'] + "</option>");
+  	  						$('#item2').attr('required','required');
+  	  						}
+  	  					
+  	  					});
+  	  				$('#item1').selectmenu( "refresh" );
+	  				$('#item2').selectmenu( "refresh" );
+  	  				}
+  	  				
+  	  			}
+  	  		});
+  		}
+  		
+  	});
+  	
+  	
+  	$('#item1').on('change',function(){
+  		
+  		if(!$(this).val()){
+  			$('#item2').empty();
+  			$('#worth').val('');
+  		}else{
+  			if(!$(this).find("option:selected").attr('worth')){
+  	  			$.ajax({
+  		  			type:'post',
+  		  			async: false,
+  		  			url:'{:U('getItems')}',
+  		  			data:{pid:$(this).val()},
+  		  			success:function(msg){
+  		  				
+  		  				if(msg && msg.data.length>0){
+  		  				$('#item2').empty();
+  		  				$('#item2').append("<option value=''>请选择</option>");
+  		  					$.each(msg.data,function(i,n){
+  		  						
+  		  					if(n['leaf'] == 1){
+  	  							$('#item2').append("<option value='" + n['id'] + "' worth='" + n['worth'] + "'>" + n['name'] + "</option>");	
+  	  						}else{
+  	  							$('#item2').append("<option value='" + n['id'] + "' >" + n['name'] + "</option>");
+  	  						}
+  		  					
+	  	  					$('#item2').selectmenu( "refresh" );
+  		  					});
+  		  				}
+  		  			}
+  		  		});
+  	  		}else{
+  	  			$('#worth').val($(this).find("option:selected").attr('worth'));
+  	  		}
+  		}
+		});
+  	
+  	
+  	$('#item2').on('change',function(){
+  		
+  		if($(this).val() && $(this).find("option:selected").attr('worth')){
+  			$('#worth').val($(this).find("option:selected").attr('worth'));
+  		}else{
+  			$('#worth').val('');
+  		}
+  	});
+	
+});
+	
+	$('#btn_cancel').on('click',function(){
+		$("#exchange_form")[0].reset();
+		$(".exchange").trigger("collapse");
+	});
+
+	$('#warning_dialog').click();
+
+	$("#exchange_form").submit(function(){
+		
+		if({$worth}<$('#worth').val()){
+			//alert("可用积分不足，请选择其他奖励！");
+			$('#warning_dialog').trigger('click');
+			return false;
+		}
+	});
+</script>
+
+
+
+</body>
+</html>
