@@ -22,8 +22,13 @@
         <form id="exchange_form" action="{:U('exchange')}" method="post" data-ajax="false">
 		    <ul data-role="listview" data-inset="true">
 		        <li data-role="fieldcontain">
-		            <label for="name2">目前可用积分：</label>
+		            <label for="name2">目前剩余积分：</label>
 		            {$worth}
+		        </li>
+		        
+		        <li data-role="fieldcontain">
+		            <label for="name2">本月可用积分：</label>
+		            {$use_worth}
 		        </li>
 		       
 		        <li data-role="fieldcontain">
@@ -234,7 +239,7 @@ $(function(){
 
 	$("#exchange_form").submit(function(){
 		
-		if({$worth}<$('#worth').val()){
+		if({$use_worth}<$('#worth').val()){
 			//alert("可用积分不足，请选择其他奖励！");
 			$('#warning_dialog').trigger('click');
 			return false;
