@@ -35,6 +35,7 @@ class CommAction extends Action {
                 session('pid',$pid['id']);
 				session('name',$pid['name']);
 				session('userid',$info['UserId']);
+                session('school_s',$pid['school']);
 		    }else{
 		    	  echo("没有获取到员工信息");
 		    	  exit;
