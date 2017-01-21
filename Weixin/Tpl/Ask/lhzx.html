@@ -43,10 +43,18 @@
             return;
           }
           
-          if($.trim($("#date").val()) != $('#time1').val().substr(0,10) || $.trim($("#date").val()) != $('#time2').val().substr(0,10)){
-          	alert("注意：申请日期要和上班、下班日期一致！");
-            return;
+          if(('阜新市高校区' == '{$_SESSION['school_s']}') || ('阜新实验校区' == '{$_SESSION['school_s']}')){
+        	  if($.trim($("#date").val()) != $('#time1').val().substr(0,10)){
+                	alert("注意：申请日期要和上班日期一致！");
+                  return;
+                }
+          }else{
+        	  if($.trim($("#date").val()) != $('#time1').val().substr(0,10) || $.trim($("#date").val()) != $('#time2').val().substr(0,10)){
+                	alert("注意：申请日期要和上班、下班日期一致！");
+                  return;
+                }	  
           }
+          
           var t1 = $('#time1').val();
           var t2 = $('#time2').val();
           
