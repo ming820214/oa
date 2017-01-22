@@ -45,7 +45,11 @@
     <!-- 积分累计 -->
     <div data-role="collapsible" data-theme="b" data-content-theme="b">
         <h3>综合荣誉值：{$score}</h3>
+        <if condition="$self_position gt 1">
         <b>您目前的荣誉值位列积分榜第{$self_position}位，与前者相差{$prev_gap}荣誉值</b>
+        <else/>
+          <b>您目前的荣誉值位列积分榜第{$self_position}位！</b>
+        </if>
 		    <table data-role="table" id="table-custom-2" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="e" data-column-btn-text="显示列设置..." data-column-popup-theme="a">
          <thead>
            <tr class="ui-bar-d">

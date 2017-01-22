@@ -28,7 +28,7 @@ class ChpAction extends CommAction {
 			$worth_list[$key]['school'] = M('person_all')->where(['id'=>$m['user_id']])->getField('school');
 		}
 		
-		$prev_gap = $worth_list[$self_postion-1]['score']-$worth;
+		$prev_gap = $self_postion?($worth_list[$self_postion-1]['score']-$worth):0;
 		
 		//本人排行位置
 		$this->self_position = $self_postion+1;
