@@ -13,6 +13,31 @@ class ChpAction extends CommAction {
 		$worth = $mod->where($condition)->sum('worth'); //剩余积分
 		$this->worth = $worth?$worth:0;
 		
+		$self_postion = 0;
+		$prev_gap = 0;
+		
+		//积分排行榜
+		
+		$worth_list = $mod->where(['is_del'=>1])->group('user_id')->field('user_id,sum(worth) as score')->order('score DESC')->select();
+		
+		foreach($worth_list as $key=>$m){
+			if($m['user_id'] == session('pid')){
+				$self_postion = $key;
+			}
+			$worth_list[$key]['user_id'] =  M('person_all')->where(['id'=>$m['user_id']])->getField('name');
+		}
+		
+		$prev_gap = $worth_list[$self_postion-1]['score']-$worth;
+		
+		//本人排行位置
+		$this->self_position = $self_postion+1;
+		//本人与上一位的荣誉值差距
+		$this->prev_gap = $prev_gap;
+		
+		//积分排行榜
+		$this->worth_list = $worth_list;
+		
+		
 		$model = new Model();
 		//本月可使用的积分总数
 		$can_use_worth = $model->query("select sum(worth) as use_worth from (select  id, user_id, record_type, scheme, item1, item2, descp, worth, flag, is_del, creator, create_time, updator, update_time,year(create_time) as `year`,month(create_time) as `month` from hongwen_oa.oa_chp_info where 1=1 and is_del = 1 and user_id=" . session('pid') . " ) as sub_sel  where ((`year`<" . date('Y') . ") OR (`month`<" . date('n') . ")) OR (record_type=2) ");
@@ -101,7 +126,7 @@ class ChpAction extends CommAction {
 		
 		$this->consume_list = $consume_list;
 		
-		$this->consume_score = -$consume_score?$consume_score:0;
+		$this->consume_score = -$consume_score?(-$consume_score):0;
 		
 		$this->display();
 	}
@@ -137,6 +162,7 @@ class ChpAction extends CommAction {
 			$mod->user_id = session('pid');
 			$mod->creator=session('pid');
 			$mod->create_time = date('Y-m-d H:i:s');
+			$mod->exchange_time = date('Y-m-d H:i:s');
 			$mod->flag = 1;
 			$mod->is_del = 1;
 			
