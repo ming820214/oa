@@ -23,7 +23,7 @@
          <thead>
            <tr class="ui-bar-d">
              <th>名次</th>
-             <th>校区</th>
+             <th data-priority="1">校区</th>
              <th>姓名</th>
              <th>综合荣誉值</th>
            </tr>
@@ -32,7 +32,7 @@
          <volist  name="worth_list" id="oo" key="m" empty="暂时没有数据" offset="0" length="10">
            <tr>
              <th>{$m}</th>
-             <td data-priority="1">{$oo.school}</td>
+             <td>{$oo.school}</td>
              <td>{$oo.user_id}</td>
              <td>{$oo.score}</td>
            </tr>
