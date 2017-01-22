@@ -18,19 +18,21 @@
 	
 	<!-- 集团综合荣誉值排行榜 -->
     <div data-role="collapsible" data-theme="b" data-content-theme="b">
-        <h3>集团综合荣誉值排行榜</h3>
+        <h3>综合荣誉值排行榜</h3>
         <table data-role="table" id="table-custom-1" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="e" data-column-btn-text="显示列设置..." data-column-popup-theme="a">
          <thead>
            <tr class="ui-bar-d">
              <th>名次</th>
+             <th>校区</th>
              <th>姓名</th>
              <th>综合荣誉值</th>
            </tr>
          </thead>
          <tbody>
-         <volist  name="worth_list" id="oo" key="m" empty="暂时没有数据" >
+         <volist  name="worth_list" id="oo" key="m" empty="暂时没有数据" offset="0" length="10">
            <tr>
              <th>{$m}</th>
+             <td data-priority="1">{$oo.school}</td>
              <td>{$oo.user_id}</td>
              <td>{$oo.score}</td>
            </tr>
@@ -42,13 +44,14 @@
 
     <!-- 积分累计 -->
     <div data-role="collapsible" data-theme="b" data-content-theme="b">
-        <h3>综合荣誉值：{$score}  &nbsp;&nbsp;&nbsp;&nbsp; 积分榜第{$self_position}位，与前一位差{$prev_gap}荣誉值</h3>
+        <h3>综合荣誉值：{$score}&nbsp;&nbsp;积分榜第{$self_position}位，与前者差{$prev_gap}荣誉值</h3>
 		<table data-role="table" id="table-custom-2" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="e" data-column-btn-text="显示列设置..." data-column-popup-theme="a">
          <thead>
            <tr class="ui-bar-d">
              <th data-priority="2">序号</th>
              <th>明细描述</th>
              <th>积分值</th>
+             <th data-priority="1">获得时间</th>
              <th data-priority="5">积分方案</th>
              <th data-priority="3">积分项1</th>
              <th data-priority="4">积分项2</th>
@@ -60,6 +63,7 @@
              <th>{$i}</th>
              <td>{$data.descp}</td>
              <td>{$data.worth}</td>
+             <td>{$data.create_time}</td>
              <td>{$data.scheme}</td>
              <td>{$data.item1}</td>
              <td>{$data.item2}</td>
