@@ -15,7 +15,6 @@ class ChpAction extends CommAction {
 		
 		$self_postion = 0;
 		$prev_gap = 0;
-		
 		//积分排行榜
 		
 		$worth_list = $mod->where(['is_del'=>1])->group('user_id')->field('user_id,sum(worth) as score')->order('score DESC')->select();
@@ -28,12 +27,18 @@ class ChpAction extends CommAction {
 			$worth_list[$key]['school'] = M('person_all')->where(['id'=>$m['user_id']])->getField('school');
 		}
 		
-		$prev_gap = $self_postion?($worth_list[$self_postion-1]['score']-$worth):0;
+		if($worth_list){
+			$prev_gap = $self_postion?($worth_list[$self_postion-1]['score']-$worth):0;
+		}else{
+			$prev_gap = -1;
+		}
+		
 		
 		//本人排行位置
 		$this->self_position = $self_postion+1;
 		//本人与上一位的荣誉值差距
 		$this->prev_gap = $prev_gap;
+		
 		
 		//积分排行榜
 		$this->worth_list = $worth_list;
