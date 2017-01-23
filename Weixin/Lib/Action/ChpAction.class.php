@@ -15,6 +15,7 @@ class ChpAction extends CommAction {
 		
 		$self_postion = 0;
 		$prev_gap = 0;
+		$flag = false;
 		//积分排行榜
 		
 		$worth_list = $mod->where(['is_del'=>1])->group('user_id')->field('user_id,sum(worth) as score')->order('score DESC')->select();
@@ -22,6 +23,7 @@ class ChpAction extends CommAction {
 		foreach($worth_list as $key=>$m){
 			if($m['user_id'] == session('pid')){
 				$self_postion = $key;
+				$flag = true;
 			}
 			$worth_list[$key]['user_id'] =  M('person_all')->where(['id'=>$m['user_id']])->getField('name');
 			$worth_list[$key]['school'] = M('person_all')->where(['id'=>$m['user_id']])->getField('school');
@@ -33,6 +35,8 @@ class ChpAction extends CommAction {
 			$prev_gap = -1;
 		}
 		
+		//标志自己是否有积分
+		$this->flag = $flag;
 		
 		//本人排行位置
 		$this->self_position = $self_postion+1;

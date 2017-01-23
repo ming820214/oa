@@ -47,7 +47,7 @@
         <h3>综合荣誉值：{$score}</h3>
         <if condition="($self_position gt 1)">
         <b>您目前的荣誉值位列积分榜第{$self_position}位，与前者相差{$prev_gap}荣誉值</b>
-        <elseif condition="($prev_gap lt 0)"/>
+        <elseif condition="($flag eq false)"/>
           <b>您目前暂无荣誉值，故未进积分榜！</b><br/><br/>
          <else/>
 			<b>您目前的荣誉值位列积分榜第{$self_position}位！</b>         
