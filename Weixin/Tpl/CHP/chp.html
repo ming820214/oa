@@ -118,6 +118,7 @@
         <h3>积分兑换 &nbsp;&nbsp;&nbsp;&nbsp; 目前剩余积分：{$worth}</h3>
         
         <form id="exchange_form" action="{:U('exchange')}" method="post" data-ajax="false">
+        	
 		    <ul data-role="listview" data-inset="true">
 		        
 		        <li data-role="fieldcontain">
@@ -128,13 +129,15 @@
 		        <li data-role="fieldcontain">
 		        	<fieldset data-role="controlgroup" data-type="vertical">
 					    <legend>奖励礼品选择:</legend>
-					    <label for="scheme" class="select">奖励方案:</label>
-						<select name="scheme" id="scheme" data-native-menu="false" required="required">
-							<option value=''>请选择</option>
-						    <volist  name="scheme_list" id="mo">
-						    	<option value="{$mo.id}">{$mo.name}</option>
-						    </volist>
-						</select>
+					    <div style="display:none;">
+					     	<label for="item1" class="select">奖励方案:</label>			
+							<select name="scheme" id="scheme" data-native-menu="false" required="required">
+								<option value=''>请选择</option>
+							    <volist  name="scheme_list" id="mo">
+							    	<option value="{$mo.id}">{$mo.name}</option>
+							    </volist>
+							</select>
+						</div>
 					    <label for="item1" class="select">奖励类别:</label>
 						<select name="item1" id="item1" data-native-menu="false" required="required">
 						    
@@ -180,10 +183,16 @@
 <script type="text/javascript">
 
 $(function(){
-
+	
+	
+	$("#exchange").children(":eq(3)").on('expand',function(){
+		$('#scheme').val(53); //积分奖励方案
+		$('#scheme').trigger('change');
+	});
 	
 	//$.mobile.selectmenu.prototype.options.hidePlaceholderMenuItems = false;
 	$('#scheme').on('change',function(){
+				
   		if(!$(this).val()){
   			$('#item1').empty();
   			$('#item2').empty();
@@ -274,7 +283,7 @@ $(function(){
 		$("#exchange").children(":eq(3)").trigger( "collapse" );
 	}); 
 
-
+		
 	$("#exchange_form").submit(function(){
 		
 		if({$use_worth}<$('#worth').val()){
@@ -283,6 +292,8 @@ $(function(){
 			return false;
 		}
 	});
+	
+	
 </script>
 
 
