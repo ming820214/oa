@@ -92,7 +92,7 @@ class ChpAction extends CommAction {
 		$condition['record_type'] = 2; //积分兑换
 		$condition['flag'] = array('in','1,2'); //积分兑换
 		
-		$consume_list=$mod->where($condition)->limit($pageNumber,$pageCount)->select();
+		$consume_list=$mod->where($condition)->order('flag')->limit($pageNumber,$pageCount)->select();
 		
 		unset($v);
 		
@@ -102,14 +102,15 @@ class ChpAction extends CommAction {
 			}else if($v['record_type'] == 2){
 				$v['record_type'] = "兑换";
 			}
-		
+			
 			if($v['flag'] == 1){
 				$v['flag'] = "申请积分兑换";
 			}else if($v['flag'] == 2){
 				$v['flag'] = "兑换完成";
 			}else{
 				$v['flag'] = null;
-			}
+			}	
+			
 		
 			$v['scheme'] = M('hongwen_oa.chpDictionary','oa_')->where(['id'=>$v['scheme']])->getField('name');
 			$v['item1'] = M('hongwen_oa.chpDictionary','oa_')->where(['id'=>$v['item1']])->getField('name');
@@ -123,8 +124,41 @@ class ChpAction extends CommAction {
 		
 		}
 		
-		$consume_score = $mod->where($condition)->sum('worth'); //累计获得积分
+		//$condition['is_del'] = 1; //兑换申请以及退回记录
+		$consume_score = $mod->where($condition)->sum('worth'); //累计消耗积分
 		
+		$condition['is_del'] = 3; //兑换申请以及退回记录
+		
+		$return_list=$mod->where($condition)->limit($pageNumber,$pageCount)->select();
+		
+		unset($v);
+		foreach ($return_list as &$v) {//跟踪人
+			if($v['record_type'] == 1){
+				$v['record_type'] = "积分";
+			}else if($v['record_type'] == 2){
+				$v['record_type'] = "兑换";
+			}
+				
+			$v['flag'] = '积分兑换退回';
+				
+		
+			$v['scheme'] = M('hongwen_oa.chpDictionary','oa_')->where(['id'=>$v['scheme']])->getField('name');
+			$v['item1'] = M('hongwen_oa.chpDictionary','oa_')->where(['id'=>$v['item1']])->getField('name');
+			if($v['item2']){
+				$v['item2'] = M('hongwen_oa.chpDictionary','oa_')->where(['id'=>$v['item2']])->getField('name');
+			}else{
+				$v['item2'] = null;
+			}
+				
+			$v['worth'] = -$v['worth']; //消耗积分转正显示
+		
+		}
+		
+		$this->return_list = $return_list; //退回的记录
+		
+		$return_count = $mod->where($condition)->count(); //累计消耗积分
+		
+		$this->return_count = $return_count; //退回的记录数
 		
 		//CHP积分方案列表
 		$scheme_list = M('hongwen_oa.chpDictionary','oa_')->where("pid=0 and is_del=1 and `group`=2 ")->order('`sort`')->select();

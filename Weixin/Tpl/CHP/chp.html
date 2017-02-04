@@ -113,6 +113,42 @@
        </table>
     </div>
 
+    <!-- 兑换退回记录 -->
+    <div data-role="collapsible" data-theme="b" data-content-theme="b">
+        <h3>兑换退回记录：{$return_count}</h3>
+        <table data-role="table" id="table-custom-4" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="e" data-column-btn-text="显示列设置..." data-column-popup-theme="a">
+         <thead>
+           <tr class="ui-bar-d">
+             <th data-priority="2">序号</th>
+             <th data-priority="5">兑换状态</th>
+             <th>退回原因</th>
+             <th>明细描述</th>
+             <th>奖励</th>
+             <th>消耗的积分</th>
+             <th data-priority="1">兑换申请时间</th>
+             <th data-priority="4">积分奖励方案</th>
+             <th data-priority="3">积分奖励类别</th>
+             
+           </tr>
+         </thead>
+         <tbody>
+         <volist  name="return_list" id="obj2" key="g" empty="暂时没有数据" >
+			<tr>           
+             <th>{$g}</th>
+             <td>{$obj2.flag}</td>
+             <td>{$obj2.reason}</td>
+             <td>{$obj2.descp}</td>
+             <td>{$obj2.item2}</td>
+             <td>{$obj2.worth}</td>
+             <td>{$obj2.exchange_time}</td>
+             <td>{$obj2.scheme}</td>
+             <td>{$obj2.item1}</td>
+           </tr>
+          </volist>
+         </tbody>
+       </table>
+    </div>
+    
 	<!-- 积分兑换 -->
 	<div data-role="collapsible" data-theme="e" data-content-theme="d">
         <h3>积分兑换 &nbsp;&nbsp;&nbsp;&nbsp; 目前剩余积分：{$worth}</h3>
