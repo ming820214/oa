@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>鸿文教育集团</title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <style>
+  html, body { padding: 0; margin: 0; }
+  html, .ui-mobile, .ui-mobile body {
+      height: 415px;
+  }
+  .ui-mobile, .ui-mobile .ui-page {
+      min-height: 415px;
+  }
+  .ui-content{
+    padding:10px 15px 0px 15px;
+  }
+  </style>
+
+</head> 
+<body>
+<div data-role="page" id="page-success" data-dom-cache="true"><!-- page-->
+		<div data-role="header" data-theme="a">
+			<h1>{$user_name}——{$school}</h1>
+
+		</div><!-- /header -->
+
+		<div data-role="content" data-theme="d">
+		<a href="chp" data-role="button" data-theme="b" data-rel="back" data-inline="true">返回</a>
+			<table data-role="table" id="table-custom-1" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="e" data-column-btn-text="显示列设置..." data-column-popup-theme="a">
+	         <thead>
+	           <tr class="ui-bar-d">
+	             <th data-priority="1">序号</th>
+	             <th data-priority="2">方案</th>
+	             <th >积分项1</th>
+	             <th data-priority="4">积分项2</th>
+	             <th>综合荣誉值</th>
+	             <th>描述</th>
+	             <th data-priority="3">积分时间</th>
+	           </tr>
+	         </thead>
+	         <tbody>
+	         <volist  name="list" id="obj" key="n" empty="暂时没有数据" offset="0" length="10">
+	           <tr>
+	             <th>{$n}</th>
+	             <td>{$obj.scheme}</td>
+	             <td>{$obj.item1}</td>
+	             <td>{$obj.item2}</td>
+	             <td>{$obj.worth}</td>
+	             <th>{$obj.descp}</th>
+	             <th>{$obj.create_time}</th>
+	           </tr>
+	          </volist>
+	         </tbody>
+	       </table>
+		</div>
+
+		<div data-role="footer" data-theme="d">
+			
+		</div><!-- /footer -->
+	</div>
+ 
+</body>
+</html>

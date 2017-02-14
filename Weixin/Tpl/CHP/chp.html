@@ -10,12 +10,14 @@
 <link rel="stylesheet" href="../Public/mobile/jquery.mobile-1.3.2.min.css">
 <script src="../Public/mobile/jquery-1.12.4.min.js"></script>
 <script src="../Public/mobile/jquery.mobile-1.3.2.min.js"></script>
+<style type="text/css">
+	.ui-page { -webkit-backface-visibility: hidden; }
 
+</style>
 </head>
 <body>
 
 <div id="exchange" data-role="collapsible-set" data-theme="c" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	
 	<!-- 集团综合荣誉值排行榜 -->
     <div data-role="collapsible" data-theme="b" data-content-theme="b">
         <h3>综合荣誉值排行榜</h3>
@@ -33,7 +35,7 @@
            <tr>
              <th>{$m}</th>
              <td>{$oo.school}</td>
-             <td>{$oo.user_id}</td>
+             <td><a href="detail.html?param={$oo.user_id}" data-role="link" data-transition="slidedown" data-inline="true">{$oo.user_name}</a></td>
              <td>{$oo.score}</td>
            </tr>
           </volist>
@@ -212,15 +214,14 @@
 </div>
     
 <div data-role="content"> 
-  <a id="warning_dialog" style="display:none;" href="dialog.html" data-role="button" data-inline="true" data-rel="dialog" data-transition="pop">Warning!</a>
+  <a id="warning_dialog" style="display:none;" href="dialog.html" data-role="button" data-inline="true" data-rel="dialog" data-transition="pop">警告!</a>
 
 </div>
 
 <script type="text/javascript">
 
 $(function(){
-	
-	
+
 	$("#exchange").children(":eq(4)").on('expand',function(){
 		$('#scheme').val(53); //积分奖励方案
 		$('#scheme').trigger('change');

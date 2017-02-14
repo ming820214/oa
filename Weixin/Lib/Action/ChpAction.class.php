@@ -4,6 +4,53 @@ class ChpAction extends CommAction {
 	private $pageNumber=0;
 	private $pageCount=10000;
 	
+	public function detail(){
+
+		$mod = M('hongwen_oa.chpInfo','oa_');
+		$condition['is_del'] = 1; //正常记录
+		$condition['user_id'] = $_GET['param'];
+		$condition['record_type'] = 1;
+		
+		$list=$mod->where($condition)->limit($pageNumber,$pageCount)->select();
+		
+		$score = $mod->where($condition)->sum('worth'); //累计获得积分
+		
+		$this->score = $score?$score:0;
+		
+		foreach ($list as &$v) {//跟踪人
+			if($v['record_type'] == 1){
+				$v['record_type'] = "积分";
+			}else if($v['record_type'] == 2){
+				$v['record_type'] = "兑换";
+			}
+		
+			if($v['flag'] == 1){
+				$v['flag'] = "申请积分兑换";
+			}else if($v['flag'] == 2){
+				$v['flag'] = "兑换完成";
+			}else{
+				$v['flag'] = null;
+			}
+			
+			$v['user_name'] =  M('person_all')->where(['id'=>$v['user_id']])->getField('name');
+			$v['school'] = M('person_all')->where(['id'=>$v['user_id']])->getField('school');
+
+			$this->school = $v['school'];
+			$this->user_name = $v['user_name'];
+			
+			$v['scheme'] = M('hongwen_oa.chpDictionary','oa_')->where(['id'=>$v['scheme']])->getField('name');
+			$v['item1'] = M('hongwen_oa.chpDictionary','oa_')->where(['id'=>$v['item1']])->getField('name');
+			if($v['item2']){
+				$v['item2'] = M('hongwen_oa.chpDictionary','oa_')->where(['id'=>$v['item2']])->getField('name');
+			}else{
+				$v['item2'] = null;
+			}
+		}
+		
+		$this->list=$list;
+		$this->display();
+	}
+
 	public function chp(){
 		
 		$mod = M('hongwen_oa.chpInfo','oa_');
@@ -25,7 +72,7 @@ class ChpAction extends CommAction {
 				$self_postion = $key;
 				$flag = true;
 			}
-			$worth_list[$key]['user_id'] =  M('person_all')->where(['id'=>$m['user_id']])->getField('name');
+			$worth_list[$key]['user_name'] =  M('person_all')->where(['id'=>$m['user_id']])->getField('name');
 			$worth_list[$key]['school'] = M('person_all')->where(['id'=>$m['user_id']])->getField('school');
 		}
 		
