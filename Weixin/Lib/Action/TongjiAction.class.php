@@ -110,7 +110,7 @@ class TongjiAction extends CommAction {
         }
         $w['timee']=array('like',date('Y-m',$time)."%");
         $w['state']=array('in','0,1');
-        
+        $w['stuid'] = array('not in',array('77777','88888','99999'));
        
         $m=M('hw001.class',null)->where($w)->order('school,timee,teacher,time1,grade')->group('school,timee,class,grade,time1,teacher,count')->getField('id,school,timee,class,grade,time1,teacher,count,cwqr',true);
          foreach ($m as $v) {
@@ -166,7 +166,7 @@ class TongjiAction extends CommAction {
         $wd['timee']=array('like',date('Y',($time-7*24*3600)).date('-m',($time-7*24*3600)).date('-d',($time-7*24*3600)));
         $wd['state']=1;
         $wd['cwqr'] = array(array('exp','is not null'),array('NEQ',''));
-        
+        $wd['stuid'] = array('not in',array('77777','88888','99999'));
         $m=M('hw001.class',null)->where($wd)->order('school,timee,teacher,time1,grade')->group('school,timee,class,grade,time1,teacher,count')->getField('id,school,timee,class,grade,time1,teacher,count,cwqr',true);
         foreach ($m as $j) {
         
@@ -189,7 +189,7 @@ class TongjiAction extends CommAction {
         $wc['timee']=array('like',(date('Y',$time)-1).date('-m',$time).'%');
         $wc['state']=1;
         $wc['cwqr'] = array(array('exp','is not null'),array('NEQ',''));
-        
+        $wc['stuid'] = array('not in',array('77777','88888','99999'));
         $m=M('hw001.class',null)->where($wc)->order('school,timee,teacher,time1,grade')->group('school,timee,class,grade,time1,teacher,count')->getField('id,school,timee,class,grade,time1,teacher,count,cwqr',true);
          foreach ($m as $v) {
 
