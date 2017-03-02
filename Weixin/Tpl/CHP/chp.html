@@ -199,7 +199,8 @@
 		        
 		        <li data-role="fieldcontain">
 		        	<div data-role="content"> 
-					  <a id="readme_dialog" href="readme.html" data-role="button" data-rel="dialog" data-transition="pop">积分兑换规则=>点击查看详情！</a>
+					   <a id="readme_dialog" href="readme.html" data-role="button" data-rel="dialog" data-transition="pop">积分兑换规则=>点击查看详情！</a> 
+					   <a href="gift_chp.html" data-ajax="false" data-role="button">乐活装备奖品=>点击查看详情！</a>
 					</div>
 		        </li>
 		        <li class="ui-body ui-body-b">
@@ -229,6 +230,7 @@ $(function(){
 	
 	//$.mobile.selectmenu.prototype.options.hidePlaceholderMenuItems = false;
 	$('#scheme').on('change',function(){
+				
 				
   		if(!$(this).val()){
   			$('#item1').empty();

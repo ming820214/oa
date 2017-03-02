@@ -4,6 +4,11 @@ class ChpAction extends CommAction {
 	private $pageNumber=0;
 	private $pageCount=10000;
 	
+	public function gift_chp(){
+		
+		$this->display();
+	}
+	
 	public function detail(){
 
 		$mod = M('hongwen_oa.chpInfo','oa_');
