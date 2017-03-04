@@ -97,7 +97,7 @@ class ChpAction extends CommAction {
 		
 		
 		//积分排行榜
-		$this->worth_list = $worth_list;
+		//$this->worth_list = $worth_list;
 		
 		
 		$model = new Model();

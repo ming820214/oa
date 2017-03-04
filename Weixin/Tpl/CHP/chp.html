@@ -18,32 +18,6 @@
 <body>
 
 <div id="exchange" data-role="collapsible-set" data-theme="c" data-content-theme="d" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	<!-- 集团综合荣誉值排行榜 -->
-    <div data-role="collapsible" data-theme="b" data-content-theme="b">
-        <h3>综合荣誉值排行榜</h3>
-        <table data-role="table" id="table-custom-1" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="e" data-column-btn-text="显示列设置..." data-column-popup-theme="a">
-         <thead>
-           <tr class="ui-bar-d">
-             <th>名次</th>
-             <th data-priority="1">校区</th>
-             <th>姓名</th>
-             <th>综合荣誉值</th>
-           </tr>
-         </thead>
-         <tbody>
-         <volist  name="worth_list" id="oo" key="m" empty="暂时没有数据" offset="0" length="10">
-           <tr>
-             <th>{$m}</th>
-             <td>{$oo.school}</td>
-             <td><a href="detail.html?param={$oo.user_id}" data-role="link" data-transition="slidedown" data-inline="true">{$oo.user_name}</a></td>
-             <td>{$oo.score}</td>
-           </tr>
-          </volist>
-         </tbody>
-       </table>
-    </div>
-    
-
     <!-- 积分累计 -->
     <div data-role="collapsible" data-theme="b" data-content-theme="b">
         <h3>综合荣誉值：{$score}</h3>
@@ -200,7 +174,6 @@
 		        <li data-role="fieldcontain">
 		        	<div data-role="content"> 
 					   <a id="readme_dialog" href="readme.html" data-role="button" data-rel="dialog" data-transition="pop">积分兑换规则=>点击查看详情！</a> 
-					   <a href="gift_chp.html" data-role="button" data-rel="dialog" data-transition="pop">乐活装备奖品=>点击查看详情！</a>
 					</div>
 		        </li>
 		        <li class="ui-body ui-body-b">
@@ -223,7 +196,7 @@
 
 $(function(){
 
-	$("#exchange").children(":eq(4)").on('expand',function(){
+	$("#exchange").children(":eq(3)").on('expand',function(){
 		$('#scheme').val(53); //积分奖励方案
 		$('#scheme').trigger('change');
 	});
