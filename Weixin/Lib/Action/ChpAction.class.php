@@ -227,7 +227,26 @@ class ChpAction extends CommAction {
 		$this->display();
 	}
 	
-	
+	public function list_chp(){
+
+		$mod = M('hongwen_oa.chpInfo','oa_');
+		$condition['is_del'] = 1; //正常记录
+		$condition['user_id'] = session('pid');
+		
+		//积分排行榜
+		$worth_list = $mod->where(['is_del'=>1])->group('user_id')->field('user_id,sum(worth) as score')->order('score DESC')->limit(0,10)->select();
+		
+		foreach($worth_list as $key=>$m){
+			
+			$worth_list[$key]['user_name'] =  M('person_all')->where(['id'=>$m['user_id']])->getField('name');
+			$worth_list[$key]['school'] = M('person_all')->where(['id'=>$m['user_id']])->getField('school');
+		}
+		
+		//积分排行榜
+		$this->worth_list = $worth_list;
+		
+		$this->display();
+	}
 	//获取相关方案下所属积分项
 	public  function getItems(){
 		$pid = isset($_POST['pid'])?$_POST['pid']:null;
