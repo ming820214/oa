@@ -61,6 +61,8 @@ class AskAction extends CommAction {
                             	$m2->part='人事中心';
                             }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
                             	$m2->part='总裁';
+                            }elseif(in_array($m1['part'],['沈阳品牌中心'])){
+                            	$m2->part='运营中心';
                             }
                         }
                         
@@ -164,6 +166,8 @@ class AskAction extends CommAction {
                             $m2->part='人事中心';
                         }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
                             $m2->part='总裁';
+                        }elseif(in_array($m1['part'],['沈阳品牌中心'])){
+                            $m2->part='运营中心';
                         }
                     }
 					
@@ -261,6 +265,8 @@ class AskAction extends CommAction {
                            	$m2->part='人事中心';
                         }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
                             $m2->part='总裁';
+                        }elseif(in_array($m1['part'],['沈阳品牌中心'])){
+                            $m2->part='运营中心';
                         }
                     }                
                     
@@ -336,6 +342,8 @@ class AskAction extends CommAction {
                       	$m2->part='人事中心';
                     }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
                         $m2->part='总裁';
+                    }elseif(in_array($m1['part'],['沈阳品牌中心'])){
+                        $m2->part='运营中心';
                     }
                 }                
                 
@@ -404,6 +412,8 @@ class AskAction extends CommAction {
                 $w2['part']='人事中心';
             }elseif(in_array($m['part'],['组织部']) && $m['position'] == '主管'){
                 $w2['part']= '总裁';
+            }elseif(in_array($m['part'],['沈阳品牌中心'])){
+                $w2['part']='运营中心';
             }
             
             //if(session('name')=='张晓明')$w2=['name'=>'郝振华'];
