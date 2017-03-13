@@ -25,6 +25,17 @@ $(function () {
       alert('信息不完整！');
       return false;
     }else{
+    	
+    	if($('#class').val() == '产护假'){
+    		 /* var t1 = Date.parse(new Date($('#time1').val()))/1000;
+    		 var t2 = Date.parse(new Date($('#time2').val()))/1000; */
+    		 var t3 = $('#gong').val();
+    		 if(t3>15){
+    			 alert('产护假最多为15天。');
+    			 return false;
+    		 }
+    	  }	
+    	
       if(confirm( '确认提交申请吗？（页面会自动跳转请勿重复点击提交）')){
         //return true;
         if($("#gong").val()<0.5){
