@@ -486,7 +486,7 @@ class AskAction extends CommAction {
         }
       //  if(session('name')=='宫婷'){
         //宫婷手里的灵活作息、请假、加班、意外事项的人事审批权交于彭鑫手中
-          if(session('name')=='彭鑫' || session('name')=='庄宇'){ 
+          if(session('name')=='彭鑫' || session('name')=='庄宇' || session('name')=='宫婷'){ 
             unset($w2);
             $w2['state']='集团确认';
         }
@@ -560,20 +560,20 @@ class AskAction extends CommAction {
 
             if($m['state']=='校区审核' && $m['class']!='请假'){
                 $d['state']='集团确认';
-               // $this->text(6,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+                $this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
                  $this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
                  $this->text(7,'庄宇','小文提示：有校区申请待确认，请及时查看……');
             }
             
             if($m['state']=='主管审核' && $m['class']!='请假'){
             	$d['state']='集团确认';
-            	// $this->text(6,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+            	$this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
             	$this->text(7,'彭鑫','小文提示：有部门申请待确认，请及时查看……');
             	$this->text(7,'庄宇','小文提示：有部门申请待确认，请及时查看……');
             }
 
             //if($m['state']=='集团确认' && session('name')=='宫婷')$d['state']='审核通过';
-            if($m['state']=='集团确认' && (session('name')=='彭鑫'  || session('name')=='庄宇'))$d['state']='审核通过';
+            if($m['state']=='集团确认' && (session('name')=='彭鑫'  || session('name')=='庄宇' || session('name')=='宫婷'))$d['state']='审核通过';
             //请假规则特别处理
             /* if($m['class']=='请假'){
                 if($m['state'] == '人事确认' && session('name')=='张毅'){
@@ -624,7 +624,7 @@ class AskAction extends CommAction {
             		}
             	}else{
             		//if(session('name')=='宫婷'){
-            		if(session('name')=='彭鑫' || session('name')=='庄宇'){
+            		if(session('name')=='彭鑫' || session('name')=='庄宇' || session('name')=='宫婷'){
             			$d['state']='审核通过';
             		}else{
             			
@@ -633,7 +633,7 @@ class AskAction extends CommAction {
             				$this->text(7,'张毅','小文提示：有请假>=3天的申请待审核，请及时查看……');
             			}else{
             				$d['state']='集团确认';
-            				//$this->text(6,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+            				$this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
             				$this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
             				$this->text(7,'庄宇','小文提示：有校区申请待确认，请及时查看……');
             				
@@ -719,7 +719,7 @@ class AskAction extends CommAction {
     //彭鑫超过3天的请假，核查页面
     public function list13(){
 
-        if(session('name')=='彭鑫' || session('name')=='庄宇' || session('name') == '张晓明'){
+        if(session('name')=='彭鑫' || session('name')=='庄宇' || session('name') == '张晓明' || session('name')=='宫婷'){
             $w2['class'] = '请假';
             $w2['state']="审核通过";
             $w2['gong'] = array('egt',3);
