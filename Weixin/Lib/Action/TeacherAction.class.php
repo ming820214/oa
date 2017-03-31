@@ -22,7 +22,8 @@ class TeacherAction extends CommAction {
 		}
 		//授课反馈按钮
 		if($_POST['cid']){
-			$info=M('hw001.class',null)->find($_POST['cid']);
+// 			$info=M('hw001.class',null)->find($_POST['cid']);
+			$info=M('hw001.class',null)->where("id=".$_POST['cid'])->find();
 			$m=M('hw001.fankui',null);
 			$m->create();
 			$m->week=date('W',$info['timee']);
