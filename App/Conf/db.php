@@ -5,7 +5,7 @@ return array(
         'DB_HOST'=>'localhost',
         'DB_USER'=>'root',
         'DB_PWD'=>'ihongwen',
-        'DB_PORT'=>'3306',
+        'DB_PORT'=>'1209',
         'DB_NAME'=>'hw002',
         'DB_PREFIX'=>'smeoa_',
         // 'DB_NAME'=>'hw001',

@@ -8,7 +8,7 @@ return array(
 		'URL_CASE_INSENSITIVE' =>true,//关闭路径区分大小写
 		// 'DB_PREFIX' => 'smeoa_', // 数据库表前缀 
 		'DB_PREFIX' => '', // 数据库表前缀 
-		'DB_DSN' => 'mysql://root:ihongwen@localhost:3306/hw003',
+		'DB_DSN' => 'mysql://root:ihongwen@localhost:1209/hw003',
 		'TMPL_TEMPLATE_SUFFIX'=>'.html',
 		'VAR_URL_PARAMS'      => '_URL_', // PATHINFO URL参数变量
 		'VAR_FILTERS'=>'htmlspecialchars',
