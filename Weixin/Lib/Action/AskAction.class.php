@@ -462,6 +462,9 @@ class AskAction extends CommAction {
         }elseif(session('name')=='王大鹏'){
             $w2['school']=['in','松原江北三中校区,松原宁江实验校区'];
             $w2['state']='校区审核';
+        }elseif(session('name')=='李明帅'){
+            $w2['school']=['in','盘锦实验中学校区,盘锦一完中校区'];
+            $w2['state']='校区审核';
         }elseif(session('name')=='张玉珠'){
             $w2['school']=['in','盘锦水木清华校区,集团总部'];
             $w2['state']='校区审核';
