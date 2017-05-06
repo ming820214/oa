@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/jquerymobile/1.3.0/jquery.mobile-1.3.0.min.js"></script> -->
+
+<link rel="stylesheet" href="../Public/mobile/jquery.mobile-1.3.2.min.css">
+<script src="../Public/mobile/jquery-1.12.4.min.js"></script>
+<script src="../Public/mobile/jquery.mobile-1.3.2.min.js"></script>
+<style type="text/css">
+	.ui-page { -webkit-backface-visibility: hidden; }
+
+</style>
+</head>
+<body>
+<div data-role="collapsible-set" data-theme="b" data-content-theme="d">
+    
+    <div data-role="collapsible" data-collapsed="false">
+        <h2>正常课堂人员&nbsp;&nbsp;&nbsp;&nbsp;{$data1count}</h2> 
+        <ul class="stu_data" data-role="listview" data-filter="true" data-split-icon="gear" data-split-theme="b">
+        	<li data-role="list-divider" data-theme="c">
+           		 <a href="#purchase"  data-role="button"  data-rel="popup" data-position-to="window"  data-transition="pop" data-inline="true" data-mini="true" data-icon="check" data-theme="b" >统一处理</a>
+            </li>
+            <volist name="data1" id="data">
+            	<li>
+	            	<a href="#transitionExample"  data-transition="flip" data-role="button" data-inline="true" data-rel="popup" style="padding-left:50px;">
+		            	<input type="checkbox" name="stuid" id="stuid{$data.stuid}" value="{$data.stuid}">
+		            	<input type="hidden" name="stu_position" value="{$data.position_now}"/>
+		            	<input type="hidden" name="grade_id" value="{$data.grade_id}"/>
+		                <label name="stu" for="stuid{$data.stuid}">{$data.stu_name}</label>
+	                </a>
+	                
+	                <a href="#purchase" data-rel="popup" data-position-to="window"  data-transition="pop">assign</a>
+            	</li>
+            </volist>
+        </ul>
+    </div>
+    
+    <div data-role="collapsible" data-theme="e">
+        <h2>离开且抵达目的地人员&nbsp;&nbsp;&nbsp;&nbsp;{$data2count}</h2> 
+        <ul  class="stu_data2" data-role="listview" data-filter="true" data-split-icon="gear" data-split-theme="b">
+        	<li data-role="list-divider" data-theme="c">
+           		 <a href="#confirmDialog"  data-role="button" data-rel="popup" data-position-to="window"  data-transition="pop" data-inline="true" data-mini="true" data-icon="check" data-theme="b" >统一处理</a>
+            </li>
+            <volist name="data2" id="obj" >
+            	<li>
+	            	<a href="#transitionExample"  data-transition="flip" data-role="button" data-inline="true" data-rel="popup" style="padding-left:50px;">
+		            	<input type="checkbox" name="stuid" id="stuid{$obj.stuid}" value="{$obj.stuid}">
+		            	<input type="hidden" name="stu_position" value="{$obj.position_now}" dest="{$obj.destination}"/>
+		            	<input type="hidden" name="grade_id" value="{$obj.grade_id}"/>
+		                <label name="stu" for="stuid{$obj.stuid}">{$obj.stu_name}</label>
+	                </a>
+	                
+	                <a href="#confirmDialog" data-rel="popup" data-position-to="window"  data-transition="pop">assign</a>
+            	</li>
+            </volist>
+            
+        </ul>
+    </div>
+    
+    <div data-role="collapsible" data-theme="a">
+        <h2>离开未抵达目的地人员&nbsp;&nbsp;&nbsp;&nbsp;{$data3count}</h2> 
+        <ul  class="stu_data2" data-role="listview" data-filter="true" data-split-icon="gear" data-split-theme="b">
+        	<li data-role="list-divider" data-theme="c">
+           		 <a href="#confirmDialog"  data-role="button" data-rel="popup" data-position-to="window"  data-transition="pop" data-inline="true" data-mini="true" data-icon="check" data-theme="b" >统一处理</a>
+            </li>
+            <volist name="data3" id="obt" >
+            	<li>
+	            	<a href="#transitionExample"  data-transition="flip" data-role="button" data-inline="true" data-rel="popup" style="padding-left:50px;">
+		            	<input type="checkbox" name="stuid" id="stuid{$obt.stuid}" value="{$obt.stuid}">
+		            	<input type="hidden" name="stu_position" value="{$obt.position_now}" dest="{$obt.destination}"/>
+		            	<input type="hidden" name="grade_id" value="{$obt.grade_id}"/>
+		                <label name="stu" for="stuid{$obt.stuid}">{$obt.stu_name}</label>
+	                </a>
+	                
+	                <a href="#confirmDialog" data-rel="popup" data-position-to="window"  data-transition="pop">assign</a>
+            	</li>
+            </volist>
+            
+        </ul>
+    </div>
+    
+</div>
+
+
+
+
+<div data-role="popup" id="purchase" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+    <h3>目的地</h3>
+    	<form id="assignForm" action="{:U('assignRoom')}" method="post" data-ajax="false">
+    		<input type="hidden" name="stuid"/>
+    		<input type="hidden" name="stu_name"/>
+    		<input type="hidden" name="grade_id"/>
+		    <ul data-role="listview" data-inset="true">
+		        		        
+		        <li data-role="fieldcontain">
+		            <label for="select-choice-1" class="select">楼层:</label>
+		            <select name="floor" check="require" class="form-control" msg="请选择楼层">
+						<option value="">请选择楼层</option>
+						<volist name="floor_list" id="obj">
+							<option value="{$obj}">{$obj}</option>
+						</volist>
+					</select>
+		            <label for="select-choice-1" class="select">教室:</label>
+		            <select name="room" check="require" class="form-control" msg="请选择教室">
+						<option value="">请选择教室</option>
+						<volist name="room_list" id="vo">
+							<option value="{$vo.class_name}" dt="{$vo.floor}">{$vo.class_name}</option>
+						</volist>
+					</select>
+		        </li>
+		        
+		        <li data-role="fieldcontain">
+		            <label for="textarea2">理由:</label>
+		        <textarea cols="40" rows="10" name="reason" id="reason"></textarea>
+		        </li>
+		         <li class="ui-body ui-body-b" style="padding-left:70px;">
+		            <fieldset class="ui-grid-a">
+		                    <div class="ui-block-a"><a href="#" data-role="button" data-rel="back" data-theme="a" data-inline="true" data-mini="true">取消</a></div>
+		                    <div class="ui-block-b"><input type="submit" value="确定"  data-rel="back" data-theme="b" data-inline="true" data-mini="true"/> <!-- <a href="#" data-role="button" data-rel="back" data-theme="b" data-inline="true" data-mini="true">确定</a> --></div>
+		            </fieldset>
+		        </li>
+		    </ul>
+		</form>
+</div>
+
+
+<div data-role="popup" id="transitionExample" class="ui-content" data-theme="d">
+    <p>I'm a simple popup.</p>
+</div>
+
+
+<a id="error" href="#popupDialog" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-icon="delete" data-theme="b" style="display:none;">Delete page...</a>
+<div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+    <div data-role="header" data-theme="a" class="ui-corner-top">
+        <h1>错误提示！</h1>
+    </div>
+    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content" style="text-align:center;">
+        <h3 class="ui-title">注意：请选择楼层或者房间！</h3>
+        <br/>
+        <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-mini="true">确定</a>
+    </div>
+</div>
+
+<div data-role="popup" id="confirmDialog" data-overlay-theme="a" data-theme="b" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+    <div data-role="header" data-theme="b" class="ui-corner-top">
+        <h1>提示！</h1>
+    </div>
+    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content" style="text-align:center;">
+        <h3 class="ui-title">再次确认学生是否归位！</h3>
+        <form action="{:U('resetStu')}" id="StuResetForm" method="post" data-ajax="false">
+        	<input type="hidden" name="stuid"/>
+        	<input type="hidden" name="stu_name"/>
+        <br/>
+        <a href="#" style="display:none;" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-mini="true">取消</a>
+        <!-- <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-mini="true">确定</a> -->
+        <input type="button" id="backDialog" value="取消" data-inline="true" data-rel="back" data-theme="c" data-mini="true"/>
+        <input type="submit" value="确定" data-inline="true" data-rel="back" data-theme="c" data-mini="true"/>
+        
+        </form>
+    </div>
+</div>
+<p/>
+<br/>
+<br/>
+<hr/>
+<div style="height:50px;width:150px;margin:0 auto;">
+<form id="refreshForm" action="{:U('camp')}" method="post" data-ajax="false">
+	<input type="submit" data-icon="refresh" data-theme="b" value="刷新"/>
+</form>
+</div>
+<hr color="orange"/>
+<div style="height:50px;width:150px;">
+<form action="{:U('logout')}" method="post" data-ajax="false">
+	<input type="submit" data-icon="back" data-theme="a" value="下课"/>
+</form>
+</div>
+<script type="text/javascript">
+
+$(function(){
+	
+	$('.stu_data li:eq(0)').on('click','a:eq(0)',function(){
+		//debugger;
+		$item = $('.stu_data li:gt(0) input[name="stuid"]');
+		$name = '';
+		$stuid = '';
+		$grade_id = '';
+		var num = 0;
+		if($item.length>0){
+			$.each($item,function(i,obj){
+				if($(obj).prop('checked')){
+					num ++ ;
+					$name += "," + $(obj).parentsUntil('li').find('label').text();
+					$stuid += "," + $(obj).parentsUntil('li').find('input[name="stuid"]').val();
+					$grade_id += "," + $(obj).parentsUntil('li').find('input[name="grade_id"]').val();
+				}
+				
+			});
+			
+			if(num<=0){
+				$('#popupDialog h3').html('至少需要选择一个学员！');
+				$('#error').trigger('click');
+				return false;
+			}else{
+				$('#purchase > h3').html($name.substr(1) + " 目的地是：");
+				
+				$('#purchase input[name="stu_name"]').val($name.substr(1));
+				$('#purchase input[name="stuid"]').val($stuid.substr(1));
+				$('#purchase input[name="grade_id"]').val($grade_id.substr(1));
+			}
+			
+		}else{
+			$('#popupDialog h3').html('至少需要选择一个学员！');
+			$('#error').trigger('click');
+			return false;
+		}
+		
+		
+	});
+	
+	
+	$('.stu_data li:gt(0)').on('click','a:eq(0)',function(){
+		
+		$('#transitionExample p').html($(this).find($('label')).text() + "现在的位置：" + $(this).find($('input[name="stu_position"]')).val());
+		
+	});
+	
+	$('.stu_data li:gt(0)').on('click','a:eq(1)',function(){
+		//debugger;
+		$('#purchase > h3').html($(this).prev().find($('label')).text() + "目的地是：");
+		
+		$('#purchase input[name="stu_name"]').val($(this).prev().find($('label')).text());
+		$('#purchase input[name="stuid"]').val($(this).prev().find($('input[name="stuid"]')).val());
+		$('#purchase input[name="grade_id"]').val($(this).prev().find($('input[name="grade_id"]')).val());
+	});
+	
+	//多条处理
+	$('.stu_data2').find('li:eq(0)').on('click','a:eq(0)',function(){
+		
+		$item = $('.stu_data2 li:gt(0) input[name="stuid"]');
+		$stuid = '';
+		$name = '';
+		var num = 0;
+		if($item.length>0){
+			$.each($item,function(i,obj){
+				if($(obj).prop('checked')){
+					num ++ ;
+					$stuid += "," + $(obj).parentsUntil('li').find('input[name="stuid"]').val();
+					$name += "," + $(obj).parentsUntil('li').find('label').text();
+				}
+				
+			});
+			
+			if(num <=0){
+				$('#popupDialog h3').html('至少需要选择一个学员！');
+				$('#error').trigger('click');
+				return false;
+			}else{
+				$('#confirmDialog h3').html("再次确认学生 " + $name.substr(1) + " 是否归位！");
+				$('#confirmDialog input[name="stu_name"]').val($name.substr(1));
+				$('#confirmDialog input[name="stuid"]').val($stuid.substr(1));
+			}
+			
+			
+			
+		}else{
+			$('#popupDialog h3').html('至少需要选择一个学员！');
+			$('#error').trigger('click');
+			return false;
+		}
+		
+		
+	});
+	
+	$('.stu_data2').find('li:gt(0)').on('click','a:eq(0)',function(){
+		
+		var mess = '';
+		if($(this).find($('input[name="stu_position"]')).attr('dest')){
+			mess = "正在前往" + $(this).find($('input[name="stu_position"]')).attr('dest') + "途中";
+		}else{
+			mess = "现在的位置：" + $(this).find($('input[name="stu_position"]')).val();
+		}
+		
+		$('#transitionExample p').html($(this).find($('label')).text() + mess);
+		
+	});
+	
+	$('.stu_data2').find('li:gt(0)').on('click','a:eq(1)',function(){
+		
+		$('#confirmDialog h3').html("再次确认学生 " + $(this).prev().find($('label')).text() + " 是否归位！");
+		
+		$('#confirmDialog input[name="stu_name"]').val($(this).prev().find($('label')).text());
+		$('#confirmDialog input[name="stuid"]').val($(this).prev().find($('input[name="stuid"]')).val());
+		
+	});
+	
+	/* $('#confirmDialog div').on('click','a:eq(1)',function(){
+			$('#StuResetForm').submit();
+	}); */
+	
+	$('#backDialog').click(function(){
+		$('input[type="checkbox"]').prop( "checked", false ).checkboxradio( "refresh" );
+		$('#confirmDialog div a:eq(0)').trigger('click');
+	});
+	
+	$('#assignForm li').on('click','a:eq(0)',function(){
+		$('#assignForm')[0].reset();	
+	});
+	
+	
+	//页面初始化，隐藏掉所有的教室，教室需要根据楼层走；
+	$('#purchase select[name="room"] option').hide();
+	
+	//$('#purchase select[name="room"]').selectmenu( "refresh" );
+	$('#purchase select[name="floor"]').change(function(){
+		//debugger;
+		var floor = $(this).val();
+		
+		$('#purchase select[name="room"] option[value!=""]').hide();
+		//$('#purchase select[name="room"] option').show();
+		
+		$('#purchase select[name="room"] option').each(function(){
+  			if($(this).attr('dt') == floor){
+  				$(this).show();
+  			}
+  		});
+  		
+  		$('#purchase select[name="room"] option[value=""]').prop('selected',true)
+  		$('#purchase select[name="room"]').selectmenu( "refresh" );
+	});
+	
+	/* $('#assignForm li').on('click','a:eq(1)',function(){
+		var floor = $('#assignForm select[name="floor"]').val();
+		var room = $('#assignForm select[name="room"]').val();
+		if(!floor && !room){
+			$('#error').trigger('click');
+			return;
+		}
+		$('#assignForm').submit();
+	}); */
+	
+	$('#assignForm').submit(function(){
+		var floor = $('#assignForm select[name="floor"]').val();
+		var room = $('#assignForm select[name="room"]').val();
+		if(!floor && !room){
+			$('#popupDialog h3').html('注意：请选择楼层或者房间！');
+			$('#error').trigger('click');
+			return false;
+		}
+	});
+	
+	/* //与nodejs服务器进行握手，定时任务开启！
+		$.ajax({
+			type:'GET',
+			async:false,
+			cache:false,
+			url:"http://localhost:3000",
+			dataType:'json',
+			success:function(msg,status){
+				
+			}
+		}); */
+   
+});	
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="../Public/mobile/jquery.mobile-1.3.2.min.css">
+<script src="../Public/mobile/jquery-1.12.4.min.js"></script>
+<script src="../Public/mobile/jquery.mobile-1.3.2.min.js"></script>
+<style type="text/css">
+	.ui-page { -webkit-backface-visibility: hidden; }
+	.custom_center{
+		position:absolute; 
+		top:50%; 
+		left:50%; 
+		margin:-100px 0 0 -200px;  
+		width:400px; 
+		height:200px; 
+		//border:1px solid red; 
+		line-height:200px; 
+		font-size:16px; 
+		text-align:center; 
+		z-index:99; 
+	}
+</style>
+</head>
+<body>
+
+<div class="custom_center">
+<form name="classstudent" action="{:U('inclassroom')}" method="post" data-ajax="false">
+	<input type="submit" data-role="button" data-icon="grid" data-theme="b" value="上课"/ >
+</form>
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+
+	
+});	
+</script>
+
+
+
+</body>
+</html>
