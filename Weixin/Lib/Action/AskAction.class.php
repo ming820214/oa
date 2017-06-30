@@ -452,12 +452,16 @@ class AskAction extends CommAction {
         $w['name']=session('name');
         if(session('name')=='王胜鑫'){
             $w2['_string']="(state='总裁审核' AND part='运营中心') OR (state='运营审核')";
-        }elseif(session('name')=='张毅'){
-            // $w2['_string']="(state='总裁审核' AND part='教学中心') OR (state='人事确认') OR (state='总裁审核' AND part='人事中心')";
-            $w2['_string']="(state='人事确认') OR (state='总裁审核' AND part='人事中心')";
         }elseif(session('name')=='侯海洋'){
+             //
+            // $w2['_string']="(state='总裁审核' AND part='教学中心') OR (state='人事确认') OR (state='总裁审核' AND part='人事中心')";
+            //$w2['_string']="(state='人事确认') OR (state='总裁审核' AND part='人事中心')";原张毅的功能
+         $w2['_string']="(state='人事确认') OR (state='总裁审核' AND part='人事中心') OR (state='总裁确认') OR (state='总裁审核' AND part='教学中心')";
+            
+        }/* elseif(session('name')=='侯海洋'){
             $w2['_string']="(state='总裁确认') OR (state='总裁审核' AND part='教学中心')";
-        }elseif(session('name')=='李文龙' ){
+        } */
+        elseif(session('name')=='李文龙' ){
             $w2['_string']="(state='总裁审核' AND part='总裁') OR (state='总裁审核' AND (school='盘锦长颈鹿项目' OR school='盘锦童画创意美术项目'))";
         }/* elseif(session('name')=='李明帅'){
             $w2['school']=['in','盘锦一完中校区,盘锦实验中学校区'];
@@ -613,26 +617,32 @@ class AskAction extends CommAction {
             } */
             
             if($m['class']=='请假'){
-            	if($m['state'] == '人事确认' && session('name')=='张毅'){
+            	if($m['state'] == '人事确认' && session('name')=='侯海洋'){
+            	 //原张毅的功能
             		$d['state']='审核通过';
             	}elseif($m['state'] == '校区审核' || $m['state'] == '主管审核' || $m['state'] == '总裁确认' || $m['state'] == '总裁审核' || $m['state'] == '运营审核') {
             		if(!($m['pic1'] || $m['pic2'] || $m['pic3'])&&$m['aa']=='病假'){
             			$d['state']='材料补充';
             		}else{
-            			/* if($m['gong']>=3){
+            			if($m['gong']>=3){
             				$d['state']='人事确认';
-            				$this->text(7,'张毅','小文提示：有请假申请待审核，请及时查看……');
-            			} */
+//             				$this->text(7,'张毅','小文提示：有请假申请待审核，请及时查看……');
+            				$this->text(7,'侯海洋','小文提示：有请假申请待审核，请及时查看……');
+            			}
             			
-            			if($m['gong']>=3 && $m['state'] == '主管审核'){
+            			/* 侯海洋替代张毅的角色，将以前教学中心请假超过3天的流程需要侯海洋审批的环节去掉，直接所有超过3天假期的都有侯海洋审核
+            			 * if($m['gong']>=3 && $m['state'] == '主管审核'){
             				$d['state']='总裁确认';
             				$this->text(7,'侯海洋','小文提示：有请假>=3天的申请待审核，请及时查看……');
             			}else{
             				if($m['gong']>=3){
             					$d['state']='人事确认';
-            					$this->text(7,'张毅','小文提示：有请假>=3天的申请待审核，请及时查看……');
+//             					$this->text(7,'张毅','小文提示：有请假>=3天的申请待审核，请及时查看……');
+            					$this->text(7,'侯海洋','小文提示：有请假>=3天的申请待审核，请及时查看……');
             				}
-            			}
+            			} */
+            		 
+                  		
             		}
             	}else{
             		//if(session('name')=='宫婷'){
@@ -642,7 +652,8 @@ class AskAction extends CommAction {
             			
             			if($m['gong']>=3){
             				$d['state']='人事确认';
-            				$this->text(7,'张毅','小文提示：有请假>=3天的申请待审核，请及时查看……');
+//             				$this->text(7,'张毅','小文提示：有请假>=3天的申请待审核，请及时查看……');
+            				$this->text(7,'侯海洋','小文提示：有请假>=3天的申请待审核，请及时查看……');
             			}else{
             				$d['state']='集团确认';
             				$this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
