@@ -69,7 +69,7 @@ class AskAction extends CommAction {
                         
                         if($m1['position']=='校长'){//校长请假
                         	
-                        	if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目'){
+                        	if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
                         		$m2->state='总裁审核';
                         		$id=$m2->add();
                         		if($id&&$this->text(7,'李文龙','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$id);
@@ -108,7 +108,7 @@ class AskAction extends CommAction {
                 if($info[2])$d['pic3']=$info[2]['savename'];
 
                     if($m1['position']=='校长'){//校长请假
-                    	if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目'){
+                    	if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
                     		$d['state']='总裁审核';
                     		if($id=$m2->where($w)->save($d)&&$this->text(7,'李文龙','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$_POST['id']);
                     	}else{
@@ -173,7 +173,7 @@ class AskAction extends CommAction {
 					
 					if($m1['position']=='校长'){//校长请假
 						
-							if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目'){
+							if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
 								$m2->state='总裁审核';
 								$temp_count = floor(((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600)/0.5) * 0.5;
 								if($temp_count){
@@ -271,7 +271,7 @@ class AskAction extends CommAction {
                     }                
                     
 					if($m1['position']=='校长'){//校长请假
-						if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目'){
+						if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
 							$m2->state='总裁审核';
 							$id=$m2->add();
 							if($id&&$this->text(7,'李文龙','有待处理的意外事项申请，请及时审核……'))$this->success('申请提交成功');
@@ -348,7 +348,7 @@ class AskAction extends CommAction {
                 }                
                 
                 if($m1['position']=='校长'){//校长请假
-                	if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目'){
+                	if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
                 		$m2->state='总裁审核';
                 		$id=$m2->add();
                 		if($id&&$this->text(7,'李文龙','有待处理的灵活作息申请，请及时审核……'))$this->success('申请提交成功');
@@ -462,7 +462,7 @@ class AskAction extends CommAction {
             $w2['_string']="(state='总裁确认') OR (state='总裁审核' AND part='教学中心')";
         } */
         elseif(session('name')=='李文龙' ){
-            $w2['_string']="(state='总裁审核' AND part='总裁') OR (state='总裁审核' AND (school='盘锦长颈鹿项目' OR school='盘锦童画创意美术项目'))";
+            $w2['_string']="(state='总裁审核' AND part='总裁') OR (state='总裁审核' AND (school='盘锦长颈鹿项目' OR school='盘锦童画创意美术项目' OR school='盘锦BBunion早教项目'))";
         }/* elseif(session('name')=='李明帅'){
             $w2['school']=['in','盘锦一完中校区,盘锦实验中学校区'];
             $w2['state']='校区审核';
