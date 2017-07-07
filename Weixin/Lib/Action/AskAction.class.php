@@ -56,7 +56,8 @@ class AskAction extends CommAction {
                             if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
                             	$m2->state= '主管审核';
                             }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
-                            	$m2->part='教学中心';
+//                             	$m2->part='教学中心';
+                                $m2->part='人事中心';
                             }elseif(in_array($m1['part'],['招聘部'])){
                             	$m2->part='人事中心';
                             }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
@@ -161,7 +162,8 @@ class AskAction extends CommAction {
                         if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
                         	$m2->state= '主管审核';
                         }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
-                        	$m2->part='教学中心';
+//                         	$m2->part='教学中心';
+                            $m2->part='人事中心';
                         }elseif(in_array($m1['part'],['招聘部'])){
                             $m2->part='人事中心';
                         }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
@@ -260,7 +262,8 @@ class AskAction extends CommAction {
                     	if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
                         	$m2->state= '主管审核';
                         }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
-                        	$m2->part='教学中心';
+//                         	$m2->part='教学中心';
+                            $m2->part='人事中心';
                         }elseif(in_array($m1['part'],['招聘部'])){
                            	$m2->part='人事中心';
                         }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
@@ -337,7 +340,8 @@ class AskAction extends CommAction {
                     if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
                     	$m2->state= '主管审核';
                     }elseif(in_array($m1['part'],['师训部','初中部','教研部']) && $m1['position'] == '主管'){
-                    	$m2->part='教学中心';
+//                     	$m2->part='教学中心';
+                        $m2->part='人事中心';
                     }elseif(in_array($m1['part'],['招聘部'])){
                       	$m2->part='人事中心';
                     }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
@@ -407,7 +411,8 @@ class AskAction extends CommAction {
             if(in_array($m['part'],['师训部','组织部','初中部','教研部']) && $m['position'] != '主管'){
             	$w2['position']= '主管';
             }elseif(in_array($m['part'],['师训部','初中部','教研部']) && $m['position'] == '主管'){
-            	$w2['part']= '教学中心';
+//             	$w2['part']= '教学中心';
+                $w2['part']='人事中心';
             }elseif(in_array($m['part'],['招聘部'])){
                 $w2['part']='人事中心';
             }elseif(in_array($m['part'],['组织部']) && $m['position'] == '主管'){
@@ -702,7 +707,7 @@ class AskAction extends CommAction {
     public function linhuo(){
         $w['name']=session('name');
         $w['aa']='灵活假期';
-        $w['state']=array('in','审核通过,校区审核,总裁审核,人事确认');
+        $w['state']=array('in','审核通过,校区审核,总裁审核,人事确认,主管审核,总裁确认');
         $t1=date('m',strtotime($this->_post('time1')));
         $t2=date('m',strtotime($this->_post('time2')));
         $g=round((strtotime($_POST['time2'])-strtotime($_POST['time1']))/86400,2);
@@ -710,7 +715,7 @@ class AskAction extends CommAction {
         if($t1>='09' && $t2<='11'){                                                     //（9月-11月）包含2天
             $w['time1']=array('like',array(date('Y-09')."%",date('Y-10')."%",date('Y-11')."%"),'OR');
             if(M('person_ask')->where($w)->sum('gong2')+$g>2)$this->error('数据有误或申请的天数累计超过规定天数了！');
-        }elseif(($t1=='01'||$t1=='02'||$t1=='12') && ($t1=='01'||$t1=='02'||$t1=='12')){//（12月-2月）包含1天
+        }elseif(($t1=='01'||$t1=='02'||$t1=='12') && ($t2=='01'||$t2=='02'||$t2=='12')){//（12月-2月）包含1天
             $w['time1']=array('like',array(date('Y-01')."%",date('Y-02')."%",date('Y-12')."%"),'OR');
             if(M('person_ask')->where($w)->sum('gong2')+$g>1)$this->error('数据有误或申请的天数累计超过规定天数了！');
         }elseif($t1>='06' && $t2<='08'){                                                //6月-8月）包含2天
@@ -729,6 +734,37 @@ class AskAction extends CommAction {
         }else{
             $this->error('跨区间合并使用灵活假期请分成两个申请提交！');
         }
+    }
+    
+    
+    public function ajax_lhRemainCount(){
+     $w['name']=session('name');
+     $w['aa']='灵活假期';
+     $w['state']=array('in','审核通过,校区审核,总裁审核,人事确认,主管审核,总裁确认');
+     
+     $r9_11 = 0;
+     $r12_2 = 0;
+     $r6_8 = 0;
+     $r7_8 = 0;
+      
+      $w1 = $w;                                                   //（9月-11月）包含2天
+      $w1['time1']=array('like',array(date('Y-09')."%",date('Y-10')."%",date('Y-11')."%"),'OR');
+      $r9_11 = 2-M('person_ask')->where($w1)->sum('gong2');
+      
+      $w2 = $w;
+      $w2['time1']=array('like',array(date('Y-01')."%",date('Y-02')."%",date('Y-12')."%"),'OR');
+      $r12_2 = 1-M('person_ask')->where($w2)->sum('gong2');
+      
+      $w3 = $w;                                        //6月-8月）包含2天
+      $w3['time1']=array('like',array(date('Y-07')."%",date('Y-08')."%"),'OR');
+      
+      $w4 = $w;
+      $w4['time1']=array('like',array(date('Y-06')."%",date('Y-07')."%",date('Y-08')."%"),'OR');
+      
+      $r7_8 = 2 - M('person_ask')->where($w3)->sum('gong2');
+      
+      $r6_8 = 4 - M('person_ask')->where($w4)->sum('gong2');
+           
     }
 
     public function cf()//防止重复提交
