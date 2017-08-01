@@ -50,7 +50,7 @@ class AskAction extends CommAction {
                     if($info[1])$m2->pic2=$info[1]['savename'];
                     if($info[2])$m2->pic3=$info[2]['savename'];
 
-                        if($m1['school']=='集团'){//集团成员请假
+                        if($m1['school']=='集团'  && !in_array($m1['part'],['会员管理中心'])){//集团成员请假
                             $m2->part=$m1['part'];
                             $m2->state='总裁审核';
                             if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
@@ -118,7 +118,7 @@ class AskAction extends CommAction {
                     		if($id=$m2->where($w)->save($d)&&$this->text(7,'王胜鑫','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$_POST['id']);
                     	}
                     }else{
-                        if($m1['school']=='集团'){//集团成员请假
+                        if($m1['school']=='集团'  && !in_array($m1['part'],['会员管理中心'])){//集团成员请假
                         	
                         	if(in_array($m1['part'],['师训部','组织部','初中部','教研部']) && $m1['position'] != '主管'){
                         		$d['state']= '主管审核';
@@ -156,7 +156,7 @@ class AskAction extends CommAction {
                     $m2->school=$m1['school'];
                     $m2->name=session('name');
                     $m2->state='校区审核';
-                    if($m1['school']=='集团'){
+                    if($m1['school']=='集团'  && !in_array($m1['part'],['会员管理中心'])){
                         $m2->part=$m1['part'];
                         $m2->state='总裁审核';
                         
@@ -257,7 +257,7 @@ class AskAction extends CommAction {
                     $m2->school=$m1['school'];
                     $m2->name=session('name');
                     $m2->state='校区审核';
-                    if($m1['school']=='集团'){
+                    if($m1['school']=='集团'  && !in_array($m1['part'],['会员管理中心'])){
                         $m2->part=$m1['part'];
                         $m2->state='总裁审核';
                         
@@ -336,7 +336,7 @@ class AskAction extends CommAction {
 				}
                 $m2->name=session('name');
                 $m2->state='校区审核';
-                if($m1['school']=='集团'){
+                if($m1['school']=='集团'  && !in_array($m1['part'],['会员管理中心'])){
                     $m2->part=$m1['part'];
                     $m2->state='总裁审核';
                     
@@ -407,7 +407,7 @@ class AskAction extends CommAction {
         $w['name']=session('name');
         $m=M('person_all')->where($w)->find();
         $w2['school']=$m['school'];
-        if($m['school']=='集团'){
+        if($m['school']=='集团' && !in_array($m['part'],['会员管理中心'])){
            // $w2['part']=($m['part']=='人事中心')?'教学中心':$m['part']; //张毅要求把所有人事中心的请假，加班信息发给他，教学中心的发给侯海洋；edit by zhangxm at 2016-04-02 at 15:20
             $w2['part']= $m['part'];
             $w2['position']='总裁';
@@ -443,6 +443,9 @@ class AskAction extends CommAction {
         	$w2=['name'=>'王志锁'];
         }
         
+        if(in_array($m['school'],['盘锦水木清华校区']) || in_array($m['part'],['会员管理中心'])){
+            $w2=['name'=>'张玉珠'];
+        }
         
         $name=M('person_all')->where($w2)->getField('name');
         $this->text(7,$name,'小文提示：有'.$info.'待审核，请及时查看……');
@@ -486,7 +489,10 @@ class AskAction extends CommAction {
             $w2['school']=['in','盘锦实验中学校区,盘锦一完中校区'];
             $w2['state']='校区审核';
         }elseif(session('name')=='张玉珠'){
-            $w2['school']=['in','盘锦水木清华校区,集团总部'];
+            $w_or['school']=['in','盘锦水木清华校区,集团总部'];
+            $w_or['part'] = '会员管理中心';
+            $w_or['_logic'] = 'or';
+            $w2['_complex'] = $w_or;
             $w2['state']='校区审核';
         }elseif(session('name')=='孙旭'){
             $w2['school']=['in','锦州中学校区,锦州附中校区'];
@@ -501,7 +507,7 @@ class AskAction extends CommAction {
             $m=M('person_all')->where($w)->find();
             $w2['school']=$m['school'];
             $w2['state']='校区审核';
-            if($m['school']=='集团'){
+            if($m['school']=='集团'  && !in_array($m['part'],['会员管理中心'])){
                 $w2['part']=$m['part'];
                 $w2['state']='总裁审核';
                 
