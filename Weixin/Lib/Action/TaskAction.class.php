@@ -3,7 +3,7 @@
 class TaskAction extends Comm2Action {
     public function index(){
 
-        $url='http://i.ihongwen.com/oa_old/weixin.php/task/info/id/';
+        $url='http://121.42.236.42:88/oa_old/weixin.php/task/info/id/';
         if(IS_POST){
             if($this->_post('add')){
                 $mod=M("hw003.task",null);
@@ -79,7 +79,7 @@ class TaskAction extends Comm2Action {
     }
 
     public function reply($date=null){
-        $url='http://i.ihongwen.com/oa_old/weixin.php/task/info/id/';
+        $url='http://121.42.236.42:88/oa_old/weixin.php/task/info/id/';
         if(IS_POST){
 //      创建工作组
             if($this->_post('group_add')){
