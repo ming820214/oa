@@ -6,7 +6,7 @@ class OalogAction extends CommAction {
 		if(session('name')=='李文龙')$m=M('hw002.smeoa_user',null)->where(array('name'=>'总裁'))->find();
 		$user=$m['emp_no'];
 		$password=$m['password'];
-		header("location:http://121.42.236.42:88/oa_old/index.php?m=login&a=log_weixin&user=$user&password=$password");
+		header("location:http://i.ihongwen.com/oa_old/index.php?m=login&a=log_weixin&user=$user&password=$password");
 	}
 }
 
