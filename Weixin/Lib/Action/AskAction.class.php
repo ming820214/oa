@@ -66,6 +66,8 @@ class AskAction extends CommAction {
                             }elseif(in_array($m1['part'],['沈阳品牌中心'])){
                             	$m2->part='运营中心';
                             }
+                        }else if(in_array($m1['part'],['会员管理中心'])){
+                            $m2->part=$m1['part'];
                         }
                         
                         
@@ -173,6 +175,8 @@ class AskAction extends CommAction {
                         }elseif(in_array($m1['part'],['沈阳品牌中心'])){
                             $m2->part='运营中心';
                         }
+                    }else if(in_array($m1['part'],['会员管理中心'])){
+                        $m2->part=$m1['part'];
                     }
 					
 					if($m1['position']=='校长'){//校长请假
@@ -274,7 +278,9 @@ class AskAction extends CommAction {
                         }elseif(in_array($m1['part'],['沈阳品牌中心'])){
                             $m2->part='运营中心';
                         }
-                    }                
+                    }else if(in_array($m1['part'],['会员管理中心'])){
+                        $m2->part=$m1['part'];
+                    }
                     
 					if($m1['position']=='校长'){//校长请假
 						if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
@@ -353,7 +359,9 @@ class AskAction extends CommAction {
                     }elseif(in_array($m1['part'],['沈阳品牌中心'])){
                         $m2->part='运营中心';
                     }
-                }                
+                }else if(in_array($m1['part'],['会员管理中心'])){
+                    $m2->part=$m1['part'];
+                }
                 
                 if($m1['position']=='校长'){//校长请假
                 	if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
