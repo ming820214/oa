@@ -16,9 +16,11 @@
               <li data-role="list-divider">请假</li>
               <volist name="vo.请假" id="vo1">
                 <li><a data-ajax="false" href="__URL__/info/id/{$vo1.id}/name/{$Think.session.name}">
-                  <h2>{$vo1.name}</h2>
-                  <p><b>{$vo1.time1}--{$vo1.time2}</b></p>
-                  <p>{$vo1.info}</p>
+                  <h2>姓名：{$vo1.name}</h2>
+                  <p><b>性质：{$vo1.aa}</b></p>
+                  <p><b>时间段：{$vo1.time1}--{$vo1.time2}</b></p>
+                  <p><b>共计：{$vo1.gong}天</b></p>
+                  <p><b>原由：{$vo1.info}</b></p>
                   <p class="ui-li-aside">{$vo1.state}</p></a>
                 </li>
               </volist>
