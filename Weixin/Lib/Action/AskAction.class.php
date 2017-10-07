@@ -505,10 +505,10 @@ class AskAction extends CommAction {
         }elseif(session('name')=='孙旭'){
             $w2['school']=['in','锦州中学校区,锦州附中校区'];
             $w2['state']='校区审核';
-        }elseif(session('name')=='王志锁'){
+        }/* elseif(session('name')=='王志锁'){
             $w2['school']=['in','鞍山站前校区,鞍山钢高校区'];
             $w2['state']='校区审核';
-        }/* elseif(session('name') == '张晓明'){
+        }  elseif(session('name') == '张晓明'){
             $w2['school']=['in','集团'];
             $w2['state']='总裁审核';
         } */else{
