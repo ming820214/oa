@@ -76,11 +76,27 @@ class AskAction extends CommAction {
                         	if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
                         		$m2->state='总裁审核';
                         		$id=$m2->add();
-                        		if($id&&$this->text(7,'李文龙','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$id);
+                        		if($id&&$this->text(7,'李明帅','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$id);
                         	}else{
-                        		$m2->state='运营审核';
+                        	    
+                        	    if(in_array($m1['school'],['集团总校','盘锦日月兴城校区','盘锦水木清华校区','盘锦大洼一高校区','盘锦天丽家园校区','锦州附中校区','锦州中学校区','阜新市高校区','葫芦岛一高校区','葫芦岛二高校区','阜新实验校区','朝阳二高校区'])){
+                        	        $m2->state='辽西区域审核';
+                        	        $this->text(7,'张玉珠','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                        	    }else if(in_array($m1['school'],['鞍山站前校区','鞍山钢高校区','鞍山八中校区','抚顺一中校区','铁岭一高校区','丹东四中校区','营口盖州一高校区','大石桥丰华伊嘉园校区','鲅鱼圈书香门第校区'])){
+                        	        $m2->state='辽东区域审核';
+                        	        $this->text(7,'张鹏','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                        	    }else if(in_array($m1['school'],['松原江北三中校区','松原宁江实验校区','松原大路校区','松原前郭五中校区','四平一高校区'])){
+                        	        $m2->state='吉林区域审核';
+                        	        $this->text(7,'王大鹏','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                        	    }else if(in_array($m1['school'],['齐齐哈尔实验校区','大庆实验中学校区','大庆一中校区'])){
+                        	        $m2->state='黑龙江区域审核';
+                        	        $this->text(7,'何亮','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                        	    }
+                        	    
+//                         		$m2->state='运营审核';
                         		$id=$m2->add();
-                        		if($id&&$this->text(7,'王胜鑫','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$id);
+                        		//if($id&&$this->text(7,'张玉珠','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$id);
+                        		if($id)$this->success('申请提交成功','info2/id/'.$id);
                         	}
                             
                         }else{
@@ -114,10 +130,26 @@ class AskAction extends CommAction {
                     if($m1['position']=='校长'){//校长请假
                     	if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
                     		$d['state']='总裁审核';
-                    		if($id=$m2->where($w)->save($d)&&$this->text(7,'李文龙','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$_POST['id']);
+                    		if($id=$m2->where($w)->save($d)&&$this->text(7,'李明帅','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$_POST['id']);
                     	}else{
-                    		$d['state']='运营审核';
-                    		if($id=$m2->where($w)->save($d)&&$this->text(7,'王胜鑫','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$_POST['id']);
+                    	    
+                    	    if(in_array($m1['school'],['集团总校','盘锦日月兴城校区','盘锦水木清华校区','盘锦大洼一高校区','盘锦天丽家园校区','锦州附中校区','锦州中学校区','阜新市高校区','葫芦岛一高校区','葫芦岛二高校区','阜新实验校区','朝阳二高校区'])){
+                    	        $d['state']='辽西区域审核';
+                    	        $this->text(7,'张玉珠','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                    	    }else if(in_array($m1['school'],['鞍山站前校区','鞍山钢高校区','鞍山八中校区','抚顺一中校区','铁岭一高校区','丹东四中校区','营口盖州一高校区','大石桥丰华伊嘉园校区','鲅鱼圈书香门第校区'])){
+                    	        $d['state']='辽东区域审核';
+                    	        $this->text(7,'张鹏','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                    	    }else if(in_array($m1['school'],['松原江北三中校区','松原宁江实验校区','松原大路校区','松原前郭五中校区','四平一高校区'])){
+                    	        $d['state']='吉林区域审核';
+                    	        $this->text(7,'王大鹏','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                    	    }else if(in_array($m1['school'],['齐齐哈尔实验校区','大庆实验中学校区','大庆一中校区'])){
+                    	        $d['state']='黑龙江区域审核';
+                    	        $this->text(7,'何亮','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                    	    }
+                    	    
+//                     		$d['state']='运营审核';
+//                     		if($id=$m2->where($w)->save($d)&&$this->text(7,'张玉珠','有待处理的请假申请，请及时审核……'))$this->success('申请提交成功','info2/id/'.$_POST['id']);
+                    	    if($id=$m2->where($w)->save($d))$this->success('申请提交成功','info2/id/'.$_POST['id']);
                     	}
                     }else{
                         if($m1['school']=='集团'  && !in_array($m1['part'],['会员管理中心'])){//集团成员请假
@@ -187,15 +219,32 @@ class AskAction extends CommAction {
 								if($temp_count){
 									$m2->gong=$temp_count;
 									$id=$m2->add();
-									if($id&&$this->text(7,'李文龙','有待处理的加班申请，请及时审核……'))$this->success('申请提交成功');
+									if($id&&$this->text(7,'李明帅','有待处理的加班申请，请及时审核……'))$this->success('申请提交成功');
 								}
 							}else{
-								$m2->state='运营审核';
+								
+							    if(in_array($m1['school'],['集团总校','盘锦日月兴城校区','盘锦水木清华校区','盘锦大洼一高校区','盘锦天丽家园校区','锦州附中校区','锦州中学校区','阜新市高校区','葫芦岛一高校区','葫芦岛二高校区','阜新实验校区','朝阳二高校区'])){
+							        $m2->state='辽西区域审核';
+							        $this->text(7,'张玉珠','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+							    }else if(in_array($m1['school'],['鞍山站前校区','鞍山钢高校区','鞍山八中校区','抚顺一中校区','铁岭一高校区','丹东四中校区','营口盖州一高校区','大石桥丰华伊嘉园校区','鲅鱼圈书香门第校区'])){
+							        $m2->state='辽东区域审核';
+							        $this->text(7,'张鹏','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+							    }else if(in_array($m1['school'],['松原江北三中校区','松原宁江实验校区','松原大路校区','松原前郭五中校区','四平一高校区'])){
+							        $m2->state='吉林区域审核';
+							        $this->text(7,'王大鹏','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+							    }else if(in_array($m1['school'],['齐齐哈尔实验校区','大庆实验中学校区','大庆一中校区'])){
+							        $m2->state='黑龙江区域审核';
+							        $this->text(7,'何亮','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+							    }
+							    
+// 							    $m2->state='运营审核';
+
 								$temp_count = floor(((strtotime($_POST['time2'])-strtotime($_POST['time1']))/3600)/0.5) * 0.5;
 								if($temp_count){
 									$m2->gong=$temp_count;
 									$id=$m2->add();
-									if($id&&$this->text(7,'王胜鑫','有待处理的加班申请，请及时审核……'))$this->success('申请提交成功');
+// 									if($id&&$this->text(7,'张玉珠','有待处理的加班申请，请及时审核……'))$this->success('申请提交成功');
+									if($id)$this->success('申请提交成功');
 								}
 							}
                             
@@ -286,11 +335,27 @@ class AskAction extends CommAction {
 						if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
 							$m2->state='总裁审核';
 							$id=$m2->add();
-							if($id&&$this->text(7,'李文龙','有待处理的意外事项申请，请及时审核……'))$this->success('申请提交成功');
+							if($id&&$this->text(7,'李明帅','有待处理的意外事项申请，请及时审核……'))$this->success('申请提交成功');
 						}else{
-							$m2->state='运营审核';
+						    
+						    if(in_array($m1['school'],['集团总校','盘锦日月兴城校区','盘锦水木清华校区','盘锦大洼一高校区','盘锦天丽家园校区','锦州附中校区','锦州中学校区','阜新市高校区','葫芦岛一高校区','葫芦岛二高校区','阜新实验校区','朝阳二高校区'])){
+						        $m2->state='辽西区域审核';
+						        $this->text(7,'张玉珠','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+						    }else if(in_array($m1['school'],['鞍山站前校区','鞍山钢高校区','鞍山八中校区','抚顺一中校区','铁岭一高校区','丹东四中校区','营口盖州一高校区','大石桥丰华伊嘉园校区','鲅鱼圈书香门第校区'])){
+						        $m2->state='辽东区域审核';
+						        $this->text(7,'张鹏','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+						    }else if(in_array($m1['school'],['松原江北三中校区','松原宁江实验校区','松原大路校区','松原前郭五中校区','四平一高校区'])){
+						        $m2->state='吉林区域审核';
+						        $this->text(7,'王大鹏','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+						    }else if(in_array($m1['school'],['齐齐哈尔实验校区','大庆实验中学校区','大庆一中校区'])){
+						        $m2->state='黑龙江区域审核';
+						        $this->text(7,'何亮','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+						    }
+						    
+							//$m2->state='运营审核';
 							$id=$m2->add();
-							if($id&&$this->text(7,'王胜鑫','有待处理的意外事项申请，请及时审核……'))$this->success('申请提交成功');
+// 							if($id&&$this->text(7,'张玉珠','有待处理的意外事项申请，请及时审核……'))$this->success('申请提交成功');
+							if($id)$this->success('申请提交成功');
 						}
                     }else{
                     	
@@ -367,11 +432,26 @@ class AskAction extends CommAction {
                 	if($m1['school'] == '盘锦长颈鹿项目' || $m1['school'] == '盘锦童画创意美术项目' || $m1['school'] =='盘锦BBunion早教项目'){
                 		$m2->state='总裁审核';
                 		$id=$m2->add();
-                		if($id&&$this->text(7,'李文龙','有待处理的灵活作息申请，请及时审核……'))$this->success('申请提交成功');
+                		if($id&&$this->text(7,'李明帅','有待处理的灵活作息申请，请及时审核……'))$this->success('申请提交成功');
                 	}else{
-                		$m2->state='运营审核';
+                	    
+                	    if(in_array($m1['school'],['集团总校','盘锦日月兴城校区','盘锦水木清华校区','盘锦大洼一高校区','盘锦天丽家园校区','锦州附中校区','锦州中学校区','阜新市高校区','葫芦岛一高校区','葫芦岛二高校区','阜新实验校区','朝阳二高校区'])){
+                	        $m2->state='辽西区域审核';
+                	        $this->text(7,'张玉珠','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                	    }else if(in_array($m1['school'],['鞍山站前校区','鞍山钢高校区','鞍山八中校区','抚顺一中校区','铁岭一高校区','丹东四中校区','营口盖州一高校区','大石桥丰华伊嘉园校区','鲅鱼圈书香门第校区'])){
+                	        $m2->state='辽东区域审核';
+                	        $this->text(7,'张鹏','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                	    }else if(in_array($m1['school'],['松原江北三中校区','松原宁江实验校区','松原大路校区','松原前郭五中校区','四平一高校区'])){
+                	        $m2->state='吉林区域审核';
+                	        $this->text(7,'王大鹏','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                	    }else if(in_array($m1['school'],['齐齐哈尔实验校区','大庆实验中学校区','大庆一中校区'])){
+                	        $m2->state='黑龙江区域审核';
+                	        $this->text(7,'何亮','小文提示：' . $m1['school'] . ' 有请假的申请待审核，请及时查看……');
+                	    }
+                		//$m2->state='运营审核';
                 		$id=$m2->add();
-                		if($id&&$this->text(7,'王胜鑫','有待处理的灵活作息申请，请及时审核……'))$this->success('申请提交成功');
+//                 		if($id&&$this->text(7,'张玉珠','有待处理的灵活作息申请，请及时审核……'))$this->success('申请提交成功');
+                		if($id)$this->success('申请提交成功');
                 	}
                 }else{
                 	
@@ -430,8 +510,6 @@ class AskAction extends CommAction {
                 $w2['part']='人事中心';
             }elseif(in_array($m['part'],['组织部']) && $m['position'] == '主管'){
                 $w2['part']= '总裁';
-            }elseif(in_array($m['part'],['沈阳品牌中心'])){
-                $w2['part']='运营中心';
             }
             
             //if(session('name')=='张晓明')$w2=['name'=>'郝振华'];
@@ -447,11 +525,11 @@ class AskAction extends CommAction {
         	$w2=['name'=>'孙旭'];
         }
         
-        if(in_array($m['school'],['鞍山站前校区','鞍山钢高校区'])){
+        /* if(in_array($m['school'],['鞍山站前校区','鞍山钢高校区'])){
         	$w2=['name'=>'王志锁'];
-        }
+        } */
         
-        if(in_array($m['school'],['盘锦水木清华校区']) || in_array($m['part'],['会员管理中心'])){
+        if(in_array($m['part'],['会员管理中心'])){
             $w2=['name'=>'张玉珠'];
         }
         
@@ -472,36 +550,40 @@ class AskAction extends CommAction {
     public function list1(){
         $w['name']=session('name');
         if(session('name')=='王胜鑫'){
-            $w2['_string']="(state='总裁确认') OR (state='总裁审核' AND part='运营中心') OR (state='运营审核')";
+            $w2['_string']="(state='总裁确认') OR (state='总裁审核' AND part='运营中心')";
         }elseif(session('name')=='侯海洋'){
              //
             // $w2['_string']="(state='总裁审核' AND part='教学中心') OR (state='人事确认') OR (state='总裁审核' AND part='人事中心')";
             //$w2['_string']="(state='人事确认') OR (state='总裁审核' AND part='人事中心')";原张毅的功能
-         $w2['_string']="(state='人事确认') OR (state='总裁审核' AND part='人事中心') OR (state='总裁确认') OR (state='总裁审核' AND part='教学中心')";
+         $w2['_string']="(state='人事确认') OR (state='总裁审核' AND part='人事中心') OR (state='总裁审核' AND part='教学中心')";
             
-        }/* elseif(session('name')=='侯海洋'){
-            $w2['_string']="(state='总裁确认') OR (state='总裁审核' AND part='教学中心')";
-        } */
-        elseif(session('name')=='李文龙' ){
-            $w2['_string']="(state='总裁审核' AND part='总裁') OR (state='总裁审核' AND (school='盘锦长颈鹿项目' OR school='盘锦童画创意美术项目' OR school='盘锦BBunion早教项目'))";
-        }/* elseif(session('name')=='李明帅'){
-            $w2['school']=['in','盘锦一完中校区,盘锦实验中学校区'];
-            $w2['state']='校区审核';
-        } */elseif(session('name')=='何亮'){
-            $w2['school']=['in','松原大路校区,松原油田十二中校区'];
-            $w2['state']='校区审核';
+        }elseif(session('name')=='李文龙' ){
+            $w2['_string']="(state='总裁审核' AND part='总裁')";
+        }elseif(session('name')=='张鹏'){
+            $w2['_string'] = " (state='校区审核' and school='鞍山钢高校区') OR state='辽东区域确认'  OR state='辽东区域审核' ";
+        }elseif(session('name')=='何亮'){
+//             $w2['school']=['in','松原大路校区,松原油田十二中校区'];
+//             $w2['state']='校区审核';
+            
+            $w2['_string'] = " (state='校区审核' and (school='松原大路校区' or school='松原油田十二中校区')) OR state='黑龙江区域确认' OR state='黑龙江区域审核' ";
         }elseif(session('name')=='王大鹏'){
-            $w2['school']=['in','松原江北三中校区,松原宁江实验校区'];
-            $w2['state']='校区审核';
+//             $w2['school']=['in','松原江北三中校区,松原宁江实验校区'];
+//             $w2['state']='校区审核';
+            $w2['_string'] = " (state='校区审核' and school='松原江北三中校区') OR state='吉林区域确认' OR state='吉林区域审核' ";
         }elseif(session('name')=='李明帅'){
-            $w2['school']=['in','盘锦实验中学校区,盘锦一完中校区'];
-            $w2['state']='校区审核';
+            
+//             $w2['school']=['in','盘锦实验中学校区,盘锦一完中校区'];
+//             $w2['state']='校区审核';
+            $w2['_string'] = " (state='总裁审核' AND (school='盘锦长颈鹿项目' OR school='盘锦童画创意美术项目' OR school='盘锦BBunion早教项目')) OR (state='校区审核' and (school='盘锦实验中学校区' OR school='盘锦一完中校区')) OR state='多种经营事业部确认' ";
         }elseif(session('name')=='张玉珠'){
-            $w_or['school']=['in','盘锦水木清华校区,集团总部'];
-            $w_or['part'] = '会员管理中心';
-            $w_or['_logic'] = 'or';
-            $w2['_complex'] = $w_or;
-            $w2['state']='校区审核';
+//             $w_or['school']=['in','盘锦水木清华校区,集团总部'];
+//             $w_or['part'] = '会员管理中心';
+//             $w_or['_logic'] = 'or';
+//             $w2['_complex'] = $w_or;
+//             $w2['state']='校区审核';
+            
+            $w2['_string'] = " (state='校区审核' and part='会员管理中心') OR state='辽西区域确认'  OR (state='辽西区域审核') OR (state='运营审核') ";
+            
         }elseif(session('name')=='孙旭'){
             $w2['school']=['in','锦州中学校区,锦州附中校区'];
             $w2['state']='校区审核';
@@ -612,6 +694,48 @@ class AskAction extends CommAction {
             	$this->text(7,'庄宇','小文提示：有部门申请待确认，请及时查看……');
             }
 
+            
+            if($m['state']=='辽东区域审核' && session('name')=='张鹏'){
+                if($m['class']=='请假' && $m['gong']>=3){
+                    $d['state']='运营审核';
+                    $this->text(7,'张玉珠','小文提示：有请假>=3天的申请待审核，请及时查看……');
+                }else{
+                    $d['state']='集团确认';
+                    $this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+                    $this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
+                    $this->text(7,'庄宇','小文提示：有校区申请待确认，请及时查看……');
+                }
+            }elseif($m['state']=='辽西区域审核' && session('name')=='张玉珠'){
+                if($m['class']=='请假' && $m['gong']>=3){
+                    $d['state']='运营审核';
+                    $this->text(7,'张玉珠','小文提示：有请假>=3天的申请待审核，请及时查看……');
+                }else{
+                    $d['state']='集团确认';
+                    $this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+                    $this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
+                    $this->text(7,'庄宇','小文提示：有校区申请待确认，请及时查看……');
+                }
+            }elseif($m['state']=='吉林区域审核' && session('name')=='王大鹏'){
+                if($m['class']=='请假' && $m['gong']>=3){
+                    $d['state']='运营审核';
+                    $this->text(7,'张玉珠','小文提示：有请假>=3天的申请待审核，请及时查看……');
+                }else{
+                    $d['state']='集团确认';
+                    $this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+                    $this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
+                    $this->text(7,'庄宇','小文提示：有校区申请待确认，请及时查看……');
+                }
+            }elseif($m['state']=='黑龙江区域审核' && session('name')=='何亮'){
+                if($m['class']=='请假' && $m['gong']>=3){
+                    $d['state']='运营审核';
+                    $this->text(7,'张玉珠','小文提示：有请假>=3天的申请待审核，请及时查看……');
+                }else{
+                    $d['state']='集团确认';
+                    $this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+                    $this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
+                    $this->text(7,'庄宇','小文提示：有校区申请待确认，请及时查看……');
+                }
+            }
             //if($m['state']=='集团确认' && session('name')=='宫婷')$d['state']='审核通过';
             if($m['state']=='集团确认' && (session('name')=='彭鑫'  || session('name')=='庄宇' || session('name')=='宫婷'))$d['state']='审核通过';
             //请假规则特别处理
@@ -644,7 +768,17 @@ class AskAction extends CommAction {
             	if($m['state'] == '人事确认' && session('name')=='侯海洋'){
             	 //原张毅的功能
             		$d['state']='审核通过';
-            	}elseif($m['state'] == '校区审核' || $m['state'] == '主管审核' || $m['state'] == '总裁确认' || $m['state'] == '总裁审核' || $m['state'] == '运营审核') {
+            	}elseif($m['state'] == '多种经营事业部确认' && session('name')=='李明帅'){
+            	    $d['state']='审核通过';
+            	}elseif($m['state'] == '辽西区域确认' && session('name')=='张玉珠'){
+            	    $d['state']='审核通过';
+            	}elseif($m['state'] == '辽东区域确认' && session('name')=='张鹏'){
+            	    $d['state']='审核通过';
+            	}elseif($m['state'] == '吉林区域确认' && session('name')=='王大鹏'){
+            	    $d['state']='审核通过';
+            	}elseif($m['state'] == '黑龙江区域确认' && session('name')=='何亮'){
+            	    $d['state']='审核通过';
+            	}elseif($m['state'] == '校区审核' || $m['state'] == '主管审核' || $m['state'] == '总裁确认' || $m['state'] == '总裁审核' ) {
             		if(!($m['pic1'] || $m['pic2'] || $m['pic3'])&&$m['aa']=='病假'){
             			$d['state']='材料补充';
             		}else{
@@ -659,34 +793,53 @@ class AskAction extends CommAction {
             				$d['state']='总裁确认';
             				$this->text(7,'王胜鑫','小文提示：教学部有请假>=3天的申请待审核，请及时查看……');
             			}else{
-            				if($m['gong']>=3){
-            					$d['state']='人事确认';
-//             					$this->text(7,'张毅','小文提示：有请假>=3天的申请待审核，请及时查看……');
-            					$this->text(7,'侯海洋','小文提示：有请假>=3天的申请待审核，请及时查看……');
-            				}
+            			    if($m['gong']>=3){
+            				    
+            				    if(in_array($m['school'],['盘锦BBunion早教项目','盘锦童画创意美术项目','盘锦长颈鹿项目','盘锦实验中学校区','盘锦一完中校区'])){
+            				        $d['state']='多种经营事业部确认';
+            				        $this->text(7,'李明帅','小文提示：' . $m['school'] . ' 有请假>=3天的申请待审核，请及时查看……');
+            				    }else if(in_array($m['school'],['集团总校','盘锦日月兴城校区','盘锦水木清华校区','盘锦大洼一高校区','盘锦天丽家园校区','锦州附中校区','锦州中学校区','阜新市高校区','葫芦岛一高校区','葫芦岛二高校区','阜新实验校区','朝阳二高校区'])){
+            				        $d['state']='辽西区域确认';
+            				        $this->text(7,'张玉珠','小文提示：' . $m['school'] . ' 有请假>=3天的申请待审核，请及时查看……');
+            				    }else if(in_array($m['school'],['鞍山站前校区','鞍山钢高校区','鞍山八中校区','抚顺一中校区','铁岭一高校区','丹东四中校区','营口盖州一高校区','大石桥丰华伊嘉园校区','鲅鱼圈书香门第校区'])){
+            				        $d['state']='辽东区域确认';
+            				        $this->text(7,'张鹏','小文提示：' . $m['school'] . ' 有请假>=3天的申请待审核，请及时查看……');
+            				    }else if(in_array($m['school'],['松原江北三中校区','松原宁江实验校区','松原大路校区','松原前郭五中校区','四平一高校区'])){
+            				        $d['state']='吉林区域确认';
+            				        $this->text(7,'王大鹏','小文提示：' . $m['school'] . ' 有请假>=3天的申请待审核，请及时查看……');
+            				    }else if(in_array($m['school'],['齐齐哈尔实验校区','大庆实验中学校区','大庆一中校区'])){
+            				        $d['state']='黑龙江区域确认';
+            				        $this->text(7,'何亮','小文提示：' . $m['school'] . ' 有请假>=3天的申请待审核，请及时查看……');
+            				    }else{
+            				        $d['state']='人事确认';
+            				        $this->text(7,'侯海洋','小文提示：有请假>=3天的申请待审核，请及时查看……');
+            				    }
+            					
+            			    }
             			} 
-            		 
-                  		
             		}
+            	}else if($m['gong']>=3 && $m['state'] == '运营审核' && session('name')=='张玉珠'){
+            	    $d['state']='审核通过';
+            	    $this->text(7,'张玉珠','小文提示：' . $m['school'] . '的校长 有请假>=3天的申请待审核，请及时查看……');
             	}else{
             		//if(session('name')=='宫婷'){
             		if(session('name')=='彭鑫' || session('name')=='庄宇' || session('name')=='宫婷'){
             			$d['state']='审核通过';
             		}else{
             			
-            			if($m['gong']>=3){
-            				$d['state']='人事确认';
-//             				$this->text(7,'张毅','小文提示：有请假>=3天的申请待审核，请及时查看……');
-            				$this->text(7,'侯海洋','小文提示：有请假>=3天的申请待审核，请及时查看……');
-            			}else{
-            				$d['state']='集团确认';
-            				$this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
-            				$this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
-            				$this->text(7,'庄宇','小文提示：有校区申请待确认，请及时查看……');
-            				
-            				$this->text(7,'张晓明','小文提示：' . $m['state'] . '序号：' . $m['id'] );
-            			}
-            			
+            		    if(!in_array($m['state'], ['辽东区域审核','辽西区域审核','吉林区域审核','黑龙江区域审核'])){
+            		        if($m['gong']>=3){
+            		            $d['state']='人事确认';
+            		            $this->text(7,'侯海洋','小文提示：有请假>=3天的申请待审核，请及时查看……');
+            		        }else{
+            		            $d['state']='集团确认';
+            		            $this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+            		            $this->text(7,'彭鑫','小文提示：有校区申请待确认，请及时查看……');
+            		            $this->text(7,'庄宇','小文提示：有校区申请待确认，请及时查看……');
+            		            
+            		            $this->text(7,'张晓明','小文提示：' . $m['state'] . '序号：' . $m['id'] );
+            		        }
+            		    }
             		}
             		// die('申请已经审核完成，请勿重复操作');
             	}
@@ -726,7 +879,7 @@ class AskAction extends CommAction {
     public function linhuo(){
         $w['name']=session('name');
         $w['aa']='灵活假期';
-        $w['state']=array('in','审核通过,校区审核,总裁审核,人事确认,主管审核,总裁确认');
+        $w['state']=array('in','审核通过,辽西区域审核,辽东区域审核,吉林区域审核,黑龙江区域审核,多种经营事业部确认,辽西区域确认,辽东区域确认,吉林区域确认,黑龙江区域确认,校区审核,总裁审核,人事确认,主管审核,总裁确认,运营审核');
         $t1=date('m',strtotime($this->_post('time1')));
         $t2=date('m',strtotime($this->_post('time2')));
         $g=round((strtotime($_POST['time2'])-strtotime($_POST['time1']))/86400,2);
