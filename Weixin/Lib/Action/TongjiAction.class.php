@@ -112,6 +112,14 @@ class TongjiAction extends CommAction {
         $w['state']=array('in','0,1');
         $w['stuid'] = array('not in',array('77777','88888','99999','66666'));
        
+        if(session('school_s') != '集团' && !in_array(session('name'),['张鹏','何亮','王大鹏','张玉珠','李明帅'])){
+            if(in_array(session('school_s'),['阜新二部','阜新实验校区'])){
+                $w['school']=array('in',['阜新二部','阜新实验校区']);
+            }else{
+                $w['school'] = session('school_s');
+            }
+            
+        }
         $m=M('hw001.class',null)->where($w)->order('school,timee,teacher,time1,grade')->group('school,timee,class,grade,time1,teacher,count')->getField('id,school,timee,class,grade,time1,teacher,count,cwqr',true);
          foreach ($m as $v) {
 
