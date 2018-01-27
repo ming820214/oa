@@ -574,7 +574,7 @@ class AskAction extends CommAction {
             
 //             $w2['school']=['in','盘锦实验中学校区,盘锦一完中校区'];
 //             $w2['state']='校区审核';
-            $w2['_string'] = " (state='总裁审核' AND (school='盘锦长颈鹿项目' OR school='盘锦童画创意美术项目' OR school='盘锦BBunion早教项目')) OR (state='校区审核' and (school='盘锦实验中学校区' OR school='盘锦一完中校区')) OR state='多种经营事业部确认' ";
+            $w2['_string'] = " (state='总裁审核' AND (school='盘锦长颈鹿项目' OR school='盘锦童画创意美术项目' OR school='盘锦BBunion早教项目')) OR (state='校区审核' and (school='盘锦实验中学校区' OR school='盘锦BBunion早教项目')) OR state='多种经营事业部确认' ";
         }elseif(session('name')=='张玉珠'){
 //             $w_or['school']=['in','盘锦水木清华校区,集团总部'];
 //             $w_or['part'] = '会员管理中心';
@@ -587,6 +587,9 @@ class AskAction extends CommAction {
         }elseif(session('name')=='孙旭'){
             $w2['school']=['in','锦州中学校区,锦州附中校区'];
             $w2['state']='校区审核';
+        }elseif(session('name')=='李大光'){
+            var_dump('已经取消您的审核权！');
+            die;
         }/* elseif(session('name')=='王志锁'){
             $w2['school']=['in','鞍山站前校区,鞍山钢高校区'];
             $w2['state']='校区审核';
