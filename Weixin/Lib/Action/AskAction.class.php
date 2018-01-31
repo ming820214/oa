@@ -653,7 +653,7 @@ class AskAction extends CommAction {
 
     public function list3(){
         $w['name']=session('name');
-        $this->vo=M('person_ask')->where($w)->order('timestamp desc')->limit(15)->select();
+        $this->vo=M('person_ask')->where($w)->order('timestamp desc')->limit(50)->select();
         $this->display();
     }
 
