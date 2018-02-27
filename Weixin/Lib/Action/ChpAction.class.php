@@ -102,9 +102,9 @@ class ChpAction extends CommAction {
 		
 		$model = new Model();
 		//本月可使用的积分总数
-		$can_use_worth = $model->query("select sum(worth) as use_worth from (select  id, user_id, record_type, scheme, item1, item2, descp, worth, flag, is_del, creator, create_time, updator, update_time,year(create_time) as `year`,month(create_time) as `month` from hongwen_oa.oa_chp_info where 1=1 and is_del = 1 and user_id=" . session('pid') . " ) as sub_sel  where ((`year`<" . date('Y') . ") OR (`month`<" . date('n') . ")) OR (record_type=2) ");
+		//$can_use_worth = $model->query("select sum(worth) as use_worth from (select  id, user_id, record_type, scheme, item1, item2, descp, worth, flag, is_del, creator, create_time, updator, update_time,year(create_time) as `year`,month(create_time) as `month` from hongwen_oa.oa_chp_info where 1=1 and is_del = 1 and user_id=" . session('pid') . " ) as sub_sel  where ((`year`<" . date('Y') . ") OR (`month`<" . date('n') . ")) OR (record_type=2) ");
 		
-		$this->use_worth = $can_use_worth[0]['use_worth']?$can_use_worth[0]['use_worth']:0;
+		//$this->use_worth = $can_use_worth[0]['use_worth']?$can_use_worth[0]['use_worth']:0;
 		
 		$worth = $mod->where($condition)->field('')->sum('worth'); //剩余积分
 		

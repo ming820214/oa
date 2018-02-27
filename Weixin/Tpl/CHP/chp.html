@@ -135,7 +135,7 @@
 		        
 		        <li data-role="fieldcontain">
 		            <label for="name2">本月可用积分：</label>
-		            {$use_worth}
+		            {$worth}
 		        </li>
 		       
 		        <li data-role="fieldcontain">
@@ -298,7 +298,8 @@ $(function(){
 		
 	$("#exchange_form").submit(function(){
 		
-		if({$use_worth}<$('#worth').val()){
+//		if({$use_worth}<$('#worth').val()){
+		if({$worth}<$('#worth').val()){
 			//alert("可用积分不足，请选择其他奖励！");
 			$('#warning_dialog').trigger('click');
 			return false;
