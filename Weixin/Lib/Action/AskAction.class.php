@@ -324,8 +324,10 @@ class AskAction extends CommAction {
                            	$m2->part='人事中心';
                         }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
                             $m2->part='总裁';
-                        }elseif(in_array($m1['part'],['沈阳品牌中心'])){
-                            $m2->part='运营中心';
+                        }elseif(in_array($m1['part'],['督导部'])){
+                            $m2->part='';
+                            $m2->school='盘锦日月兴城校区';
+                            $m2->state='校区审核';
                         }
                     }else if(in_array($m1['part'],['会员管理中心'])){
                         $m2->part=$m1['part'];
