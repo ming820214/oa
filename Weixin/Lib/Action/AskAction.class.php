@@ -324,6 +324,12 @@ class AskAction extends CommAction {
                            	$m2->part='人事中心';
                         }elseif(in_array($m1['part'],['组织部']) && $m1['position'] == '主管'){
                             $m2->part='总裁';
+                        }elseif(in_array($m1['part'],['校建部']) && $m1['position'] != '主管'){
+                            $m2->part='校建主管审核';
+                        }elseif(in_array($m1['part'],['校建部']) && $m1['position'] = '主管'){
+                            $m2->part='经理审核';
+                        }elseif(in_array($m1['part'],['校建部']) && $m1['position'] = '校长'){
+                            $m2->part='总裁审核';
                         }elseif(in_array($m1['part'],['督导部'])){
                             $m2->part='';
                             $m2->school='盘锦日月兴城校区';
@@ -609,6 +615,16 @@ class AskAction extends CommAction {
                 if(in_array($m['part'],['师训部','组织部','初中部','教研部']) && $m['position'] == '主管'){
                 	$w2['state']= '主管审核';
                 }
+                
+                if(in_array($m['part'],['校建部']) && $m['position'] == '主管'){
+                    $w2['state']= '校建主管审核';
+                }
+                
+                if(in_array($m['part'],['校建部']) && $m['position'] == '校长'){
+                    $w2['state']= '经理审核';
+                }
+                
+                
             }
         }
       //  if(session('name')=='宫婷'){
@@ -699,6 +715,25 @@ class AskAction extends CommAction {
             	$this->text(7,'庄宇','小文提示：有部门申请待确认，请及时查看……');
             }
 
+            if($m['state']=='校建主管审核' && $m['class']!='请假'){
+                $d['state']='经理审核';
+                $this->text(7,'周庆祝','小文提示：有意外事项申请待确认，请及时查看……');
+                
+            }
+            
+            if($m['state']=='经理审核' && $m['class']!='请假'){
+                if($m['name'] == '刘治庚'){
+                    $d['state']='总裁审核';
+                    $this->text(7,'周晓伟','小文提示：有意外事项申请待确认，请及时查看……');
+                }else{
+                    $d['state']='集团确认';
+                    $this->text(7,'宫婷','小文提示：有校区申请待确认，请及时查看……');
+                    $this->text(7,'彭鑫','小文提示：有部门申请待确认，请及时查看……');
+                    $this->text(7,'庄宇','小文提示：有部门申请待确认，请及时查看……');
+                }
+                
+                
+            }
             
             if($m['state']=='辽东区域审核' && session('name')=='张鹏'){
                 if($m['class']=='请假' && $m['gong']>2){
