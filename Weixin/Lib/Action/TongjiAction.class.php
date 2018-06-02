@@ -108,7 +108,15 @@ class TongjiAction extends CommAction {
         if(IS_POST){
             $time=strtotime($this->_post('date'));
         }
-        $w['timee']=array('like',date('Y-m',$time)."%");
+
+        //$w['timee']=array('like',date('Y-m',$time)."%");
+        
+        $datexx=date('Y-m',$time);
+        $ee=$datexx.'-'.'01';
+        $c=strtotime(date('Y-m-01'));//获取月初时间戳
+        $lastD=$c+date('t',$c)*24*3600-24*3600;//获取月末时间戳
+        $w['timee']=array('between',array(date('Y-m-d',$c),date('Y-m-d',$lastD)));
+        
         $w['state']=array('in','0,1');
         $w['stuid'] = array('not in',array('77777','88888','99999','66666'));
        
@@ -171,7 +179,8 @@ class TongjiAction extends CommAction {
         //获取去年今天的数据
 //         $wd['timee']=array('like',(date('Y',$time)-1).date('-m',$time).date('-d',$time));
         //获取上周今天的数据
-        $wd['timee']=array('like',date('Y',($time-7*24*3600)).date('-m',($time-7*24*3600)).date('-d',($time-7*24*3600)));
+//         $wd['timee']=array('like',date('Y',($time-7*24*3600)).date('-m',($time-7*24*3600)).date('-d',($time-7*24*3600)));
+        $wd['timee']=array('eq',date('Y',($time-7*24*3600)).date('-m',($time-7*24*3600)).date('-d',($time-7*24*3600)));
         $wd['state']=1;
         $wd['cwqr'] = array(array('exp','is not null'),array('NEQ',''));
         $wd['stuid'] = array('not in',array('77777','88888','99999','66666'));
@@ -194,7 +203,14 @@ class TongjiAction extends CommAction {
         $this->yesteryear = $yesteryear;
         
         //获取去年数据
-        $wc['timee']=array('like',(date('Y',$time)-1).date('-m',$time).'%');
+//         $wc['timee']=array('like',(date('Y',$time)-1).date('-m',$time).'%');
+        
+        
+        $c=strtotime((date('Y',$time)-1).date('-m',$time).'-'.'01');//获取月初时间戳
+        $lastD=$c+date('t',$c)*24*3600-24*3600;//获取月末时间戳
+        $wc['timee']=array('between',array(date('Y-m-d',$c),date('Y-m-d',$lastD)));
+        
+        
         $wc['state']=1;
         $wc['cwqr'] = array(array('exp','is not null'),array('NEQ',''));
         $wc['stuid'] = array('not in',array('77777','88888','99999','66666'));
@@ -228,7 +244,14 @@ class TongjiAction extends CommAction {
         }
         $monday=$time-((date('w',$time)==0?7:date('w',$time))-1)*24*3600;
         $sunday=$time-((date('w',$time)==0?7:date('w',$time))-1)*24*3600+6*24*3600;
-        $w['timee']=array('like',date('Y-m',$time)."%");
+        //$w['timee']=array('like',date('Y-m',$time)."%");
+        
+        $datexx=date('Y-m',$time);
+        $ee=$datexx.'-'.'01';
+        $c=strtotime(date('Y-m-01'));//获取月初时间戳
+        $lastD=$c+date('t',$c)*24*3600-24*3600;//获取月末时间戳
+        $w['timee']=array('between',array(date('Y-m-d',$c),date('Y-m-d',$lastD)));
+        
         $w['state']=array('in','0,1');
         $m=M('hw001.class',null)->where($w)->order('timee,time1,class,teacher,grade')->getField('id,timee,class,grade,time1,teacher,count',true);
         foreach ($m as $v) {
